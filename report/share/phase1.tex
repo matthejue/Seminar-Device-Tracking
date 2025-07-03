@@ -1,0 +1,26 @@
+%!Tex Root = ../main.tex
+
+\begin{algorithm}{\pr{Finding Attacker 3-Tuple per Cell (Phase 1)}}{\thetcbcounter}
+	\begin{pseudo}[indent-mark,kw,hl-warn=false]
+procedure \cn{SENDBURST}(X)\\+
+for all x $\in$ X do\\+
+ATTEMPTCONNECTTCP(x)\\--
+procedure \cn{GETSOURCEPORTS}(U)\\+
+SENDBURST(U)\\
+R $\leftarrow$ \cn{RECEIVEATTACKERTUPLETOPORTMAP}()\\
+\cmt{// R = {(IPSRC,IPDST,PORTDST) �→PORTSRC}}\\
+\cmt{// (obtained from the tracking server)}\\
+return R\\-
+procedure \cn{PHASE1}\\+
+S′ $\leftarrow\emptyset$\\
+while |S′| < T do\\+
+Si $\leftarrow$ \cn{GETNEWEXTERNALDESTINATIONS}()\\
+\cmt{// ∀j<i(Si ∩Sj = ∅)}\\
+P $\leftarrow$ \cn{GETSOURCEPORTS}(Si) \cmt{// 1st burst}\\
+SENDBURST(S′) \cmt{// 2nd burst}\\
+P′ $\leftarrow$ \cn{GETSOURCEPORTS}(Si) \cmt{// 3rd burst}\\
+S′ $\leftarrow$ S′ ∪{x|P′(x)−P(x) = 1}\\
+\cmt{// Vi = {x|P′(x)−P(x) = 1}}\\
+return S′
+	\end{pseudo}
+\end{algorithm}

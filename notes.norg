@@ -1,0 +1,76 @@
+* Zusammenfassende Erkenntnisse
+  - phase 1, all attacker tuples that are uniquely mapped to cells of perturbation table in middle, outside new candidtes
+  - phase 2, all atatcker tuples outside, loopback tuples inside
+  - device id ist `{(port_dest1, port_dest2), (port_dest1, port_dest3)}`
+  -- man kennt die destinationsports, weil man ja im Code den man geschickt hat schon festgelegt hat welche in welcher Reihenfolge geschickt werden solen
+  -- dementsprechend würde es auch Sinn machen, dass die Destinationports jedes mal die gleichen sind, da man jedes mal den gleichen Code schickt
+
+* Schindelhauer Fragen
+  - muss ich double hash verstehen?
+  - TCP Syn-Packete
+  - ChatGPT Bild als Quelle
+  - korrekte Condition in Phase 1
+
+* Zu klärende Fragen
+  - does one have to always us same loopback addresses but differnert attacker tuples possible?
+  - wie funktioniert dieses x-Funktion in Phase 2
+  - only has this output in phase 2. How find out which loopback 3-tuple if several loopback-tuples in mmiddle?
+
+* Darüber noch informieren
+  - How Meltdown work
+  - why does one have ports in first place?
+
+* Fragen an Studenten
+  - what is the only predictable things?
+  - what are loopback tuples / adresses?
+  - why loop T many times?
+  - after explaining phase 1: how can one find out which are the candidates
+  - after explaining phase 2: how can one find out to which perturbation cell a loopback 3tuple is mapped?
+  - Does someone see the sandwich?
+  - Blackbox, cannot directly read peturbation cell entries and keys F and G also unkown, only can decide some code inside it and get Syn-packets where destination port gets influenced by the predictably increasing perturbation table cell entries
+  - why does it have to be independant?
+  -- 19: Note:...
+  - why this n <=
+  -- 19: Note that this allows a simpler imple-
+  - Wie unterscheidet man bei Mitte, welcher es war wenn da mehrere waren?
+  -- bei phase 1 einfach, weil die neuen candidate attack 3-tuples außen sind, hat man anhand durch Syn-Pakete direkte Zuordnung von attack 3-tuples zu destination ports
+  --- ports können ja völlig unterschiedlich sein, wie sieht man jetzt welche attacker 3-tuple candidates man miteinander vergleichen kann?
+  ---- man substrahiert nur entsprechende destination ports, wo der Schlüssel, die attacker 3-tuples diesen entsprechen (das alles liest man aus Syn Packeten raus)
+  -- bei phase 2 weil man immer nur ein Loopback 3-Tuple schickt, aber dieses mehrfach, so kann sich nur ein Attacker 3-Tuple ändern
+  --- man sendet mehrere, weil?
+  - Warum funktioiert es über Browser Sessions hinweg?
+  -- weil Key einmal beim Starten des PC's erstellt wird
+  - kann man Index in T-Table Zelle  eines attacker tuples mappings heruasfinden?
+  -- man weiß nicht genau welche Zelle der T-Table, man weiß nur, dass jedes attacker 3-tuple auf eine Zelle mapt
+
+* Appendix Fragen
+  - this formula behind n
+  - answering those questions
+  - why does one have to do it so indirectly over this attacker 3-tuples? 
+  -- Blackbox, only for Syn-Packets of attacker 3-tuples, Loopback 3-tuples unaccesabile for outeside attacker
+  - Wie findet man in Iplemtneering Attacker Destination Ports raus -> Syn-Packete
+
+* Zusammenhangslose Erkenntnisse
+  - urnenmodel links n, da liest man die n kugeln die k podestplätzen
+  - fächermodel rechts n, da liest man die n Fächer denen k kugeln zugeordnet wurden ab
+  - ports sind unterschiedlich, die Kollisionen in der Tabelle werden sichtbar, weil bei genau gleichem Input ein Port beim zweiten mal um mehr als 1 erhöht ist, was passiert, weil die gleiche Zelle in der perturbation tabelle zwischendurch verwendet wurde von irgendeinem der bererits zugewiesenen attack-tupeln, die in diesesm Sandwich in der mitte alle für TCP Connections verwendet werden
+  - für die loopback-tupel kann man es nicht so machen, wie für die attack-tupel, weil loopback auf dem device selber ist und der angrieifer nicht die syn-packete von dem device bekommen kann. Der Angreifer kommt nur die syn-packete der attack-tupels, weil er da selbst die destination ist
+  -  These collisions, described as pairs of loopback 3-tuples (soureports?) that hash to the same value, form the device ID
+  -- The attacker collects and counts "independent" colliding
+     pairs. By this term we mean that if there are exactly $k$ loopback 3-tuples (sourcepots) $x1,...,xk$ that fall into the same cell, the attacker only uses k −1 pairs e.g. $(x1,x2),...,(x1,xk)$
+  - für eine bestimmte Zelle der perturbation table wird das erste mal der else branch ausgeführt und das zweite mal der if branch sobald ne collision auftritt. Die Zelle wird über die Sanchwich Takti bestimmt überr attack-tuples
+  --- die Funktion mit dem x returnt den sourceport des attack tuple / das attack tuple für das bei den entsprechenden attack-tupels ne Kollistion auftraucht durch einen Sourrceport der im vergleich zu vorher um 2 und nicht nur um 1 erhöht ist
+  --- dieses returnte attac-tuple / dieser attac source eport wird später genutzt um wenn dieses Zelle der perturbation table bereits bekannt ist die entspreechenden pairs von lopbac tuples zusammezustellen
+  --- bw wird dabei dafür genutzt die erste occurce für eine bestimmte Tabellenzelle festzuhalten, damit man diess independant pairs of loopbac tuples collection kann
+  - loopback 3-tuples, which (together with the number of iterations l) form the device ID
+  - es gibt ganz viele variablen bw, die das erste loopback-tuple für eine Zelle der perturbation table festhalten, um dann deer List C independant pairs wo immer das este gefunden loopback tuple das von einem attack-tuple detektierrt wurde festzuhalten
+  - bw ist dann variable für das attac tuple w das eine Zelle der paturbation Zelle entsprict (was in phase 1 so bestimmte wurdee das jede Zelle der petrubaton table ein zugewiesesnes attack-tuple hat) und das erste gefunden loopback tuple speichert für welches eine Kollision über das attac tuple w detektiert wurde
+  - attacker maps a new loopback 3-tuple Li to an attacker 3-tuple w by bw, w ist a table, better imagine b[w]
+  - si von phase 1 wird in phase 2 reused
+  - if wird nur bei if hochgezählt, weil erst da eine collision von 2 loopback tuples in der pertubation table ist
+  - ein anderes device hhat ein anderes k2, aber ipsrc, ipdest, portdest sind genau gleich
+  - die genauen attacker-tuples sind egal, es geht nur darum jede Zelle der perturbation table abgedeckt zu haben. Die Attacer tuples sind nur zum detecten der colisionen von loopback tuples für den attacker wichtig, weil der attacker die colisionen anders nicht aufspüren kann
+  -- es müssten dann in phase 2 theoretisch immer die gleiche Liste von loopback tuples sein oder bis man alle ports port_dest durchprobiert hat die man in (ipsrc, ipdest, port_dest) einsetzt
+  --- port_src ist nur zu bestimmten von colisionen über die attack-3tuples wichtig
+  - l-n occupied buckets, weil in jeder Iteration, wo es keine über die attack-tuple registierte colision gab, ein neues b[w] definiert / assigned wird (und b[w] entsspricht de perturbation tabelle in Anzahl Zellen, nur nicht in der Struktur, weil man nicht weiß welche attack-tuples auf welche Zelle der perturbation zelle gemappt wird, man weiß nur das es auf eine Zelle gemapped ist) und n ist die Anzal der colisionen
+  --- es wird in jeder iteration ein loop-back tuple iwo hinzugefügt

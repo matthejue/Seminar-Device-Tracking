@@ -1,0 +1,149 @@
+\documentclass{report}
+
+\input{./content/packages}
+\input{./content/declarations}
+\input{./content/desgin}
+
+\begin{document}
+
+\fontsize{8pt}{9pt}\selectfont
+% \fontsize{10pt}{11pt}\selectfont
+\newgeometry{margin=2cm, bottom=2cm, top=2cm}
+
+\input{./content/titlepage}
+
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+\pagestyle{plain}
+\pagenumbering{Roman}
+
+\listoffigures
+% \newpage
+% \listoftables
+
+\clearpage
+\fancypagestyle{plain}{%
+	\fancyhf{}
+	\fancyfootoffset{0.5cm}
+	\fancyheadoffset{0.5cm}
+	\fancyhead[L]{\color{PrimaryColor}\small\leftmark}
+	\fancyhead[R]{\color{PrimaryColor}\small\rightmark}
+	\renewcommand{\headrulewidth}{0.4mm}
+	\renewcommand{\headrule}{\hbox to\headwidth{\color{PrimaryColor}\leaders\hrule height \headrulewidth\hfill}}
+	\fancyfoot[C]{\thepage}
+}
+\pagenumbering{arabic}
+\pagestyle{default}
+
+\chapter{Introduction}
+\label{sec:introduction}
+
+In 2018, the \alert{Meltdown} attack caused widespread concern by revealing how speculative execution in modern CPUs could be exploited to read sensitive data from privileged memory that should have been inaccessible to user processes. In a similar vein, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the Hebrew University of Jerusalem discovered that an older version of Linux’s TCP source port selection algorithm could be exploited to create persistent device finterprints that survive browser privacy modes and network changes. % and VPNs
+
+Like Meltdown, their attack targets \alert{security} (not safety: it does not crash systems or corrupt data), it violates confidentiality by leaking internal state. Meltdown extracts data from CPU caches, while this technique exploits patterns of TCP source port allocations determined by a secret per-device key, allowing an attacker to derive a unique \alert{device fingerprint} without revealing the key itself.
+
+\section{About this report}
+\label{sec:goal_of_this_report}
+
+The goal of this report is to provide insight into device tracking techniques, specifically by explaining the method described in the paper\cite{kol2022devicetrackinglinuxsnew}. This report details how the tracking method works and explains the proposed countermeasures and the final patch that was integrated into the Linux kernel to mitigate this vulnerability.
+
+\alert{It should be emphasized that this is just a report, it is just explaining, connecting and summarizing different results of other people's research and doesn't contain own research or claim this to be the results of the research of the author of this report}. 
+
+
+%Furthemore a reader of this report should make sure to read the appendix section \ref{sec:conventions} to be sure to understand the conventions used within this report. %But the author of this report supposes that the conventions should be intuitively clear from the context.
+
+\section{Online browser-based device tracking}
+\label{sec:Online browser-based device tracking}
+
+\section{Source Port Selection}
+\label{sec:source port selection}
+
+\subsection{Double-Hash Port Selection Algorithm (DHPS)}
+\label{sec:double-hash port selection algorithm}
+
+\begin{center}
+	% \begin{adjustbox}{scale=1}
+		\begin{minipage}[t]{0.5\textwidth}
+			\vspace{0cm}
+
+			\input{./share/dhps_algorithm.tex}
+		\end{minipage}
+	% \end{adjustbox}
+\end{center}
+
+
+\vspace{0.5cm}
+\chapter{Attack}
+\label{sec:attack}
+
+\section{Technical details}
+\label{sec:technical details}
+
+\section{Attack model} % (fold)
+\label{sec:attack model}
+
+\section{Device ID}
+\label{sec:device id}
+
+\section{Limitations}
+\label{sec:limitations}
+
+\section{Attack Overview}
+
+\subsection{Phase 1}
+\label{sec:phase 1}
+
+\begin{center}
+  % \begin{adjustbox}{scale=0.6}
+    \begin{minipage}[t]{0.5\textwidth}
+      \vspace{0cm}
+      
+      \input{./share/phase1.tex}
+    \end{minipage}
+  % \end{adjustbox}
+\end{center}
+
+
+\subsection{Phase 2}
+\label{sec:phase 2}
+
+\subsection{Terminating with an Accurate ID}
+\label{sec:terminating with an accurate id}
+
+\vspace{0.5cm}
+\chapter{Countermeasures}
+\label{sec:countermeasures}
+
+\section{Possible solutions}
+\label{sec:possible solutions}
+
+\section{Final solution}
+\label{sec:key_hierarchies}
+
+\vspace{0.5cm}
+\chapter{Related Work}
+\label{sec:related work}
+
+\vspace{0.5cm}
+\chapter{Appendix}
+\label{sec:appendix}
+\pagenumbering{Alph}
+
+\section{Conventions}
+\label{sec:conventions}
+
+In this report certain topics weren't covered and certain conventions were followed, all this might-be-useful-before-reading-the-report information is listed here:
+\begin{itemize}
+	\item asdf
+\end{itemize}
+
+\vspace{0.5cm}
+\chapter{Bibliography}
+\label{sec:bibliography}
+
+\printbibliography[heading=none]
+
+% \huge\textcolor[HTML]{0563aa}{$\mathcal{E}$}
+
+\end{document}

@@ -1,0 +1,129 @@
+%!Tex Root = ../main.tex
+
+% ┌────────────┐
+% │ Linebreaks │
+% └────────────┘
+% https://norwied.wordpress.com/2012/07/10/how-to-break-long-urls-in-bibtex/
+\def\UrlBreaks{\do\/\do-\do\&\do.\do:}
+
+% ┌───────┐
+% │ Boxes │
+% └───────┘
+\newtcolorbox{titlebox}[1]{colback=PrimaryColorDimmed,colframe=PrimaryColor,arc=0.2cm,boxrule=0cm,frame hidden,left=0cm,right=0cm,top=0.1cm,toptitle=0.2cm,bottom=0.1cm,bottomtitle=0.2cm,boxsep=0cm,fonttitle=\bfseries,title={#1}}
+
+% https://tex.stackexchange.com/questions/433256/inline-tcolorbox-with-rotated-title
+\DeclareTotalTCBox{\points}{ s m }
+{colback=PrimaryColorDimmed,boxrule=0cm,frame hidden,nobeforeafter,tcbox raise base,top=0mm,bottom=0mm,
+	right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
+{#2}
+
+\DeclareTotalTCBox{\inlinebox}{ s m }
+{verbatim,colback=PrimaryColorDimmed,colframe=PrimaryColor,nobeforeafter,tcbox raise base,top=0mm,bottom=0mm,
+	right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
+{\IfBooleanTF{#1}%
+	{\textcolor{PrimaryColor}{\setBold >\enspace\ignorespaces}#2}%
+	{#2}}
+
+% \newtcbox{\inlineboxtwo}{capture=minipage,tcbox raise base,breakable,colback=PrimaryColorDimmed,colframe=PrimaryColor,nobeforeafter,top=0mm,bottom=0mm,
+% 	right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm,fontupper=\ttfamily}
+
+\DeclareTotalTCBox{\key}{ m }
+{verbatim,colback=PrimaryColorDimmed,colframe=PrimaryColor,nobeforeafter,tcbox raise base,top=0mm,bottom=0mm,
+	right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
+{$\mathtt{#1}$}
+
+\newtcolorbox{sidenote}{enhanced,boxrule=0cm,frame hidden,arc=0.2cm,title=Sidenote,attach boxed title to top text left={yshift=-0.2cm},colback=PrimaryColorDimmed,boxed title style={boxrule=0cm,frame hidden,colback=PrimaryColor,arc=0.1cm},fonttitle=\bfseries,
+	after title={\hspace{0.2cm}\includegraphics[height=3mm]{./figures/lupe.png}}
+}
+% drop fuzzy shadow,
+
+% https://tex.stackexchange.com/questions/210928/tcolorbox-how-do-i-align-on-the-baseline-of-the-title
+\newtcblisting{terminal}{
+	enhanced,box align=top,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,arc=0.2cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,boxrule=0.05cm,listing only,minted language=text,listing engine=minted,minted options={escapeinside=||,autogobble}
+}
+
+\newtcblisting{terminal2}{
+	enhanced,box align=top,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,arc=0.2cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,boxrule=0.05cm,listing only,minted language=text,listing engine=minted,minted options={escapeinside=!!,autogobble}
+}
+
+\DeclareTCBInputListing{\file}{o m}{
+	listing file={#2},enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseries\tiny,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing only,listing engine=minted,#1}
+
+\DeclareTCBListing{dfile}{o}{
+	enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseries\tiny,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.2cm,top=0.1cm,left=0.1cm,right=0.1cm,listing only,listing engine=minted,#1}
+
+% https://tex.stackexchange.com/questions/593218/nested-inline-math-for-new-command-with-argument
+\newcommand{\prompt}{\textcolor{PrimaryColor}{\setBold >\;\ignorespaces}}
+
+\DeclareTCBInputListing{\codebox}{ s o m }{listing file={#3},
+	enhanced,colframe=PrimaryColor,colback=BoxColor,IfBooleanTF={#1}{colframe=SecondaryColor}{colframe=PrimaryColor},fonttitle=\bfseries\small,#2,listing only,halign title=center,drop fuzzy shadow,arc=0,2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing engine=minted}
+% , sharpish corners
+
+\DeclareTCBListing{dcodebox}{ s o }{
+	enhanced,colframe=PrimaryColor,IfBooleanTF={#1}{colframe=SecondaryColor,colback=SecondaryColorDimmed}{colframe=PrimaryColor,colback=PrimaryColorDimmed},hbox,fonttitle=\bfseries\small,#2,listing only,halign title=center,drop fuzzy shadow,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing engine=minted}
+% , sharpish corners
+
+\DeclareTCBInputListing{\file}{o m}{
+	listing file={#2},enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,,fonttitle=\bfseries,halign title=center,arc=0.2cm,bottom=0.2cm,top=0.1cm,left=0.1cm,right=0.1cm,boxrule=0.5mm,listing only,listing engine=minted,#1}
+
+\DeclareTCBListing{dfile}{o}{
+	enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,,fonttitle=\bfseries,halign title=center,arc=0.2cm,bottom=0.2cm,top=0.1cm,left=0.1cm,right=0.1cm,boxrule=0.5mm,listing only,listing engine=minted,#1}
+
+\newtcbinputlisting{\numberedcodebox}[2][]{
+	listing file={#2}, enhanced, colframe=PrimaryColor,colback=BoxColor,fonttitle=\bfseries\small,#1,listing only,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.5cm,right=0.1cm,listing engine=minted,overlay={\begin{tcbclipinterior}\fill[PrimaryColorDimmed] (frame.south west) rectangle ([xshift=0.5cm]frame.north west);\end{tcbclipinterior}}
+}
+
+\newtcblisting{dnumberedcodebox}[1][]{
+	enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\tiny,#1,listing only,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.5cm,right=0.1cm,listing engine=minted,overlay={\begin{tcbclipinterior}\fill[PrimaryColor] (frame.south west) rectangle ([xshift=0.5cm]frame.north west);\end{tcbclipinterior}}
+}
+
+% https://tex.stackexchange.com/questions/585582/inside-of-a-newtcbinputlisting-how-can-i-change-the-color-of-the-line-number-as
+\renewcommand{\theFancyVerbLine}{\sffamily
+	\textcolor{white}{\tiny
+		\oldstylenums{\arabic{FancyVerbLine}}}}
+
+% ┌──────────────┐
+% │ Bibliography │
+% └──────────────┘
+% \defbibenvironment{bibliography}
+% {\itemize}
+% {\enditemize}
+% {\item}
+
+% ┌──────────┐
+% │ Commands │
+% └──────────┘
+\newtotcounter{exercisecounter}
+\newtotcounter{exercisecounterdec}
+\setcounter{exercisecounter}{1}
+\newtotcounter{points}
+\setcounter{points}{0}
+\NewDocumentCommand\exercise{ o o }{
+	\vspace{0.5cm}
+	\IfValueTF{#1}
+	{\textcolor{PrimaryColor}{\bfseries Exercise \theexercisecounter :} #1}
+	{\textcolor{PrimaryColor}{\bfseries Exercise \theexercisecounter}}
+	\stepcounter{exercisecounter}
+	\IfValueT{#2}{
+		\hfill\raggedleft\points{\qquad/#2 Subexercises}\ignorespaces\raggedright
+		\addtocounter{points}{#2}
+	}
+}
+
+% ┌──────────────────┐
+% │ Case distinction │
+% └──────────────────┘
+% \newtoggle{whatever}
+% \toggletrue{whatever}
+% \togglefalse{whatever}
+% \newcommand{\lpathx}[1]{\iftoggle{absolute}{/home/areo/Documents/Studium/Summaries/x/}{./}#1}
+
+% ┌───────┐
+% │ Share │
+% └───────┘
+\newcounter{algorithm}
+\setcounter{algorithm}{0}
+\newtcbtheorem[use counter=algorithm]{algorithm}{\color{PrimaryColor}Algorithm}{pseudo/ruled}{alg}
+
+
+\newcommand{\cmt}[1]{\textcolor[gray]{0.7}{\textnormal{#1}}}
