@@ -1,0 +1,41 @@
+%!Tex Root = ../main.tex
+% ./Packete.tex
+% ./Deklarationen.tex
+% ./Vorbereitung.tex
+% ./Aufgabe1.tex
+% ./Aufgabe2.tex
+% ./Aufgabe3.tex
+% ./Appendix.tex
+
+\usepackage{titlesec}
+
+\definecolor{PrimaryColor}{HTML}{ED870D}
+\definecolor{PrimaryColorDimmed}{HTML}{EDC595}
+\definecolor{SecondaryColor}{HTML}{F6AF3D}
+\definecolor{SecondaryColorDimmed}{HTML}{F6DBB0}
+\colorlet{BoxColor}{gray!10!white}
+\definecolor{SwitchColor}{named}{PrimaryColor}
+
+\renewcommand{\labelitemi}{$\textcolor{SwitchColor}{\bullet}$}
+\renewcommand{\labelitemii}{$\textcolor{SwitchColor}{\blacktriangleright}$}
+\renewcommand{\labelitemiii}{$\textcolor{SwitchColor}{\blacksquare}$}
+
+\renewcommand{\labelenumi}{\textbf{\textcolor{SwitchColor}{\theenumi.}}}
+\renewcommand{\labelenumii}{\textbf{\textcolor{SwitchColor}{\theenumii.}}}
+\renewcommand{\labelenumiii}{\textbf{\textcolor{SwitchColor}{\theenumiii.}}}
+
+\titleformat{\chapter}[hang]
+{\color{PrimaryColor}\normalfont\large\bfseries}{\thechapter}{0.5cm}{}
+
+\titlespacing{\chapter}{0cm}{-0.5cm}{0cm}
+
+\titleformat{\section}
+{\color{PrimaryColor}\normalfont\normalsize\bfseries}
+{\thesection}{0.5cm}{}
+\titlespacing{\section}{0cm}{0.2cm}{0.2cm}
+% \renewcommand{\thesection}{\arabic{section}}
+
+\titleformat{\subsection}
+{\color{PrimaryColor}\normalfont\normalsize\bfseries}
+{\thesubsection}{0.5cm}{}
+\titlespacing{\subsection}{0cm}{0.1cm}{0.1cm}

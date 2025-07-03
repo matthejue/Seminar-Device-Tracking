@@ -1,0 +1,133 @@
+%!Tex Root = ../main.tex
+
+% ┌────────────┐
+% │ Formatting │
+% └────────────┘
+\usepackage[english]{babel}
+\usepackage[export]{adjustbox} % use c, l, r for images
+\usepackage{csquotes}
+\usepackage[parfill]{parskip}
+% \usepackage[margin=2cm, headheight=12.5pt]{geometry}
+% \usepackage{titlesec}
+\usepackage{fix-cm}
+\usepackage[usetoc]{titleref}
+\usepackage[normalem]{ulem}
+
+% ┌───────┐
+% │ Links │
+% └───────┘
+% \usepackage[allbordercolors=PrimaryColor, pdfborder={0 0 .2}]{hyperref}
+% \usepackage[hidelinks]{hyperref}
+
+% ┌──────┐
+% │ Math │
+% └──────┘
+\usepackage{amssymb} % for black triangleright, https://tex.stackexchange.com/questions/570303/use-blacktriangleright-as-itemize-label
+\usepackage{amsmath}
+\usepackage{mathtools} % for \mathclap and 
+\usepackage{breqn}
+
+% ┌────────┐
+% │ Tables │
+% └────────┘
+\usepackage{tabularray}
+ % \UseTblrLibrary{diagbox}
+
+% ┌────────┐
+% │ Images │
+% └────────┘
+\usepackage{graphicx}
+\usepackage{float} % for the letter H
+% \graphicspath{figures/}
+\usepackage[labelfont={color=SecondaryColor, bf}, textfont={it}]{caption}
+\usepackage{subcaption}
+
+% ┌──────────┐
+% │ Diagrams │
+% └──────────┘
+\usepackage{tikz}
+\usetikzlibrary{mindmap, shadows, backgrounds} % , calc
+\usepackage{tikzit}
+\input{tikzit.tikzstyles}
+
+% ┌────────┐
+% │ Citing │
+% └────────┘
+\usepackage[style=numeric]{biblatex}
+\addbibresource{My Library.bib}
+\DeclareBibliographyCategory{myarticles}
+\addtocategory{myarticles}{fruhwirthNewMethodsHard2005}
+\addtocategory{myarticles}{fruhwirth2005new}
+
+\addtocategory{myarticles}{liskov2011tweakable}
+\addtocategory{myarticles}{cryptoeprint:2011/541}
+
+\addtocategory{myarticles}{rogawayEfficientInstantiationsTweakable2004a}
+
+\DeclareBibliographyCategory{myimages}
+\addtocategory{myimages}{standard-enc}
+
+\addtocategory{myarticles}{daemenLimitationsEvenMansourConstruction1993}
+
+% ┌─────────┐
+% │ Itemize │
+% └─────────┘
+% \usepackage{enumitem}
+\usepackage{enumitem}
+
+% ┌────────────────────┐
+% │ Code hightligthing │
+% └────────────────────┘
+% \usepackage{minted}
+
+% ┌───────────────────┐
+% │ Header and Footer │
+% └───────────────────┘
+\usepackage{fancyhdr}
+
+% ┌────────────────────────┐
+% │ Latex Programming Help │
+% └────────────────────────┘
+\usepackage{etoolbox}
+\usepackage{xparse}
+\usepackage{xargs}
+% https://tex.stackexchange.com/questions/358292/creating-a-subcounter-to-a-counter-i-created
+\usepackage{chngcntr}
+\usepackage{totcount}
+
+% ┌───────┐
+% │ Boxes │
+% └───────┘
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbuselibrary{theorems}
+\usetikzlibrary{patterns}
+\tcbuselibrary{breakable}
+\usepackage[bold=1]{xfakebold}
+\tcbuselibrary{minted}
+
+% ┌────────┐
+% │ Colors │
+% └────────┘
+% \definecolor{PrimaryColor}{HTML}{ED870D}
+% \definecolor{PrimaryColorDimmed}{HTML}{EDC595}
+% \definecolor{SecondaryColor}{HTML}{F6AF3D}
+% \definecolor{SecondaryColorDimmed}{HTML}{F6DBB0}
+% \colorlet{BoxColor}{gray!10!white}
+% \definecolor{SwitchColor}{named}{PrimaryColor}
+
+% ┌──────────────┐
+% │ Pseudo Code  │
+% └──────────────┘
+\usepackage{pseudo}
+
+% ┌────────────┐
+% │ Misc Tools │
+% └────────────┘
+% \usepackage{lipsum}
+
+% ┌───────┐
+% │ Fonts │
+% └───────┘
+\usepackage{fontspec}

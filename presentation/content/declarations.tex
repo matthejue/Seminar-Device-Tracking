@@ -1,0 +1,244 @@
+%!Tex Root = ../main.tex
+% ./Packete.tex
+% ./Design.tex
+% ./Vorbereitung.tex
+% ./Aufgabe1.tex
+% ./Aufgabe2.tex
+% ./Aufgabe3.tex
+% ./Appendix.tex
+
+% ┌──────────┐
+% │ Settings │
+% └──────────┘
+
+% https://tex.stackexchange.com/questions/325003/given-enumitem-beamer-incompatibility-how-do-i-adjust-the-indent-of-the-enume
+% https://tex.stackexchange.com/questions/455692/beamer-presentation-with-itemize-exceed-text-capacity
+% \setlist[itemize]{itemsep=2mm, topsep=2mm, parsep=0mm, partopsep=0mm}
+
+% ------------------------------ Minted Settings ------------------------------
+
+% https://tex.stackexchange.com/questions/584071/configure-minted-style-in-latex-for-code-highlighting
+% https://pygments.org/docs/tokens/
+% https://pygments.org/docs/styledevelopment/#creating-own-styles
+% 'custom':  'custom::CustomStyle' in /usr/lib/python3.10/site-packages/pygments/styles/__init__.py
+% https://tex.stackexchange.com/questions/18083/how-to-add-custom-c-keywords-to-be-recognized-by-minted#comment930474_42392
+% \usemintedstyle{custom}
+
+% https://tex.stackexchange.com/questions/345976/global-settings-for-minted
+\setminted{fontsize=\tiny,breaklines,highlightcolor=SecondaryColorDimmed,autogobble,escapeinside=||,breakaftersymbolpre={},breakaftersymbolpost={},breakbeforesymbolpre={},breakbeforesymbolpost={},breaksymbolsepleft=2mm,breaksymbolsepright=0mm,breakindent=0mm,breaksymbolindentleft=5mm,breaksymbolindentright=0mm,numbersep=2.5mm}
+
+\newenvironment{linenums}{
+  \setminted{linenos}
+}{}
+
+% ┌───────┐
+% │ Boxes │
+% └───────┘
+
+\DeclareTotalTCBox{\inlinebox}{ s m }
+{verbatim,colback=PrimaryColorDimmed,colframe=PrimaryColor,nobeforeafter,tcbox raise base,top=0mm,bottom=0mm,
+  right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
+{\IfBooleanTF{#1}%
+{\textcolor{PrimaryColor}{\setBold >\enspace\ignorespaces}#2}%
+{#2}}
+
+\DeclareTotalTCBox{\key}{ m }
+{verbatim,colback=PrimaryColorDimmed,colframe=PrimaryColor,nobeforeafter,tcbox raise base,top=0mm,bottom=0mm,
+  right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
+{$\mathtt{#1}$}
+
+\newtcolorbox{sidenote}{enhanced,boxrule=0cm,frame hidden,arc=0.2cm,title=\small Sidenote,attach boxed title to top text left={yshift=-0.2cm},colback=PrimaryColorDimmed,boxed title style={boxrule=0cm,frame hidden,colback=PrimaryColor,arc=0.1cm},fonttitle=\bfseries,
+after title={\hspace{0.2cm}\includegraphics[height=0.25cm]{./figures/lupe.png}}
+}
+% drop fuzzy shadow,
+
+\newtcblisting{terminal}{
+enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,arc=0.2cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,boxrule=0.05cm,listing only,minted language=text,listing engine=minted,minted options={escapeinside=||,autogobble,fontsize=\tiny}
+}
+
+% https://tex.stackexchange.com/questions/593218/nested-inline-math-for-new-command-with-argument
+\newcommand{\prompt}{\textcolor{PrimaryColor}{\setBold >\;\ignorespaces}}
+
+\DeclareTCBInputListing{\file}{o m}{
+listing file={#2},enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseries\tiny,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing only,listing engine=minted,#1}
+
+\DeclareTCBListing{dfile}{o}{
+enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseries\tiny,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.2cm,top=0.1cm,left=0.1cm,right=0.1cm,listing only,listing engine=minted,#1}
+
+\DeclareTCBInputListing{\codebox}{ s o m }{listing file={#3},
+  enhanced,colframe=PrimaryColor,colback=BoxColor,IfBooleanTF={#1}{colframe=SecondaryColor}{colframe=PrimaryColor},fonttitle=\bfseries\small,#2,listing only,halign title=center,drop fuzzy shadow,arc=0,2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing engine=minted}
+% , sharpish corners
+
+\DeclareTCBListing{dcodebox}{ s o }{
+  enhanced,colframe=PrimaryColor,IfBooleanTF={#1}{colframe=SecondaryColor,colback=SecondaryColorDimmed}{colframe=PrimaryColor,colback=PrimaryColorDimmed},hbox,fonttitle=\bfseries\small,#2,listing only,halign title=center,drop fuzzy shadow,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing engine=minted}
+% , sharpish corners
+
+% % https://tex.stackexchange.com/questions/585582/inside-of-a-newtcbinputlisting-how-can-i-change-the-color-of-the-line-number-as
+% % https://www.overleaf.com/learn/latex/Using_colours_in_LaTeX
+% https://tex.stackexchange.com/questions/132849/how-can-i-change-the-font-size-of-the-number-in-minted-environment
+\renewcommand{\theFancyVerbLine}{\ttfamily\textcolor{white}{\tiny{\arabic{FancyVerbLine}}}}
+% \renewcommand{\theFancyVerbLine}{\sffamily \textcolor[rgb]{0.5,0.5,1.0}{\huge \oldstylenums{\arabic{FancyVerbLine}}}}
+
+\newtcbinputlisting{\numberedcodebox}[2][]{
+  listing file={#2}, enhanced, colframe=PrimaryColor,colback=BoxColor,fonttitle=\bfseries\small,#1,listing only,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.5cm,right=0.1cm,listing engine=minted,overlay={\begin{tcbclipinterior}\fill[PrimaryColorDimmed] (frame.south west) rectangle ([xshift=0.5cm]frame.north west);\end{tcbclipinterior}}
+}
+
+\newtcblisting{dnumberedcodebox}[1][]{
+enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\tiny,#1,listing only,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.5cm,right=0.1cm,listing engine=minted,overlay={\begin{tcbclipinterior}\fill[PrimaryColor] (frame.south west) rectangle ([xshift=0.5cm]frame.north west);\end{tcbclipinterior}}
+}
+
+
+\newtcbox{\sepbox}{standard jigsaw,colframe=PrimaryColor,opacityback=0,boxrule=0.01cm,height=0.5cm,,sharp corners,nobeforeafter,left=0cm,right=0cm,top=0cm,bottom=0cm,boxsep=0.1cm,baseline=0.15cm,valign=center}
+% tcbox raise base
+% box align=center
+
+% https://tex.stackexchange.com/questions/585582/inside-of-a-newtcbinputlisting-how-can-i-change-the-color-of-the-line-number-as
+\renewcommand{\theFancyVerbLine}{\sffamily
+    \textcolor{white}{\tiny
+        \oldstylenums{\arabic{FancyVerbLine}}}}
+
+% ------------------
+
+% \DeclareTColorBox{codeframe}{ s o m }{
+%   enhanced, halign title=center, fonttitle=\tiny, interior style={fill=white}, IfBooleanTF={#1}{frame style={color=SecondaryColor}}{frame style={color=PrimaryColor}}, title={#3}, #2,drop fuzzy shadow,arc=1mm,bottom=1mm,top=1mm,left=1mm,right=1mm,boxrule=0.5mm,listing engine=minted,minted style=colorful}
+%
+% \numberwithin{equation}{section}
+
+% ┌───────────────┐
+% │ Beamer Blocks │
+% └───────────────┘
+
+\newcounter{exercise}
+\setcounter{exercise}{1}
+
+% https://tex.stackexchange.com/questions/309463/beamer-numerating-theorems-and-color-of-block
+\setbeamertemplate{theorems}[numbered]
+
+% https://tex.stackexchange.com/questions/152565/define-a-new-block-environment-in-latex-beamer
+\renewenvironment<>{exercise}[1][]{%
+  \setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
+\begin{block}#2{Aufgabe \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}}{\end{block}\stepcounter{exercise}}
+
+% https://tex.stackexchange.com/questions/152565/define-a-new-block-environment-in-latex-beamer
+\renewenvironment<>{exercisenoinc}[1][]{%
+  \setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
+\begin{block}#2{Aufgabe \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}}{\end{block}}
+
+\newenvironment<>{requirements}[1][]{%
+  \setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
+\begin{block}#2{Voraussetzungen \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}\itshape}{\end{block}\stepcounter{exercise}}
+
+\newenvironment<>{requirementsnoinc}[1][]{%
+  \setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
+\begin{block}#2{Voraussetzungen \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}\itshape}{\end{block}}
+
+\newenvironment<>{solution}[1][]{%
+  \setbeamercolor{block title}{fg=white,bg=PrimaryColor}%
+\begin{block}#2{Lösung \thesection{.}\theexercise\enspace\ignorespaces #1 \notebook}\itshape}{\end{block}\stepcounter{exercise}}
+
+\newenvironment<>{solutionnoinc}[1][]{%
+  \setbeamercolor{block title}{fg=white,bg=PrimaryColor}%
+\begin{block}#2{Lösung \thesection{.}\theexercise\enspace\ignorespaces #1 \notebook}\itshape}{\end{block}}
+
+% https://stackoverflow.com/questions/34274267/how-can-i-number-theorems-definitions-etc-etc-consecutively-in-latex-without
+\newtheorem{customtheorem}{Custom Theorem}[section]
+\newtheorem{subcustomtheorem}{Sub Custom Theorem}[customtheorem]
+\newtheorem{ocustomtheorem}[customtheorem]{Custom Theorem}
+
+% ┌──────────────┐
+% │ New Commands │
+% └──────────────┘
+
+% alternative alert
+\newcommand\aalert[1]{\textcolor{PrimaryColor}{#1}}
+
+\newcommand{\aitem}{%
+\item[\textcolor{PrimaryColor}{$\blacktriangleright$}]\ignorespaces}
+
+% % https://tex.stackexchange.com/questions/8351/what-do-makeatletter-and-makeatother-do
+% \makeatletter
+%
+% % ignorespace: https://runebook.dev/de/docs/latex/_005cignorespaces-_0026-_005cignorespacesafterend
+% % enspace: https://math-linux.com/latex-26/faq/latex-faq/article/latex-horizontal-space-qquad-hspace-thinspace-enspace
+% \newcommand{\aitem[1]}[]{%
+% \@ifmtarg{#1}{\item[\textcolor{SecondaryColor}{\blacktriangleright}]}%
+% {\item[\textcolor{SecondaryColor}{\black}] \colorbold{\textbf{#1:}}}\enspace\ignorespaces}
+% % \textbullet
+%
+% \makeatother
+
+\newcommand{\grayitem}{%
+\item[\textcolor{gray!90!black}{$\blacktriangleright$}]\ignorespaces}
+
+% https://tex.stackexchange.com/questions/329990/how-do-i-change-the-color-of-itemize-bullet-specific-and-default
+% \renewcommand{\labelitemi}{$\textcolor{PrimaryColor}{\bullet}$}
+% \renewcommand{\labelitemii}{$\textcolor{PrimaryColor}{\cdot}$}
+% \renewcommand{\labelitemiii}{$\textcolor{PrimaryColor}{\diamond}$}
+% \renewcommand{\labelitemiv}{$\textcolor{PrimaryColor}{\ast}$}
+
+
+\newcommand{\notebook}{\hfill\includegraphics[height=3mm]{./figures/note.png }}
+\newcommand{\anotebook}{\hfill\includegraphics[height=3mm]{./figures/anote.png}}
+
+\newcommand{\magnifier}{\hfill\includegraphics[height=3mm]{./figures/lupe.png}}
+
+\newcommand\RemoveMargin[2][3em]{%
+\makebox[\linewidth][c]{%
+  \begin{minipage}{\dimexpr\textwidth+#1\relax}
+  \raggedright#2
+  \end{minipage}%
+  }%
+}
+
+% https://tex.stackexchange.com/questions/188379/theorem-numbering-in-beamer
+% Nummerierung der Theorem und Berücksichtigung der Sections
+\renewcommand\thetheorem{\arabic{section}.\arabic{theorem}}
+
+% https://www.matheboard.de/archive/155832/thread.html
+\newcommand{\zz}{\mathrm{Z\kern-.3em\raise-0.5ex\hbox{Z}}:\;}
+
+\newcommand{\highlightonslide}{\only{\color{SecondaryColor}}}
+
+\newcommand{\checkboxUnchecked}{
+  \begin{tikzpicture}[baseline=0.6mm]
+    \draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
+  \end{tikzpicture}
+}
+
+\newcommand{\checkboxChecked}{
+  \begin{tikzpicture}[baseline=0.5mm]
+    \draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
+    \draw[SecondaryColor, line width=0.3mm] (0.05,0.15) -- (0.15,0.05) -- (0.25,0.25);
+  \end{tikzpicture}
+}
+
+\newcommand{\checkboxHalfChecked}{
+  % \tikz[baseline=-0.5ex]{}
+  \begin{tikzpicture}[baseline=0.5mm]
+    \draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
+    \draw[SecondaryColor, line width=0.3mm] (0.05,0.15) -- (0.25,0.15);
+  \end{tikzpicture}
+}
+
+% ┌──────────────────┐
+% │ New Environments │
+% └──────────────────┘
+
+\newenvironmentx{transformation}[3][1=0.3, 2=0.2, 3=0.4]{
+  \newcommand{\compilesto}{%
+  \end{column}\begin{column}[c]{#2\linewidth}\centering$\Rightarrow$\end{column}\begin{column}[c]{#3\linewidth}\centering}
+  \newcommand{\arrowx}[1]{%
+  \end{column}\begin{column}[c]{#2\linewidth}\centering$\xRightarrow{##1}$\end{column}\begin{column}[c]{#3\linewidth}\centering}
+  \newcommand{\arrowxx}[2]{%
+  \end{column}\begin{column}[c]{#2\linewidth}\centering$\xRightarrow[##2]{##1}$\end{column}\begin{column}[c]{#3\linewidth}\centering}
+  \begin{columns}\begin{column}[c]{#1\linewidth}\centering
+  }{%
+  \end{column}\end{columns}%
+}
+
+\newcommand{\ma}[1]{$\mathcal{#1}$}
+\renewcommand{\tt}[1]{{\small\texttt{#1}}}
+
+\newcounter{algorithm}
+\setcounter{algorithm}{0}
+\newtcbtheorem[use counter=algorithm]{algorithm}{\color{SecondaryColor}Algorithm}{pseudo/ruled}{alg}
