@@ -120,6 +120,7 @@
 ** Vogehen allgemien
    - have attacker 3-tuples and loopback 3-tuples, why importat later
    - device id by loopback 3-tuple colisions inside a perturbation table, independant loopback destinationsports, structure they build, this G()=G() formula
+   -- why independant *ToDo*
    -- devide id by attacker 3-tuple colisions is not consistent across networks, "using the Internet-facing address of the device does not yield a consistent device ID across networks", 127.x.x.x does not change across networks *(question to students)*
    - like in particle accelerator only observe affects
    - website limited access, cannot see sourceport address calculated by dhps for loopback tuple
@@ -139,21 +140,23 @@
    --- and if several loopback 3-tuples collide with the same attacker 3-tuple in the same perturbation cell this means this loopback 3 tuples also collide with eac other in the same perturbation table cell
    ---- and thus one determine a structure of loopback 3-tuples collide in the same perturbation table cell and use this structure as a device id where one collects a set of independant pairs of loopback destination ports (*1)
 ** Phase 1
-   - input and output: unique attacker 3-tuples
+   - output: unique attacker 3-tuples
    - sawndwich method
    -- inner: currently found unique attacker 3-tuples
    -- outer: new attacker 3-tuple candidates
    --- several at once: noise can hide a unique mapping, but it can’t fabricate one
-   -- used to draw conclusions whether a attacker 3-tuple is the first to map to a certain perturbation table cell
-   - condition for, outer used
+   - condition: those attacker 3-tuples in *outer* sandwich whose source port (read out of TCP-Syn package) only had a source port increment by 1, map to a new perturbation table cell to which none of the already found unique attacker 3-tuples maps as they don't collide which any of the already found unique attacker 3-tuples
+   -- so sanwdich used to draw conclusions whether attacker 3-tuples are the first to map to a certain perturbation table cell and is thus used to determine whether they are unique attacker 3-tuples
    - algorithmus
    -- das x set, x ist attacker 3-tuples, P ist assignment attacker 3-tuples to destination port
 ** Phase 2
+   - output: device id made out of indepedant pairs of destination ports of loopback 3-tuples building a structure of loopback 3-tuples that collide in the same perturbation table cell
+   -- inner: single loopback 3-tuple in the middle
    --- only 1 at a time, because if they tested multiple loopback 3-tuples simultaneously without any further design, they would not be able to tell which loopback 3-tuple caused the increment in which attacker 3-tuple
    -- outur: unique attacker 3-tuples
    --- send several times to have a detectable increment in perturbation table counter, attacked device could have other TCP-connections that increment the counter, this noise has to be outweighted *(question to students)*
-   -- used to draw conclusions which loopback 3-tuples map to the same parturbation table cell
+   -- (used to draw conclusions which loopback 3-tuples map to the same parturbation table cell)
    --- which as already explained in (*1) is used to determine a device id
-   - condition for, inner used
+   - condition: a loopback 3-tuple in *inner* sandwich that by repeated established TCP-connections causes a signifcant increment in one of the attacker 3-tuples in the outer sandwich, collides with this attacker 3-tuple in the same perturbation table cell and this as already explainend in (*2) 
    - algorithmus
    -- die iota funtkion und wie sie sich von dem x-set unterscheidet, nur einelnes unique attacker 3-tuple returned
