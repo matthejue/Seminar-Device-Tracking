@@ -39,7 +39,7 @@
 \chapter{Introduction}
 \label{sec:introduction}
 
-In 2018, the \alert{Meltdown} attack caused widespread concern by revealing how speculative execution in modern CPUs could be exploited to read sensitive data from privileged memory that should have been inaccessible to user processes. In a similar vein, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the Hebrew University of Jerusalem discovered that an older version of Linux’s TCP source port selection algorithm could be exploited to create persistent device finterprints that survive browser privacy modes and network changes. % and VPNs
+In 2018, the \alert{Meltdown} attack caused widespread concern by revealing how speculative execution in modern CPUs could be exploited to read sensitive data from privileged memory that should have been inaccessible to user processes. In a similar vein, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the Hebrew University of Jerusalem discovered that an older version of Linux’s TCP source port selection algorithm could be exploited to create persistent device id's that survive browser privacy modes and network changes. % and VPNs
 
 Like Meltdown, their attack targets \alert{security} (not safety: it does not crash systems or corrupt data), it violates confidentiality by leaking internal state. Meltdown extracts data from CPU caches, while this technique exploits patterns of TCP source port allocations determined by a secret per-device key, allowing an attacker to derive a unique \alert{device fingerprint} without revealing the key itself.
 
@@ -354,7 +354,8 @@ These countermeasures were integrated into Linux versions 5.18 and 5.19, making 
 
 In this report certain topics weren't covered and certain conventions were followed, all this might-be-useful-before-reading-the-report information is listed here:
 \begin{itemize}
-	\item asdf
+	\item \alert{unique attacker 3-tuples}: attacker 3-tuple that each uniquely cover one cell of te perturbation table
+	\item \alert{candidate attacker 3-tuples}:
 \end{itemize}
 
 \section{Related Work}
