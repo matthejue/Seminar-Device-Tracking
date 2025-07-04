@@ -5,20 +5,39 @@
   -- man kennt die destinationsports, weil man ja im Code den man geschickt hat schon festgelegt hat welche in welcher Reihenfolge geschickt werden solen
   -- dementsprechend würde es auch Sinn machen, dass die Destinationports jedes mal die gleichen sind, da man jedes mal den gleichen Code schickt
 
+* Witze
+  - Sandwich
+  - Mossad hatte keine Nutzen dafür
+
 * Schindelhauer Fragen
   - muss ich double hash verstehen?
-  - TCP Syn-Packete
+  - TCP details wie
+  -- TCP Syn-Packete
+  -- TIME\_WAIT state
   - ChatGPT Bild als Quelle
-  - korrekte Condition in Phase 1
+  - korrekte Condition in Phase 1 und in Phase 2 x Funktion ist auch seltsam
+  -- darf ich Algorithmen verändern verglichen zum Paper?
+  - man sendet mehrere, weil doppelt hält besser?
+  - Quellenangaben korrekt?
+  - können es auch 5 Seiten sein?
+  - Fazit notwenidg? comparison to other related work?
+  - Proxies
+  - 2 spaltiger Report erlaubt?
 
 * Zu klärende Fragen
   - does one have to always us same loopback addresses but differnert attacker tuples possible?
   - wie funktioniert dieses x-Funktion in Phase 2
   - only has this output in phase 2. How find out which loopback 3-tuple if several loopback-tuples in mmiddle?
+  - wie das mit Server genau, mehrere Server oder nur einer reicht?
+  - warum funktioniert es über manche VPNS oder Proxies?
 
 * Darüber noch informieren
-  - How Meltdown work
+  - How Meltdown work, so sind sich beide Verfahren ähnlich?
   - why does one have ports in first place?
+  - TCP details wie
+  -- TCP Syn-Packete
+  -- TIME\_WAIT state
+  - warum sieht der DHCP algorithmus so aus?
 
 * Fragen an Studenten
   - what is the only predictable things?
@@ -49,6 +68,9 @@
   - why does one have to do it so indirectly over this attacker 3-tuples? 
   -- Blackbox, only for Syn-Packets of attacker 3-tuples, Loopback 3-tuples unaccesabile for outeside attacker
   - Wie findet man in Iplemtneering Attacker Destination Ports raus -> Syn-Packete
+  - resource consumption
+  - related work
+  - comparison to other
 
 * Zusammenhangslose Erkenntnisse
   - urnenmodel links n, da liest man die n kugeln die k podestplätzen
@@ -74,3 +96,13 @@
   --- port_src ist nur zu bestimmten von colisionen über die attack-3tuples wichtig
   - l-n occupied buckets, weil in jeder Iteration, wo es keine über die attack-tuple registierte colision gab, ein neues b[w] definiert / assigned wird (und b[w] entsspricht de perturbation tabelle in Anzahl Zellen, nur nicht in der Struktur, weil man nicht weiß welche attack-tuples auf welche Zelle der perturbation zelle gemappt wird, man weiß nur das es auf eine Zelle gemapped ist) und n ist die Anzal der colisionen
   --- es wird in jeder iteration ein loop-back tuple iwo hinzugefügt
+
+* ToDo
+  - ( ) Aspekt mit hash colisions ausnutzen reinmachen
+  - ( ) das mit Blackbox
+  - ( ) das mit predicatable um 1 erhöhen schonmal erwähnen beim der Erklärung von DHCP und das man das von dem berechneten Sourceport ablesen kann
+  - ( ) Appendix, weil auf 4 Seiten beschränken musste
+  - ( ) konkrett erwähnen, dass es wegen dem Key über Browser Sessions hinweg avialable ist
+  - ( ) In Conclusionn wird eine perfekte Wortwahl getroffen
+  - ( ) die Condition zum herausfinden in Phase 2 welche loopbpack clidiert auch reinschreiben
+  - ( ) erwähnen, dass bei der Sandwich Methode die äußeren immer gleich sind und daher schonaml increase um 1, aber nicht mehr als 1..., weil die immergleichen verglichen werden
