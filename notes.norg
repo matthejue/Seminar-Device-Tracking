@@ -43,6 +43,7 @@
   -- TIME\_WAIT state
   - warum sieht der DHCP algorithmus so aus?
   - TCP und UDP generelles Wissen
+  - attacker 3-tuple that is also in the TCP-Syn packet?
 
 * Fragen an Studenten
   - what is the only predictable things?
@@ -118,36 +119,41 @@
 * Erklärweise
 ** Vogehen allgemien
    - have attacker 3-tuples and loopback 3-tuples, why importat later
-   - device id by loopback 3-tuple colisions, independant loopback destinationsports, structure they build, this G()=G() formula
-   -- devide id by attackeer 3-tuple colisions is not consistent across networks
+   - device id by loopback 3-tuple colisions inside a perturbation table, independant loopback destinationsports, structure they build, this G()=G() formula
+   -- devide id by attacker 3-tuple colisions is not consistent across networks, "using the Internet-facing address of the device does not yield a consistent device ID across networks", 127.x.x.x does not change across networks *(question to students)*
    - like in particle accelerator only observe affects
    - website limited access, cannot see sourceport address calculated by dhps for loopback tuple
    - abusing that perturbation table incremented in a predictable way
    - blackbox, only see syn packets to attacker device
-   -- one uses sandwich method: that uses attacker 3-tuples and how their destination port calculated by dhps changes in a predictablle way in a predictable way to detect colisions of 3-tuples, 
-   --- attacker 3-tuples used to detect those changes, because only through them these increments in the sourrce port can be observed, as the attacker gets TCP-Syn packets for them where he can read out source ports
+   -- one uses sandwich method: that uses attacker 3-tuples and how their destination port calculated by dhps changes in a predictable way to detect colisions of 3-tuples in the perturbation table
+   --- attacker 3-tuples used to detect those changes, because only through them these increments in the sourrce port can be observed, as the attacker gets TCP-Syn packets for them where he can read out the mapping from a attacker 3-tuple to a source port after applying the sandwich
    --- the general principle is:
    ---- first in the sandwich dhps for a attacker 3-tuple caculates one source port
-   ---- and for same attacker 3-tuple in the sandwich dhps later caculates a 2nd time a source port which will this time be incremented by 1
-   ---- if inside the sandwich in between those 2 points in time anoter tcp connection (to outside or loopback) uses the same perturbaton table cell
-   ----- then the 2nd time the same attacker 3-tuple in the sanwich makes a tcp connection dhcp will calculate a source port increment by 2 and not 1
-   ---- sanwdich method is used for both phase 1 and phase 2, but different goals in mind and with changed
-   -- one detects collisions of loopback 3-tuples via the attacker 3-tuples 
-   --- and if several loopback 3-tuples collide with the same attacker 3-tuple
+   ---- and for same attacker 3-tuple in the sandwich dhps later caculates a 2nd time a source port which will this time be incremented by 1 compared to first
+   ---- if inside the sandwich in between those 2 points in time another tcp connection (internet-facing or loopback) uses the same perturbaton table cell
+   ----- then the 2nd time the same attacker 3-tuple in the sanwich makes a tcp connection dhcp will calculate a source port that is increment by 2 and not 1 compared to the first calculated source port in the sandwich
+   ---- this sanwdich method can be used to determine colisions of 3-tuples (internet-facing or loopback) in a cell of the perturbation table
+   ----- this is e.g. used in phase 1 and phase 2 to draw different conclusions
+   ---- (to make it fast of course several attacker 3-tuples are used in the outer sandwich and in phase 1 also inside, one can later read out from the TCP-Syn packets how much the source port was incremented compared to the first time for the same attacker 3-tuple)
+   -- one detects collisions of loopback 3-tuples in the same perturbation table cell via colisions of loopback 3-turples and attacker 3-tuples in the same perturbation table cell
+   --- and if several loopback 3-tuples collide with the same attacker 3-tuple in the same perturbation cell this means this loopback 3 tuples also collide with eac other in the same perturbation table cell
+   ---- and thus one determine a structure of loopback 3-tuples collide in the same perturbation table cell and use this structure as a device id where one collects a set of independant pairs of loopback destination ports (*1)
 ** Phase 1
-   - input and output
+   - input and output: unique attacker 3-tuples
    - sawndwich method
-   -- innen: currently found unique attacker 3-tuples
-   -- außen: new attacker 3-tuple candidates
-   - Bedingung für
+   -- inner: currently found unique attacker 3-tuples
+   -- outer: new attacker 3-tuple candidates
+   --- several at once: noise can hide a unique mapping, but it can’t fabricate one
+   -- used to draw conclusions whether a attacker 3-tuple is the first to map to a certain perturbation table cell
+   - condition for, outer used
    - algorithmus
    -- das x set, x ist attacker 3-tuples, P ist assignment attacker 3-tuples to destination port
 ** Phase 2
-   - input and output
-   - sanwdich method
-   -- innen: single loopback 3-tuple in the middle
-   -- außen: unique attacker 3-tuples
-   --- send several times to have a detectable change in perturbation table counter, attacked device could have other TCP-connections that increment the counter
-   - Bedingung für
+   --- only 1 at a time, because if they tested multiple loopback 3-tuples simultaneously without any further design, they would not be able to tell which loopback 3-tuple caused the increment in which attacker 3-tuple
+   -- outur: unique attacker 3-tuples
+   --- send several times to have a detectable increment in perturbation table counter, attacked device could have other TCP-connections that increment the counter, this noise has to be outweighted *(question to students)*
+   -- used to draw conclusions which loopback 3-tuples map to the same parturbation table cell
+   --- which as already explained in (*1) is used to determine a device id
+   - condition for, inner used
    - algorithmus
    -- die iota funtkion und wie sie sich von dem x-set unterscheidet, nur einelnes unique attacker 3-tuple returned
