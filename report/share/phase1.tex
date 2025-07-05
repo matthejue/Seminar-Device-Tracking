@@ -2,25 +2,25 @@
 
 \begin{algorithm}{\pr{Finding Attacker 3-Tuple per Cell (Phase 1)}}{\thetcbcounter}
 	\begin{pseudo}[indent-mark,kw,hl-warn=false]
-procedure \cn{SENDBURST}(X)\\+
-for all x $\in$ X do\\+
-ATTEMPTCONNECTTCP(x)\\--
-procedure \cn{GETSOURCEPORTS}(U)\\+
-SENDBURST(U)\\
-R $\leftarrow$ \cn{RECEIVEATTACKERTUPLETOPORTMAP}()\\
-\cmt{// R = {(IPSRC,IPDST,PORTDST) �→PORTSRC}}\\
+    procedure \cn{SendBurst}(\tt{X})\\+
+    for all \tt{x} $\in$ \tt{X} do\\+
+\cn{AttemptConnectTCP}(\tt{x})\\--
+procedure \cn{GetSourcePorts}(\tt{U})\\+
+\cn{SendBurst}(\tt{U})\\
+\tt{R} $\leftarrow$ \cn{ReceiveAttackerTupleToPortMap}()\\
+\cmt{// R = {($\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$) $\mapsto \tt{PORT}_{SRC}$}}\\
 \cmt{// (obtained from the tracking server)}\\
-return R\\-
-procedure \cn{PHASE1}\\+
-S′ $\leftarrow\emptyset$\\
-while |S′| < T do\\+
-Si $\leftarrow$ \cn{GETNEWEXTERNALDESTINATIONS}()\\
-\cmt{// ∀j<i(Si ∩Sj = ∅)}\\
-P $\leftarrow$ \cn{GETSOURCEPORTS}(Si) \cmt{// 1st burst}\\
-SENDBURST(S′) \cmt{// 2nd burst}\\
-P′ $\leftarrow$ \cn{GETSOURCEPORTS}(Si) \cmt{// 3rd burst}\\
-S′ $\leftarrow$ S′ ∪{x|P′(x)−P(x) = 1}\\
-\cmt{// Vi = {x|P′(x)−P(x) = 1}}\\
-return S′
+return \tt{R}\\-
+procedure \cn{Phase1}\\+
+\tt{S'} $\leftarrow\emptyset$\\
+while $|\tt{S'}| < \tt{T}$ do\\+
+$\tt{S}_i$ $\leftarrow$ \cn{GetNewExternalDestinations}()\\
+\cmt{// $\forall_{j<i}(\tt{S}_i \cap \tt{S}_j = \emptyset)$}\\
+\tt{P} $\leftarrow$ \cn{GetSroucePorts}($\tt{S}_i$) \cmt{// 1st burst}\\
+\cn{SendBurst}(S') \cmt{// 2nd burst}\\
+\tt{P'} $\leftarrow$ \cn{GetSourcePorts}($\tt{S}_i$) \cmt{// 3rd burst}\\
+\tt{S'} $\leftarrow \tt{S'} \cup \{x\,|\,\tt{P'}(x)−\tt{P}(x)=1\}$\\
+\cmt{// $\tt{V}_i = \{\tt{x}\,|\,\tt{P'}(x)-\tt{P}(x) = 1\}$}\\-
+return \tt{S'}
 	\end{pseudo}
 \end{algorithm}

@@ -4,8 +4,8 @@
 	\begin{pseudo}[indent-mark,kw,hl-warn=false]
 		procedure \cn{SelectEphemeralPort} \\+
 		\tt{num\_ephemeral} $\leftarrow$ \tt{max\_ephemeral}−\tt{min\_ephemeral}+\tn{1} \\
-		\tt{offset} $\leftarrow$ \cn{$F_{K_1}$}($IP_{SRC}$,$IP_{DST}$,$PORT_{DST}$) \\
-		\tt{index} $\leftarrow$ \cn{$G_{K_2}$}($IP_{SRC}$,$IP_{DST}$,$PORT_{DST}$) \\
+    \tt{offset} $\leftarrow$ $\cn{F}_{K_1}$($\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$) \\
+    \tt{index} $\leftarrow$ $\cn{G}_{K_2}$($\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$) \\
 		\tt{count} $\leftarrow$ \tt{num\_ephemeral} \\
 		repeat \\+
 		\tt{port} $\leftarrow$ \tt{min\_ephemeral}+\\+
@@ -15,6 +15,6 @@
 		return \tt{port} \\-
 		\tt{count} $\leftarrow$ \tt{count} − \tn{1} \\-
 		until \tt{count} = \tn{0} \\
-		return \cn{Error}\\
+		return \tt{Error}\\
 	\end{pseudo}
 \end{algorithm}

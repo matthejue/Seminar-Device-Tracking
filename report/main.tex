@@ -318,6 +318,16 @@ Thus, while the papers do not explicitly state the purpose, sending the same loo
 
 By repeatedly applying this sandwiching technique, the attacker collects pairs of colliding loopback 3-tuples. These pairs ultimately form the device ID, unique to the secret key $K_2$ used by the DHPS algorithm. The process terminates once enough independent collisions are found to achieve a desired confidence level in device uniqueness.
 
+\begin{center}
+  % \begin{adjustbox}{scale=0.6}
+    \begin{minipage}[t]{0.5\textwidth}
+      \vspace{0cm}
+      
+      \input{./share/phase2.tex}
+    \end{minipage}
+  % \end{adjustbox}
+\end{center}
+
 \vspace{0.5cm}
 \chapter{Countermeasures}
 \label{sec:countermeasures}
