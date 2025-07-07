@@ -8,7 +8,7 @@
 procedure \cn{GetSourcePorts}(\tt{U})\\+
 \cn{SendBurst}(\tt{U})\\
 \tt{R} $\leftarrow$ \cn{ReceiveAttackerTupleToPortMap}()\\
-\cmt{// R = {($\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$) $\mapsto \tt{PORT}_{SRC}$}}\\
+\cmt{// R = $\{(\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$) $\mapsto \tt{PORT}_{SRC}\}$}\\
 \cmt{// (obtained from the tracking server)}\\
 return \tt{R}\\-
 procedure \cn{Phase1}\\+

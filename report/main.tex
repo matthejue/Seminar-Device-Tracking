@@ -39,14 +39,20 @@
 \chapter{Introduction}
 \label{sec:introduction}
 
-In 2018, the \alert{Meltdown} attack caused widespread concern by revealing how speculative execution in modern CPUs could be exploited to read sensitive data from privileged memory that should have been inaccessible to user processes. In a similar vein, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the Hebrew University of Jerusalem discovered that an older version of Linux’s TCP source port selection algorithm could be exploited to create persistent device id's that survive browser privacy modes and network changes. % and VPNs
+In 2018, the \alert{Meltdown} and \alert{Spectre} attacks caused widespread concern by revealing how modern CPUs’ performance features could be exploited to read sensitive data from memory that should have remained inaccessible to user processes.
 
-Like Meltdown, their attack targets \alert{security} (not safety: it does not crash systems or corrupt data), it violates confidentiality by leaking internal state. Meltdown extracts data from CPU caches, while this technique exploits patterns of TCP source port allocations determined by a secret per-device key, allowing an attacker to derive a unique \alert{device fingerprint} without revealing the key itself.
+These attacks demonstrated a broader principle: that subtle side effects in complex systems can leak internal information not intended to be observable.
+
+In a similar spirit, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the Hebrew University of Jerusalem discovered an attack that exploits Linux’s \alert{TCP source port selection algorithm} to track devices.
+
+Like Meltdown, this attack targets \alert{security} and compromises confidentiality, not by directly revealing secret data, but by exploiting side effects that produce predictable patterns in how TCP source ports are assigned and incremented across connections. These patterns allow an attacker to infer a fingerprint uniquely tied to a \alert{secret device-specific key}.
+%, and effectively leaking information about internal state in a way that violates privacy and confidentiality.
 
 \section{About this report}
 \label{sec:goal_of_this_report}
 
-The goal of this report is to provide insight into \alert{browser-based device tracking techniques}, specifically by explaining the method described in the paper\cite{kol2022devicetrackinglinuxsnew}. This report details \alert{how} the tracking method \alert{works} and explains the \alert{proposed countermeasures} and the \alert{final patch} that was integrated into the Linux kernel to mitigate this vulnerability.
+The goal of this report is to provide insight into \alert{browser-based device tracking techniques}, specifically by explaining the method described in the paper\cite{kol2022devicetrackinglinuxsnew}. This report details \alert{how} the tracking method \alert{works} and explains the \alert{proposed countermeasures} mitigate this vulnerability.
+% and the \alert{final patch} that was integrated into the Linux kernel to 
 
 \alert{It should be emphasized that this is just a report, it is just explaining, connecting and summarizing different results of other people's research and doesn't contain own research or claim this to be the results of the research of the author of this report}. 
 
@@ -73,6 +79,9 @@ Device tracking techniques can be broadly categorized into the following two gro
     \item \alert{Fingerprinting techniques:} These techniques measure characteristics of the system or browser to distinguish devices. Examples include differences in fonts, hardware details, or system language. However, fingerprinting techniques often struggle to solve the golden image challenge, as identical devices may produce identical fingerprints.
 \end{itemize}
 
+The attack described in the paper is a \alert{fingerprinting technique}, as it derives a device-specific identifier from the behavior of the operating system’s TCP source port selection rather than storing data in the browser. Unlike typical fingerprinting methods, it can successfully solve the \alert{golden image challenge}, because the identifier it produces depends on a per-device secret key generated at system boot. This allows it to distinguish between devices even when they share identical hardware and software configurations, and it remains effective across different browsers, privacy modes, networks, persisting until the device restarts.
+% , and some VPNs
+
 \section{Source Port Selection}
 \label{sec:source port selection}
 
@@ -84,52 +93,61 @@ Source port selection is a mechanism used by the TCP/IP stack of operating syste
     \item the \alert{destination port}.
 \end{itemize}
 
-Ports exist so that multiple simultaneous network connections can operate on the same device, even to the same destination IP address and destination port. For example, a single machine might want to establish several independent TCP connections to the same remote server, and different source ports allow the operating system to distinguish these connections.  
+\alert{Ports} exist so that multiple simultaneous network connections can operate on the same device, even to the same destination IP address and destination port. For example, a single machine might want to establish several independent TCP connections to the same remote server, and different source ports allow the operating system to distinguish these connections.  
 
 A straightforward way to select source ports would be simply to choose the next available free port in sequence. But this approach is problematic because it fails to achieve two important goals that are also described in the paper:
 
 \begin{itemize}
-    \item \alert{Security:} Predictable source port numbers make it easier for attackers to perform off-path attacks, such as blind reset or data injection attacks, by guessing the details of active TCP connections.
-    \item \alert{Functionality:} Quickly reusing the same source port can cause failures because earlier connections might still be active or in the \texttt{TIME\_WAIT} state on the server side. Reusing the same 4-tuple too soon can lead to errors or dropped connections.
+  \item \alert{Security:} Predictable source port numbers make it easier for attackers to perform off-path attacks, such as blind reset or data injection attacks, as they have to guess key connection details like the TCP 4-tuple (source and destination IP addresses and ports) and sequence numbers.
+  \item \alert{Functionality:} Quickly reusing the same source port can cause failures because earlier connections might still be active or in the \texttt{TIME\_WAIT} state on the server side. Reusing the same 4-tuple too soon can lead to errors or dropped connections.
 \end{itemize}
 
 \subsection{Double-Hash Port Selection Algorithm (DHPS)}
 \label{sec:double-hash port selection algorithm}
 
-To address these goals, several algorithms for TCP source port selection have been defined, including the \alert{Double-Hash Port Selection (DHPS)} algorithm, described in RFC 6056\cite{larsenRecommendationsTransportProtocolPort2011}. The Linux kernel adopted DHPS starting from version 5.12-rc1. Because \alert{Android} uses the Linux kernel, DHPS is also implemented in Android devices. %that adopt kernel versions where DHPS is implemented.
+To address these goals, several algorithms for TCP source port selection have been defined, including the \alert{Double-Hash Port Selection (DHPS)} algorithm, described in RFC 6056\cite{larsenRecommendationsTransportProtocolPort2011}. % The Linux kernel adopted DHPS starting from version 5.12-rc1. Because \alert{Android} uses the Linux kernel, DHPS is also implemented in Android devices. %that adopt kernel versions where DHPS is implemented.
 % , citing security and privacy improvements
 
-TCP source ports are divided into different ranges, each serving distinct purposes. One important category is the \alert{ephemeral ports}, which are short-lived ports dynamically chosen by the operating system when a client initiates an outbound connection. This separation exists because:
+TCP source ports are divided into different ranges, each serving distinct purposes:
 \begin{itemize}
-    \item Lower-numbered ports, often called \alert{well-known ports} (typically ports 0–1023), are reserved for specific services such as HTTP (port 80) or HTTPS (port 443).
-    \item \alert{Registered ports} (typically ports 1024–49151) are assigned to user applications or services but are not considered ephemeral.
-    \item \alert{Ephemeral ports} (typically in the higher range, e.g. 32768–60999 in Linux) are reserved for temporary client-side connections, ensuring that applications can dynamically and safely open multiple simultaneous connections without conflicting with well-known or registered services.
+    \item \alert{Well-known ports} (typically ports 0–1023) are reserved for specific services such as HTTP (port 80) or HTTPS (port 443).
+    \item \alert{Registered ports} (typically ports 1024–49151) are assigned to user applications or services but are not ephemeral.
+    \item \alert{Ephemeral ports} (typically in the higher range, e.g. 32768–60999 in Linux) are dynamically allocated by the operating system for short-lived client-side connections.
 \end{itemize}
 
-DHPS selects a TCP \alert{source port} for outbound TCP connections from the ephemeral range for a given \alert{3-tuple}, consisting of:
+For the DHPS algorithm, the \alert{ephemeral port} range is particularly relevant because it represents the pool from which source ports are selected for outbound connections.
+
+DHPS selects a TCP \alert{source port} for outbound TCP connections from the ephemeral range based on a given \alert{3-tuple}, consisting of:
 \begin{itemize}
     \item the \alert{source IP} address,
     \item the \alert{destination IP} address, and
-    \item the \alert{destination port}.
+    \item the \alert{destination port}
+\end{itemize}
+and by this completes the connection’s \alert{4-tuple}. To perform this selection, it uses two \alert{cryptographic keyed-hash functions} with separate, independent keys:
+\begin{itemize}
+    \item \( F_{K_1} \), which maps its inputs to a large range of integers, using the key \( K_1 \),
+    \item \( G_{K_2} \), which maps its inputs to a range corresponding to the size of the \alert{perturbation table} \texttt{table}, using the key \( K_2 \).
 \end{itemize}
 
-This process completes the connection’s \alert{4-tuple} by assigning the source port. DHPS uses two \alert{cryptographic keyed-hash functions}:
-\begin{itemize}
-    \item \( F \), which maps its inputs to a large range of integers,
-    \item \( G \), which maps its inputs to a range corresponding to the size of a \alert{perturbation table} \texttt{table}.
-\end{itemize}
+The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add randomness and unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries, all initially set to zero. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port, thus improving security and preventing collisions of TCP 4-tuples.
 
-DHPS operates as follows:
+% When a new TCP connection is established, the DHPS algorithm uses the cryptographic hash function $G_{K_2}$ on the connection's 3-tuple 
+% $(\mathrm{IP}_{\mathrm{SRC}}, \mathrm{IP}_{\mathrm{DST}}, \mathrm{PORT}_{\mathrm{DST}})$ 
+% to select an index into this table. The counter value stored at this index is combined with the result of another hash function $F_{K_1}$ to compute a candidate source port within the ephemeral port range.
+
+% Importantly, all TCP connections on a device share the same perturbation table. As a result, the counter values in the table may already have been incremented by other unrelated TCP connections, introducing additional variability and making the table's state dependent on the system's global network activity.
+
+The algorithm operates as described in Algorithm~\ref{alg:dhps_port_selection}:
 \begin{itemize}
-    \item It calculates an \texttt{offset} by applying the hash function \( F \) to the 3-tuple.
-    \item It calculates an \texttt{index} into the perturbation table by applying the hash function \( G \) to the 3-tuple.
+    \item It calculates an \texttt{offset} by applying the keyed hash function \( F_{K_1} \) to the 3-tuple.
+    \item It calculates an \texttt{index} into the perturbation table by applying the keyed hash function \( G_{K_2} \) to the 3-tuple.
     \item It computes a candidate port number using:
     \[
-      \texttt{candidate\_port} = \texttt{min\_ephemeral} + ((\texttt{offset} + \text{table[\texttt{index}]}) \bmod \texttt{num\_ephemeral})
+      \texttt{candidate\_port} = \texttt{min\_ephemeral} + \bigl((\texttt{offset} + \text{table[\texttt{index}]}) \bmod \texttt{num\_ephemeral}\bigr)
     \]
     where \texttt{min\_ephemeral} and \texttt{num\_ephemeral} define the allowed range of ephemeral ports.
-  \item It checks whether the candidate port is suitable. If the port is already in use or otherwise unsuitable, the algorithm increments the entry in the perturbation \texttt{table} at the calculated \texttt{index}. As a consequence, the next time this same table entry is used, the computed port number is also incremented by 1, unless the port is already at the end of the ephemeral range, in which case it wraps around to the beginning of the range. 
-  \item This process repeats until a free port is found or no ports remain.
+    \item It checks whether the candidate port is suitable. If the port is already in use or otherwise unsuitable, the algorithm increments the entry in the perturbation \texttt{table} at the calculated \texttt{index}. As a consequence, the next time this same table entry is used, the computed port number is also incremented by 1, unless the port is already at the end of the ephemeral range, in which case it wraps around to the beginning of the range.
+    \item This process repeats until a free port is found or no ports remain. This loop is controlled by the variable \texttt{count}, which is decremented on each attempt and terminates the algorithm when it reaches zero.
 \end{itemize}
 
 \begin{center}
@@ -162,7 +180,9 @@ which advances the state in the perturbation table in a predictable way used by 
 The attack exploits collisions in the following sense:
 
 \begin{equation*}
-\mathrm{GK2}(\mathrm{IPSRC} = 127.0.0.1,\; \mathrm{IPDST} = 127.1.2.3,\; \mathrm{PORTDST} = x) \;=\; \mathrm{GK2}(\mathrm{IPSRC} = 127.0.0.1,\; \mathrm{IPDST} = 127.1.2.3,\; \mathrm{PORTDST} = y)
+G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{SRC}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{DST}} = 127.1.2.3,\; \mathrm{PORT}_{\mathrm{DST}} = x \bigr)
+=
+G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{SRC}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{DST}} = 127.1.2.3,\; \mathrm{PORT}_{\mathrm{DST}} = y \bigr)
 \end{equation*}
 
 This means that two different loopback 3-tuples, differing only in destination port numbers $x$ and $y$, hash to the same cell in the perturbation table under the function $\mathrm{GK2}$. These collisions depend solely on the kernel’s secret key $K_2$ generated at system startup. Hence, they form the basis of a device ID.

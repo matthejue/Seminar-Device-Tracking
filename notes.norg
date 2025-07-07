@@ -25,6 +25,8 @@
   - Proxies
   - 2 spaltiger Report erlaubt?
   - was muss ich zu TCP Syn Packeten wissen?
+  - warum tcp nicht ohne diese Fehler designed?
+  - warum geht es nicht eifache alle ports auf einmall zu schicken?
 
 * Zu klärende Fragen
   - does one have to always us same loopback addresses but differnert attacker tuples possible?
@@ -34,6 +36,8 @@
   - warum funktioniert es über manche VPNS oder Proxies?
   - warum kann man nicht einfach device id aus attacker 3-tuples bauen?
   - warum muss man sich in Phase 1 nicht um andere TCP connections Gedanken machen?
+  - wie löste Meltdown das Problem?
+  - warurm sieht dhps so aus, wie es aussieht?
 
 * Darüber noch informieren
   - How Meltdown work, so sind sich beide Verfahren ähnlich?
@@ -44,8 +48,10 @@
   - warum sieht der DHCP algorithmus so aus?
   - TCP und UDP generelles Wissen
   - attacker 3-tuple that is also in the TCP-Syn packet?
+  - mögliche Angriffe, wenn man keinen source port selection Algorithmus nutzt, off path, blind reset und data blind injection attack
 
 * Fragen an Studenten
+  - welcher von beiden Keys ist der Key von dem ich Anfang gesprochen habe?
   - what is the only predictable things?
   - what are loopback tuples / adresses?
   - why loop T many times?
@@ -67,6 +73,7 @@
   -- weil Key einmal beim Starten des PC's erstellt wird
   - kann man Index in T-Table Zelle  eines attacker tuples mappings heruasfinden?
   -- man weiß nicht genau welche Zelle der T-Table, man weiß nur, dass jedes attacker 3-tuple auf eine Zelle mapt
+  - golden image test name origin
 
 * Appendix Fragen
   - this formula behind n
@@ -116,13 +123,15 @@
   - ( ) was genaub das x bei {x | P(x) - P'(x) = 1} ist
   -- ( ) durch was genau der iota operator ist dich von  {x | P(x) - P'(x) = 1} unterschiedet, nur genau ein Element
   - ( ) TCP Syn-Pakete die relevanten Felder markieren
+  - ( ) By indirectly observing such collisions for loopback 3-tuples inputs, the attacker calculates an *invariant* device ID
 
 * Erklärweise
 ** Vogehen allgemien
    - have attacker 3-tuples and loopback 3-tuples, why importat later
-   - device id by loopback 3-tuple colisions inside a perturbation table, independant loopback destinationsports, structure they build, this G()=G() formula
+   - invariant device id by indirectly observing loopback 3-tuple colisions inside a perturbation table, independant loopback destination ports, structure they build, this G()=G() formula
    -- why independant *ToDo*
-   -- devide id by attacker 3-tuple colisions is not consistent across networks, "using the Internet-facing address of the device does not yield a consistent device ID across networks", 127.x.x.x does not change across networks *(question to students)*
+   - the key mentioned in section introduction is the key k2 that is randomly generated at each system startup, creating a persistent and invariant \alert{device ID} that survives browser privacy modes and network changes (it persists across browsers, browser privacy mode, network switching, some VPNs, and even across Linux containers)
+   -- device id by attacker 3-tuple colisions is not consistent across networks, "using the Internet-facing address of the device does not yield a consistent device ID across networks", 127.x.x.x does not change across networks *(question to students)*
    - like in particle accelerator only observe affects
    - website limited access, cannot see sourceport address calculated by dhps for loopback tuple
    - abusing that perturbation table incremented in a predictable way
