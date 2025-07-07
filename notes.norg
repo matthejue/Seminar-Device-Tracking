@@ -38,6 +38,7 @@
   - warum muss man sich in Phase 1 nicht um andere TCP connections Gedanken machen?
   - wie löste Meltdown das Problem?
   - warurm sieht dhps so aus, wie es aussieht?
+  - kann man aus TCP-Syn Packet wirklich das gesamte 4-Tuple ablesen oder nur source port?
 
 * Darüber noch informieren
   - How Meltdown work, so sind sich beide Verfahren ähnlich?
@@ -128,24 +129,25 @@
 * Erklärweise
 ** Vogehen allgemien
    - have attacker 3-tuples and loopback 3-tuples, why importat later
-   - invariant device id by indirectly observing loopback 3-tuple colisions inside a perturbation table, independant loopback destination ports, structure they build, this G()=G() formula
-   -- why independant *ToDo*
-   - the key mentioned in section introduction is the key k2 that is randomly generated at each system startup, creating a persistent and invariant \alert{device ID} that survives browser privacy modes and network changes (it persists across browsers, browser privacy mode, network switching, some VPNs, and even across Linux containers)
+   - fingerprint mentioned in introduction is invariant device id by indirectly observing which loopback 3-tuple colisions inside a perturbation table and the structure they build, this G()=G() formula
+   -- independant loopback destination ports
+   --- why independant *ToDo*
+   -- the key mentioned in section introduction is the key k2, parameter to G function, persistent and invariant device ID is tied to this key that is randomly generated at each system startup and thus survives browser privacy modes and network changes (it persists across browsers, browser privacy mode, network switching, some VPNs, and even across Linux containers)
    -- device id by attacker 3-tuple colisions is not consistent across networks, "using the Internet-facing address of the device does not yield a consistent device ID across networks", 127.x.x.x does not change across networks *(question to students)*
-   - like in particle accelerator only observe affects
-   - website limited access, cannot see sourceport address calculated by dhps for loopback tuple
-   - abusing that perturbation table incremented in a predictable way
-   - blackbox, only see syn packets to attacker device
-   -- one uses sandwich method: that uses attacker 3-tuples and how their destination port calculated by dhps changes in a predictable way to detect colisions of 3-tuples in the perturbation table
-   --- attacker 3-tuples used to detect those changes, because only through them these increments in the sourrce port can be observed, as the attacker gets TCP-Syn packets for them where he can read out the mapping from a attacker 3-tuple to a source port after applying the sandwich
-   --- the general principle is:
-   ---- first in the sandwich dhps for a attacker 3-tuple caculates one source port
-   ---- and for same attacker 3-tuple in the sandwich dhps later caculates a 2nd time a source port which will this time be incremented by 1 compared to first
-   ---- if inside the sandwich in between those 2 points in time another tcp connection (internet-facing or loopback) uses the same perturbaton table cell
-   ----- then the 2nd time the same attacker 3-tuple in the sanwich makes a tcp connection dhcp will calculate a source port that is increment by 2 and not 1 compared to the first calculated source port in the sandwich
-   ---- this sanwdich method can be used to determine colisions of 3-tuples (internet-facing or loopback) in a cell of the perturbation table
-   ----- this is e.g. used in phase 1 and phase 2 to draw different conclusions
-   -- one detects collisions of loopback 3-tuples in the same perturbation table cell via colisions of loopback 3-turples and attacker 3-tuples in the same perturbation table cell
+   - website loaded on attacked device, website limited access
+   -- blackbox, only see TCP-Syn packets to attacker device from which one can read out 4-tuple that includes the source port
+   - like in particle accelerator, only observe side-effects of collisions of loopback 3-tuples in perturbation table cells, a method that uses those sideffects is...
+   - sandwich method: that uses attacker 3-tuples and exploits / abuses that their destination port calculated by dhps changes in a predictable way to detect collisions of 3-tuples (internet-facing / attacker or loopback) in cell of perturbation table (*usecase*)
+   -- destination port calculated by dhps increments in a predictable way because in dhps algorithm perturbation table incremented in a predictable way in line ...
+   -- attacker 3-tuples have to be used to detect those increments, because the attacker can only gets TCP-Syn packets for them and thereby the essential sourceport address calculated by dhps for attacker 3-tuple, not possible for loopback 3-tuple
+   -- the general principle is:
+   --- first in the sandwich dhps for a attacker 3-tuple caculates one source port
+   --- and for same attacker 3-tuple in the sandwich dhps later caculates a 2nd time a source port which will this time be incremented by 1 compared to first
+   --- if inside the sandwich in between those 2 points in time another tcp connection (internet-facing or loopback) uses the same perturbaton table cell
+   ---- then the 2nd time the same attacker 3-tuple in the sandwich makes a tcp connection dhcp will calculate a source port that is increment by 2 and not 1 compared to the first calculated source port in the sandwich
+   --- after applying sandwich one knows which attacker 3-tuple had which source port at which point in time, because the TCP-Syn packet basically includes the full attacker 4-tuple which can easily be transformed into a mapping from a attacker 3-tuple to a source port
+   -- to actually detect which loopback 3-tuples collide in the same perturbation table cell (phase 2) one has to look at colisions of loopback 3-turples and attacker 3-tuples in the same perturbation table cell via sandwich method
+   --- for this one also needs a set of attacker 3-tuples that cover each cell of the perturbation table which one determiens in phase 1 via the sandwich method
 ** Phase 1
    - output: unique attacker 3-tuples
    - sawndwich method

@@ -45,7 +45,8 @@ These attacks demonstrated a broader principle: that subtle side effects in comp
 
 In a similar spirit, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the Hebrew University of Jerusalem discovered an attack that exploits Linux’s \alert{TCP source port selection algorithm} to track devices.
 
-Like Meltdown, this attack targets \alert{security} and compromises confidentiality, not by directly revealing secret data, but by exploiting side effects that produce predictable patterns in how TCP source ports are assigned and incremented across connections. These patterns allow an attacker to infer a fingerprint uniquely tied to a \alert{secret device-specific key}.
+Like Meltdown, this attack targets \alert{security} and compromises confidentiality, but not by directly revealing secret data, but by exploiting side effects that produce predictable patterns in how TCP source ports are assigned and incremented across connections. These patterns allow an attacker to infer a fingerprint uniquely tied to a \alert{secret device-specific key}.
+% Like Meltdown, this attack targets \alert{security} and compromises confidentiality, but not by directly revealing secret data, but by exploiting side effects that produce predictable patterns in how TCP source ports are assigned and incremented across connections. These patterns allow an attacker to infer a invariant \alert{device ID} uniquely tied to a \alert{secret device-specific key}.
 %, and effectively leaking information about internal state in a way that violates privacy and confidentiality.
 
 \section{About this report}
