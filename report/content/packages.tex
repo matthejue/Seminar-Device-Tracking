@@ -60,6 +60,8 @@
 \addbibresource{Seminar Device Tracking.bib}
 \renewcommand*{\bibfont}{\footnotesize}
 
+% \usepackage[nonumberlist, automake]{glossaries-extra}
+
 % ┌─────────┐
 % │ Itemize │
 % └─────────┘
@@ -109,17 +111,21 @@
 
 \definecolor{PrimaryColor}{HTML}{ED870D}
 \definecolor{PrimaryColorDimmed}{HTML}{EDC595}
-% \definecolor{SecondaryColor}{HTML}{F6AF3D}
-% \definecolor{SecondaryColorDimmed}{HTML}{F6DBB0}
+\definecolor{SecondaryColor}{HTML}{F6AF3D}
+\definecolor{SecondaryColorDimmed}{HTML}{F6DBB0}
 \definecolor{SwitchColor}{named}{PrimaryColor}
 \colorlet{BoxColor}{gray!10!white}
-
 
 % ┌───────┐
 % │ Links │
 % └───────┘
 % \usepackage[allbordercolors=PrimaryColor, pdfborder={0 0 .2}]{hyperref}
 \usepackage[colorlinks=true, allcolors=PrimaryColor]{hyperref}
+
+% ┌──────────┐
+% │ Glossary │
+% └──────────┘
+% \usepackage[nonumberlist, automake]{glossaries-extra} % must come after hyperref
 
 % ┌──────────────┐
 % │ Pseudo Code  │

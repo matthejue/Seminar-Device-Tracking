@@ -84,3 +84,17 @@
 \renewcommand{\labelenumi}{\textbf{\textcolor{SwitchColor}{\theenumi.}}}
 \renewcommand{\labelenumii}{\textbf{\textcolor{SwitchColor}{\theenumii.}}}
 \renewcommand{\labelenumiii}{\textbf{\textcolor{SwitchColor}{\theenumiii.}}}
+
+% ┌──────────┐
+% │ Glossary │
+% └──────────┘
+\newcommand{\ditem}[2]{%
+\item \hypertarget{#1}{\alert{#2}}:%
+}
+
+% \usepackage[nonumberlist, automake]{glossaries-extra}
+% \newglossary[conv]{conv}{con}{cns}{}
+% \makeglossaries
+%
+% \renewcommand*{\glsnamefont}[1]{\textcolor{PrimaryColor}{#1}}
+% \renewcommand*{\glossarysection}[2][]{}

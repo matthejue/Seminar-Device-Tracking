@@ -17,7 +17,7 @@ while $|\tt{S'}| < \tt{T}$ do\\+
 $\tt{S}_i$ $\leftarrow$ \cn{GetNewExternalDestinations}()\\
 \cmt{// $\forall_{j<i}(\tt{S}_i \cap \tt{S}_j = \emptyset)$}\\
 \tt{P} $\leftarrow$ \cn{GetSroucePorts}($\tt{S}_i$) \cmt{// 1st burst}\\
-\cn{SendBurst}(S') \cmt{// 2nd burst}\\
+\cn{SendBurst}(\tt{S'}) \cmt{// 2nd burst}\\
 \tt{P'} $\leftarrow$ \cn{GetSourcePorts}($\tt{S}_i$) \cmt{// 3rd burst}\\
 \tt{S'} $\leftarrow \tt{S'} \cup \{x\,|\,\tt{P'}(x)−\tt{P}(x)=1\}$\\
 \cmt{// $\tt{V}_i = \{\tt{x}\,|\,\tt{P'}(x)-\tt{P}(x) = 1\}$}\\-
