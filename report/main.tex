@@ -266,18 +266,14 @@ where $x_1, x_2, \ldots, x_k$ are the destination ports of the colliding loopbac
 
 A device ID based on collisions of \alert{attacker 3-tuples} would not remain consistent across networks because the source IP address visible to external servers typically changes whenever the device connects to a different network. In contrast, loopback addresses such as $127.x.x.x$ are internal to the device and remain stable across networks, making them suitable for deriving a consistent device ID. %The destination IP address and destination port, in comparison, generally remain constant if controlled by the attacker.
 
+The victim’s (Linux-based) device is assumed to run a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. This snippet implements the client-side logic of the tracking technique. When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the attacker’s tracking server, interleaved with TCP connection attempts to a localhost address.
+
+The attack operates in a website environment where JavaScript is restricted by the \alert{browser’s sandbox} and has only limited permissions. From the attacker’s perspective, the victim’s device is a \alert{black box}, revealing only \alert{TCP SYN packets} sent to the tracking server. From these packets, the attacker can read out the source port calculated by DHPS, so the attack works purely with network-level data observable from outside the device.
+
+The nature of the attack resembles the work of a \alert{particle accelerator}, where tiny particles cannot be observed directly and must instead be studied through the side effects they produce. Similarly, because of the restricted access available to JavaScript code, collisions of loopback 3-tuples within the perturbation table \alert{cannot be observed directly}. Instead, such collisions must be inferred indirectly by analyzing the side effects they produce on the observed sequence of source ports.
+
 \section{new}
 \label{sec:new}
-
-The victim’s (Linux-based) device is assumed to run a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. This snippet implements the client-side logic of the tracking technique.
-
-When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the attacker’s tracking server, interleaved with TCP connection attempts to a localhost address.
-
-The attack is performed in the context of such a website environment, where JavaScript code is restricted by the \alert{browser’s sandbox} and granted only limited permissions. The victim’s device is effectively treated as a \alert{black box} that executes a single snippet of JavaScript, which repeatedly interacts with the attacker’s server but has no direct access to low-level networking details or internal kernel state.
-
-The only information available to the attacker comes from \alert{TCP SYN packets} sent by the browser to the tracking server, so the attack works with network-level data visible from outside the device.
-
-The nature of the attack resembles the work of a particle accelerator, where tiny particles cannot be observed directly and must instead be studied through the side effects they produce. Similarly, because of the restricted access available to JavaScript code, collisions of loopback 3-tuples within the perturbation table cannot be observed directly. Instead, such collisions must be inferred indirectly by analyzing the side effects they produce on the observed sequence of source ports.
 
 A technique used to exploit these side effects is known as the \emph{sandwich method}. In this method, bursts of TCP connections to attacker destinations are sent, interleaved with connections to loopback addresses, to detect how the source ports assigned by DHPS change. Within DHPS, each cell in the perturbation table maintains a counter that is incremented by one every time the cell is used for allocating a new connection. Because this increment is predictable, the sequence of source ports chosen for successive connections reveals how frequently a particular perturbation table cell has been accessed.
 
@@ -285,8 +281,6 @@ However, source ports can only be observed for external connections, specificall
 
 \section {Trash}
 \label{sec:trash}
-
-The attack described in the paper works in two phases, because code executed in the browser from a website has only limited access. Essentially, the attacking device is a black box whose observable output consists of TCP SYN packets, from which the attacker reads the source ports.
 
 The attack exploits hash collisions in Linux’s Double-Hash Port Selection (DHPS) algorithm to build a device identifier. This situation is similar to a particle accelerator: just as one cannot directly observe the collisions of particles, one cannot directly observe the collisions of loopback 3-tuples in the perturbation table out of which the device ID is derived. However, the effects of such collisions can be seen because the source port for an attacker 3-tuple changes in a predictable way if a loopback 3-tuple collides with it in the same perturbation table cell. These source ports are observable via TCP SYN packets.
 
@@ -297,58 +291,6 @@ The predictability comes from the DHPS algorithm incrementing the table index de
 \]
 
 which advances the state in the perturbation table in a predictable way used by the attack algorithm.
-
-The attack exploits collisions in the following sense:
-
-\begin{equation*}
-	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{SRC}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{DST}} = 127.1.2.3,\; \mathrm{PORT}_{\mathrm{DST}} = x \bigr)
-	=
-	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{SRC}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{DST}} = 127.1.2.3,\; \mathrm{PORT}_{\mathrm{DST}} = y \bigr)
-\end{equation*}
-
-This means that two different loopback 3-tuples, differing only in destination port numbers $x$ and $y$, hash to the same cell in the perturbation table under the function $\mathrm{GK2}$. These collisions depend solely on the kernel’s secret key $K_2$ generated at system startup. Hence, they form the basis of a device ID.
-
-The device ID consists of the set of all such colliding pairs:
-
-\[
-	\left\{ (x_i, y_i) \right\}
-\]
-
-where each pair $(x_i, y_i)$ represents two destination ports for which the corresponding loopback 3-tuples collide under the same perturbation table cell. More concretely, if there are $k$ loopback 3-tuples falling into the same cell, only $k-1$ pairs are used, specifically:
-
-\[
-	(x_1, x_2),\; \ldots,\; (x_1, x_k)
-\]
-
-where $x_1, x_2, \ldots, x_k$ are destination ports used in loopback 3-tuples. This pairing avoids over-counting collisions. The set of these pairs uniquely represents the device as long as the secret key $K_2$ remains the same
-
-The device ID can be constructed across different networks and persists through network changes, browser restarts, and even different browsers or containers running on the same machine. However, it cannot survive device restarts because $K_2$ is regenerated upon each system startup.
-
-The attack distinguishes between two types of 3-tuples:
-
-\begin{itemize}
-	\item \alert{Attacker 3-tuples:} These consist of:
-	\begin{equation*}
-		(\mathrm{IP_{SRC}}_{\text{Internet-facing}}, \mathrm{IP_{DST}}_{\text{tracking server}}, \mathrm{PORT_{DST}})
-	\end{equation*}
-	They are used to cover the perturbation table and help detect changes in source ports.
-
-	\item \alert{Loopback 3-tuples:} These consist of:
-	\begin{equation*}
-		(\mathrm{IP_{SRC}} = 127.0.0.1, \mathrm{IP_{DST}} = 127.1.2.3, \mathrm{PORT_{DST}})
-	\end{equation*}
-	They are used to find collisions within the perturbation table and directly form the device ID. Only loopback 3-tuples contribute to the device ID, while attacker 3-tuples merely serve as probes to reveal perturbation table behavior.
-\end{itemize}
-
-The attack exploits the predictability of the port increment pattern to reveal these collisions and thus construct a stable, cross-network device ID.
-
-The attack consists of the following two phases described in \ref{sec:phase 1} and \ref{sec:phase 2}:
-
-% \begin{itemize}
-%     \item \alert{Phase 1:} The attacker identifies $T$ \emph{attacker 3-tuples}, each mapping to a unique cell in the perturbation table. This mapping is detected via specific port increments. The browser sends three bursts of TCP SYN packets to various external destinations, and the attacker checks which destination IP-port combinations cause the source port to increment by exactly $1$. These form the attacker 3-tuples.
-%
-%     \item \alert{Phase 2:} The attacker tests \emph{loopback 3-tuples} (where both source and destination IPs are loopback addresses) to see which perturbation table cell they map to. If two loopback 3-tuples hash to the same perturbation table cell, this creates a collision visible as a specific increment in the source port observed when the attacker “sandwiches” connections to the loopback 3-tuple between bursts of connections to the attacker 3-tuples.
-% \end{itemize}
 
 \section{Phase 1}
 \label{sec:phase 1}
