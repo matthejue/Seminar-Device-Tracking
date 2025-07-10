@@ -129,6 +129,9 @@
   - ( ) By indirectly observing such collisions for loopback 3-tuples inputs, the attacker calculates an *invariant* device ID
   - (x) bei Satz: "A device ID based..." noch konkrett was external IP, source or derstination?, ist wahrscheinlich source
   - ( ) Conventions and Terminology noch auf collision auf loopback 3 -tuples als concention das erste mal wo es vorkommt verweisen
+  - ( ) Eigschaften der Hash Funktion, kann man einfach jede nehmen?
+  - ( ) tracking server als weitere Instaz erwähnen
+  - ( ) This information is only available at the tracking server.
 
 * Erklärweise
 ** Vogehen allgemien
