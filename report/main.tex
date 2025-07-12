@@ -85,10 +85,10 @@ Device tracking techniques, particularly browser-based tracking, face challenges
 Device tracking techniques can be broadly categorized into the following two groups:
 
 \begin{itemize}
-	\item \alert{Tagging techniques:} These techniques insert an ID directly into the device, usually at the browser level. Examples include caching resources in the browser or storing data in mechanisms like cookies. However, tagging techniques are often ineffective when users switch to privacy modes or clear stored data.
+	\item \aalert{Tagging techniques:} These techniques insert an ID directly into the device, usually at the browser level. Examples include caching resources in the browser or storing data in mechanisms like cookies. However, tagging techniques are often ineffective when users switch to privacy modes or clear stored data.
 	% Can you telll me what   localStorage in the
 
-	\item \alert{Fingerprinting techniques:} These techniques measure characteristics of the system or browser to distinguish devices. Examples include differences in fonts, hardware details, or system language. However, fingerprinting techniques often struggle to solve the golden image challenge, as identical devices may produce identical fingerprints.
+	\item \aalert{Fingerprinting techniques:} These techniques measure characteristics of the system or browser to distinguish devices. Examples include differences in fonts, hardware details, or system language. However, fingerprinting techniques often struggle to solve the golden image challenge, as identical devices may produce identical fingerprints.
 \end{itemize}
 
 The attack described in the paper is a \alert{fingerprinting technique}, as it derives a device-specific identifier from the behavior of the operating system’s TCP source port selection rather than storing data in the browser. Unlike typical fingerprinting methods, it can successfully solve the \alert{golden image challenge}, because the identifier it produces depends on a per-device secret key generated at system boot. This allows it to distinguish between devices even when they share identical hardware and software configurations, and it remains effective across different browsers, privacy modes, networks, persisting until the device restarts.
@@ -99,10 +99,10 @@ The attack described in the paper is a \alert{fingerprinting technique}, as it d
 
 Source port selection is a mechanism used by the TCP/IP stack of operating systems to choose a TCP source port number for outbound TCP connections. It is required because a TCP connection between two endpoints is uniquely identified by the \alert{4-tuple}, consisting of:
 \begin{itemize}
-	\item the \alert{source IP} address,
-	\item the \alert{source port},
-	\item the \alert{destination IP} address, and
-	\item the \alert{destination port}.
+	\item the \aalert{source IP} address,
+	\item the \aalert{source port},
+	\item the \aalert{destination IP} address, and
+	\item the \aalert{destination port}.
 \end{itemize}
 
 \alert{Ports} exist so that multiple simultaneous network connections can operate on the same device, even to the same destination IP address and destination port. For example, a single machine might want to establish several independent TCP connections to the same remote server, and different source ports allow the operating system to distinguish these connections.
@@ -110,8 +110,8 @@ Source port selection is a mechanism used by the TCP/IP stack of operating syste
 A straightforward way to select source ports would be simply to choose the next available free port in sequence. But this approach is problematic because it fails to achieve two important goals that are also described in the paper:
 
 \begin{itemize}
-	\item \alert{Security:} Predictable source port numbers make it easier for attackers to perform off-path attacks, such as blind reset or data injection attacks, as they have to guess key connection details like the TCP 4-tuple (source and destination IP addresses and ports) and sequence numbers.
-	\item \alert{Functionality:} Quickly reusing the same source port can cause failures because earlier connections might still be active or in the \texttt{TIME\_WAIT} state on the server side. Reusing the same 4-tuple too soon can lead to errors or dropped connections.
+	\item \aalert{Security:} Predictable source port numbers make it easier for attackers to perform off-path attacks, such as blind reset or data injection attacks, as they have to guess key connection details like the TCP 4-tuple (source and destination IP addresses and ports) and sequence numbers.
+	\item \aalert{Functionality:} Quickly reusing the same source port can cause failures because earlier connections might still be active or in the \texttt{TIME\_WAIT} state on the server side. Reusing the same 4-tuple too soon can lead to errors or dropped connections.
 \end{itemize}
 
 \subsection{Double-Hash Port Selection Algorithm (DHPS)}
@@ -122,9 +122,9 @@ To address these goals, several algorithms for TCP source port selection have be
 
 TCP source ports are divided into different ranges, each serving distinct purposes:
 \begin{itemize}
-	\item \alert{Well-known ports} (typically ports 0–1023) are reserved for specific services such as HTTP (port 80) or HTTPS (port 443).
-	\item \alert{Registered ports} (typically ports 1024–49151) are assigned to user applications or services but are not ephemeral.
-	\item \alert{Ephemeral ports} (typically in the higher range, e.g. 32768–60999 in Linux) are dynamically allocated by the operating system for short-lived client-side connections.
+	\item \aalert{Well-known ports} (typically ports 0–1023) are reserved for specific services such as HTTP (port 80) or HTTPS (port 443).
+	\item \aalert{Registered ports} (typically ports 1024–49151) are assigned to user applications or services but are not ephemeral.
+	\item \aalert{Ephemeral ports} (typically in the higher range, e.g. 32768–60999 in Linux) are dynamically allocated by the operating system for short-lived client-side connections.
 \end{itemize}
 
 For the DHPS algorithm, the \alert{ephemeral port} range is particularly relevant because it represents the pool from which source ports are selected for outbound connections.
@@ -144,7 +144,7 @@ and by this completes the connection’s \alert{4-tuple}. To perform this select
 The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add randomness and unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries, all initially set to zero. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port, thus improving security and preventing collisions of TCP 4-tuples.
 
 % When a new TCP connection is established, the DHPS algorithm uses the cryptographic hash function $G_{K_2}$ on the connection's 3-tuple 
-% $(\mathrm{IP}_{\mathrm{SRC}}, \mathrm{IP}_{\mathrm{DST}}, \mathrm{PORT}_{\mathrm{DST}})$ 
+% $(\mathrm{IP}_{\mathrm{Src}}, \mathrm{IP}_{\mathrm{Dst}}, \mathrm{Port}_{\mathrm{Dst}})$ 
 % to select an index into this table. The counter value stored at this index is combined with the result of another hash function $F_{K_1}$ to compute a candidate source port within the ephemeral port range.
 
 % Importantly, all TCP connections on a device share the same perturbation table. As a result, the counter values in the table may already have been incremented by other unrelated TCP connections, introducing additional variability and making the table's state dependent on the system's global network activity.
@@ -177,34 +177,26 @@ The algorithm operates as described in Algorithm~\ref{alg:dhps_port_selection}:
 \chapter{Attack}
 \label{sec:attack}
 
-% In the attack two main parties are involved:
-%
-% \begin{itemize}
-%     \item \alert{Tracking server}: This server is controlled by the attacker and receives the TCP connection attempts sent from the client device. It collects and analyzes the observed TCP source ports in order to calculate a device ID and track the victim.
-%
-%     \item \alert{Client device}: This is the device running a browser which loads a web page containing a tracking snippet. The browser executes JavaScript code that establishes TCP connections both to the attacker's tracking server and to loopback addresses, enabling the tracking technique to reveal a unique device ID.
-% \end{itemize}
-%
 In the attack, two main parties are involved:
 
 \begin{itemize}
-    \item \alert{Tracking server}: This server is controlled by the \alert{attacker} and receives the TCP connection attempts initiated from the client device. It analyzes the observed TCP source ports in order to calculate a device ID and track the victim.%across networks and browsing sessions.
+    \item \aalert{Tracking server}: This server is controlled by the \alert{attacker} and receives the TCP connection attempts initiated from the client device. It analyzes the observed TCP source ports in order to calculate a device ID and track the victim.%across networks and browsing sessions.
     
-    \item \alert{Client device}: This is the \alert{victim’s} (Linux-based) device, which runs a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the \alert{tracking server}, interleaved with TCP connection attempts to a \alert{localhost address}. %These connection attempts enable the tracking technique to reveal a unique device ID based on the observed source ports.
+    \item \aalert{Client device}: This is the \alert{victim’s} (Linux-based) device, which runs a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the \alert{tracking server}, interleaved with TCP connection attempts to a \alert{localhost address}. %These connection attempts enable the tracking technique to reveal a unique device ID based on the observed source ports.
 \end{itemize}
 
 Two types of 3-tuples are distinguished in the attack:
 
 \begin{itemize}
-	\item \alert{Attacker 3-tuples:} These have the form
+	\item \aalert{Attacker 3-tuples:} These have the form
 	\begin{equation*}
-		(\mathrm{IP_{SRC}}_{\text{Internet-facing}}, \mathrm{IP_{DST}}_{\text{tracking server}}, \mathrm{PORT_{DST}})
+		(\mathrm{IP_{Src}}_{\text{Internet-facing}}, \mathrm{IP_{Dst}}_{\text{tracking server}}, \mathrm{Port_{Dst}})
 	\end{equation*}
 	where the source IP address is the Internet-facing address of the device, and the destination IP address belongs to the tracking server.
 
-	\item \alert{Loopback 3-tuples:} These have the form
+	\item \aalert{Loopback 3-tuples:} These have the form
 	\begin{equation*}
-		(\mathrm{IP_{SRC}} = 127.0.0.1, \mathrm{IP_{DST}} = 127.1.2.3, \mathrm{PORT_{DST}})
+		(\mathrm{IP_{Src}} = 127.0.0.1, \mathrm{IP_{Dst}} = 127.1.2.3, \mathrm{Port_{Dst}})
 	\end{equation*}
 	where both source and destination IP addresses are loopback addresses on the device. \alert{Loopback addresses} refer to the local machine itself and are used for internal communication within the device. Only the \alert{destination port} varies among loopback 3-tuples.
 \end{itemize}
@@ -214,9 +206,9 @@ We will see later why distinguishing these two types of 3-tuples is important.
 The fingerprint mentioned in the introduction Section~\ref{sec:introduction} of this report is the \alert{device ID} that is built by indirectly observing the structure formed by \alert{collisions of loopback 3-tuples} inside the perturbation table. Such a collision occurs if two loopback 3-tuples differing only in their destination port numbers $x$ and $y$ satisfy
 
 \begin{equation*}
-	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{SRC}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{DST}} = 127.1.2.3,\; \mathrm{PORT}_{\mathrm{DST}} = x \bigr)
+	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\; \mathrm{Port}_{\mathrm{Dst}} = x \bigr)
 	=
-	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{SRC}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{DST}} = 127.1.2.3,\; \mathrm{PORT}_{\mathrm{DST}} = y \bigr)
+	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\; \mathrm{Port}_{\mathrm{Dst}} = y \bigr)
 \end{equation*}
 
 meaning that both tuples hash to the same cell in the perturbation table under the function $\mathrm{G_{K_2}}$. These collisions depend solely on the kernel’s \alert{secret key} $K_2$, which is the same secret key mentioned in the introduction Section~\ref{sec:introduction}. This key is randomly generated each time the \alert{system starts} and remains constant as long as the device stays powered on. Consequently, the device ID is directly tied to $K_2$ and persists across browser sessions, private browsing modes, and network changes.
@@ -235,38 +227,96 @@ where each pair $(x_i, y_i)$ represents \alert{two destination ports} whose corr
 
 where $x_1, x_2, \ldots, x_k$ are the destination ports of the colliding loopback 3-tuples. This means that for each group of colliding loopback tuples, the first discovered tuple $x_1$ is paired with every other tuple in that group, as further detailed in Phase 2 of the attack. Pairs beyond these $k-1$ would be \alert{dependent} because their collisions are fully implied by the existing pairs\footnote{For example, knowing that both $(x_1, x_2)$ and $(x_1, x_3)$ collide makes it redundant to additionally record $(x_2, x_3)$.}. This is crucial for the probability analysis in the paper, where the probability that a random device produces the same set of collisions depends solely on the number of independent pairs observed.
 
-A device ID based on collisions of \alert{attacker 3-tuples} would not remain consistent across networks because the source IP address visible to external servers typically changes whenever the device connects to a different network. In contrast, loopback addresses such as $127.x.x.x$ are internal to the device and remain stable across networks, making them suitable for deriving a consistent device ID.
+A device ID based on collisions of \alert{attacker 3-tuples} would not remain consistent across networks because the source IP address visible to external servers typically changes whenever the device connects to a different network. In contrast, \alert{loopback 3-tuples} with loopback addresses such as $127.x.x.x$ are internal to the device and remain stable across networks, making them suitable for deriving a consistent device ID.
 
-% The (Linux-based) \alert{client device} is assumed to run a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. This snippet implements the client-side logic of the tracking technique. When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the \alert{tracking server}, interleaved with TCP connection attempts to a \alert{localhost address}.
+% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server. To observe these ports, the attacker must rely on \alert{attacker 3-tuples}, because only such connections generate TCP SYN packets visible to the server, while \alert{loopback 3-tuples} remain internal to the device and cannot be directly observed.
 
-The attack operates in a website environment where JavaScript is restricted by the \alert{browser’s sandbox} and has only limited access. From the attacker’s perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} sent to the tracking server. From these packets, the tracking server can read out the source port calculated by DHPS, so the attack works purely with network-level data observable from outside the device.
+% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server, but only for connections using \alert{attacker 3-tuples} and not for \alert{loopback 3-tuples}. To observe these ports, the attacker must rely on \alert{attacker 3-tuples}, because only such connections generate TCP SYN packets visible to the server, while \alert{loopback 3-tuples} remain internal to the device and cannot be directly observed.
+% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server, but only for connections using \alert{attacker 3-tuples} and not for \alert{loopback 3-tuples}. Although \alert{loopback 3-tuples} also generate TCP SYN packets internally, these packets never leave the device and are not accessible from outside, and due to the \alert{browser's sandbox} with its limited access, even the browser itself cannot directly observe these packets or the \alert{source ports} generated by DHPS for loopback connections.
+% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server, but only for connections using \alert{attacker 3-tuples}. This is because \alert{attacker 3-tuples} have the tracking server as their destination IP address, causing the SYN packets to traverse the network and become observable by the server. In contrast, \alert{loopback 3-tuples} use the client device itself as the destination IP, so although they also generate TCP SYN packets internally, these packets never leave the device and remain inaccessible from outside. Moreover, due to the \alert{browser's sandbox} and its limited access, even the browser cannot directly observe these internal packets or the \alert{source ports} generated by DHPS for loopback connections.
+% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server for connections using \alert{attacker 3-tuples}. These attacker 3-tuples have the tracking server as the destination IP, making their TCP SYN packets observable over the network. In contrast, \alert{loopback 3-tuples} use the client device itself as destination, so their TCP SYN packets remain internal and are inaccessible both to the tracking server and to the \alert{browser's sandbox}, which cannot access the \alert{source ports} generated by DHPS for such internal connections.
+% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. In contrast, \alert{loopback 3-tuples} use the client device itself as the destination IP address, so their TCP SYN packets remain entirely internal to the device and are inaccessible both to the tracking server and to the \alert{browser's sandbox}, which cannot access the \alert{source ports} generated by DHPS for such internal connections. Therefore, to make the source ports observable to the tracking server, the attack relies on \alert{attacker 3-tuples}, which have the tracking server as their destination IP address, causing their TCP SYN packets to traverse the network and reveal the \alert{source port} chosen by DHPS in their headers.
 
-The nature of the attack resembles the principle of a \alert{particle accelerator}, where tiny particles cannot be observed directly and must instead be studied through the side effects they produce. Similarly, because of limited access, collisions of loopback 3-tuples within the perturbation table \alert{cannot be observed directly}. Instead, such collisions must be inferred indirectly by analyzing the side effects that appear as observable patterns in how TCP source ports are incremented accross connections by DHPS.
+The nature of the attack resembles the principle of a \alert{particle accelerator}, where tiny particles cannot be observed directly and must instead be studied through the side effects they produce. Similarly, because there is no direct access to kernel internals such as the perturbation table, collisions of loopback 3-tuples (used to build the device ID) within the perturbation table \alert{cannot be observed directly}. Instead, such collisions must be inferred indirectly by analyzing the side effects that appear as observable patterns in how TCP source ports are incremented across connections by DHPS.
 
-These observable patterns arise because, in the DHPS algorithm, each cell in the perturbation table maintains a counter that is incremented by 1 in a predictable manner every time it is used to generate a candidate source port, as shown in Algorithm~1, line~9:
+These observable patterns arise because, in the DHPS algorithm, each cell in the perturbation table maintains a counter that is incremented by 1 in a predictable manner every time it is used to generate a candidate source port, as shown in Algorithm~\ref{alg:dhps_port_selection}, line~9:
 
 \[
 \texttt{table[index]} \leftarrow \texttt{table[index]} + 1.
 \]
 
-\section{new}
-\label{sec:new}
+A technique that exploits these predictable TCP source port increments to detect collisions of 3-tuples (attacker or loopback) is known as \alert{sandwiching}. The general principle of sandwiching is that there is a \alert{wrapper} and a \alert{filling}, as visualized in the following schema:
 
-A technique that exploits these predictable increments to detect collisions of 3-tuples (attacker or loopback) is known as \alert{sandwiching}. In this technique, bursts of TCP connections are made to attacker destinations both before and after a connection attempt involving a loopback 3-tuple. By observing the sequence of source ports assigned to the attacker 3-tuples, it becomes possible to detect whether the loopback connection caused an increment in the perturbation table cell shared with the attacker connections, thereby revealing a collision.
+\begin{center}
+\begin{tblr}{
+  colspec={|c|Q[l]|},
+  row{1}={bg=PrimaryColor,fg=white,font=\bfseries},
+  row{2}={bg=PrimaryColorDimmed},
+  row{3}={bg=SecondaryColorDimmed},
+  row{4}={bg=PrimaryColorDimmed},
+  hlines
+}
+\textbf{Step} & \textbf{Calculation} \\ 
 
-Sandwiching must rely on \alert{attacker 3-tuples} to observe these increments because only for such connections are TCP SYN packets sent to the tracking server, allowing the attacker to learn the source port number assigned by DHPS. This is not possible for \alert{loopback 3-tuples}, because loopback connections never leave the machine and their source ports cannot be directly observed by the attacker. Consequently, the attacker must infer collisions involving loopback 3-tuples solely through their side effects on subsequently observed attacker connections.
+Wrapper & 
+\(
+\begin{aligned}
+&i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X}) \\
+&\text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X}) \\
+&\text{Port}_{\text{Src},1} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i]\bigr)\bmod \text{num\_ephemeral} \\
+&\text{table}[i] = \text{table}[i] + 1
+\end{aligned}
+\) \\
 
-A technique that exploits these predictable increments to detect collisions of 3-tuples (whether attacker or loopback) is known as \alert{sandwiching}. Sandwiching must rely on \alert{attacker 3-tuples} to observe these increments, because only connections built upon attacker 3-tuples result in TCP SYN packets being sent to the tracking server, allowing the attacker to learn the source port numbers assigned by DHPS. This is not possible for \alert{loopback 3-tuples}, because loopback connections never leave the machine and their source ports cannot be directly observed by the attacker.
+Filling & 
+\(
+\begin{aligned}
+&j = G_{K_2}(\text{IP}_{\text{Src},Y}, \text{IP}_{\text{Dst},Y}, \text{Port}_{\text{Dst},Y}) \\
+&\text{offset}_Y = F_{K_1}(\text{IP}_{\text{Src},Y}, \text{IP}_{\text{Dst},Y}, \text{Port}_{\text{Dst},Y}) \\
+&\text{Port}_{\text{Src},2} = \text{min\_ephemeral} + \bigl(\text{offset}_Y + \text{table}[j]\bigr)\bmod \text{num\_ephemeral} \\
+&\text{table}[j] = \text{table}[j] + 1
+\end{aligned}
+\) \\
 
-Consequently, the attacker must infer collisions involving loopback 3-tuples solely through their side effects on subsequently observed attacker connections.
+Wrapper & 
+\(
+\begin{aligned}
+&i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X}) \\
+&\text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X}) \\
+&\text{Port}_{\text{Src},3} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i] + \delta \bigr)\bmod \text{num\_ephemeral} \\
+&\text{table}[i] = \text{table}[i] + 1
+\end{aligned}
+\) \\
+\end{tblr}
+\end{center}
 
+\vspace{0.5em}
 
-\section{trash}
-\label{sec:trash}
+where
+\[
+\delta =
+\begin{cases}
+1, & \text{if } i \neq j,\ \text{meaning that perturbation table cell } i \text{ was not used in the filling step,} \\
+2, & \text{if } i = j,\ \text{meaning that perturbation table cell } i \text{ was used in the filling step.}
+\end{cases}
+\]
 
-A technique used to exploit these side effects is known as the \emph{sandwich method}. In this method, bursts of TCP connections to attacker destinations are sent, interleaved with connections to loopback addresses, to detect how the source ports assigned by DHPS change. Within DHPS, each cell in the perturbation table maintains a counter that is incremented by one every time the cell is used for allocating a new connection. Because this increment is predictable, the sequence of source ports chosen for successive connections reveals how frequently a particular perturbation table cell has been accessed.
+\begin{itemize}
+    \item In the \aalert{first wrapper step}, DHPS calculates \(\text{Port}_{\text{Src},1}\) for the 3-tuple \( X \), based on the current value in cell \( i \) of the perturbation table. Afterwards, \(\text{table}[i]\) is incremented by 1.
+    \item In the \aalert{filling step}, a different 3-tuple \( Y \) is used, producing \(\text{Port}_{\text{Src},2}\) based on cell \( j \). If \( j = i \), then \(\text{table}[i]\) is incremented again.
+    \item In the \aalert{second wrapper step}, DHPS calculates \(\text{Port}_{\text{Src},3}\) for the same 3-tuple \( X \). If \( j \neq i \), then \(\text{Port}_{\text{Src},3} = \text{Port}_{\text{Src},1} + 1\). Otherwise, if \( j = i \), then \(\text{Port}_{\text{Src},3} = \text{Port}_{\text{Src},1} + 2\). A collision between 3-tuples \( X \) and \( Y \) is detected precisely when \(\text{Port}_{\text{Src},3}\) is greater than \(\text{Port}_{\text{Src},1} + 1\), indicating that both 3-tuples map to the same perturbation table cell \( i \).
+\end{itemize}
 
-However, source ports can only be observed for external connections, specifically for \emph{attacker 3-tuples}, since JavaScript running in the browser does not have access to TCP-level details for connections to localhost addresses. Therefore, attacker 3-tuples are essential for detecting increments in the perturbation table and for inferring which loopback 3-tuples map to the same perturbation table cell. This indirect observation enables the detection of collisions among loopback 3-tuples, which form the basis for constructing a stable device ID.
+The explanation above illustrates the core idea of sandwiching in a simplified example. In practice, several additional factors must be taken into account:
+
+\begin{itemize}
+    \item \aalert{Background noise:} In real-world scenarios, there is also \alert{noise} caused by other TCP connection attempts from unrelated processes on the client device. These connections occur alongside the TCP connection attempts of the tracking snippet and can also increment the perturbation table cell \( i \).%, potentially obscuring the detection of collisions.
+    \item \aalert{Multiple connection attempts:} Typically, multiple TCP connection attempts are established both in the wrapper and the filling steps, using several different 3-tuples. After applying the sandwiching technique, one knows which 3-tuples produced which source port values at specific points in time, because the \alert{TCP SYN packet headers} include the full attacker 4-tuple. This information can be easily transformed into a mapping from each attacker 3-tuple to its corresponding source port:
+      \[
+        (\mathrm{IP_{Src}}, \mathrm{IP_{Dst}}, \mathrm{Port_{Dst}}) \;\mapsto\; \mathrm{Port_{Src}}\;\text{.}
+      \]
+    \item \aalert{Limitations for loopback 3-tuples:} Unfortunately, the attack does not work with arbitrary 3-tuples. The tracking snippet cannot directly access the TCP source ports that DHPS generates for 3-tuples, because these ports are read from TCP SYN packet headers, and JavaScript in the \alert{browser’s sandbox} operates at a higher level than the TCP layer. Consequently, there is no way to access TCP SYN packets for \alert{loopback 3-tuples} on the client device, since their destination IP address is the machine itself and these connections remain internal. In contrast, \alert{attacker 3-tuples} target the tracking server’s IP address, allowing the \alert{tracking server} to observe their TCP SYN packets and read the source ports. Therefore, attacker 3-tuples are used as the wrapper in the sandwiching technique to make collisions with loopback 3-tuples observable.
+\end{itemize}
 
 \section{Phase 1}
 \label{sec:phase 1}
@@ -306,7 +356,7 @@ where $P(x)$ and $P'(x)$ denote the source ports assigned to $x$ in the first an
 Although it is impossible to directly determine to which specific index in the perturbation table an attacker 3-tuple is mapped, it is still possible to identify that a certain attacker 3-tuple is the \emph{first} to map to a cell, as no collisions were observed in the sandwich construction for that tuple. The attacker can relate observed source ports to attacker 3-tuples because the tracking server maintains a mapping:
 
 \[
-	(\mathrm{IP_{SRC}}, \mathrm{IP_{DST}}, \mathrm{PORT_{DST}}) \;\rightarrow\; \mathrm{PORT_{SRC}}
+	(\mathrm{IP_{Src}}, \mathrm{IP_{Dst}}, \mathrm{Port_{Dst}}) \;\rightarrow\; \mathrm{Port_{Src}}
 \]
 
 obtained from analyzing the TCP SYN packets sent during the bursts.
@@ -398,15 +448,15 @@ An \alert{ideal solution} would be to create a private perturbation table for ea
 In \alert{general}, \alert{countermeasures} to prevent this attack focus on making hash collisions less frequent or making it much more difficult for attackers to detect them. The paper proposes several modifications to DHPS, and these were incorporated into the Linux kernel through a security patch. The main countermeasures are:
 
 \begin{itemize}
-	\item \alert{Increase table size $T$:}
+	\item \aalert{Increase table size $T$:}
 	A larger perturbation table reduces hash collisions and increases attack cost.
 	\textit{The concrete change made in the Linux kernel was to increase the table size to $T = 64K$.}
 
-	\item \alert{Periodic re-keying:}
+	\item \aalert{Periodic re-keying:}
 	Changing DHPS’s secret key periodically invalidates previously discovered collisions, though it risks reusing ports for the same 3-tuple too soon.
 	\textit{The concrete change made in the Linux kernel was to perform re-keying every 10 seconds.}
 
-	\item \alert{Introduce more noise:}
+	\item \aalert{Introduce more noise:}
 	Adding randomness to perturbation table increments makes collisions harder to detect.
 	\textit{The concrete change made in the Linux kernel was to randomize increments uniformly between 1 and 8.}
 \end{itemize}
@@ -424,12 +474,15 @@ These countermeasures were integrated into Linux versions 5.18 and 5.19, making 
 Throughout this report, the following terminology and conventions are used:
 \begin{itemize}
 	\item Clickable hyperlinks look like \hyperref[sec:terminology and conventions]{this}, and normal highlighted text looks like \alert{this}.
+  \item All sorts of captions like titles of captions or headwords are written like this \aalert{Caption} and all sorts of just highlighted words that are neither of what has just been mentioned are written like \alert{this}.
 	\ditem{unique}{Unique attacker 3-tuples} An attacker 3-tuples where each uniquely covers one cell of the perturbation table.
 	\ditem{collision}{Collision of 3-tuples} Actually means collision of (attacker / loopback) 3-tuples in the same perturbation table cell but the last part is omitted for brevity.
 	\ditem{candidate}{Candidate attacker 3-tuples} Possible candidates that could become unique attacker 3-tuples if they do not collide with any of the already found unique attacker 3-tuples.
 	\ditem{increment}{Increment source port by x} When it is stated that an attacker 3-tuple had a source port incremented by x, it means the difference between the source ports generated by DHCP for the same attacker 3-tuple (as read from the TCP SYN packet) when establishing a TCP connection at the beginning and end of the sandwich method.
 	\ditem{sanwdich}{Sawndwich method} 
 	\ditem{sanwdiching}{Sawndwiching} Technique used in phase 1 and phase 2 
+	\ditem{wrapper}{Wrapper} 
+	\ditem{filling}{Filling} 
 \end{itemize}
 
 \section{Related Work}
