@@ -78,6 +78,7 @@
   - kann man Index in T-Table Zelle  eines attacker tuples mappings heruasfinden?
   -- man weiß nicht genau welche Zelle der T-Table, man weiß nur, dass jedes attacker 3-tuple auf eine Zelle mapt
   - golden image test name origin
+  - whhat is this? -> transitivity
 
 * Appendix Fragen
   - this formula behind n
@@ -136,6 +137,7 @@
   - localhost address, tracking serve tcp connection attempts.
   - sanwdich methdo braucht die source ports
   - nur attempts nötig
+  - collisions in same parturbation table cell mention G_{K_2}
 
 * Erklärweise
 ** Vogehen allgemien
