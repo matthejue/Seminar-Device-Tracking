@@ -180,14 +180,14 @@
    -- das x set, x ist attacker 3-tuples, P ist assignment attacker 3-tuples to destination port
     - ends as soon as...
 ** Phase 2
-   - output: device id made out of indepedant pairs of destination ports of loopback 3-tuples building a structure of loopback 3-tuples that collide in the same perturbation table cell
+   - This algorithm utilizes the sandwiching technique, introduec earlier in section \ref{sec:attack}. This technique operates as follows:
    -- inner: single loopback 3-tuple in the middle
    --- only 1 at a time, because if they tested multiple loopback 3-tuples simultaneously without any further design, they would not be able to tell which loopback 3-tuple caused the increment in which attacker 3-tuple
    -- outur: unique attacker 3-tuples
    -- condition: a loopback 3-tuple in the *inner* sandwich by repeated established TCP-connections causes a signifcant increment >epsilon to a unique attacker 3-tuple
    --- As only 1 loopback 3-tuple repeatedy establishes TCP-connections also only 1 unique attacker 3-tuple gets incremented (G function has same input everyime) siginifcanly >epsilon and all others not. This means that the loopback 3-tuple collides in the same perturbataion table cell with the unique attacker 3-tuple. As each unique attacker 3-tuple uniquely represents a discrete perturbation table cell (even tough one doesn't know which exactly), this allows to determine which loopback 3-tuples collide in the same perturbation table cell (without knowing which it is specifically) with which unique attacker 3-tuples they collide in the same perturbation cell, i.e. for which unique attacker 3-tuples they cause a significant increment
-   --- and thus one determines a structure of loopback 3-tuples that collide in the same perturbation table cell and use this structure as a device id where one collects a set of independant pairs of loopback destination ports *keine repetition?*
-   -- significat increment because of noise: send same unique attacker 3-tuple several times to have a detectable increment in perturbation table entry, attacked device could have other TCP-connections that increment the counter, this noise has to be outweighted *(question to students)*
+   --- and thus one determines a structure of loopback 3-tuples that collide in the same perturbation table cell and use this structure as a device id where one collects a set of independant pairs of loopback destination ports *keine repetition?*. Thus the output is a device id made out of indepedant pairs of destination ports of loopback 3-tuples building a structure of loopback 3-tuples that collide in the same perturbation table cell
+   -- one needs a significat increment because of noise: send same unique attacker 3-tuple several times to have a detectable increment in perturbation table entry, attacked device could have other TCP-connections that increment the counter, this noise has to be outweighted *(question to students)*
    - algorithmus
    -- die iota funtkion und wie sie sich von dem x-set unterscheidet, nur einelnes unique attacker 3-tuple returned
    -- ends as soon as...
