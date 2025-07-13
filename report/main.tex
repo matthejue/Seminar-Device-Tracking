@@ -240,11 +240,9 @@ A device ID based on collisions of \alert{attacker 3-tuples} would not remain co
 The nature of the attack resembles the principle of a \alert{particle accelerator}, where tiny particles cannot be observed directly and must instead be studied through the side effects they produce. Similarly, because there is no direct access to kernel internals such as the perturbation table, collisions of loopback 3-tuples (used to build the device ID) within the perturbation table \alert{cannot be observed directly}. Instead, such collisions must be inferred indirectly by analyzing the side effects that appear as observable patterns in how TCP source ports are incremented across connections by DHPS.
 
 These observable patterns arise because, in the DHPS algorithm, each cell in the perturbation table maintains a counter that is incremented by 1 in a predictable manner every time it is used to generate a candidate source port, as shown in Algorithm~\ref{alg:dhps_port_selection}, line~9:
-
 \[
 \texttt{table[index]} \leftarrow \texttt{table[index]} + 1.
 \]
-
 A technique that exploits these predictable TCP source port increments to detect collisions of 3-tuples (attacker or loopback) is known as \alert{sandwiching}. The general principle of sandwiching is that there is a \alert{wrapper} and a \alert{filling}, as visualized in the following schema:
 
 \begin{center}
@@ -304,14 +302,15 @@ where
 \begin{itemize}
     \item In the \aalert{first wrapper step}, DHPS calculates \(\text{Port}_{\text{Src},1}\) for the 3-tuple \( X \), based on the current value in cell \( i \) of the perturbation table. Afterwards, \(\text{table}[i]\) is incremented by 1.
     \item In the \aalert{filling step}, a different 3-tuple \( Y \) is used, producing \(\text{Port}_{\text{Src},2}\) based on cell \( j \). If \( j = i \), then \(\text{table}[i]\) is incremented again.
-    \item In the \aalert{second wrapper step}, DHPS calculates \(\text{Port}_{\text{Src},3}\) for the same 3-tuple \( X \). If \( j \neq i \), then \(\text{Port}_{\text{Src},3} = \text{Port}_{\text{Src},1} + 1\). Otherwise, if \( j = i \), then \(\text{Port}_{\text{Src},3} = \text{Port}_{\text{Src},1} + 2\). A collision between 3-tuples \( X \) and \( Y \) is detected precisely when \(\text{Port}_{\text{Src},3}\) is greater than \(\text{Port}_{\text{Src},1} + 1\), indicating that both 3-tuples map to the same perturbation table cell \( i \).
+    \item In the \aalert{second wrapper step}, DHPS calculates \(\text{Port}_{\text{Src},3}\) for the same 3-tuple \( X \). If \( j \neq i \), then \(\text{Port}_{\text{Src},3} = \text{Port}_{\text{Src},1} + 1\). Otherwise, if \( j = i \), then \(\text{Port}_{\text{Src},3} = \text{Port}_{\text{Src},1} + 2\). \textit{A collision between 3-tuples \( X \) and \( Y \) is detected precisely when \(\text{Port}_{\text{Src},3}\) is greater than \(\text{Port}_{\text{Src},1} + 1\), indicating that both 3-tuples map to the same perturbation table cell \( i \)}.
 \end{itemize}
 
 The explanation above illustrates only the \alert{core idea of sandwiching} in a simplified example. In practice, several additional factors must be taken into account:
 
 \begin{itemize}
     \item \aalert{Background noise:} In real-world scenarios, there is also \alert{noise} caused by other TCP connection attempts from unrelated processes on the client device. These connections occur alongside the TCP connection attempts of the tracking snippet and can also increment the perturbation table cell \( i \).%, potentially obscuring the detection of collisions.
-    \item \aalert{Multiple connection attempts:} Typically, multiple TCP connection attempts are established both in the wrapper and the filling steps, using several different 3-tuples. After applying the sandwiching technique, one knows which 3-tuples produced which source port values at specific points in time, because the \alert{TCP SYN packet headers} include the full attacker 4-tuple. This information can be easily transformed into a mapping from each attacker 3-tuple to its corresponding source port:
+    \item \aalert{Multiple connection attempts:} Typically, multiple \emph{bursts of TCP connection attempts (TCP SYN packets)} are established both in the wrapper and the filling steps, each using several different 3-tuples. After applying the sandwiching technique, one knows which 3-tuples produced which source port values at specific points in time, because the \alert{TCP SYN packet headers} include the full attacker 4-tuple. This information can be easily transformed into a mapping from each attacker 3-tuple to its corresponding source port:
+    % \item \aalert{Multiple connection attempts:} Typically, multiple TCP connection attempts are established both in the wrapper and the filling steps, using several different 3-tuples. After applying the sandwiching technique, one knows which 3-tuples produced which source port values at specific points in time, because the \alert{TCP SYN packet headers} include the full attacker 4-tuple. This information can be easily transformed into a mapping from each attacker 3-tuple to its corresponding source port:
       \[
         (\mathrm{IP_{Src}}, \mathrm{IP_{Dst}}, \mathrm{Port_{Dst}}) \;\mapsto\; \mathrm{Port_{Src}}\;\text{.}
       \]
@@ -328,23 +327,23 @@ The consequence of what is explained in \hyperlink{limitations}{Limitations for 
 &
 \begin{aligned}
 & \begin{array}{c}
-G_{K_2}(\text{IPSRC} = 127.0.0.1,\ \text{IPDST} = 127.1.2.3,\ \text{PORTDST} = x_1) \\[0.3em]
+G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_1 \bigr) \\[0.3em]
 = \\[0.3em]
-G_{K_2}(\text{IPSRC} = D,\ \text{IPDST} = A,\ \text{PORTDST} = y)
+G_{K_2}\bigl(\text{IP}_{\text{Src}} = D,\ \text{IP}_{\text{Dst}} = A,\ \text{Port}_{\text{Dest}} = y \bigr)
 \end{array}
 \\[1em]
 & \begin{array}{c}
-G_{K_2}(\text{IPSRC} = 127.0.0.1,\ \text{IPDST} = 127.1.2.3,\ \text{PORTDST} = x_2) \\[0.3em]
+G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_2 \bigr) \\[0.3em]
 = \\[0.3em]
-G_{K_2}(\text{IPSRC} = D,\ \text{IPDST} = A,\ \text{PORTDST} = y)
+G_{K_2}\bigl(\text{IP}_{\text{Src}} = D,\ \text{IP}_{\text{Dst}} = A,\ \text{Port}_{\text{Dest}} = y \bigr)
 \end{array}
 \end{aligned}
 \quad \Longrightarrow \quad
 \begin{aligned}
 & \begin{array}{c}
-G_{K_2}(\text{IPSRC} = 127.0.0.1,\ \text{IPDST} = 127.1.2.3,\ \text{PORTDST} = x_1) \\[0.3em]
+G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_1 \bigr) \\[0.3em]
 = \\[0.3em]
-G_{K_2}(\text{IPSRC} = 127.0.0.1,\ \text{IPDST} = 127.1.2.3,\ \text{PORTDST} = x_2)
+G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_2 \bigr)
 \end{array}
 \end{aligned}
 \end{aligned}
@@ -353,10 +352,37 @@ G_{K_2}(\text{IPSRC} = 127.0.0.1,\ \text{IPDST} = 127.1.2.3,\ \text{PORTDST} = x
 \end{adjustbox}
 \end{center}
 
-This indirect collision detection between loopback 3-tuples, achieved by observing their collisions with attacker 3-tuples, is performed during phase 2 \ref{sec:phase 2} of the attack. To enable this, it is necessary to have a set of attacker 3-tuples that collectively cover all cells of the perturbation table, ensuring that every cell can be tested for potential collisions. These so-called \alert{unique attacker 3-tuples} have to be first determined in phase 1 \ref{sec:phase 1}, also via the sandwiching method.
+In phase 2 \ref{sec:phase 2} of the attack, the sandwiching method is used to detect collisions between loopback 3-tuples indirectly, by checking whether they collide with the same attacker 3-tuples. To enable this, it is necessary to have a set of attacker 3-tuples that collectively cover all cells of the perturbation table, ensuring that every cell can be tested for potential collisions. These so-called \alert{unique attacker 3-tuples} have to be first determined in phase 1 \ref{sec:phase 1}, also via the sandwiching method.
 
 \section{Phase 1}
 \label{sec:phase 1}
+
+The algorithm utilizes the \alert{sandwiching technique}, introduced earlier in Section~\ref{sec:attack}. The technique operates as follows:
+
+\begin{itemize}
+    \item The \alert{filling} consists of all \alert{unique attacker 3-tuples} discovered so far, all of which are included in the second burst of TCP connection attempts.
+    \item The \alert{wrapper} comprises new candidate attacker 3-tuples that might be unique and are probed in the first and third bursts of TCP connection attempts.
+\end{itemize}
+
+After performing the sandwiching technique, each attacker 3-tuple \( x \) in the wrapper is determined to be \alert{unique} if it fulfills the following \alert{condition}:
+\begin{equation}
+    P'(x) - P(x) = 1,
+\end{equation}
+where \(P(x)\) and \(P'(x)\) are partial functions that map \alert{attacker 3-tuples \( x \) to} the observed \alert{TCP source port} numbers assigned during the first and third bursts of TCP connection attempts probing the wrapper, respectively. These functions are defined only for the set of attacker 3-tuples probed in the corresponding bursts.
+
+This \alert{condition implies} that those attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the \alert{unique attacker 3-tuples} discovered so far in the filling has already been mapped to. Consequently, they do not collide with any of the previously found \alert{unique attacker 3-tuples} and are thereby confirmed as new \alert{unique attacker 3-tuples} (cf.\ Figure~\ref{<your_illustration_label>}).
+
+% At the end of the algorithm, the \alert{output} is a set of unique attacker 3-tuples. It is guaranteed that each cell in the perturbation table is covered by precisely one \alert{unique attacker 3-tuple}. Although the attacker does not know which specific \alert{index} in the table a particular attacker 3-tuple maps to, this one-to-one coverage is sufficient for the subsequent phase 2~\ref{sec:phase 2}.
+At the end of the algorithm, the \alert{output} is a set of unique attacker 3-tuples. It is guaranteed that each cell in the perturbation table is covered by precisely one unique attacker 3-tuple. The attacker does not know which specific \alert{index} in the table each attacker 3-tuple maps to, but this lack of knowledge is immaterial to the attack because all that matters is the existence of this one-to-one correspondence between perturbation table cells and unique attacker 3-tuples, which suffices for the subsequent phase 2~\ref{sec:phase 2}.
+
+% , and each unique attacker 3-tuple maps to exactly one cell in the perturbation table
+% At the end of the algorithm, the \alert{output} is a set of unique attacker 3-tuples. It is guaranteed that each cell in the perturbation table is covered by precisely one \alert{unique attacker 3-tuple}. The attacker does not know which specific \alert{index} each attacker 3-tuple maps to in the table, but this lack of knowledge is immaterial to the attack because the existence of a one-to-one mapping suffices for the subsequent phases.
+
+% Although it remains unknown which attacker 3-tuple maps to which specific index in the table, it is guaranteed that every
+% perturbation table cell is covered by precisely one unique attacker 3-tuple
+
+\section{Phase 1 old}
+\label{sec:phase 1 old}
 
 % \section{Details of Phase 1 of the Attack}
 

@@ -1,0 +1,36 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{plt}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{ticker}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{MultipleLocator}\PYG{p}{,} \PYG{n}{FixedLocator}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{first\PYGZus{}function}\PYG{p}{(}\PYG{n}{k}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{p}{(}\PYG{l+m+mi}{94} \PYG{o}{*}\PYG{o}{*} \PYG{p}{(}\PYG{n}{k} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{94} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{second\PYGZus{}function}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{128}
+
+\PYG{n}{k\PYGZus{}values} \PYG{o}{=} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{26}\PYG{p}{)}
+
+\PYG{n}{first\PYGZus{}function\PYGZus{}values} \PYG{o}{=} \PYG{p}{[}\PYG{n}{first\PYGZus{}function}\PYG{p}{(}\PYG{n}{k\PYGZus{}value}\PYG{p}{)} \PYG{k}{for} \PYG{n}{k\PYGZus{}value} \PYG{o+ow}{in} \PYG{n}{k\PYGZus{}values}\PYG{p}{]}
+\PYG{n}{second\PYGZus{}function\PYGZus{}values} \PYG{o}{=} \PYG{p}{[}\PYG{n}{second\PYGZus{}function}\PYG{p}{(}\PYG{p}{)} \PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n}{k\PYGZus{}values}\PYG{p}{]}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{k\PYGZus{}values}\PYG{p}{,} \PYG{n}{first\PYGZus{}function\PYGZus{}values}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}}\PYG{l+s+s2}{\PYGZbs{}}\PYG{l+s+s2}{frac}\PYG{l+s+s2}{\PYGZob{}}\PYG{l+s+s2}{(94\PYGZca{}}\PYG{l+s+s2}{\PYGZob{}}\PYG{l+s+s2}{k+1\PYGZcb{} \PYGZhy{} 1)\PYGZcb{}}\PYG{l+s+s2}{\PYGZob{}}\PYG{l+s+s2}{94\PYGZhy{}1\PYGZcb{} \PYGZhy{} 1\PYGZdl{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} 
+         \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{None}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{o}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZsh{}0B64A0}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{k\PYGZus{}values}\PYG{p}{,} \PYG{n}{second\PYGZus{}function\PYGZus{}values}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}2\PYGZca{}}\PYG{l+s+si}{\PYGZob{}128\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{None}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} 
+         \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{o}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZsh{}6FC1EC}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{maximum key/password length}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{number of different keys/passwords}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlim}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{25}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mf}{3.4e50}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{yscale}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{log}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{ax} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{xaxis}\PYG{o}{.}\PYG{n}{set\PYGZus{}major\PYGZus{}locator}\PYG{p}{(}\PYG{n}{MultipleLocator}\PYG{p}{(}\PYG{n}{base}\PYG{o}{=}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{offset}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{yaxis}\PYG{o}{.}\PYG{n}{set\PYGZus{}major\PYGZus{}locator}\PYG{p}{(}\PYG{n}{FixedLocator}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mf}{1e20}\PYG{p}{,} \PYG{l+m+mf}{1e25}\PYG{p}{,} \PYG{l+m+mf}{1e30}\PYG{p}{,} 
+                                         \PYG{l+m+mf}{1e35}\PYG{p}{,} \PYG{l+m+mf}{1e40}\PYG{p}{,} \PYG{l+m+mf}{1e45}\PYG{p}{,} \PYG{l+m+mf}{1e50}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{aes\PYGZus{}compared\PYGZus{}to\PYGZus{}password.png}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{(}\PYG{p}{)}
+\end{MintedVerbatim}

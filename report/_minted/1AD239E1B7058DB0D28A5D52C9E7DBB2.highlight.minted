@@ -1,0 +1,62 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{plt}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{ticker}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{FixedFormatter}\PYG{p}{,} \PYG{n}{FixedLocator}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{math}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{log}\PYG{p}{,} \PYG{n}{e}
+
+\PYG{n}{advantage\PYGZus{}over\PYGZus{}user} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mi}{600} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{18}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{20} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{)}
+\PYG{n}{confirmation\PYGZus{}time} \PYG{o}{=} \PYG{l+m+mi}{1}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{first\PYGZus{}function}\PYG{p}{(}\PYG{n}{password\PYGZus{}domain}\PYG{p}{,} \PYG{n}{yearly\PYGZus{}growth\PYGZus{}rate}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{attempts\PYGZus{}per\PYGZus{}year} \PYG{o}{=} \PYG{l+m+mi}{60} \PYG{o}{*} \PYG{l+m+mi}{60} \PYG{o}{*} \PYG{l+m+mi}{24} \PYG{o}{*} \PYG{l+m+mi}{365} \PYG{o}{*} \PYG{p}{(}\PYG{n}{confirmation\PYGZus{}time} \PYG{o}{*}
+        \PYG{n}{advantage\PYGZus{}over\PYGZus{}user}\PYG{p}{)}
+    \PYG{k}{return} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{/} \PYG{n}{yearly\PYGZus{}growth\PYGZus{}rate}\PYG{p}{)} \PYG{o}{*} \PYG{n}{log}\PYG{p}{(}
+        \PYG{l+m+mi}{1} \PYG{o}{+} \PYG{p}{(}\PYG{p}{(}\PYG{n}{password\PYGZus{}domain} \PYG{o}{*} \PYG{n}{yearly\PYGZus{}growth\PYGZus{}rate}\PYG{p}{)} \PYG{o}{/} \PYG{n}{attempts\PYGZus{}per\PYGZus{}year}\PYG{p}{)}\PYG{p}{,} \PYG{n}{e}
+    \PYG{p}{)}
+
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{second\PYGZus{}function}\PYG{p}{(}\PYG{n}{password\PYGZus{}domain}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{attempts\PYGZus{}per\PYGZus{}year} \PYG{o}{=} \PYG{l+m+mi}{60} \PYG{o}{*} \PYG{l+m+mi}{60} \PYG{o}{*} \PYG{l+m+mi}{24} \PYG{o}{*} \PYG{l+m+mi}{365} \PYG{o}{*} \PYG{p}{(}\PYG{n}{confirmation\PYGZus{}time} \PYG{o}{*}
+        \PYG{n}{advantage\PYGZus{}over\PYGZus{}user}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{password\PYGZus{}domain} \PYG{o}{/} \PYG{n}{attempts\PYGZus{}per\PYGZus{}year}
+
+\PYG{n}{k\PYGZus{}values} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb}{map}\PYG{p}{(}\PYG{k}{lambda} \PYG{n}{x}\PYG{p}{:} \PYG{l+m+mi}{94}\PYG{o}{*}\PYG{o}{*}\PYG{n}{x}\PYG{p}{,} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{21}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
+
+\PYG{n}{first\PYGZus{}function\PYGZus{}values} \PYG{o}{=} \PYG{p}{[}\PYG{n}{first\PYGZus{}function}\PYG{p}{(}\PYG{n}{k\PYGZus{}value}\PYG{p}{,} \PYG{l+m+mf}{0.347}\PYG{p}{)} \PYG{k}{for} \PYG{n}{k\PYGZus{}value} \PYG{o+ow}{in} \PYG{n}{k\PYGZus{}values}\PYG{p}{]}
+\PYG{n}{third\PYGZus{}function\PYGZus{}values} \PYG{o}{=} \PYG{p}{[}\PYG{n}{first\PYGZus{}function}\PYG{p}{(}\PYG{n}{k\PYGZus{}value}\PYG{p}{,} \PYG{l+m+mf}{0.069}\PYG{p}{)} \PYG{k}{for} \PYG{n}{k\PYGZus{}value} \PYG{o+ow}{in} \PYG{n}{k\PYGZus{}values}\PYG{p}{]}
+\PYG{n}{fifth\PYGZus{}function\PYGZus{}values} \PYG{o}{=} \PYG{p}{[}\PYG{n}{second\PYGZus{}function}\PYG{p}{(}\PYG{n}{k\PYGZus{}value}\PYG{p}{)} \PYG{k}{for} \PYG{n}{k\PYGZus{}value} \PYG{o+ow}{in} \PYG{n}{k\PYGZus{}values}\PYG{p}{]}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(} \PYG{n}{k\PYGZus{}values}\PYG{p}{,} \PYG{n}{first\PYGZus{}function\PYGZus{}values}\PYG{p}{,}
+    \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{technology doubles every 2 years}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{None}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{o}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
+    \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZsh{}73C0EC}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
+\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(} \PYG{n}{k\PYGZus{}values}\PYG{p}{,} \PYG{n}{third\PYGZus{}function\PYGZus{}values}\PYG{p}{,}
+    \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{technology doubles every 10 years}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{None}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{o}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
+    \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZsh{}1D90D3}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
+\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(} \PYG{n}{k\PYGZus{}values}\PYG{p}{,} \PYG{n}{fifth\PYGZus{}function\PYGZus{}values}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{no technological growth}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
+    \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{None}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{o}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZsh{}12649F}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
+\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{cardinality of password domain}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{number of years}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlim}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mf}{1e40}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{(}\PYG{l+m+mf}{1e\PYGZhy{}20}\PYG{p}{,} \PYG{l+m+mf}{1e20}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xscale}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{log}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{yscale}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{log}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{ax} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{xaxis}\PYG{o}{.}\PYG{n}{set\PYGZus{}major\PYGZus{}locator}\PYG{p}{(}\PYG{n}{FixedLocator}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mf}{6.1e15}\PYG{p}{,} \PYG{l+m+mf}{5.06e21}\PYG{p}{,} \PYG{l+m+mf}{3.4e38}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{xaxis}\PYG{o}{.}\PYG{n}{set\PYGZus{}major\PYGZus{}formatter}\PYG{p}{(}\PYG{n}{FixedFormatter}\PYG{p}{(}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}94\PYGZca{}8\PYGZdl{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}94\PYGZca{}}\PYG{l+s+si}{\PYGZob{}11\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}2\PYGZca{}}\PYG{l+s+si}{\PYGZob{}128\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{yaxis}\PYG{o}{.}\PYG{n}{set\PYGZus{}major\PYGZus{}locator}\PYG{p}{(}\PYG{n}{FixedLocator}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mf}{6.44e\PYGZhy{}06}\PYG{p}{,} \PYG{l+m+mf}{5.35e0}\PYG{p}{,} \PYG{l+m+mf}{1.13e+02}\PYG{p}{,} \PYG{l+m+mf}{5.47e02}\PYG{p}{,} \PYG{l+m+mf}{3.6e17}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{yaxis}\PYG{o}{.}\PYG{n}{set\PYGZus{}major\PYGZus{}formatter}\PYG{p}{(}
+    \PYG{n}{FixedFormatter}\PYG{p}{(}
+        \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}6.4}\PYG{l+s+s2}{\PYGZbs{}}\PYG{l+s+s2}{cdot 10\PYGZca{}}\PYG{l+s+s2}{\PYGZob{}}\PYG{l+s+s2}{\PYGZhy{}6\PYGZcb{}\PYGZdl{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{5.4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{110}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{550}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} 
+         \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}3.6}\PYG{l+s+s2}{\PYGZbs{}}\PYG{l+s+s2}{cdot 10\PYGZca{}}\PYG{l+s+si}{\PYGZob{}17\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]}
+    \PYG{p}{)}
+\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{bitcoin\PYGZus{}duration\PYGZus{}to\PYGZus{}break\PYGZus{}passwords.png}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{(}\PYG{p}{)}
+\end{MintedVerbatim}
