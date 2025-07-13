@@ -7,7 +7,6 @@
 \begin{document}
 
 \fontsize{8pt}{9pt}\selectfont
-% \fontsize{10pt}{11pt}\selectfont
 \newgeometry{margin=2cm, bottom=2cm, top=2cm}
 
 \input{./content/titlepage}
@@ -19,8 +18,6 @@
 \pagenumbering{Roman}
 
 \listoffigures
-% \newpage
-% \listoftables
 
 \clearpage
 \fancypagestyle{plain}{%
@@ -39,9 +36,6 @@
 \chapter{Introduction}
 \label{sec:introduction}
 
-See \hyperref[conv:vector]{the convention for vector notation}.
-See \hyperref[conv:real]{the convention for vector notation}.
-
 In 2018, the \alert{Meltdown} and \alert{Spectre} attacks caused widespread concern by revealing how modern CPUs’ performance features could be exploited to read sensitive data from memory that should have remained inaccessible to user processes.
 
 These attacks demonstrated a broader principle: that subtle side effects in complex systems can leak internal information not intended to be observable.
@@ -49,8 +43,6 @@ These attacks demonstrated a broader principle: that subtle side effects in comp
 In a similar spirit, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the Hebrew University of Jerusalem discovered an attack that exploits Linux’s \alert{TCP source port selection algorithm} to track devices.
 
 Like Meltdown, this attack targets \alert{security} and compromises confidentiality, but not by directly revealing secret data, but by exploiting side effects of \alert{hash collisions} that manifest as observable patterns in how \alert{TCP source ports} are incremented across connections. These patterns allow an attacker to infer a fingerprint uniquely tied to a \alert{secret device-specific key}.
-% Like Meltdown, this attack targets \alert{security} and compromises confidentiality, but not by directly revealing secret data, but by exploiting side effects that produce predictable patterns in how TCP source ports are assigned and incremented across connections. These patterns allow an attacker to infer a invariant \alert{device ID} uniquely tied to a \alert{secret device-specific key}.
-%, and effectively leaking information about internal state in a way that violates privacy and confidentiality.
 
 \section{About this report}
 \label{sec:goal_of_this_report}
@@ -62,13 +54,6 @@ This report mainly aims to present the contents of the original paper in a short
 Readers are encouraged to first consult Section~\ref{sec:terminology and conventions} for an overview of terminology and conventions used throughout this report.
 
 \alert{It should be emphasized that this is purely a report explaining and summarizing the result of other researchers' work, without presenting original research or claiming the findings as the author's own.}
-
-% The goal of this report is to provide insight into \alert{browser-based device tracking techniques}, specifically by explaining the method described in the paper\cite{kol2022devicetrackinglinuxsnew}. This report details \alert{how} the tracking method \alert{works} and explains the \alert{proposed countermeasures} mitigate this vulnerability.
-% % and the \alert{final patch} that was integrated into the Linux kernel to 
-%
-% \alert{It should be emphasized that this is just a report, it is just explaining, connecting and summarizing different results of other people's research and doesn't contain own research or claim this to be the results of the research of the author of this report}. 
-
-%Furthemore a reader of this report should make sure to read the appendix section \ref{sec:conventions} to be sure to understand the conventions used within this report. %But the author of this report supposes that the conventions should be intuitively clear from the context.
 
 \section{Browser-based Device tracking}
 \label{sec:Online browser-based device tracking}
@@ -86,8 +71,6 @@ Device tracking techniques can be broadly categorized into the following two gro
 
 \begin{itemize}
 	\item \aalert{Tagging techniques:} These techniques insert an ID directly into the device, usually at the browser level. Examples include caching resources in the browser or storing data in mechanisms like cookies. However, tagging techniques are often ineffective when users switch to privacy modes or clear stored data.
-	% Can you telll me what   localStorage in the
-
 	\item \aalert{Fingerprinting techniques:} These techniques measure characteristics of the system or browser to distinguish devices. Examples include differences in fonts, hardware details, or system language. However, fingerprinting techniques often struggle to solve the golden image challenge, as identical devices may produce identical fingerprints.
 \end{itemize}
 
@@ -117,8 +100,7 @@ A straightforward way to select source ports would be simply to choose the next 
 \subsection{Double-Hash Port Selection Algorithm (DHPS)}
 \label{sec:double-hash port selection algorithm}
 
-To address these goals, several algorithms for TCP source port selection have been defined, including the \alert{Double-Hash Port Selection (DHPS)} algorithm, described in RFC 6056\cite{larsenRecommendationsTransportProtocolPort2011}. % The Linux kernel adopted DHPS starting from version 5.12-rc1. Because \alert{Android} uses the Linux kernel, DHPS is also implemented in Android devices. %that adopt kernel versions where DHPS is implemented.
-% , citing security and privacy improvements
+To address these goals, several algorithms for TCP source port selection have been defined, including the \alert{Double-Hash Port Selection (DHPS)} algorithm, described in RFC 6056\cite{larsenRecommendationsTransportProtocolPort2011}.
 
 TCP source ports are divided into different ranges, each serving distinct purposes:
 \begin{itemize}
@@ -142,12 +124,6 @@ and by this completes the connection’s \alert{4-tuple}. To perform this select
 \end{itemize}
 
 The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add randomness and unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries, all initially set to zero. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port, thus improving security and preventing collisions of TCP 4-tuples.
-
-% When a new TCP connection is established, the DHPS algorithm uses the cryptographic hash function $G_{K_2}$ on the connection's 3-tuple 
-% $(\mathrm{IP}_{\mathrm{Src}}, \mathrm{IP}_{\mathrm{Dst}}, \mathrm{Port}_{\mathrm{Dst}})$ 
-% to select an index into this table. The counter value stored at this index is combined with the result of another hash function $F_{K_1}$ to compute a candidate source port within the ephemeral port range.
-
-% Importantly, all TCP connections on a device share the same perturbation table. As a result, the counter values in the table may already have been incremented by other unrelated TCP connections, introducing additional variability and making the table's state dependent on the system's global network activity.
 
 The algorithm operates as described in Algorithm~\ref{alg:dhps_port_selection}:
 \begin{itemize}
@@ -182,7 +158,7 @@ In the attack, two main parties are involved:
 \begin{itemize}
     \item \aalert{Tracking server}: This server is controlled by the \alert{attacker} and receives the TCP connection attempts initiated from the client device. It analyzes the observed TCP source ports in order to calculate a device ID and track the victim.%across networks and browsing sessions.
     
-    \item \aalert{Client device}: This is the \alert{victim’s} (Linux-based) device, which runs a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the \alert{tracking server}, interleaved with TCP connection attempts to a \alert{localhost address}. %These connection attempts enable the tracking technique to reveal a unique device ID based on the observed source ports.
+    \item \aalert{Client device}: This is the \alert{victim’s} (Linux-based) device, which runs a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the \alert{tracking server}, interleaved with TCP connection attempts to a \alert{localhost address}.
 \end{itemize}
 
 Two types of 3-tuples are distinguished in the attack:
@@ -228,14 +204,6 @@ where each pair $(x_i, y_i)$ represents \alert{two destination ports} whose corr
 where $x_1, x_2, \ldots, x_k$ are the destination ports of the colliding loopback 3-tuples. This means that for each group of colliding loopback tuples, the first discovered tuple $x_1$ is paired with every other tuple in that group, as further detailed in Phase 2 of the attack. Pairs beyond these $k-1$ would be \alert{dependent} because their collisions are fully implied by the existing pairs\footnote{For example, knowing that both $(x_1, x_2)$ and $(x_1, x_3)$ collide makes it redundant to additionally record $(x_2, x_3)$.}. This is crucial for the probability analysis in the paper, where the probability that a random device produces the same set of collisions depends solely on the number of independent pairs observed.
 
 A device ID based on collisions of \alert{attacker 3-tuples} would not remain consistent across networks because the source IP address visible to external servers typically changes whenever the device connects to a different network. In contrast, \alert{loopback 3-tuples} with loopback addresses such as $127.x.x.x$ are internal to the device and remain stable across networks, making them suitable for deriving a consistent device ID.
-
-% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server. To observe these ports, the attacker must rely on \alert{attacker 3-tuples}, because only such connections generate TCP SYN packets visible to the server, while \alert{loopback 3-tuples} remain internal to the device and cannot be directly observed.
-
-% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server, but only for connections using \alert{attacker 3-tuples} and not for \alert{loopback 3-tuples}. To observe these ports, the attacker must rely on \alert{attacker 3-tuples}, because only such connections generate TCP SYN packets visible to the server, while \alert{loopback 3-tuples} remain internal to the device and cannot be directly observed.
-% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server, but only for connections using \alert{attacker 3-tuples} and not for \alert{loopback 3-tuples}. Although \alert{loopback 3-tuples} also generate TCP SYN packets internally, these packets never leave the device and are not accessible from outside, and due to the \alert{browser's sandbox} with its limited access, even the browser itself cannot directly observe these packets or the \alert{source ports} generated by DHPS for loopback connections.
-% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server, but only for connections using \alert{attacker 3-tuples}. This is because \alert{attacker 3-tuples} have the tracking server as their destination IP address, causing the SYN packets to traverse the network and become observable by the server. In contrast, \alert{loopback 3-tuples} use the client device itself as the destination IP, so although they also generate TCP SYN packets internally, these packets never leave the device and remain inaccessible from outside. Moreover, due to the \alert{browser's sandbox} and its limited access, even the browser cannot directly observe these internal packets or the \alert{source ports} generated by DHPS for loopback connections.
-% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. From the attacker's perspective, the client device is a \alert{black box}, revealing only \alert{TCP SYN packets} whose headers expose the \alert{source port} chosen by DHPS to the tracking server for connections using \alert{attacker 3-tuples}. These attacker 3-tuples have the tracking server as the destination IP, making their TCP SYN packets observable over the network. In contrast, \alert{loopback 3-tuples} use the client device itself as destination, so their TCP SYN packets remain internal and are inaccessible both to the tracking server and to the \alert{browser's sandbox}, which cannot access the \alert{source ports} generated by DHPS for such internal connections.
-% The previously mentioned tracking snippet operates in a website environment where JavaScript is restricted by the \alert{browser's sandbox} and has only limited access. In contrast, \alert{loopback 3-tuples} use the client device itself as the destination IP address, so their TCP SYN packets remain entirely internal to the device and are inaccessible both to the tracking server and to the \alert{browser's sandbox}, which cannot access the \alert{source ports} generated by DHPS for such internal connections. Therefore, to make the source ports observable to the tracking server, the attack relies on \alert{attacker 3-tuples}, which have the tracking server as their destination IP address, causing their TCP SYN packets to traverse the network and reveal the \alert{source port} chosen by DHPS in their headers.
 
 The nature of the attack resembles the principle of a \alert{particle accelerator}, where tiny particles cannot be observed directly and must instead be studied through the side effects they produce. Similarly, because there is no direct access to kernel internals such as the perturbation table, collisions of loopback 3-tuples (used to build the device ID) within the perturbation table \alert{cannot be observed directly}. Instead, such collisions must be inferred indirectly by analyzing the side effects that appear as observable patterns in how TCP source ports are incremented across connections by DHPS.
 
@@ -305,12 +273,15 @@ where
     \item In the \aalert{second wrapper step}, DHPS calculates \(\text{Port}_{\text{Src},3}\) for the same 3-tuple \( X \). If \( j \neq i \), then \(\text{Port}_{\text{Src},3} = \text{Port}_{\text{Src},1} + 1\). Otherwise, if \( j = i \), then \(\text{Port}_{\text{Src},3} = \text{Port}_{\text{Src},1} + 2\). \textit{A collision between 3-tuples \( X \) and \( Y \) is detected precisely when \(\text{Port}_{\text{Src},3}\) is greater than \(\text{Port}_{\text{Src},1} + 1\), indicating that both 3-tuples map to the same perturbation table cell \( i \)}.
 \end{itemize}
 
+\begin{sidenote}
+  The second increment of \(\text{table}[i]\) in the second wrapper step does \alert{not provide any further relevant information} about the 3-tuple \( X \) or about any tuples \( Y \) colliding with it in the filling step, because \(\text{Port}_{\text{Src},3}\) has already been calculated by then. Instead, this increment is only relevant for any other 3-tuple in the wrapper steps that might later map to the same perturbation table cell \( i \).
+\end{sidenote}
+
 The explanation above illustrates only the \alert{core idea of sandwiching} in a simplified example. In practice, several additional factors must be taken into account:
 
 \begin{itemize}
-    \item \aalert{Background noise:} In real-world scenarios, there is also \alert{noise} caused by other TCP connection attempts from unrelated processes on the client device. These connections occur alongside the TCP connection attempts of the tracking snippet and can also increment the perturbation table cell \( i \).%, potentially obscuring the detection of collisions.
+    \item \aalert{Background noise:} In real-world scenarios, there is also \alert{noise} caused by other TCP connection attempts from unrelated processes on the client device. These connections occur alongside the TCP connection attempts of the tracking snippet and can also increment the perturbation table cell \( i \).
     \item \aalert{Multiple connection attempts:} Typically, multiple \emph{bursts of TCP connection attempts (TCP SYN packets)} are established both in the wrapper and the filling steps, each using several different 3-tuples. After applying the sandwiching technique, one knows which 3-tuples produced which source port values at specific points in time, because the \alert{TCP SYN packet headers} include the full attacker 4-tuple. This information can be easily transformed into a mapping from each attacker 3-tuple to its corresponding source port:
-    % \item \aalert{Multiple connection attempts:} Typically, multiple TCP connection attempts are established both in the wrapper and the filling steps, using several different 3-tuples. After applying the sandwiching technique, one knows which 3-tuples produced which source port values at specific points in time, because the \alert{TCP SYN packet headers} include the full attacker 4-tuple. This information can be easily transformed into a mapping from each attacker 3-tuple to its corresponding source port:
       \[
         (\mathrm{IP_{Src}}, \mathrm{IP_{Dst}}, \mathrm{Port_{Dst}}) \;\mapsto\; \mathrm{Port_{Src}}\;\text{.}
       \]
@@ -370,67 +341,33 @@ After performing the sandwiching technique, each attacker 3-tuple \( x \) in the
 \end{equation}
 where \(P(x)\) and \(P'(x)\) are partial functions that map \alert{attacker 3-tuples \( x \) to} the observed \alert{TCP source port} numbers assigned during the first and third bursts of TCP connection attempts probing the wrapper, respectively. These functions are defined only for the set of attacker 3-tuples probed in the corresponding bursts.
 
-This \alert{condition implies} that those attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the \alert{unique attacker 3-tuples} discovered so far in the filling has already been mapped to. Consequently, they do not collide with any of the previously found \alert{unique attacker 3-tuples} and are thereby confirmed as new \alert{unique attacker 3-tuples} (cf.\ Figure~\ref{<your_illustration_label>}).
+This \alert{condition implies} that those attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the unique attacker 3-tuples discovered so far in the filling has already been mapped to (cf.\ Figure~\ref{<your_illustration_label>}). Consequently, they do not collide with any of the previously discovered unique attacker 3-tuples and are thereby confirmed as new \alert{unique attacker 3-tuples}, which form the \alert{output} of Phase~1 of the attack algorithm.
 
-% At the end of the algorithm, the \alert{output} is a set of unique attacker 3-tuples. It is guaranteed that each cell in the perturbation table is covered by precisely one \alert{unique attacker 3-tuple}. Although the attacker does not know which specific \alert{index} in the table a particular attacker 3-tuple maps to, this one-to-one coverage is sufficient for the subsequent phase 2~\ref{sec:phase 2}.
-At the end of the algorithm, the \alert{output} is a set of unique attacker 3-tuples. It is guaranteed that each cell in the perturbation table is covered by precisely one unique attacker 3-tuple. The attacker does not know which specific \alert{index} in the table each attacker 3-tuple maps to, but this lack of knowledge is immaterial to the attack because all that matters is the existence of this one-to-one correspondence between perturbation table cells and unique attacker 3-tuples, which suffices for the subsequent phase 2~\ref{sec:phase 2}.
+\alert{Noise} occurring between the first and second TCP connection attempts using the same attacker 3-tuple in the first and second wrapper steps can increase the value of \texttt{table[i]}, where $i$ is the index of the perturbation table cell associated with that 3-tuple. This \alert{can hide} unique attacker 3-tuples by making their observed increment larger than one. However, this isn’t a problem, because noise can hide a unique mapping, but it \alert{can’t fabricate} one. The only problem is that Phase 1 may require more iterations to find unique attacker 3-tuples for all perturbation table cells, but it does not compromise the correctness of the mapping once established.
 
-% , and each unique attacker 3-tuple maps to exactly one cell in the perturbation table
-% At the end of the algorithm, the \alert{output} is a set of unique attacker 3-tuples. It is guaranteed that each cell in the perturbation table is covered by precisely one \alert{unique attacker 3-tuple}. The attacker does not know which specific \alert{index} each attacker 3-tuple maps to in the table, but this lack of knowledge is immaterial to the attack because the existence of a one-to-one mapping suffices for the subsequent phases.
-
-% Although it remains unknown which attacker 3-tuple maps to which specific index in the table, it is guaranteed that every
-% perturbation table cell is covered by precisely one unique attacker 3-tuple
-
-\section{Phase 1 old}
-\label{sec:phase 1 old}
-
-% \section{Details of Phase 1 of the Attack}
-
-Phase 1 of the attack aims to identify a set of attacker 3-tuples such that each one maps uniquely to a different cell of the perturbation table used by the Double-Hash Port Selection (DHPS) algorithm in the Linux kernel. This set of attacker 3-tuples is essential for Phase 2, because collisions between loopback 3-tuples cannot be directly observed. Instead, these collisions must be inferred by detecting whether different loopback 3-tuples collide with the \emph{same} attacker 3-tuple.
-
-% \subsection{Sandwiching Method}
-
-Phase 1 uses a \alert{sandwiching method} consisting of three bursts of TCP SYN packets:
-
+More precisely, the steps of the Phase 1 algorithm~\ref{alg:phase1} are as follows:
 \begin{itemize}
-	\item \alert{First Burst:} Sent to a set $S_i$ of new attacker 3-tuple candidates.
-	\item \alert{Second Burst:} Sent to all attacker 3-tuples currently known to uniquely cover perturbation table cells (the set $S'_{i-1}$).
-	\item \alert{Third Burst:} Sent again to the same set $S_i$ of new attacker 3-tuple candidates.
+    \item In each iteration $i$, the attacker generates a new set $S_i$ of attacker 3-tuples as candidate destinations. These destinations are distinct from those used in previous iterations.
+    
+    \item The browser performs three bursts of TCP connection attempts:
+    \begin{itemize}
+        \item \textbf{Wrapper (first burst):} connections are attempted to all 3-tuples in $S_i$.
+        
+        \item \textbf{Filling (second burst):} 
+        \begin{itemize}
+            \item In the first iteration, since no unique attacker 3-tuples have been found yet, this burst is empty. However, just because of that, it does not mean that all candidate attacker 3-tuples in $S_i$ necessarily become unique attacker 3-tuples. Candidate attacker 3-tuples can collide with each other if they map to the same cell in the perturbation table. Such collisions are detected through the source port differences observed between the two wrapper bursts.
+            
+            \item In later iterations, this burst consists of connections to the set $S'_{i-1}$, which contains all unique attacker 3-tuples found so far.
+        \end{itemize}
+        
+        \item \textbf{Wrapper (third burst):} connections are attempted again to all 3-tuples in $S_i$.
+    \end{itemize}
+    
+    \item The attacker compares the source ports assigned to the connections in the first and third bursts (the wrapper) for each 3-tuple in $S_i$. If the difference between the two source ports for a 3-tuple is exactly 1, it indicates that this attacker 3-tuple maps uniquely to a single cell in the perturbation table and does not share the cell with any other tested 3-tuple. Such 3-tuples are added to $S'_i$.
+    
+    \item The algorithm continues iterating until the number of unique attacker 3-tuples found, i.e. $\lvert S'_i \rvert$, equals $T$, where $T$ is the number of cells in the perturbation table. \textbf{The algorithm terminates when the condition $\lvert S'_i \rvert = T$ is met.}
 \end{itemize}
 
-Thus, the \emph{new attacker 3-tuple candidates are outside the sandwich}, and the \emph{known attacker 3-tuples that cover cells of the perturbation table are inside the sandwich}.
-
-% \subsection{First Round Without Known Attacker 3-Tuples}
-
-In the very first round of Phase 1, there are no known attacker 3-tuples to place inside the sandwich. Therefore, the second burst of the sandwich is effectively empty. Nevertheless, collisions can still be detected in this round because some attacker 3-tuple candidates in $S_i$ may collide with each other. If the source port difference for an attacker 3-tuple candidate between the first and third bursts is greater than $1$, this indicates that it shares a perturbation table cell with another candidate in $S_i$ and thus cannot be added to the set of unique attacker 3-tuples.
-
-% \subsection{Detecting Unique Mapping}
-
-An attacker 3-tuple candidate $x \in S_i$ is determined to map to a previously uncovered perturbation table cell if the following condition holds:
-
-\[
-	P'(x) - P(x) = 1
-\]
-
-where $P(x)$ and $P'(x)$ denote the source ports assigned to $x$ in the first and third bursts, respectively. If this difference is exactly $1$, it means no collision occurred with any previously known attacker 3-tuple or with other candidates in $S_i$, and thus $x$ is the first 3-tuple to map to that perturbation table cell.
-
-% \subsection{Mapping Source Ports to Attacker 3-Tuples}
-
-Although it is impossible to directly determine to which specific index in the perturbation table an attacker 3-tuple is mapped, it is still possible to identify that a certain attacker 3-tuple is the \emph{first} to map to a cell, as no collisions were observed in the sandwich construction for that tuple. The attacker can relate observed source ports to attacker 3-tuples because the tracking server maintains a mapping:
-
-\[
-	(\mathrm{IP_{Src}}, \mathrm{IP_{Dst}}, \mathrm{Port_{Dst}}) \;\rightarrow\; \mathrm{Port_{Src}}
-\]
-
-obtained from analyzing the TCP SYN packets sent during the bursts.
-
-% \subsection{Termination Condition}
-
-Phase 1 ends when the attacker has found $T$ attacker 3-tuples, each corresponding to a unique cell of the perturbation table. This ensures that every cell in the table is covered by at least one known attacker 3-tuple.
-
-% \subsection{Importance for Phase 2}
-
-Having a complete set of attacker 3-tuples for all cells of the perturbation table is critical for Phase 2. This is because one cannot directly determine collisions between loopback 3-tuples due to the limited access available on the attacked device. Instead, the attack in Phase 2 relies on the principle that two loopback 3-tuples collide if and only if they both map to the same attacker 3-tuple, as observed by changes in the source port values of TCP SYN packets during the sandwiching method used in Phase 2.
 
 \begin{center}
 	% \begin{adjustbox}{scale=0.6}
@@ -442,6 +379,42 @@ Having a complete set of attacker 3-tuples for all cells of the perturbation tab
 	% \end{adjustbox}
 \end{center}
 
+% \section{Phase 1 old}
+% \label{sec:phase 1 old}
+%
+% Phase 1 of the attack aims to identify a set of attacker 3-tuples such that each one maps uniquely to a different cell of the perturbation table used by the Double-Hash Port Selection (DHPS) algorithm in the Linux kernel. This set of attacker 3-tuples is essential for Phase 2, because collisions between loopback 3-tuples cannot be directly observed. Instead, these collisions must be inferred by detecting whether different loopback 3-tuples collide with the \emph{same} attacker 3-tuple.
+%
+% Phase 1 uses a \alert{sandwiching method} consisting of three bursts of TCP SYN packets:
+%
+% \begin{itemize}
+% 	\item \alert{First Burst:} Sent to a set $S_i$ of new attacker 3-tuple candidates.
+% 	\item \alert{Second Burst:} Sent to all attacker 3-tuples currently known to uniquely cover perturbation table cells (the set $S'_{i-1}$).
+% 	\item \alert{Third Burst:} Sent again to the same set $S_i$ of new attacker 3-tuple candidates.
+% \end{itemize}
+%
+% Thus, the \emph{new attacker 3-tuple candidates are outside the sandwich}, and the \emph{known attacker 3-tuples that cover cells of the perturbation table are inside the sandwich}.
+%
+% In the very first round of Phase 1, there are no known attacker 3-tuples to place inside the sandwich. Therefore, the second burst of the sandwich is effectively empty. Nevertheless, collisions can still be detected in this round because some attacker 3-tuple candidates in $S_i$ may collide with each other. If the source port difference for an attacker 3-tuple candidate between the first and third bursts is greater than $1$, this indicates that it shares a perturbation table cell with another candidate in $S_i$ and thus cannot be added to the set of unique attacker 3-tuples.
+%
+% An attacker 3-tuple candidate $x \in S_i$ is determined to map to a previously uncovered perturbation table cell if the following condition holds:
+%
+% \[
+% 	P'(x) - P(x) = 1
+% \]
+%
+% where $P(x)$ and $P'(x)$ denote the source ports assigned to $x$ in the first and third bursts, respectively. If this difference is exactly $1$, it means no collision occurred with any previously known attacker 3-tuple or with other candidates in $S_i$, and thus $x$ is the first 3-tuple to map to that perturbation table cell.
+%
+% Although it is impossible to directly determine to which specific index in the perturbation table an attacker 3-tuple is mapped, it is still possible to identify that a certain attacker 3-tuple is the \emph{first} to map to a cell, as no collisions were observed in the sandwich construction for that tuple. The attacker can relate observed source ports to attacker 3-tuples because the tracking server maintains a mapping:
+%
+% \[
+% 	(\mathrm{IP_{Src}}, \mathrm{IP_{Dst}}, \mathrm{Port_{Dst}}) \;\rightarrow\; \mathrm{Port_{Src}}
+% \]
+%
+% obtained from analyzing the TCP SYN packets sent during the bursts.
+%
+% Phase 1 ends when the attacker has found $T$ attacker 3-tuples, each corresponding to a unique cell of the perturbation table. This ensures that every cell in the table is covered by at least one known attacker 3-tuple.
+%
+% Having a complete set of attacker 3-tuples for all cells of the perturbation table is critical for Phase 2. This is because one cannot directly determine collisions between loopback 3-tuples due to the limited access available on the attacked device. Instead, the attack in Phase 2 relies on the principle that two loopback 3-tuples collide if and only if they both map to the same attacker 3-tuple, as observed by changes in the source port values of TCP SYN packets during the sandwiching method used in Phase 2.
 
 \section{Phase 2}
 \label{sec:phase 2}
@@ -556,7 +529,5 @@ Throughout this report, the following terminology and conventions are used:
 \label{sec:bibliography}
 
 \printbibliography[heading=none]
-
-% \huge\textcolor[HTML]{0563aa}{$\mathcal{E}$}
 
 \end{document}
