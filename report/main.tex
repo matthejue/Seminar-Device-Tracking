@@ -7,36 +7,24 @@
 \newtoggle{longversion}
 \toggletrue{longversion}
 
-% \togglefalse{longversion}
+\togglefalse{longversion}
 
 \begin{document}
 
 \fontsize{7pt}{8pt}\selectfont
-\newgeometry{margin=1cm, bottom=2cm, top=2cm}
+\newgeometry{margin=1cm, bottom=2cm, top=1cm}
 
 \input{./content/titlepage}
 
+\clearpage
+\pagenumbering{gobble}
 \tableofcontents
-\thispagestyle{empty}
 \clearpage
-\pagestyle{plain}
-\pagenumbering{Roman}
-
-% \listoffigures
-
 \clearpage
-\fancypagestyle{plain}{%
-	\fancyhf{}
-	\fancyfootoffset{0.5cm}
-	\fancyheadoffset{0.5cm}
-	\fancyhead[L]{\color{PrimaryColor}\small\leftmark}
-	\fancyhead[R]{\color{PrimaryColor}\small\rightmark}
-	\renewcommand{\headrulewidth}{0.4mm}
-	\renewcommand{\headrule}{\hbox to\headwidth{\color{PrimaryColor}\leaders\hrule height \headrulewidth\hfill}}
-	\fancyfoot[C]{\thepage}
-}
+
 \pagenumbering{arabic}
-\pagestyle{default}
+\pagestyle{plain}
+\clearpage
 
 \section{Introduction}
 \label{sec:introduction}
