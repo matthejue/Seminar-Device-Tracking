@@ -1,0 +1,40 @@
+name: create pdfs and pngs
+
+on:
+  workflow_dispatch:
+    inputs:
+      subject:
+        description: 'Which document should be generated?'
+        type: string
+        required: true
+        default: "report"
+
+jobs:
+  build:
+    name: Document ${{ github.event.inputs.subject }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Master Branch
+        uses: actions/checkout@v3
+        with:
+          ref: "main"
+
+      - uses: matthejue/texlive-action-personal-copy/full@master
+        with:
+          run: |
+            cd ./${{ github.event.inputs.subject }}
+            latexmk main.tex
+
+      - name: Upload pdf of document to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.UPLOAD_TO_REPO }}
+          file: ${{ github.event.inputs.subject }}/main.pdf
+          asset_name: ${{ github.event.inputs.subject }}.pdf
+          tag: ${{ github.ref_name }}
+          overwrite: true
+          body: "Document ${{ github.event.inputs.subject }}.pdf was added / updated most recently"
