@@ -456,7 +456,10 @@ The algorithm \alert{terminates} as soon as the following condition is satisfied
 	\]
 \end{minipage}
 
-where \( n^*[i] \) denotes the required \alert{number of independent pairs} after \( i \) \alert{iterations} to ensure that the \alert{probability} \( P^l_D(n) \) of a random device yielding the same device ID remains below the \alert{threshold acceptance probability} \( p^* \).
+% where \( n^*[i] \) denotes the required \alert{number of independent pairs} after \( i \) \alert{iterations} to ensure that the \alert{probability} \( P^l_D(n) \) of a random device yielding the same device ID as the device \(D\) remains below the \alert{threshold acceptance probability} \( p^* \).
+where \( n^*[i] \) denotes the required \alert{number of independent pairs} after \( i \) \alert{iterations} to ensure that the \alert{probability} \( P^l_D(n) \) of a random device yielding the same device ID as the device \( D \) remains below the \alert{threshold acceptance probability} \( p^* \), and where \( n \) is the \alert{number of independent loopback-loopback collision pairs} observed during the attack for device \( D \).
+% where \( n^*[i] \) denotes the required \alert{number of independent pairs} after \( i \) \alert{iterations} to keep the \alert{probability} \( P^l_D(n) \) below the \alert{threshold} \( p^* \), with \( n \) the \alert{number of independent collision pairs} found for device \( D \), and \( l \) the \alert{number of iterations} needed to find them.
+% where \( n^*[i] \) denotes the required \alert{number of independent pairs} after \( i \) \alert{iterations} to keep the \alert{probability} \( P^l_D(n) \), defined as the \alert{probability that a random device gets the same ID as device \( D \) after \( l \) iterations with \( n \) independent pairs}, below the \alert{threshold} \( p^* \), with \( n \) the \alert{collision count}.
 
 % This condition guarantees:
 % \vspace{-0.8cm}
@@ -464,45 +467,47 @@ where \( n^*[i] \) denotes the required \alert{number of independent pairs} afte
 % 	\begin{adjustbox}{max width=\columnwidth}
 % 		\begin{minipage}[t]{0.6\textwidth}
 % 			\[
-% 				\underbrace{P^l_D(n)
-% 					= 1 - \left(1 - \frac{1}{T}\right)^n}_{\text{probability that a random device yields same device ID}}
+% 				\underbrace{
+% 				P_D^l(n)
+% 				=
+% 				\frac{1}{T^n}
+% 				\cdot
+% 				\prod_{i=0}^{l - n - 1}
+% 				\left(1 - \frac{i}{T}\right)
+% 				}_{\text{probability that a random device yields same device ID}}
 % 				\;<\;
-% 				\underbrace{\frac{p_{\text{dev}}}{N_D} = p^*}_{\text{threshold acceptance probability}},
+% 				\underbrace{\frac{1}{N_D} = p^*}_{\text{threshold acceptance probability}},
 % 			\]
 % 		\end{minipage}
 % 	\end{adjustbox}
 % \end{center}
-% where \( T \) is the \alert{size of the perturbation table}, \( N_D \) is the \alert{total number of devices} under consideration, and \( p_{\text{dev}} \) is the \alert{acceptable probability} that any device collides with the target device ID.
-%
-% The required value \( n^*[i] \) is determined as:
-%
-% \begin{minipage}{\columnwidth}
-% 	\[
-% 		n^*[i]
-% 		= \min \left\{ n \;\middle|\; 1 - \left(1 - \frac{1}{T}\right)^n < p^* \right\}.
-% 	\]
-% \end{minipage}
+% % where \( T \) is the \alert{size of the perturbation table}, \( N_D \) is the \alert{total number of devices} under consideration, and \( p_{\text{dev}} \) is the \alert{acceptable probability} that any device collides with the target device ID.
+% where \( T \) is the \alert{size of the perturbation table}, \( N_D \) is the \alert{total number of devices} under consideration, and \( p^* \) is the \alert{maximum acceptable probability} that a single random device produces the same device ID as the target device. Setting \( p^* = \frac{1}{N_D^2} \) ensures that the expected number of device ID collisions in the entire population is at most one.
+
 This condition guarantees:
-\vspace{-0.8cm}
+\vspace{-1cm}
 \begin{center}
-	\begin{adjustbox}{max width=\columnwidth}
-		\begin{minipage}[t]{0.6\textwidth}
-			\[
-				\underbrace{
-				P_D^l(n)
-				=
-				\frac{1}{T^n}
-				\cdot
-				\prod_{i=0}^{l - n - 1}
-				\left(1 - \frac{i}{T}\right)
-				}_{\text{probability that a random device yields same device ID}}
-				\;<\;
-				\underbrace{\frac{p_{\text{dev}}}{N_D} = p^*}_{\text{threshold acceptance probability}},
-			\]
-		\end{minipage}
-	\end{adjustbox}
+    \begin{adjustbox}{max width=\columnwidth}
+        \begin{minipage}[t]{0.5\textwidth}
+            \[
+                \underbrace{
+                P_D^l(n)
+                =
+                \frac{1}{T^n}
+                \cdot
+                \prod_{i=0}^{l - n - 1}
+                \left(1 - \frac{i}{T}\right)
+                }_{\text{probability that a random device yields same device ID}}
+                \;<\;
+                \underbrace{
+                p^* = \frac{1}{\binom{N}{2}}
+                }_{\text{threshold acceptance probability}},
+            \]
+        \end{minipage}
+    \end{adjustbox}
 \end{center}
-where \( T \) is the \alert{size of the perturbation table}, \( N_D \) is the \alert{total number of devices} under consideration, and \( p_{\text{dev}} \) is the \alert{acceptable probability} that any device collides with the target device ID.
+
+where \( T \) is the \alert{size of the perturbation table}, \( N \) is the \alert{total number of devices} under consideration, and \( p^* \) is the \alert{maximum acceptable probability} that any \alert{pair} of devices produces the same device ID. Setting \( p^* = \frac{1}{\binom{N}{2}} \) ensures that the expected number of device ID collisions among all pairs in the entire population is at most one.
 
 The required value \( n^*[i] \) is determined as:
 
