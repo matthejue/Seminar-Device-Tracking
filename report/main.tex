@@ -7,7 +7,7 @@
 \newtoggle{longversion}
 \toggletrue{longversion}
 
-% \togglefalse{longversion}
+\togglefalse{longversion}
 
 \begin{document}
 
@@ -174,11 +174,6 @@ Two \alert{types of 3-tuples} are distinguished in the attack:
 We will see later why distinguishing these two types of 3-tuples is important.
 
 The fingerprint mentioned in the introduction Section~\ref{sec:introduction} of this report is the \alert{device ID} that is built by indirectly observing the structure formed by \alert{collisions of loopback 3-tuples} inside the perturbation table. Such a collision occurs if two loopback 3-tuples differing only in their destination port numbers $x$ and $y$ satisfy
-% \begin{equation*}
-% 	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\; \mathrm{Port}_{\mathrm{Dst}} = x \bigr)
-% 	=
-% 	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\; \mathrm{Port}_{\mathrm{Dst}} = y \bigr)
-% \end{equation*}
 \begin{equation*}
 	\begin{split}
 		G_{K_{2}}\bigl(
@@ -385,19 +380,6 @@ The algorithm continues iterating until a unique attacker 3-tuple has been found
 \vspace{0.2cm}
 \input{./share/phase1.tex}
 
-% \begin{center}
-% 	\begin{minipage}[t]{0.49\textwidth}
-% 		\vspace{0cm}
-%
-% 		\input{./share/phase1.tex}
-% 	\end{minipage}
-% 	\begin{minipage}[t]{0.49\textwidth}
-% 		\vspace{0cm}
-%
-% 		\input{./share/phase2.tex}
-% 	\end{minipage}
-% \end{center}
-
 \subsection{Phase 2}
 \label{sec:phase 2}
 
@@ -427,14 +409,6 @@ This means that the unique attacker 3-tuple \(w\) shares the same perturbation t
 Thus, it is possible to determine a \alert{structure} of loopback 3-tuples that collide in same perturbation table cells and use this structure as a \alert{device ID}. This is achieved by collecting a set of \alert{independent pairs} (explained \hyperlink{independant}{here}) of loopback destination ports. The \alert{output} of this process is a device ID composed of independent pairs of destination ports of loopback 3-tuples, which represent the structure of collisions within perturbation table cells.
 
 A significant increment greater than \(\varepsilon\) is required to reliably detect collisions despite \alert{noise}. The same unique attacker 3-tuple \(x\) is contacted \alert{multiple times} to produce a detectable increment in its perturbation table cell, ensuring that any increments caused by unrelated TCP connections on the device (noise) are outweighed.
-
-% The algorithm \alert{terminates} as soon as the following condition is satisfied: 
-% \[
-%   n \ge n^*[i],
-% \]
-% where $n^*[i]$ denotes the required number of independent pairs after $i$ iterations to ensure that the probability $P^l_D(n)$ of a random device yielding the same device ID is below the target threshold $p^*$.
-%
-% This termination condition is expressed in terms of the number $n$ of independent pairs rather than inserted directly into the probability function because $P^l_D(n)$ depends only on $n$ and not on the specific collision structure. Thus, by checking $n \ge n^*[i]$, the attacker ensures that the probability of a device ID collision with another device remains below $p^*$ without repeatedly calculating the exact probability.
 
 The algorithm \alert{terminates} as soon as the following condition is satisfied:
 

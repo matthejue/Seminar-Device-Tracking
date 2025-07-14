@@ -46,11 +46,18 @@ jobs:
           name: ${{ github.event.inputs.subject }}
           path: ./${{ github.event.inputs.subject }}
 
+      - name: Create Tag
+        id: tag
+        run: |
+          TAG="${{ github.event.inputs.subject }}-$(date +'%Y%m%d-%H%M%S')"
+          echo "tag_name=$TAG" >> $GITHUB_OUTPUT
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.tag.outputs.tag_name }}
+          name: Release ${{ steps.tag.outputs.tag_name }}
           files: |
             ./${{ github.event.inputs.subject }}/${{ github.event.inputs.subject }}.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
