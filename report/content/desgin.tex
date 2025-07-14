@@ -3,7 +3,7 @@
 % ┌────────────┐
 % │ Formatting │
 % └────────────┘
-\setlength{\parskip}{0.4cm} % space between paragraphs, https://latexref.xyz/bs-par.html
+\setlength{\parskip}{0.2cm} % space between paragraphs, https://latexref.xyz/bs-par.html
 \setlength\belowcaptionskip{-0.5cm} % https://stackoverflow.com/questions/2685152/gap-after-table-in-latex
 % \mathversion{bold} % math formulas bold
 
@@ -26,6 +26,22 @@
 {\thesubsection}{0.5cm}{}
 \titlespacing{\subsection}{0cm}{0.1cm}{0.1cm}
 
+\titleformat{\subsubsection}
+{\color{PrimaryColor}\normalfont\normalsize\bfseries}
+{\thesubsubsection}{0.5cm}{}
+\titlespacing{\subsubsection}{0cm}{0.1cm}{0.1cm}
+
+\usepackage{chngcntr}
+\counterwithout{section}{chapter}
+
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+% \renewcommand{\thesubsubsection}{\thesection.\arabic{subsection}.\arabic{subsubsection}}
+
+\setcounter{secnumdepth}{3}
+
+\setcounter{tocdepth}{3}
+
 \makeatletter
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \makeatother
@@ -36,6 +52,7 @@
 \titlecontents{chapter}[0cm]{\color{PrimaryColor}}{\thecontentslabel\quad}{\hspace{0cm}}{\titlerule*[0.5pc]{.}\contentspage}
 \titlecontents{section}[0.5cm]{\color{PrimaryColor}}{\thecontentslabel\quad}{\hspace{1cm}}{\titlerule*[0.5pc]{.}\contentspage}
 \titlecontents{subsection}[1cm]{\color{PrimaryColor}}{\thecontentslabel\quad}{\hspace{1cm}}{\titlerule*[0.5pc]{.}\contentspage}
+\titlecontents{subsubsection}[1.5cm]{\color{PrimaryColor}}{\thecontentslabel\quad}{\hspace{1cm}}{\titlerule*[0.5pc]{.}\contentspage}
 
 % ┌───────────────────┐
 % │ Header and Footer │

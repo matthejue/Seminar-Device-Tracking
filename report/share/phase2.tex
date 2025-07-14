@@ -6,16 +6,16 @@ procedure \cn{Phase2}\\+
 $\tt{C} \leftarrow \emptyset; \tt{n} \leftarrow 0; \tt{i} \leftarrow 0$\\
 repeat\\+
 $\tt{i} \leftarrow \tt{i}+1$\\
-$\tt{P} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{1st burst}\\
+$\tt{P} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{// 1st burst}\\
 \cn{AttemptConnectTCP}($\{\tt{L}_i\}$)\\
-$\tt{P'} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{2nd burst}\\
+$\tt{P'} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{// 2nd burst}\\
 $\tt{w} \leftarrow \text{\iota}(x)(\tt{P'}(x) - \tt{P}(x) > \tn{\varepsilon})$\\
-if \cn{Defined}($\tt{B}_w$) then \cmt{A collision was found}\\+
+if \cn{Defined}($\tt{B}_w$) then \cmt{// A collision was found}\\+
 $\tt{C} \leftarrow C \cup \{(\tt{L}_i,\tt{B}[w])\}$\\
 $\tt{n} \leftarrow n+1$\\-
 else\\+
 $\tt{B}[w] \leftarrow L_i$\\--
-until $\tt{n} \ge \tt{n}^*[i]$ \cmt{This is equiv. to $P^i_D(n) \le p^*$}\\
+until $\tt{n} \ge \tt{n}^*[i]$ \cmt{// This is equiv. to $P^i_D(n) \le p^*$}\\
 $\tt{l} \leftarrow \tt{i}$\\
 return (\tt{C},\tt{l})\\-
 	\end{pseudo}

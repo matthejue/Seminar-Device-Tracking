@@ -1,13 +1,19 @@
-\documentclass{report}
+\documentclass[twocolumn]{report}
 
 \input{./content/packages}
 \input{./content/declarations}
 \input{./content/desgin}
 
+\newtoggle{longversion}
+\toggletrue{longversion}
+
+\togglefalse{longversion}
+
+
 \begin{document}
 
-\fontsize{8pt}{9pt}\selectfont
-\newgeometry{margin=2cm, bottom=2cm, top=2cm}
+\fontsize{7pt}{8pt}\selectfont
+\newgeometry{margin=1cm, bottom=2cm, top=2cm}
 
 \input{./content/titlepage}
 
@@ -33,7 +39,7 @@
 \pagenumbering{arabic}
 \pagestyle{default}
 
-\chapter{Introduction}
+\section{Introduction}
 \label{sec:introduction}
 
 In 2018, the \alert{Meltdown} and \alert{Spectre} attacks caused widespread concern by revealing how modern CPUs’ performance features could be exploited to read sensitive data from memory that should have remained inaccessible to user processes.
@@ -44,7 +50,7 @@ In a similar spirit, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the
 
 Like Meltdown, this attack targets \alert{security} and compromises confidentiality, but not by directly revealing secret data, but by exploiting side effects of \alert{hash collisions} that manifest as observable patterns in how \alert{TCP source ports} are incremented across connections. These patterns allow an attacker to infer a fingerprint uniquely tied to a \alert{secret device-specific key}.
 
-\section{About this report}
+\subsection{About this report}
 \label{sec:goal_of_this_report}
 
 The goal of this report is to provide insight into a specific browser-based device tracking technique described in the paper~\cite{kol2022devicetrackinglinuxsnew}. This report explains what this tracking method exploits and how it operates, describes the different phases of the attack, and discusses possible countermeasures to mitigate the vulnerability.
@@ -55,15 +61,15 @@ Readers are encouraged to first consult Section~\ref{sec:terminology and convent
 
 \alert{It should be emphasized that this is purely a report explaining and summarizing the result of other researchers' work, without presenting original research or claiming the findings as the author's own.}
 
-\section{Browser-based Device tracking}
+\iftoggle{longversion}{
+\subsection{Browser-based Device tracking}
 \label{sec:Online browser-based device tracking}
 
 \alert{Browser-based device tracking} is a widespread practice in which websites or advertisers use information collected through the user’s web browser to identify devices across sessions and different websites.
 
-Traditionally, cross-site tracking relied on \alert{third-party cookies}, but growing privacy concerns and technical defenses like privacy modes and cookie blocking have pushed trackers to seek new methods that work across browsers and networks.
+  Traditionally, cross-site tracking relied on \alert{third-party cookies}, but growing privacy concerns and technical defenses like privacy modes and cookie blocking have pushed trackers to seek new methods that work across browsers and networks.
 
 A major \alert{privacy risk} of device tracking is linking a user’s identities across different contexts like networks, browsers, or privacy modes without their awareness or consent.
-
 
 Device tracking techniques, particularly browser-based tracking, face challenges in reliably identifying devices under changing conditions such as switching browsers, networks, or privacy modes. One important problem is the \alert{golden image challenge}, where many identical devices with the same hardware and software configuration need to be distinguished from each other.
 
@@ -75,9 +81,9 @@ Device tracking techniques can be broadly categorized into the following two gro
 \end{itemize}
 
 The attack described in the paper is a \alert{fingerprinting technique}, as it derives a device-specific identifier from the behavior of the operating system’s TCP source port selection rather than storing data in the browser. Unlike typical fingerprinting methods, it can successfully solve the \alert{golden image challenge}, because the identifier it produces depends on a per-device secret key generated at system boot. This allows it to distinguish between devices even when they share identical hardware and software configurations, and it remains effective across different browsers, privacy modes, networks, persisting until the device restarts.
-% , and some VPNs
+}{}
 
-\section{Source Port Selection}
+\subsection{Source Port Selection}
 \label{sec:source port selection}
 
 Source port selection is a mechanism used by the TCP/IP stack of operating systems to choose a TCP source port number for outbound TCP connections. It is required because a TCP connection between two endpoints is uniquely identified by the \alert{4-tuple}, consisting of:
@@ -88,7 +94,9 @@ Source port selection is a mechanism used by the TCP/IP stack of operating syste
 	\item the \aalert{destination port}.
 \end{itemize}
 
+\iftoggle{longversion}{
 \alert{Ports} exist so that multiple simultaneous network connections can operate on the same device, even to the same destination IP address and destination port. For example, a single machine might want to establish several independent TCP connections to the same remote server, and different source ports allow the operating system to distinguish these connections.
+}{}
 
 A straightforward way to select source ports would be simply to choose the next available free port in sequence. But this approach is problematic because it fails to achieve two important goals that are also described in the paper:
 
@@ -97,11 +105,12 @@ A straightforward way to select source ports would be simply to choose the next 
 	\item \aalert{Functionality:} Quickly reusing the same source port can cause failures because earlier connections might still be active or in the \texttt{TIME\_WAIT} state on the server side. Reusing the same 4-tuple too soon can lead to errors or dropped connections.
 \end{itemize}
 
-\subsection{Double-Hash Port Selection Algorithm (DHPS)}
+\subsubsection{Double-Hash Port Selection Algorithm (DHPS)}
 \label{sec:double-hash port selection algorithm}
 
 To address these goals, several algorithms for TCP source port selection have been defined, including the \alert{Double-Hash Port Selection (DHPS)} algorithm, described in RFC 6056\cite{larsenRecommendationsTransportProtocolPort2011}.
 
+\iftoggle{longversion}{
 TCP source ports are divided into different ranges, each serving distinct purposes:
 \begin{itemize}
 	\item \aalert{Well-known ports} (typically ports 0–1023) are reserved for specific services such as HTTP (port 80) or HTTPS (port 443).
@@ -124,30 +133,31 @@ and by this completes the connection’s \alert{4-tuple}. To perform this select
 \end{itemize}
 
 The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add randomness and unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries, all initially set to zero. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port, thus improving security and preventing collisions of TCP 4-tuples.
+}{}
 
-The algorithm operates as described in Algorithm~\ref{alg:dhps_port_selection}:
+The algorithm operates as described in Algorithm~\hyperref[1]{alg:dhps_port_selection}:
 \begin{itemize}
 	\item It calculates an \texttt{offset} by applying the keyed hash function \( F_{K_1} \) to the 3-tuple.
 	\item It calculates an \texttt{index} into the perturbation table by applying the keyed hash function \( G_{K_2} \) to the 3-tuple.
 	\item It computes a candidate port number using:
-	\[
-		\texttt{candidate\_port} = \texttt{min\_ephemeral} + \bigl((\texttt{offset} + \text{table[\texttt{index}]}) \bmod \texttt{num\_ephemeral}\bigr)
-	\]
+	\begin{equation*}
+		\begin{split}
+			\texttt{candidate\_port}
+			 & = \texttt{min\_ephemeral}      \\
+			 & \quad + \bigl((\texttt{offset}
+			+ \text{table[{\texttt{index}}]})
+			\bmod \texttt{num\_ephemeral}\bigr)
+		\end{split}
+	\end{equation*}
 	where \texttt{min\_ephemeral} and \texttt{num\_ephemeral} define the allowed range of ephemeral ports.
 	\item It checks whether the candidate port is suitable. If the port is already in use or otherwise unsuitable, the algorithm increments the entry in the perturbation \texttt{table} at the calculated \texttt{index}. As a consequence, the next time this same table entry is used, the computed port number is also \alert{incremented by 1}, unless the port is already at the end of the ephemeral range, in which case it wraps around to the beginning of the range.
 	\item This process \alert{repeats until} a free port is found or no ports remain. This loop is controlled by the variable \texttt{count}, which is decremented on each attempt and terminates the algorithm when it reaches zero.
 \end{itemize}
-\begin{center}
-	% \begin{adjustbox}{scale=1}
-	\begin{minipage}[t]{0.5\textwidth}
-		\vspace{0cm}
 
-		\input{./share/dhps_algorithm.tex}
-	\end{minipage}
-	% \end{adjustbox}
-\end{center}
-\vspace{0.5cm}
-\chapter{Attack}
+\vspace{0.2cm}
+\input{./share/dhps_algorithm.tex}
+
+\section{Attack}
 \label{sec:attack}
 
 In the attack, two main parties are involved:
@@ -158,7 +168,7 @@ In the attack, two main parties are involved:
 	\item \aalert{Client device}: This is the \alert{victim’s} (Linux-based) device, which runs a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the \alert{tracking server}, interleaved with TCP connection attempts to a \alert{localhost address}.
 \end{itemize}
 
-Two types of 3-tuples are distinguished in the attack:
+Two \alert{types of 3-tuples} are distinguished in the attack:
 
 \begin{itemize}
 	\item \aalert{Attacker 3-tuples:} These have the form
@@ -177,83 +187,123 @@ Two types of 3-tuples are distinguished in the attack:
 We will see later why distinguishing these two types of 3-tuples is important.
 
 The fingerprint mentioned in the introduction Section~\ref{sec:introduction} of this report is the \alert{device ID} that is built by indirectly observing the structure formed by \alert{collisions of loopback 3-tuples} inside the perturbation table. Such a collision occurs if two loopback 3-tuples differing only in their destination port numbers $x$ and $y$ satisfy
+% \begin{equation*}
+% 	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\; \mathrm{Port}_{\mathrm{Dst}} = x \bigr)
+% 	=
+% 	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\; \mathrm{Port}_{\mathrm{Dst}} = y \bigr)
+% \end{equation*}
 \begin{equation*}
-	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\; \mathrm{Port}_{\mathrm{Dst}} = x \bigr)
-	=
-	G_{K_{2}}\bigl(\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\; \mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\; \mathrm{Port}_{\mathrm{Dst}} = y \bigr)
+	\begin{split}
+		G_{K_{2}}\bigl(
+		\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\;
+		\mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\;
+		\mathrm{Port}_{\mathrm{Dst}} = x
+		\bigr)
+		= \\
+		G_{K_{2}}\bigl(
+		\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\;
+		\mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\;
+		\mathrm{Port}_{\mathrm{Dst}} = y
+		\bigr)
+	\end{split}
 \end{equation*}
+\vspace{-0.5cm}
+
 meaning that both tuples hash to the same cell in the perturbation table under the function $\mathrm{G_{K_2}}$. These collisions depend solely on the kernel’s \alert{secret key} $K_2$, which is the same secret key mentioned in the introduction Section~\ref{sec:introduction}. This key is randomly generated each time the \alert{system starts} and remains constant as long as the device stays powered on. Consequently, the device ID is directly tied to $K_2$ and persists across browser sessions, private browsing modes, and network changes.
 
 The device ID consists of the set of all such colliding pairs:
+
+\vspace{-0.2cm}
+\begin{minipage}{\columnwidth}
 \[
 	\left\{ \bigl(x_i, y_i\bigr) \;\middle|\; i = 1, \ldots, n \right\}
 \]
+\end{minipage}
+
 where each pair $(x_i, y_i)$ represents \alert{two destination ports} whose corresponding loopback 3-tuples collide into the same perturbation table cell. These pairs are chosen to be \alert{\hypertarget{independant}{independant}}, meaning that each one captures a distinct piece of evidence about how the secret key $K_2$ maps destination ports into perturbation table cells. Specifically, if $k$ loopback 3-tuples fall into the same cell, there are $\binom{k}{2}$ possible pairs, but only $k-1$ of these are independent. The independent pairs are chosen as:
+
+\vspace{-0.2cm}
+\begin{minipage}{\columnwidth}
 \[
 	(x_1, x_2),\; \ldots,\; (x_1, x_k),
 \]
+\end{minipage}
+
 where $x_1, x_2, \ldots, x_k$ are the destination ports of the colliding loopback 3-tuples. This means that for each group of colliding loopback tuples, the first discovered tuple $x_1$ is paired with every other tuple in that group, as further detailed in Phase 2 of the attack. Pairs beyond these $k-1$ would be \alert{dependent} because their collisions are fully implied by the existing pairs\footnote{For example, knowing that both $(x_1, x_2)$ and $(x_1, x_3)$ collide makes it redundant to additionally record $(x_2, x_3)$.}. This is crucial for the probability analysis in the paper, where the probability that a random device produces the same set of collisions depends solely on the number of independent pairs observed.
 
 A device ID based on collisions of \alert{attacker 3-tuples} would not remain consistent across networks because the source IP address visible to external servers typically changes whenever the device connects to a different network. In contrast, \alert{loopback 3-tuples} with loopback addresses such as $127.x.x.x$ are internal to the device and remain stable across networks, making them suitable for deriving a consistent device ID.
 
 The nature of the attack resembles the principle of a \alert{particle accelerator}, where tiny particles cannot be observed directly and must instead be studied through the side effects they produce. Similarly, because there is no direct access to kernel internals such as the perturbation table, collisions of loopback 3-tuples (used to build the device ID) within the perturbation table \alert{cannot be observed directly}. Instead, such collisions must be inferred indirectly by analyzing the side effects that appear as observable patterns in how TCP source ports are incremented across connections by DHPS.
 
-These observable patterns arise because, in the DHPS algorithm, each cell in the perturbation table maintains a counter that is incremented by 1 in a predictable manner every time it is used to generate a candidate source port, as shown in Algorithm~\ref{alg:dhps_port_selection}, line~9:
+These observable patterns arise because, in the DHPS algorithm, each cell in the perturbation table maintains a counter that is incremented by 1 in a predictable manner every time it is used to generate a candidate source port, as shown in Algorithm~\hyperref[1]{alg:dhps_port_selection}, line~9:
+
+\begin{minipage}{\columnwidth}
 \[
 	\texttt{table[index]} \leftarrow \texttt{table[index]} + 1.
 \]
+\end{minipage}
+
 A technique that exploits these predictable TCP source port increments to detect collisions of 3-tuples (attacker or loopback) is known as \alert{sandwiching}. The general principle of sandwiching is that there is a \alert{wrapper} and a \alert{filling}, as visualized in the following schema:
 
 \begin{center}
-	\begin{tblr}{
-		colspec={|c|Q[l]|},
-		row{1}={bg=PrimaryColor,fg=white,font=\bfseries},
-		row{2}={bg=PrimaryColorDimmed},
-		row{3}={bg=SecondaryColorDimmed},
-		row{4}={bg=PrimaryColorDimmed},
-		hlines
-		}
-		\textbf{Step} & \textbf{Calculation} \\
+	\begin{adjustbox}{max width=0.95\columnwidth}
+		\begin{tblr}{
+			colspec={|c|Q[l]|},
+			row{1}={bg=PrimaryColor,fg=white,font=\bfseries},
+			row{2}={bg=PrimaryColorDimmed},
+			row{3}={bg=SecondaryColorDimmed},
+			row{4}={bg=PrimaryColorDimmed},
+			hlines
+			}
+			\textbf{Step} & \textbf{Calculation} \\
 
-		Wrapper       &
-		\(
-		\begin{aligned}
-			 & i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                                   \\
-			 & \text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                     \\
-			 & \text{Port}_{\text{Src},1} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i]\bigr)\bmod \text{num\_ephemeral} \\
-			 & \text{table}[i] = \text{table}[i] + 1
-		\end{aligned}
-		\)                                   \\
+			Wrapper       &
+			\(
+			\begin{aligned}
+				 & i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                                   \\
+				 & \text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                     \\
+				 & \text{Port}_{\text{Src},1} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i]\bigr)\bmod \text{num\_ephemeral} \\
+				 & \text{table}[i] = \text{table}[i] + 1
+			\end{aligned}
+			\)                                   \\
 
-		Filling       &
-		\(
-		\begin{aligned}
-			 & j = G_{K_2}(\text{IP}_{\text{Src},Y}, \text{IP}_{\text{Dst},Y}, \text{Port}_{\text{Dst},Y})                                   \\
-			 & \text{offset}_Y = F_{K_1}(\text{IP}_{\text{Src},Y}, \text{IP}_{\text{Dst},Y}, \text{Port}_{\text{Dst},Y})                     \\
-			 & \text{Port}_{\text{Src},2} = \text{min\_ephemeral} + \bigl(\text{offset}_Y + \text{table}[j]\bigr)\bmod \text{num\_ephemeral} \\
-			 & \text{table}[j] = \text{table}[j] + 1
-		\end{aligned}
-		\)                                   \\
+			Filling       &
+			\(
+			\begin{aligned}
+				 & j = G_{K_2}(\text{IP}_{\text{Src},Y}, \text{IP}_{\text{Dst},Y}, \text{Port}_{\text{Dst},Y})                                   \\
+				 & \text{offset}_Y = F_{K_1}(\text{IP}_{\text{Src},Y}, \text{IP}_{\text{Dst},Y}, \text{Port}_{\text{Dst},Y})                     \\
+				 & \text{Port}_{\text{Src},2} = \text{min\_ephemeral} + \bigl(\text{offset}_Y + \text{table}[j]\bigr)\bmod \text{num\_ephemeral} \\
+				 & \text{table}[j] = \text{table}[j] + 1
+			\end{aligned}
+			\)                                   \\
 
-		Wrapper       &
-		\(
-		\begin{aligned}
-			 & i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                                             \\
-			 & \text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                               \\
-			 & \text{Port}_{\text{Src},3} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i] + \delta \bigr)\bmod \text{num\_ephemeral} \\
-			 & \text{table}[i] = \text{table}[i] + 1
-		\end{aligned}
-		\)                                   \\
-	\end{tblr}
+			Wrapper       &
+			\(
+			\begin{aligned}
+				 & i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                                             \\
+				 & \text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                               \\
+				 & \text{Port}_{\text{Src},3} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i] + \delta \bigr)\bmod \text{num\_ephemeral} \\
+				 & \text{table}[i] = \text{table}[i] + 1
+			\end{aligned}
+			\)                                   \\
+		\end{tblr}
+	\end{adjustbox}
 \end{center}
 where
+\vspace{-1cm}
+\begin{center}
+  \begin{adjustbox}{max width=\columnwidth}
+    \begin{minipage}[t]{0.4\textwidth}
 \[
 	\delta =
 	\begin{cases}
-		1, & \text{if } i \neq j,\ \text{meaning that perturbation table cell } i \text{ was not used in the filling step,} \\
-		2, & \text{if } i = j,\ \text{meaning that perturbation table cell } i \text{ was used in the filling step.}
+    1, & \text{if } i \neq j,\ \text{meaning perturbation table cell } i \text{ was not used,} \\
+		2, & \text{if } i = j,\ \text{meaning perturbation table cell } i \text{ was used}
 	\end{cases}
 \]
+    \end{minipage}
+  \end{adjustbox}\footnote{Used or not used in the filling step.}
+\end{center}
 \begin{itemize}
 	\item In the \aalert{first wrapper step}, DHPS calculates \(\text{Port}_{\text{Src},1}\) for the 3-tuple \( X \), based on the current value in cell \( i \) of the perturbation table. Afterwards, \(\text{table}[i]\) is incremented by 1.
 	\item In the \aalert{filling step}, a different 3-tuple \( Y \) is used, producing \(\text{Port}_{\text{Src},2}\) based on cell \( j \). If \( j = i \), then \(\text{table}[i]\) is incremented again.
@@ -261,7 +311,7 @@ where
 \end{itemize}
 
 % \begin{sidenote}
-	The second increment of \(\text{table}[i]\) in the second wrapper step does \alert{not provide any further relevant information} about the 3-tuple \( X \) or about any tuples \( Y \) colliding with it in the filling step, because \(\text{Port}_{\text{Src},3}\) has already been calculated by then. Instead, this increment is only relevant for any other 3-tuple in the wrapper steps that might later map to the same perturbation table cell \( i \).
+The second increment of \(\text{table}[i]\) in the second wrapper step does \alert{not provide any further relevant information} about the 3-tuple \( X \) or about any tuples \( Y \) colliding with it in the filling step, because \(\text{Port}_{\text{Src},3}\) has already been calculated by then. Instead, this increment is only relevant for any other 3-tuple in the wrapper steps that might later map to the same perturbation table cell \( i \).
 % \end{sidenote}
 
 The explanation above illustrates only the \alert{core idea of sandwiching} in a simplified example. In practice, several additional factors must be taken into account:
@@ -276,9 +326,10 @@ The explanation above illustrates only the \alert{core idea of sandwiching} in a
 \end{itemize}
 
 The consequence of what is explained in \hyperlink{limitations}{Limitations for loopback 3-tuples} is that, in order to detect which loopback 3-tuples collide with each other, one must observe \alert{collisions between loopback 3-tuples and attacker 3-tuples} using the sandwiching method. By transitivity, if two loopback 3-tuples each collide with the same attacker 3-tuple, then they also collide with each other:
+\vspace{-0.6cm}
 \begin{center}
-	\begin{adjustbox}{scale=0.9}
-		\begin{minipage}{1.1\textwidth}
+	\begin{adjustbox}{max width=\columnwidth}
+		\begin{minipage}{0.85\textwidth}
 			\[
 				\begin{aligned}
 					 &
@@ -308,12 +359,13 @@ The consequence of what is explained in \hyperlink{limitations}{Limitations for 
 		\end{minipage}
 	\end{adjustbox}
 \end{center}
+
 In phase 2 \ref{sec:phase 2} of the attack, the sandwiching method is used to detect collisions between loopback 3-tuples indirectly, by checking whether they collide with the same attacker 3-tuples. To enable this, it is necessary to have a set of attacker 3-tuples that collectively cover all cells of the perturbation table, ensuring that every cell can be tested for potential collisions. These so-called \alert{unique attacker 3-tuples} have to be first determined in phase 1 \ref{sec:phase 1}, also via the sandwiching method.
 
-\section{Phase 1}
+\subsection{Phase 1}
 \label{sec:phase 1}
 
-The Phase 1 algorithm is depicted in algorithm~\ref{alg:phase1}. In each iteration $i$, the attacker generates a new set $S_i$ of \alert{candidate attacker 3-tuples}. These candidate attacker 3-tuples are distinct from those used in previous iterations.
+The Phase 1 algorithm is depicted in algorithm~\hyperref[alg:phase1]{2}. In each iteration $i$, the attacker generates a new set $S_i$ of \alert{candidate attacker 3-tuples}. These candidate attacker 3-tuples are distinct from those used in previous iterations.
 
 The algorithm utilizes the \alert{sandwiching technique}, introduced earlier in Section~\ref{sec:attack}. In every iteration, the browser performs two bursts of TCP connection attempts in the wrapper and one burst in the filling, as follows:
 \begin{itemize}
@@ -326,10 +378,15 @@ The algorithm utilizes the \alert{sandwiching technique}, introduced earlier in 
 \end{itemize}
 
 After performing the sandwiching technique, each attacker 3-tuple \( x \) in the wrapper is determined to be \alert{unique} if it fulfills the following \alert{condition}:
+
+\vspace{-0.2cm}
+\begin{minipage}{\columnwidth}
 \begin{equation*}
 	P'(x) - P(x) = 1 
   	\quad \text{when sandwiching } S'_i \text{ as filling.}
 \end{equation*}
+\end{minipage}
+
 where \(P(x)\) and \(P'(x)\) are partial functions that map \alert{candidate attacker 3-tuples \( x \) to} the observed \alert{TCP source port} numbers assigned during the first and third bursts of TCP connection attempts probing the wrapper, respectively. These functions are defined only for the set of attacker 3-tuples probed in the corresponding bursts.
 
 This \alert{condition implies} that those attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the unique attacker 3-tuples discovered so far in the filling has already been mapped to (cf.\ Figure~\ref{<your_illustration_label>}). Consequently, they do not collide with any of the previously discovered unique attacker 3-tuples and are thereby confirmed as new \alert{unique attacker 3-tuples}, which form the \alert{output} of Phase~1 of the attack algorithm.
@@ -338,23 +395,26 @@ This \alert{condition implies} that those attacker 3-tuples in the wrapper, whos
 
 The algorithm continues iterating until a unique attacker 3-tuple has been found for every cell of the perturbation table. Formally, it \alert{terminates} as soon as the number of unique attacker 3-tuples found, i.e.\ $\lvert S'_i \rvert$, equals $T$, where $T$ is the number of cells in the perturbation table.
 
-\begin{center}
-	\begin{minipage}[t]{0.49\textwidth}
-		\vspace{0cm}
+\vspace{0.2cm}
+\input{./share/phase1.tex}
 
-		\input{./share/phase1.tex}
-	\end{minipage}
-	\begin{minipage}[t]{0.49\textwidth}
-		\vspace{0cm}
+% \begin{center}
+% 	\begin{minipage}[t]{0.49\textwidth}
+% 		\vspace{0cm}
+%
+% 		\input{./share/phase1.tex}
+% 	\end{minipage}
+% 	\begin{minipage}[t]{0.49\textwidth}
+% 		\vspace{0cm}
+%
+% 		\input{./share/phase2.tex}
+% 	\end{minipage}
+% \end{center}
 
-		\input{./share/phase2.tex}
-	\end{minipage}
-\end{center}
-
-\section{Phase 2}
+\subsection{Phase 2}
 \label{sec:phase 2}
 
-The Phase 1 algorithm is depicted in Algorithm~\ref{alg:phase1}. It begins by initializing an empty set $C$ to store \alert{independent pairs of loopback 3-tuples} that collide in the same perturbation table cell, a counter $n \leftarrow 0$ for the \alert{number of independent pairs found}, and an \alert{iteration counter} $i \leftarrow 0$.
+The Phase 2 algorithm is depicted in Algorithm~\hyperref[alg:phase2]{3}. It begins by initializing an empty set $C$ to store \alert{independent pairs of loopback 3-tuples} that collide in the same perturbation table cell, a counter $n \leftarrow 0$ for the \alert{number of independent pairs found}, and an \alert{iteration counter} $i \leftarrow 0$.
 
 In each iteration, the iteration counter is incremented, \(i \leftarrow i+1\). Let \(w\) denote the attacker 3-tuple identified as colliding with the current loopback 3-tuple \(L_i\). A mapping data structure \(B\), implemented as a \alert{dictionary} with attacker 3-tuples as keys, is used to record the first loopback 3-tuple observed for each attacker 3-tuple \(w\). \alert{If a collision is found} and there is already a loopback 3-tuple \(B[w]\) previously mapped to cell \(w\), the pair \((L_i, B[w])\) is added to the set \(C\) as an independent pair, and the counter is incremented, \(n \leftarrow n+1\). \alert{Otherwise}, \(B[w]\) is set to \(L_i\) to remember the first loopback 3-tuple associated with the attacker 3-tuple \(w\).
 
@@ -365,10 +425,14 @@ This algorithm utilizes the sandwiching technique introduced earlier in Section~
 \end{itemize}
 
 An \alert{unique attacker 2-tuple \(w\)} is said to collide with a \alert{loopback 3-tuple \(L_i\)} if the following \alert{condition} holds:
+
+\begin{minipage}{\columnwidth}
 \begin{equation*}
 	\bigl(P'(w) - P(w)\bigr) > \varepsilon
 	\quad \text{when sandwiching } L_i \text{ as filling.}
 \end{equation*}
+\end{minipage}
+
 Here, \(P(w)\) and \(P'(w)\) denote the observed \alert{source ports assigned to} the \alert{unique attacker 2-tuple \(w\)} during the first and second wrapper bursts, respectively, when the loopback 3-tuple \(L_i\) is inserted into the filling.
 
 This means that the unique attacker 3-tuple \(w\) shares the same perturbation table cell as the loopback 3-tuple \(L_i\). Since \alert{only one} loopback 3-tuple \(L_i\) repeatedly establishes TCP connections during the filling, only one unique attacker 3-tuple \(w\) exhibits a \alert{significant increment} greater than \(\varepsilon\), while all other unique attacker 3-tuples do not. Because each unique attacker 3-tuple \(w\) represents a distinct perturbation table cell (even if the exact cell is unknown), it becomes possible to identify which loopback 3-tuples \(L_i\) collide with which perturbation table cells represented by unique attacker 3-tuples, by knowing the unique attacker 3-tuples \(w\) for which a loopback 3-tuple \(L_i\) causes a significant increment.
@@ -386,39 +450,55 @@ A significant increment greater than \(\varepsilon\) is required to reliably det
 % This termination condition is expressed in terms of the number $n$ of independent pairs rather than inserted directly into the probability function because $P^l_D(n)$ depends only on $n$ and not on the specific collision structure. Thus, by checking $n \ge n^*[i]$, the attacker ensures that the probability of a device ID collision with another device remains below $p^*$ without repeatedly calculating the exact probability.
 
 The algorithm \alert{terminates} as soon as the following condition is satisfied:
+
+\vspace{-0.2cm}
+\begin{minipage}{\columnwidth}
 \[
   n \ge n^*[i],
 \]
+\end{minipage}
+
 where \( n^*[i] \) denotes the required \alert{number of independent pairs} after \( i \) \alert{iterations} to ensure that the \alert{probability} \( P^l_D(n) \) of a random device yielding the same device ID remains below the target threshold \( p^* \).
 
 This condition guarantees:
+\vspace{-0.8cm}
+\begin{center}
+  \begin{adjustbox}{max width=\columnwidth}
+    \begin{minipage}[t]{0.6\textwidth}
 \[
   \underbrace{P^l_D(n) 
   = 1 - \left(1 - \frac{1}{T}\right)^n}_{\text{probability that a random device yields same device ID}}
   \;<\;
   \underbrace{\frac{p_{\text{dev}}}{N_D} = p^*}_{\text{target threshold per device}},
 \]
+    \end{minipage}
+  \end{adjustbox}
+\end{center}
 where \( T \) is the \alert{size of the perturbation table}, \( N_D \) is the \alert{total number of devices} under consideration, and \( p_{\text{dev}} \) is the \alert{acceptable probability} that any device collides with the target device ID.
 
 The required value \( n^*[i] \) is determined as:
+
+\begin{minipage}{\columnwidth}
 \[
   n^*[i] 
   = \min \left\{ n \;\middle|\; 1 - \left(1 - \frac{1}{T}\right)^n < p^* \right\}.
 \]
+\end{minipage}
 
 Values of \( n^*[i] \) are \alert{precomputed} and stored in a table to avoid repeated evaluation of \( P^l_D(n) \) during the attack. The termination condition is expressed in terms of \( n \) rather than inserted directly into the probability function because \( P^l_D(n) \) depends only on \( n \) and \alert{not on the specific collision structure}. By checking \( n \ge n^*[i] \), the attacker ensures that the probability of a device ID collision with another device remains below \( p^* \) \alert{without recomputing probabilities} each time.
 
+\vspace{0.2cm}
+\input{./share/phase2.tex}
 
-\vspace{0.5cm}
-\chapter{Countermeasures}
+\section{Countermeasures}
 \label{sec:countermeasures}
-
+%
 The \alert{root cause} of the attack described in the paper is that the Double-Hash Port Selection algorithm (DHPS) generates TCP source ports deterministically, allowing attackers to detect hash collisions in shared perturbation table entries and derive stable device-specific patterns.
-
+%
 An \alert{ideal solution} would be to create a private perturbation table for each network namespace and interface, preventing attackers from observing stable collisions. However, this is impractical due to high memory consumption when many containers or interfaces exist.
-
+%
 In \alert{general}, \alert{countermeasures} to prevent this attack focus on making hash collisions less frequent or making it much more difficult for attackers to detect them. The paper proposes several modifications to DHPS, and these were incorporated into the Linux kernel through a security patch. The main countermeasures are:
-
+%
 \begin{itemize}
 	\item \aalert{Increase table size $T$:}
 	A larger perturbation table reduces hash collisions and increases attack cost.
@@ -432,17 +512,16 @@ In \alert{general}, \alert{countermeasures} to prevent this attack focus on maki
 	Adding randomness to perturbation table increments makes collisions harder to detect.
 	\textit{The concrete change made in the Linux kernel was to randomize increments uniformly between 1 and 8.}
 \end{itemize}
-
+%
 These countermeasures were integrated into Linux versions 5.18 and 5.19, making the attack significantly harder or infeasible.
-
-\vspace{0.5cm}
-\chapter{Appendix}
+%
+\section{Appendix}
 \label{sec:appendix}
 \pagenumbering{Alph}
-
+%
 \section{Terminology and Conventions}
 \label{sec:terminology and conventions}
-
+%
 Throughout this report, the following terminology and conventions are used:
 \begin{itemize}
 	\item Clickable hyperlinks look like \hyperref[sec:terminology and conventions]{this}, and normal highlighted text looks like \alert{this}.
@@ -456,9 +535,9 @@ Throughout this report, the following terminology and conventions are used:
 	\ditem{wrapper}{Wrapper}
 	\ditem{filling}{Filling}
 \end{itemize}
-
+%
 \vspace{0.5cm}
-\chapter{Bibliography}
+\section{Bibliography}
 \label{sec:bibliography}
 
 \printbibliography[heading=none]
