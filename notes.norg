@@ -26,7 +26,8 @@
   - 2 spaltiger Report erlaubt?
   - was muss ich zu TCP Syn Packeten wissen?
   - warum tcp nicht ohne diese Fehler designed?
-  - warum geht es nicht eifache alle ports auf einmall zu schicken?
+  - warum geht es nicht eifache alle ports auf einmal zu schicken?
+  - Abgabedatum Report
 
 * Zu klärende Fragen
   - does one have to always us same loopback addresses but differnert attacker tuples possible?
