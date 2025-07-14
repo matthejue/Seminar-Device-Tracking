@@ -9,6 +9,9 @@ on:
         required: true
         default: "report"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Document ${{ github.event.inputs.subject }}
@@ -40,6 +43,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -52,6 +60,13 @@ jobs:
           TAG="${{ github.event.inputs.subject }}-$(date +'%Y%m%d-%H%M%S')"
           echo "tag_name=$TAG" >> $GITHUB_OUTPUT
 
+      - name: Create and push tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git tag ${{ steps.tag.outputs.tag_name }}
+          git push origin ${{ steps.tag.outputs.tag_name }}
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -61,3 +76,4 @@ jobs:
             ./${{ github.event.inputs.subject }}/${{ github.event.inputs.subject }}.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

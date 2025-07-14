@@ -454,14 +454,11 @@ Values of \( n^*[i] \) are \alert{precomputed} and stored in a table to avoid re
 \section{Countermeasures}
 \label{sec:countermeasures}
 
-\iftoggle{longversion}{
 The \alert{root cause} of the attack described in the paper is that the Double-Hash Port Selection algorithm (DHPS) generates TCP source ports deterministically, allowing attackers to detect hash collisions in shared perturbation table entries and derive stable device-specific patterns.
 
 An \alert{ideal solution} would be to create a private perturbation table for each network namespace and interface, preventing attackers from observing stable collisions. However, this is impractical due to high memory consumption when many containers or interfaces exist.
-}{}
 
 In \alert{general}, \alert{countermeasures} to prevent this attack focus on making hash collisions less frequent or making it much more difficult for attackers to detect them. The paper proposes several modifications to DHPS, and these were incorporated into the Linux kernel through a security patch. The main countermeasures are:
-%
 \begin{itemize}
 	\item \aalert{Increase table size $T$:}
 	A larger perturbation table reduces hash collisions and increases attack cost.
