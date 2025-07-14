@@ -75,11 +75,20 @@ Readers are encouraged to first consult Section~\ref{sec:terminology and convent
 \subsection{Source Port Selection}
 \label{sec:source port selection}
 
-Source port selection is a mechanism used by the TCP/IP stack of operating systems to choose a TCP source port number for outbound TCP connections. It is required because a TCP connection between two endpoints is uniquely identified by the \alert{4-tuple}, consisting of the \aalert{source IP} address, the \aalert{source port}, the \aalert{destination IP} address, and the \aalert{destination port}.
 
 \iftoggle{longversion}{
+  Source port selection is a mechanism used by the TCP/IP stack of operating systems to choose a TCP source port number for outbound TCP connections. It is required because a TCP connection between two endpoints is uniquely identified by the \alert{4-tuple}, consisting of: 
+  \begin{itemize}
+    \item the \alert{source IP} address, 
+    \item the \alert{source port}, 
+    \item the \alert{destination IP} address, and 
+    \item the \alert{destination port}.
+  \end{itemize}
+
 	\alert{Ports} exist so that multiple simultaneous network connections can operate on the same device, even to the same destination IP address and destination port. For example, a single machine might want to establish several independent TCP connections to the same remote server, and different source ports allow the operating system to distinguish these connections.
-}{}
+}{
+Source port selection is a mechanism used by the TCP/IP stack of operating systems to choose a TCP source port number for outbound TCP connections. It is required because a TCP connection between two endpoints is uniquely identified by the \alert{4-tuple}, consisting of the \alert{source IP} address, the \alert{source port}, the \alert{destination IP} address, and the \alert{destination port}.
+}
 
 A straightforward way to select source ports would be simply to choose the next available free port in sequence. But this approach is problematic because it fails to achieve two important goals that are also described in the paper:
 
@@ -117,7 +126,7 @@ To address these goals, several algorithms for TCP source port selection have be
 
 	The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add randomness and unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries, all initially set to zero. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port, thus improving security and preventing collisions of TCP 4-tuples.
 }{
-	TCP source ports are divided into different ranges, each serving distinct purposes. For the DHPS algorithm, the ephemeral port range is particularly relevant because it represents the pool from which source ports are selected for outbound connections. \aalert{Ephemeral ports} (typically in the higher range, e.g. 32768–60999 in Linux) are dynamically allocated by the operating system for short-lived client-side connections.
+	TCP source ports are divided into different ranges, each serving distinct purposes. For the DHPS algorithm, the ephemeral port range is particularly relevant because it represents the pool from which source ports are selected for outbound connections. \alert{Ephemeral ports} (typically in the higher range, e.g. 32768–60999 in Linux) are dynamically allocated by the operating system for short-lived client-side connections.
 
 	DHPS selects a TCP \alert{source port} for outbound TCP connections from the ephemeral range based on a given \alert{3-tuple}, consisting of the \alert{source IP} address, the \alert{destination IP} address, and the \alert{destination port} and by this completes the connection’s \alert{4-tuple}. To perform this selection, it uses two \alert{cryptographic keyed-hash functions} with separate, independent keys:
 	\begin{itemize}
@@ -558,7 +567,6 @@ In \alert{general}, \alert{countermeasures} to prevent this attack focus on maki
 	These countermeasures were integrated into Linux versions 5.18 and 5.19, making the attack significantly harder or infeasible.
 }{}
 
-\newpage
 \section{Appendix}
 \label{sec:appendix}
 \pagenumbering{Alph}
