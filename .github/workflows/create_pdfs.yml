@@ -28,13 +28,25 @@ jobs:
           run: |
             cd ./${{ github.event.inputs.subject }}
             latexmk main.tex
+            mv main.pdf ${{ github.event.inputs.subject }}.pdf
 
-      - name: Upload pdf of document to release
-        uses: svenstaro/upload-release-action@v2
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
-          repo_token: ${{ secrets.UPLOAD_TO_REPO }}
-          file: ${{ github.event.inputs.subject }}/main.pdf
-          asset_name: ${{ github.event.inputs.subject }}.pdf
-          tag: ${{ github.ref_name }}
-          overwrite: true
-          body: "Document ${{ github.event.inputs.subject }}.pdf was added / updated most recently"
+          name: ${{ github.event.inputs.subject }}
+          path: ./${{ github.event.inputs.subject }}/${{ github.event.inputs.subject }}.pdf
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v3
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ./${{ github.event.inputs.subject }}/${{ github.event.inputs.subject }}.pdf
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
