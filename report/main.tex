@@ -420,7 +420,7 @@ where \(P(x)\) and \(P'(x)\) are partial functions that map \alert{candidate att
 
 This \alert{condition implies} that those candidate attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the unique attacker 3-tuples discovered so far in the filling has already been mapped to. Consequently, they do not collide with any of the previously discovered unique attacker 3-tuples and are thereby confirmed as new \alert{unique attacker 3-tuples}, which form the \alert{output} of Phase~1 of the attack algorithm.
 
-\alert{Noise} occurring between the first and second TCP connection attempts using the same candidate attacker 3-tuple in the first and second wrapper steps can increase the value of \texttt{table[i]}, where $i$ is the index of the perturbation table cell associated with that candidate attacker 3-tuple. This \alert{can hide} unique attacker 3-tuples by making their observed increment larger than $1$. However, this isn’t a problem, because noise can hide a unique mapping, but it \alert{can’t fabricate} one. The only problem is that Phase 1 may require more iterations to find unique attacker 3-tuples for all perturbation table cells, but it does not compromise the correctness of the mapping once established.
+\alert{Noise} occurring between the first and second TCP connection attempts for one candidate attacker 3-tuple can increase the value of \texttt{table[i]}, where $i$ is the index of the perturbation table cell associated with that candidate attacker 3-tuple. This \alert{can hide} hide this candidate attacker 3-tuple from being discovered to be unique by making it's observed increment larger than $1$. However, this isn’t a problem, because noise can hide a unique mapping, but it \alert{can’t fabricate} one. The only problem is that Phase 1 may require more iterations to find unique attacker 3-tuples for all perturbation table cells, but it does not compromise the correctness of the mapping once established.
 
 The algorithm continues iterating until a unique attacker 3-tuple has been found for every cell of the perturbation table. Formally, it \alert{terminates} as soon as the number of unique attacker 3-tuples found, i.e.\ $\lvert S'_i \rvert$, equals $T$, where $T$ is the number of cells in the perturbation table.
 
@@ -444,7 +444,7 @@ After performing the sandwiching technique, an \alert{unique attacker 2-tuple \(
 
 \begin{minipage}{\columnwidth}
 	\begin{equation*}
-		\bigl(P'(w) - P(w)\bigr) > \varepsilon
+		P'(w) - P(w) > \varepsilon
 		\quad \text{when sandwiching } L_i \text{ as filling.}
 	\end{equation*}
 \end{minipage}
