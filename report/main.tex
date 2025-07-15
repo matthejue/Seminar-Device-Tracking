@@ -40,7 +40,7 @@ Like Meltdown, this attack targets \alert{security} and compromises confidential
 \subsection{About this report}
 \label{sec:goal_of_this_report}
 
-The goal of this report is to provide insight into a specific browser-based device tracking technique described in the paper\cite{kol2022devicetrackinglinuxsnew}. %This report explains what this tracking method exploits and how it operates, describes the different phases of the attack, and discusses possible countermeasures to mitigate the vulnerability.
+The goal of this report is to provide insight into a specific browser-based device tracking technique described in the paper\cite{kol2022devicetrackinglinuxsnew}.
 
 This report mainly aims to \alert{summarize} the original paper in a \alert{shorter}, \alert{easier-to-understand}, and \alert{more intuitively structured way}, since the original paper requires additional technical knowledge to be fully understood, has the key information most readers are interested in scattered across various sections, and does not clearly lay out some of the underlying connections and reasons for certain aspects of the attack.
 
@@ -252,7 +252,7 @@ where each pair $(x_i, y_i)$ represents \alert{two destination ports} whose corr
 	\]
 \end{minipage}
 
-where $x_1, x_2, \ldots, x_k$ are the destination ports of the colliding loopback 3-tuples. This means that for each group of colliding loopback tuples, the first discovered tuple's destination port $x_1$ is paired with every other tuple's destination port in that group, as further detailed in Phase 2 of the attack. Pairs beyond these $k-1$ would be \alert{dependent} because their collisions are fully implied by the existing pairs\footnote{\tiny For example, knowing that both $(x_1, x_2)$ and $(x_1, x_3)$ collide makes it redundant to additionally record $(x_2, x_3)$.}. This is crucial for the probability analysis in the paper, where the probability that a random device produces the same set of collisions depends solely on the number of independent pairs observed.
+where $x_1, x_2, \ldots, x_k$ are the destination ports of the colliding loopback 3-tuples. This means that for each group of colliding loopback tuples, the first discovered tuple's destination port $x_1$ is paired with every other tuple's destination port in that group, as further detailed in phase 2 (Section~\ref{sec:phase 2}) of the attack. Pairs beyond these $k-1$ would be \alert{dependent} because their collisions are fully implied by the existing pairs\footnote{\tiny For example, knowing that both $(x_1, x_2)$ and $(x_1, x_3)$ collide makes it redundant to additionally record $(x_2, x_3)$.}. This is crucial for the probability analysis in the paper, where the probability that a random device produces the same set of collisions depends solely on the number of independent pairs observed.
 
 A device ID based on collisions of \alert{attacker 3-tuples} would not remain consistent across networks, because the source IP address visible to external servers typically changes whenever the device connects to a different network. In contrast, \alert{loopback 3-tuples} with loopback addresses such as $127.x.x.x$ are internal to the device and remain stable across networks, making them suitable for deriving a consistent device ID.
 
@@ -395,7 +395,7 @@ In phase 2 (Section~\ref{sec:phase 2}) of the attack, the sandwiching method is 
 \subsection{Phase 1}
 \label{sec:phase 1}
 
-The Phase 1 algorithm is depicted in algorithm~\hyperref[alg:phase1]{2}. In each iteration $i$, the attacker generates a new set $S$ of \alert{candidate attacker 3-tuples}. These candidate attacker 3-tuples are distinct from those used in previous iterations.
+The phase 1 algorithm is depicted in algorithm~\hyperref[alg:phase1]{2}. In each iteration $i$, the attacker generates a new set $S$ of \alert{candidate attacker 3-tuples}. These candidate attacker 3-tuples are distinct from those used in previous iterations.
 
 The algorithm utilizes the \alert{sandwiching technique}, introduced earlier in Section~\ref{sec:attack}. In every iteration, the browser performs two bursts of TCP connection attempts in the wrapper and one burst in the filling, as follows:
 \begin{itemize}
@@ -404,7 +404,7 @@ The algorithm utilizes the \alert{sandwiching technique}, introduced earlier in 
     \item In the first iteration, since no unique attacker 3-tuples have been found yet, the set $S'$ is \alert{empty}. However, just because of that, it does not mean that all candidate attacker 3-tuples in $S_i$ necessarily become unique attacker 3-tuples. Candidate attacker 3-tuples \alert{can} also \alert{collide with each other} if they map to the same cell in the perturbation table via $G_{K_2}$ and thus cannot be unique attacker 3-tuples.
 		\item In later iterations, this burst consists of TCP connection attempts to the set $S'$, which contains \alert{all unique attacker 3-tuples discovered so far}.
 	\end{itemize}
-	\item The \alert{wrapper} comprises new candidate attacker 3-tuples that might be unique and are probed in the first and third bursts of TCP connection attempts. Connections are attempted to all 3-tuples in $S$.
+	\item The two \alert{wrapper} steps comprise new candidate attacker 3-tuples that might be unique and are in each wrapper step probed in a burst of TCP connection attempts. In each wrapper step connections are attempted to all 3-tuples in $S$.
 \end{itemize}
 
 After performing the sandwiching technique, a \alert{candidate attacker 3-tuple} \( x \) in $S$ is determined to be \alert{unique} if it fulfills the following \alert{condition}:
@@ -419,9 +419,9 @@ After performing the sandwiching technique, a \alert{candidate attacker 3-tuple}
 
 where \(P(x)\) and \(P'(x)\) are partial functions that map \alert{candidate attacker 3-tuples \( x \) to} the observed \alert{TCP source port} numbers assigned during the first and third bursts of TCP connection attempts probing the wrapper, respectively. These functions are defined only for the set of attacker 3-tuples probed in the corresponding bursts.
 
-This \alert{condition implies} that those candidate attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the unique attacker 3-tuples discovered so far in the filling has already been mapped to. Consequently, they do not collide with any of the previously discovered unique attacker 3-tuples and are thereby confirmed as new \alert{unique attacker 3-tuples}, which form the \alert{output} of Phase~1 of the attack algorithm.
+This \alert{condition implies} that those candidate attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the unique attacker 3-tuples discovered so far in the filling has already been mapped to. Consequently, they do not collide with any of the previously discovered unique attacker 3-tuples and are thereby confirmed as new \alert{unique attacker 3-tuples}, which form the \alert{output} of phase~1 of the attack algorithm.
 
-\alert{Noise} occurring between the first and second TCP connection attempts for one candidate attacker 3-tuple can increase the value of \texttt{table[i]}, where $i$ is the index of the perturbation table cell associated with that candidate attacker 3-tuple. This \alert{can hide} hide this candidate attacker 3-tuple from being discovered to be unique by making it's observed increment larger than $1$. However, this isn’t a problem, because noise can hide a unique mapping, but it \alert{can’t fabricate} one. The only problem is that Phase 1 may require more iterations to find unique attacker 3-tuples for all perturbation table cells, but it does not compromise the correctness of the mapping once established.
+\alert{Noise} occurring between the first and second TCP connection attempts for one candidate attacker 3-tuple can increase the value of \texttt{table[i]}, where $i$ is the index of the perturbation table cell associated with that candidate attacker 3-tuple. This \alert{can hide} hide this candidate attacker 3-tuple from being discovered to be unique by making it's observed increment larger than $1$. However, this isn’t a problem, because noise can hide a unique mapping, but it \alert{can’t fabricate} one. The only problem is that phase 1 may require more iterations to find unique attacker 3-tuples for all perturbation table cells, but it does not compromise the correctness of the mapping once established.
 
 The algorithm continues iterating until a unique attacker 3-tuple has been found for every cell of the perturbation table. Formally, it \alert{terminates} as soon as the number of unique attacker 3-tuples found, i.e.\ $\lvert S'_i \rvert$, equals $T$, where $T$ is the number of cells in the perturbation table.
 
@@ -431,14 +431,14 @@ The algorithm continues iterating until a unique attacker 3-tuple has been found
 \subsection{Phase 2}
 \label{sec:phase 2}
 
-The Phase 2 algorithm is depicted in Algorithm~\hyperref[alg:phase2]{3}. It begins by initializing an empty set $C$ to store \alert{independent pairs of loopback 3-tuples} that collide in the same perturbation table cell, a counter $n \leftarrow 0$ for the \alert{number of independent pairs found}, and an \alert{iteration counter} $i \leftarrow 0$.
+The phase 2 algorithm is depicted in Algorithm~\hyperref[alg:phase2]{3}. It begins by initializing an empty set $C$ to store \alert{independent pairs of loopback 3-tuples} that collide in the same perturbation table cell via $G_{K_2}$, a counter $n \leftarrow 0$ for the \alert{number of independent pairs found}, and an \alert{iteration counter} $i \leftarrow 0$.
 
-In each iteration, the iteration counter is incremented, \(i \leftarrow i+1\). Let \(w\) denote the attacker 3-tuple identified as colliding with the current loopback 3-tuple \(L_i\). A mapping data structure \(B\), implemented as a \alert{dictionary} with attacker 3-tuples as keys, is used to record the first loopback 3-tuple observed for each attacker 3-tuple \(w\). \alert{If a collision is found} and there is already a loopback 3-tuple \(B[w]\) previously mapped to cell \(w\), the pair \((L_i, B[w])\) is added to the set \(C\) as an independent pair, and the counter is incremented, \(n \leftarrow n+1\). \alert{Otherwise}, \(B[w]\) is set to \(L_i\) to remember the first loopback 3-tuple associated with the attacker 3-tuple \(w\).
+In each iteration, the iteration counter is incremented, \(i \leftarrow i+1\). Let \(w\) denote the unique attacker 3-tuple identified as colliding with the current loopback 3-tuple \(L_i\) (there's always an unique 3-tuple \(w\) with which the loopback 3-tuple $L_i$ collides, because every perturbation table cell is covered by one unique attacker 3-tuple). A mapping data structure \(B\), implemented as a \alert{dictionary} with unique attacker 3-tuples as keys, is used to record the first loopback 3-tuple observed for each unique attacker 3-tuple \(w\). \alert{If a collision is found} and there is already a loopback 3-tuple \(B[w]\) previously mapped to cell \(w\), the pair \((L_i, B[w])\) is added to the set \(C\) as an independent pair, and the counter is incremented, \(n \leftarrow n+1\). \alert{Otherwise}, \(B[w]\) is set to \(L_i\) to remember the first loopback 3-tuple associated with the unique attacker 3-tuple \(w\).
 
-This algorithm utilizes the sandwiching technique introduced earlier in Section~\ref{sec:attack}. In every iteration, this technique operates as follows:
+This algorithm utilizes the \alert{sandwiching technique} introduced earlier in Section~\ref{sec:attack}. In every iteration, this technique operates as follows:
 \begin{itemize}
-	\item The \aalert{filling} consists of a burst of several TCP connection attempts to the current loopback 3-tuple $L_i$. Only one loopback 3-tuple is tested at a time because testing multiple loopback 3-tuples simultaneously, without additional design, would prevent determining which loopback 3-tuple caused an increment in which attacker 3-tuple.
-	\item The \aalert{wrapper} consists of a burst of TCP connection attempts to all unique attacker 3-tuples from Phase 1~\ref{sec:phase 1}, and recording their assigned source ports $P(x)$.
+	\item The \aalert{filling} consists of a burst of several TCP connection attempts to the current loopback 3-tuple $L_i$. Only one loopback 3-tuple is tested at a time because testing multiple loopback 3-tuples simultaneously, without additional design, would prevent determining which loopback 3-tuple caused an increment in which unique attacker 3-tuple.
+	\item The two \aalert{wrapper} steps each consist of a burst of TCP connection attempts to all unique attacker 3-tuples from phase 1 (Section~\ref{sec:phase 1}), and recording their assigned source ports $P(x)$.
 \end{itemize}
 
 After performing the sandwiching technique, an \alert{unique attacker 2-tuple \(w\)} in $S'$ (returned by algorithm~\hyperref[alg:phase1]{2}) is said to collide with a \alert{loopback 3-tuple \(L_i\)} if the following \alert{condition} holds:
@@ -450,7 +450,7 @@ After performing the sandwiching technique, an \alert{unique attacker 2-tuple \(
 	\end{equation*}
 \end{minipage}
 
-Here, \(P(w)\) and \(P'(w)\) denote the observed \alert{source ports assigned to} the \alert{unique attacker 2-tuple \(w\)} during the first and second wrapper bursts, respectively, when the loopback 3-tuple \(L_i\) is inserted into the filling. The collision condition described above is formulated in the Phase~2 algorithm~\ref{alg:phase2} using the symbol \(\iota x\), which is the \alert{Definite Description Operator} and denotes \enquote{the unique \(x\)} satisfying a certain condition.
+Here, \(P(w)\) and \(P'(w)\) denote the observed \alert{source ports assigned to} the \alert{unique attacker 2-tuple \(w\)} during the first and second wrapper bursts, respectively, when the loopback 3-tuple \(L_i\) is inserted into the filling. The collision condition described above is formulated in the phase~2 algorithm~\ref{alg:phase2} using the symbol \(\iota x\), which is the \alert{Definite Description Operator} and denotes \enquote{the unique \(x\)} satisfying a certain condition.
 
 This means that the unique attacker 3-tuple \(w\) shares the same perturbation table cell as the loopback 3-tuple \(L_i\). Since \alert{only one} loopback 3-tuple \(L_i\) repeatedly establishes TCP connections during the filling, only one unique attacker 3-tuple \(w\) exhibits a \alert{significant increment} greater than \(\varepsilon\), while all other unique attacker 3-tuples do not. Because each unique attacker 3-tuple \(w\) represents a distinct perturbation table cell (even if the exact cell is unknown), it becomes possible to identify which loopback 3-tuples \(L_i\) collide with which perturbation table cells represented by unique attacker 3-tuples, by knowing the unique attacker 3-tuples \(w\) for which a loopback 3-tuple \(L_i\) causes a significant increment.
 
@@ -581,7 +581,7 @@ Throughout this report, the following terminology and conventions are used:
 	\item Clickable hyperlinks look like \hyperref[sec:terminology and conventions]{this}, and normal highlighted text looks like \alert{this}.
 	\item All sorts of captions like titles of captions or headwords are written like this \aalert{Caption} and all sorts of just highlighted words that are neither of what has just been mentioned are written like \alert{this}.
     \ditem{collision}{Collision of 3-tuples} Actually means collision of (attacker / loopback) 3-tuples in the same perturbation table cell via $G_{K_2}$ but the last part is omitted for brevity.
-	\ditem{increment}{Increment source port by x} When it is stated that an attacker 3-tuple had a source port incremented by x, it is the difference between the source ports generated by DHCP for the same attacker 3-tuple (as read from the TCP SYN packet) when establishing a TCP connection in the two wrappers parts of the sandwiching method.
+	\ditem{increment}{Increment source port by x} When it is stated that an attacker 3-tuple had a source port incremented by x, it is the difference between the source ports generated by DHCP for the same attacker 3-tuple (as read from the TCP SYN packet) when establishing a TCP connection in the two wrappers steps of the sandwiching method.
 	\ditem{unique}{Unique attacker 3-tuples} Attacker 3-tuples where each uniquely covers one cell of the perturbation table.
 	\ditem{candidate}{Candidate attacker 3-tuples} Possible candidates that could become unique attacker 3-tuples if they do not collide with any of the already found unique attacker 3-tuples.
 \end{itemize}

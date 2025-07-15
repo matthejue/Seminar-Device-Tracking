@@ -7,8 +7,8 @@ $\tt{C} \leftarrow \emptyset; \tt{n} \leftarrow 0; \tt{i} \leftarrow 0$\\
 repeat\\+
 $\tt{i} \leftarrow \tt{i}+1$\\
 $\tt{P} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{// 1st burst}\\
-\cn{AttemptConnectTCP}($\{\tt{L}_i\}$)\\
-$\tt{P'} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{// 2nd burst}\\
+\cn{AttemptConnectTCP}($\{\tt{L}_i\}$) \cmt{// 2nd burst}\\
+$\tt{P'} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{// 3rd burst}\\
 $\tt{w} \leftarrow \text{\iota}x(\tt{P'}(x) - \tt{P}(x) > \tn{\varepsilon})$\\
 if \cn{Defined}($\tt{B}_w$) then \cmt{// A collision was found}\\+
 $\tt{C} \leftarrow C \cup \{(\tt{L}_i,\tt{B}[w])\}$\\
