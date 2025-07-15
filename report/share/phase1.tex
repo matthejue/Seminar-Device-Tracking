@@ -12,10 +12,10 @@ return \tt{R}\\-
 procedure \cn{Phase1}\\+
 \tt{S'} $\leftarrow\emptyset$\\
 while $|\tt{S'}| < \tt{T}$ do\\+
-$\tt{S}_i$ $\leftarrow$ \cn{GetNewExternalDestinations}()\\
-\tt{P} $\leftarrow$ \cn{GetSroucePorts}($\tt{S}_i$) \cmt{// 1st burst}\\
+$\tt{S}$ $\leftarrow$ \cn{GetNewExternalDestinations}()\\
+\tt{P} $\leftarrow$ \cn{GetSroucePorts}($\tt{S}$) \cmt{// 1st burst}\\
 \cn{SendBurst}(\tt{S'}) \cmt{// 2nd burst}\\
-\tt{P'} $\leftarrow$ \cn{GetSourcePorts}($\tt{S}_i$) \cmt{// 3rd burst}\\
+\tt{P'} $\leftarrow$ \cn{GetSourcePorts}($\tt{S}$) \cmt{// 3rd burst}\\
 \tt{S'} $\leftarrow \tt{S'} \cup \{x\,|\,\tt{P'}(x)-\tt{P}(x)=1\}$\\-
 return \tt{S'}
 	\end{pseudo}

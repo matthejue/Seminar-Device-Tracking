@@ -41,6 +41,7 @@
   - warurm sieht dhps so aus, wie es aussieht?
   - kann man aus TCP-Syn Packet wirklich das gesamte 4-Tuple ablesen oder nur source port?
   - das mit Uniqueness besser verstehen
+  - Laufzeit der Algorithmen
 
 * Darüber noch informieren
   - How Meltdown work, so sind sich beide Verfahren ähnlich?
@@ -80,6 +81,7 @@
   -- man weiß nicht genau welche Zelle der T-Table, man weiß nur, dass jedes attacker 3-tuple auf eine Zelle mapt
   - golden image test name origin
   - whhat is this? -> transitivity
+  - remeber this (k over 2)
 
 * Appendix Fragen
   - this formula behind n
@@ -139,6 +141,7 @@
   - sanwdich methdo braucht die source ports
   - nur attempts nötig
   - collisions in same parturbation table cell mention G_{K_2}
+  - (Connection localhost address und loopback 3-tuples), corrected
 
 * Erklärweise
 ** Vogehen allgemien
