@@ -412,13 +412,13 @@ After performing the sandwiching technique, a \alert{candidate attacker 3-tuple}
 \begin{minipage}{\columnwidth}
 	\begin{equation*}
 		P'(x) - P(x) = 1
-		\quad \text{when sandwiching } S'_i \text{ as filling.}
+		\quad \text{when sandwiching } S' \text{ as filling.}
 	\end{equation*}
 \end{minipage}
 
 where \(P(x)\) and \(P'(x)\) are partial functions that map \alert{candidate attacker 3-tuples \( x \) to} the observed \alert{TCP source port} numbers assigned during the first and third bursts of TCP connection attempts probing the wrapper, respectively. These functions are defined only for the set of attacker 3-tuples probed in the corresponding bursts.
 
-This \alert{condition implies} that those attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the unique attacker 3-tuples discovered so far in the filling has already been mapped to. Consequently, they do not collide with any of the previously discovered unique attacker 3-tuples and are thereby confirmed as new \alert{unique attacker 3-tuples}, which form the \alert{output} of Phase~1 of the attack algorithm.
+This \alert{condition implies} that those candidate attacker 3-tuples in the wrapper, whose source port has incremented by exactly $1$, are the first to map to a perturbation table cell that none of the unique attacker 3-tuples discovered so far in the filling has already been mapped to. Consequently, they do not collide with any of the previously discovered unique attacker 3-tuples and are thereby confirmed as new \alert{unique attacker 3-tuples}, which form the \alert{output} of Phase~1 of the attack algorithm.
 
 \alert{Noise} occurring between the first and second TCP connection attempts using the same candidate attacker 3-tuple in the first and second wrapper steps can increase the value of \texttt{table[i]}, where $i$ is the index of the perturbation table cell associated with that candidate attacker 3-tuple. This \alert{can hide} unique attacker 3-tuples by making their observed increment larger than $1$. However, this isn’t a problem, because noise can hide a unique mapping, but it \alert{can’t fabricate} one. The only problem is that Phase 1 may require more iterations to find unique attacker 3-tuples for all perturbation table cells, but it does not compromise the correctness of the mapping once established.
 
