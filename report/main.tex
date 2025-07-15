@@ -438,10 +438,10 @@ In each iteration, the iteration counter is incremented, \(i \leftarrow i+1\). L
 This algorithm utilizes the \alert{sandwiching technique} introduced earlier in Section~\ref{sec:attack}. In every iteration, this technique operates as follows:
 \begin{itemize}
 	\item The \aalert{filling} consists of a burst of several TCP connection attempts to the current loopback 3-tuple $L_i$. Only one loopback 3-tuple is tested at a time because testing multiple loopback 3-tuples simultaneously, without additional design, would prevent determining which loopback 3-tuple caused an increment in which unique attacker 3-tuple.
-	\item The two \aalert{wrapper} steps each consist of a burst of TCP connection attempts to all unique attacker 3-tuples from phase 1 (Section~\ref{sec:phase 1}), and recording their assigned source ports $P(x)$.
+	\item The two \aalert{wrapper} steps each consist of a burst of TCP connection attempts to all unique attacker 3-tuples from phase 1 (Section~\ref{sec:phase 1}), and recording their assigned source ports in $P(x)$ and $P'(x)$.
 \end{itemize}
 
-After performing the sandwiching technique, an \alert{unique attacker 2-tuple \(w\)} in $S'$ (returned by algorithm~\hyperref[alg:phase1]{2}) is said to collide with a \alert{loopback 3-tuple \(L_i\)} if the following \alert{condition} holds:
+After performing the sandwiching technique, an \alert{unique attacker 2-tuple \(w\)} in $S'$ (returned by phase 1 algorithm~\hyperref[alg:phase1]{2}) is said to collide with a \alert{loopback 3-tuple \(L_i\)} if the following \alert{condition} holds:
 
 \begin{minipage}{\columnwidth}
 	\begin{equation*}
@@ -450,13 +450,14 @@ After performing the sandwiching technique, an \alert{unique attacker 2-tuple \(
 	\end{equation*}
 \end{minipage}
 
-Here, \(P(w)\) and \(P'(w)\) denote the observed \alert{source ports assigned to} the \alert{unique attacker 2-tuple \(w\)} during the first and second wrapper bursts, respectively, when the loopback 3-tuple \(L_i\) is inserted into the filling. The collision condition described above is formulated in the phase~2 algorithm~\ref{alg:phase2} using the symbol \(\iota x\), which is the \alert{Definite Description Operator} and denotes \enquote{the unique \(x\)} satisfying a certain condition.
+Here, \(P(w)\) and \(P'(w)\) denote the observed \alert{source ports assigned to} the \alert{unique attacker 2-tuple \(w\)} during the two wrapper steps, respectively, when the loopback 3-tuple \(L_i\) is inserted into the filling. The collision condition described above is formulated in the phase~2 algorithm~\hyperref[alg:phase2]{3} using the symbol \(\iota x\), which is the \alert{Definite Description Operator} and denotes \enquote{the unique \(x\)} satisfying a certain condition.
 
-This means that the unique attacker 3-tuple \(w\) shares the same perturbation table cell as the loopback 3-tuple \(L_i\). Since \alert{only one} loopback 3-tuple \(L_i\) repeatedly establishes TCP connections during the filling, only one unique attacker 3-tuple \(w\) exhibits a \alert{significant increment} greater than \(\varepsilon\), while all other unique attacker 3-tuples do not. Because each unique attacker 3-tuple \(w\) represents a distinct perturbation table cell (even if the exact cell is unknown), it becomes possible to identify which loopback 3-tuples \(L_i\) collide with which perturbation table cells represented by unique attacker 3-tuples, by knowing the unique attacker 3-tuples \(w\) for which a loopback 3-tuple \(L_i\) causes a significant increment.
+% The condition above means that the unique attacker 3-tuple \(w\) shares the same perturbation table cell as the loopback 3-tuple \(L_i\) via $G_{K_2}$. 
+Since \alert{only one} loopback 3-tuple \(L_i\) repeatedly establishes \(\varepsilon\)-many TCP connections during the filling step, only one unique attacker 3-tuple \(w\) exhibits a \alert{significant increment} greater than \(\varepsilon\), while all other unique attacker 3-tuples do not. Because each unique attacker 3-tuple \(w\) covers a distinct perturbation table cell (even if the exact cell is unknown), it becomes possible to identify which loopback 3-tuples \(L_i\) collide with the same perturbation table cells represented by unique attacker 3-tuples (by knowing the unique attacker 3-tuple \(w\) for which a loopback 3-tuple \(L_i\) causes a significant increment).
 
-Thus, it is possible to determine a structure of colliding loopback 3-tuples and use it as a device ID by collecting independent pairs of colliding loopback 3-tuples as the \alert{output} of the algorithm. In practice, the device ID is represented as \alert{pairs of destination ports}, corresponding to those pairs of independent loopback 3-tuples, as each $L_i$ in the algorithm is a loopback 3-tuple, but since the source and destination IP addresses are always the same, only the destination port is practically stored.
+Thus, it is possible to determine a structure of colliding loopback 3-tuples and use it as a device ID by collecting independent pairs of colliding loopback 3-tuples as the \alert{output} of the algorithm. In practice, the device ID is represented as \alert{pairs of destination ports}, corresponding to those pairs of independent loopback 3-tuples. Each $L_i$ in the algorithm is a loopback 3-tuple, but since the source and destination IP addresses in the 3-tuple are always the same, only the destination port is practically stored.
 
-A significant increment greater than \(\varepsilon\) is required to reliably detect collisions despite \alert{noise}. The same unique attacker 3-tuple \(x\) is contacted \alert{multiple times} to produce a detectable increment in its perturbation table cell, ensuring that any increments caused by unrelated TCP connections on the device (noise) are outweighed.
+A significant increment greater than \(\varepsilon\) in the condition and \(\varepsilon\)-many connection attempts with the same loopback 3-tuple \(L_i\) are required to reliably detect collisions despite \alert{noise}. Connection attempts to the same loopback 3-tuple \(L_i\) are repeated \alert{multiple times} to produce a detectable increment in its perturbation table cell, ensuring that any increments caused by unrelated TCP connections on the device (noise) are outweighed.
 
 The algorithm \alert{terminates} as soon as the following condition is satisfied:
 

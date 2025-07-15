@@ -42,6 +42,7 @@
   - kann man aus TCP-Syn Packet wirklich das gesamte 4-Tuple ablesen oder nur source port?
   - das mit Uniqueness besser verstehen
   - Laufzeit der Algorithmen
+  - warum ist noise beim phase 2 algorithmus kein Problem?
 
 * Darüber noch informieren
   - How Meltdown work, so sind sich beide Verfahren ähnlich?
