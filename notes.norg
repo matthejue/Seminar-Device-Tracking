@@ -203,14 +203,14 @@
    -- reason for n condition
    --- Erklärung der Formel:
    ---- l-n-1 Multiplikationen, weil l-n occupied buckets, balls in buckets problem., in every round one cel gets one more ball / loopback 3-tuple, everytime there's already a ball, no new bucket could be occupied (means there's an independant pair, n = number of independant pairs / collisions), so n is the amount of times no new bucket could be occupied from the l many iterations where a new ball gets added
-   ---- (T-j)/T ist für erste loopback 3-tuple in einer Zelle für D an genau gleich wie bei D', erster hat Chance T/T, zweiter (T-1)/T usw.
+   ---- (T-j)/T ist für erste loopback 3-tuple in einer Zelle für D an genau gleich wie bei D', erster hat Chance T/T, zweiter (T-1)/T usw., (T-j)/T = T/T - j/T = 1 - j/T
    ---- das alle anderen loopback 3-tuple in D' sich genauso auf diese ersten loopback 3-tuple verteilen wie bei bei D ist jeweils 1/T, also für alle n Kollisionen dann 1/T^n
    --- D ist wie loopback 3-tuple colissionen gruppiert sind
    --- wenn man sich die Formel für P^l_D(n) anschaut, dann
    ---- increase l -> decrease P^l_D(n), cuz:
-   ----- mehr multiplikation von Zahlen <1 
+   ----- mehr Multiplikationen von Zahlen <1 
    ---- increase n -> decrease P^l_D(n), cuz:
-   ----- weniger multiplikationen von Zahlen <1, aber 1/T^n überwiegt
+   ----- weniger Multiplikationen von Zahlen <1, aber 1/T^n überwiegt
    ---- wenn D sehr biased ist bei loopback 3-tuple Verteilung -> mehr Kollisionen (viele Zellen garnicht erst abgedeckt) -> höheres n -> P^l_D(n) ist decreased -> man braucht kürzer, um unter p* zu kommen, weil nicht nur i, sondern auch n hochgeht bei Kollisionen
    ---- wenn D sehr uniform ist bei loopback 3-tuple Verteilung -> weniger Kollisionen (viele Zellen abgedeckt) -> höheres n -> P^l_D(n) nicht decreased -> man braucht länger, um unter p* zu kommen, weil man sich häufig alleinig darauf verlassen muss, dass i hochgeht
    -- wenn man sich Formel für P^l_D(n) anschaut, dann
