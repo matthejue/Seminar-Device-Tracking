@@ -115,3 +115,12 @@
 %
 % \renewcommand*{\glsnamefont}[1]{\textcolor{PrimaryColor}{#1}}
 % \renewcommand*{\glossarysection}[2][]{}
+
+% ┌───────────┐
+% │ Footnotes │
+% └───────────┘
+\makeatletter
+\renewcommand\@makefntext[1]{%
+  \noindent
+  \textsuperscript{\@thefnmark}#1}
+\makeatother
