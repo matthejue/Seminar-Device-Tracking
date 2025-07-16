@@ -538,7 +538,7 @@ p^*
 \]
 \end{minipage}
 
-Values of \( n^*[i] \) are \alert{precomputed} and stored in a table to avoid repeated evaluation of \( P^l_D(n) \) during the attack. The termination condition is expressed in terms of \( n \) rather than inserted directly into the probability function because \( P^l_D(n) \) depends only on \( n \) and \alert{not on the specific collision structure}. By checking \( n \ge n^*[i] \), the attacker ensures that the probability of a device ID collision with another device remains below \( p^* \) \alert{without recomputing probabilities} each time.
+Values of \( n^*[i] \) are \alert{precomputed} and stored in a table to avoid repeated evaluation of \( P^l_D(n) \) during the attack. The termination condition is possible to expressed in terms of \( n \) rather than inserted directly into the probability function because \( P^l_D(n) \) depends only on \( n \) and \alert{not on the specific collision structure}. By checking \( n \ge n^*[i] \), the attacker ensures that the probability of a device ID collision with another device remains below \( p^* \) \alert{without recomputing probabilities} each time.
 
 \vspace{0.2cm}
 \input{./share/phase2.tex}
@@ -548,7 +548,7 @@ Values of \( n^*[i] \) are \alert{precomputed} and stored in a table to avoid re
 
 The \alert{root cause} of the attack is the ability to detect device-specific hash collisions in $G_{K2}$ through a shared perturbation table between TCP connection attempts, which is incremented in a predictable way.
 
-An \alert{ideal solution} would be to use a separate perturbation table for each network context, but this is impractical due to the high memory.% cost on systems running many isolated applications.
+An \alert{ideal solution} would be to use a separate perturbation table for each network context, but this is impractical due to the high memory cost.% cost on systems running many isolated applications.
 % An \alert{ideal solution} would be to create a private perturbation table for each network namespace and interface, preventing attackers from observing stable collisions. However, this is impractical due to high memory consumption when many containers or interfaces exist.
 
 In \alert{general}, \alert{countermeasures} to prevent this attack focus on making hash collisions less frequent or making it much more difficult for attackers to detect them. The paper proposes several modifications to DHPS, and these were incorporated into the Linux kernel through a security patch. The main countermeasures are:
@@ -566,9 +566,9 @@ In \alert{general}, \alert{countermeasures} to prevent this attack focus on maki
 	\textit{The concrete change made in the Linux kernel was to randomize increments uniformly between 1 and 8.}
 \end{itemize}
 
-\iftoggle{longversion}{
-	These countermeasures were integrated into Linux versions 5.18 and 5.19, making the attack significantly harder or infeasible.
-}{}
+% \iftoggle{longversion}{
+% 	These countermeasures were integrated into Linux versions 5.18 and 5.19, making the attack significantly harder or infeasible.
+% }{}
 
 \section{Appendix}
 \label{sec:appendix}
