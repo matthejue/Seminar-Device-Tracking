@@ -47,9 +47,9 @@
 	\begin{columns}
 		\begin{column}[t]{0.5\textwidth}
 			\begin{center}
-        \includegraphics[width=0.2\textwidth]{./figures/meltdown.png}\hspace{0.4cm}\cite{MeltdownSecurityVulnerability2024}
+				\includegraphics[width=0.2\textwidth]{./figures/meltdown.png}\hspace{0.4cm}\cite{MeltdownSecurityVulnerability2024}
 				\hspace{0.5cm}
-        \includegraphics[width=0.3\textwidth]{./figures/spectre.png}\cite{SpectreSecurityVulnerability2025}
+				\includegraphics[width=0.3\textwidth]{./figures/spectre.png}\cite{SpectreSecurityVulnerability2025}
 			\end{center}
 		\end{column}
 		\begin{column}[t]{0.5\textwidth}
@@ -84,7 +84,7 @@
 				\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_website.png}
 			\end{minipage}
 		\end{adjustbox}
-		\arrowx{information}
+		\arrowx{\text{information}}
 		\begin{adjustbox}{scale=1}
 			\begin{minipage}{1\textwidth}
 				\includegraphics[width=0.8\textwidth]{./figures/evil_computer_scientist_alpha.png}
@@ -112,18 +112,56 @@
 	\end{columns}
 	\vspace{-0.5cm}
 	\begin{itemize}
-		\item \alert{golden image challenge:} distinguish identical devices with same hardware and software configuration
+		\item \alert{golden image challenge:} distinguish identical devices with same hardware and software configuration \checkboxUnchecked
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Browser-based device tracking}
 	\begin{itemize}
 		\item \alert{Tagging techniques:} Insert an ID
-		\item \alert{Fingerprinting techniques:} measure characteristics
+		\begin{columns}
+			\begin{column}{0.33\textwidth}
+				\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_1.png}
+			\end{column}
+			\begin{column}{0.33\textwidth}
+				\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_2.png}
+			\end{column}
+			\begin{column}{0.33\textwidth}
+				\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_3.png}
+			\end{column}
+		\end{columns}
+		\item \alert{Fingerprinting techniques:} Measure characteristics
+		\begin{center}
+			\begin{minipage}{0.7\textwidth}
+				\begin{transformation}
+					\includegraphics[width=0.7\textwidth]{./figures/computer_alpha_screen_2_golden.png}
+					\arrowx{\text{generate fingerprint}}
+					\includegraphics[width=0.3\textwidth]{./figures/fingerprint.png}
+				\end{transformation}
+			\end{minipage}
+		\end{center}
 	\end{itemize}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		% Change the coordinates here to position the square anywhere on the slide
+		\draw[thick, draw=PrimaryColor] (0.6cm,1.1cm) rectangle (13.2cm,4.2cm);
+	\end{tikzpicture}
+	% \grid
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Source Port Selection}
+	\begin{itemize}
+    \item \alert{4-tuple}: $(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$
+    \begin{columns}
+      \begin{column}{0.5\textwidth}
+        \includegraphics[width=0.4\textwidth]{./figures/apartment1.png}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+        \raggedleft
+        \includegraphics[width=0.4\textwidth]{./figures/apartment2.png}
+      \end{column}
+    \end{columns}
+    \item chooses TCP \alert{source port} $Port_{Src}$ for \alert{3-tuple}: $(IP_{Src}, IP_{Dest}, Port_{Dest})$
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}

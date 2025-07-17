@@ -29,6 +29,8 @@
   -- und longversion ebenfalls hochladen
   - ChatGPT in Quelle für Bilder
   - TCP Folien reinmachen, Wieviele wissen was TCP ist?
+  - l - n - 1 nur für l>n
+  - wo kommt -1 her?
 
 * Zu klärende Fragen
   - does one have to always us same loopback addresses but differnert attacker tuples possible?

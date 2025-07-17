@@ -248,3 +248,53 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 % │ Share │
 % └───────┘
 \newcommand{\cmt}[1]{\textcolor[gray]{0.7}{\textnormal{#1}}}
+
+
+\newcommand{\grid}{
+  \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+
+  \def\solidstep{1}
+  \def\halfstep{0.5}
+  \def\minorstep{0.1}
+
+  \pgfmathsetmacro{\xmax}{\paperwidth}
+  \pgfmathsetmacro{\ymax}{\paperheight}
+  \pgfmathsetmacro{\xmaxcm}{\xmax/1cm}
+  \pgfmathsetmacro{\ymaxcm}{\ymax/1cm}
+
+  % --- Light minor grid lines every 0.1 cm ---
+  \foreach \x in {0,\minorstep,...,\xmaxcm} {
+    \draw[gray!15] (\x cm,0) -- (\x cm,\ymax);
+  }
+
+  \foreach \y in {0,\minorstep,...,\ymaxcm} {
+    \draw[gray!15] (0,\y cm) -- (\xmax,\y cm);
+  }
+
+  % --- Dotted half-step grid lines ---
+  \foreach \x in {\halfstep,\solidstep,...,\xmaxcm} {
+    \pgfmathsetmacro{\xf}{\x - \halfstep}
+    \draw[gray!30] (\xf cm,0) -- (\xf cm,\ymax);
+  }
+
+  \foreach \y in {\halfstep,\solidstep,...,\ymaxcm} {
+    \pgfmathsetmacro{\yf}{\y - \halfstep}
+    \draw[gray!30] (0,\yf cm) -- (\xmax,\yf cm);
+  }
+
+  % --- Solid major grid lines every 1 cm with labels ---
+  \foreach \x in {0,\solidstep,...,\xmaxcm} {
+    \draw[gray!60] (\x cm,0) -- (\x cm,\ymax);
+    \node[font=\scriptsize, anchor=north, yshift=0.45cm, rotate=90] at (\x cm,0) {\x};
+  }
+
+  \foreach \y in {0,\solidstep,...,\ymaxcm} {
+    \draw[gray!60] (0,\y cm) -- (\xmax,\y cm);
+    \node[font=\scriptsize, anchor=west, xshift=0.1cm] at (0,\y cm) {\y};
+  }
+
+  % Red border around slide
+  \draw[red, thick] (0,0) rectangle (\xmax,\ymax);
+
+\end{tikzpicture}
+}
