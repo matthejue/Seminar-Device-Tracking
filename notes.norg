@@ -5,30 +5,30 @@
   -- man kennt die destinationsports, weil man ja im Code den man geschickt hat schon festgelegt hat welche in welcher Reihenfolge geschickt werden solen
   -- dementsprechend würde es auch Sinn machen, dass die Destinationports jedes mal die gleichen sind, da man jedes mal den gleichen Code schickt
 
-* Witze
-  - Sandwich
-  - Mossad hatte keine Nutzen dafür
-
 * Schindelhauer Fragen
-  - muss ich double hash verstehen?
-  - TCP details wie
+  - double hash Grund nirgendwo auffindbar -> bei 2 countern, deren offset sehr nah nebeneinern sind, würde die immer miteinander kollidierern
+  - TCP annehmen ohne erklären?
   -- TCP Syn-Packete
   -- TIME\_WAIT state
   - ChatGPT Bild als Quelle
-  - korrekte Condition in Phase 1 und in Phase 2 x Funktion ist auch seltsam
-  -- darf ich Algorithmen verändern verglichen zum Paper? Ist patielle Funktion... is definned, Fehler in Paper
-  -- Grund für unterschiedlich Notatiion bei Px und P(x)
-  - man sendet mehrere, weil doppelt hält besser?
-  - Quellenangaben korrekt?
-  - können es auch 5 Seiten sein?
-  - Fazit notwenidg? comparison to other related work?
-  - Proxies
-  - 2 spaltiger Report erlaubt?
-  - was muss ich zu TCP Syn Packeten wissen?
-  - warum tcp nicht ohne diese Fehler designed?
-  - warum geht es nicht eifache alle ports auf einmal zu schicken?
-  - Report kleine Fehler
-  - ergibt keinen Sinn, dass man einfach c*/(N over 2) sagen kann, man muss es in terms of the problem ausdrücken, alle möglichen n devices und da alle Konfigurationen, wie etwas gleich sein kann
+  -- was mit Logos die ähnlich zu Firmenlogos?
+  - Fazit notwendig? comparison to other related work? Countermeasures enough?
+  - Quellenangaben korrekt? 
+  -- Alles an einem Ort ok?
+  - Report kleiner Fehler
+  - was bei lang zu beantwortender Frage?
+
+  - generelle Fragen mit denen man immer rechnen muss
+  -- hat sich noch was getan
+  -- praktische Anwendung
+  -- günther müller Frage
+  -- Birtday paradoxon
+
+  - Folien heller machen
+  - darauf hinweisen, dass Report neue Version hochgeladen 
+  -- und longversion ebenfalls hochladen
+  - ChatGPT in Quelle für Bilder
+  - TCP Folien reinmachen, Wieviele wissen was TCP ist?
 
 * Zu klärende Fragen
   - does one have to always us same loopback addresses but differnert attacker tuples possible?
@@ -45,6 +45,7 @@
   - Laufzeit der Algorithmen
   - warum ist noise beim phase 2 algorithmus kein Problem?
   - warum returnt der phase 2 algorithmus auch l?
+  - why individual countermeasures necessary? why not one of them enough?
 
 * Darüber noch informieren
   - How Meltdown work, so sind sich beide Verfahren ähnlich?
@@ -60,6 +61,7 @@
   - Sind es wirklich nur tcp connection attempts?
   - Wie lange dauert Angriff?
   - Wieviele l braucht man den durchschnittlich?
+  - was eine Hash Funktion nochmal war
 
 * Fragen an Studenten
   - welcher von beiden Keys ist der Key von dem ich Anfang gesprochen habe?

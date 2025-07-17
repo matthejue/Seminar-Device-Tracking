@@ -224,7 +224,7 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 % │ New Environments │
 % └──────────────────┘
 
-\newenvironmentx{transformation}[3][1=0.3, 2=0.2, 3=0.4]{
+\newenvironmentx{transformation}[3][1=0.4, 2=0.2, 3=0.4]{
   \newcommand{\compilesto}{%
   \end{column}\begin{column}[c]{#2\linewidth}\centering$\Rightarrow$\end{column}\begin{column}[c]{#3\linewidth}\centering}
   \newcommand{\arrowx}[1]{%
@@ -242,3 +242,9 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 \newcounter{algorithm}
 \setcounter{algorithm}{0}
 \newtcbtheorem[use counter=algorithm]{algorithm}{\color{SecondaryColor}Algorithm}{pseudo/ruled}{alg}
+
+
+% ┌───────┐
+% │ Share │
+% └───────┘
+\newcommand{\cmt}[1]{\textcolor[gray]{0.7}{\textnormal{#1}}}

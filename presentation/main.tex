@@ -26,17 +26,17 @@
 \begin{document}
 
 \ifbeamer
-\begin{withoutheadline}
-	\begin{withoutfootline}
-		\begin{frame}
-			\titlepagesecond
-		\end{frame}
-	\end{withoutfootline}
+	\begin{withoutheadline}
+		\begin{withoutfootline}
+			\begin{frame}
+				\titlepagesecond
+			\end{frame}
+		\end{withoutfootline}
 
-	% \begin{frame}[shrink=10]{Gliederung}
-	% 	\tableofcontents[hideallsubsections]
-	% \end{frame}
-\end{withoutheadline}
+		% \begin{frame}[shrink=10]{Gliederung}
+		% 	\tableofcontents[hideallsubsections]
+		% \end{frame}
+	\end{withoutheadline}
 \fi
 
 \setcounter{section}{0}
@@ -44,258 +44,136 @@
 \section{Introduction}
 
 \begin{frame}[fragile]{Introduction}{Motivation}
-	\ifbeamer
-		\begin{itemize}
-			\item test
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item Tracking technique for Linux devices
-			\item Browser-based tracking technique that supports tracking across IPv4 and IPv6 networks, browsers, VPNs, and browser privacy modes
-			\item Can provide up to 128 bits of entropy for the device ID (in the Linux implementation)
-			\item Requires negligible CPU and RAM resources for its operation
-			\item Uses standard web technologies such as Javascript, WebRTC TURN (in Chrome), and XHR (in Firefox)
-		\end{itemize}
-	\fi
+	\begin{columns}
+		\begin{column}[t]{0.5\textwidth}
+			\begin{center}
+        \includegraphics[width=0.2\textwidth]{./figures/meltdown.png}\hspace{0.4cm}\cite{MeltdownSecurityVulnerability2024}
+				\hspace{0.5cm}
+        \includegraphics[width=0.3\textwidth]{./figures/spectre.png}\cite{SpectreSecurityVulnerability2025}
+			\end{center}
+		\end{column}
+		\begin{column}[t]{0.5\textwidth}
+			\begin{center}
+				\includegraphics[width=0.4\textwidth]{./figures/sandwich_alpha.png}
+				% \includegraphics[width=\textwidth]{./figures/paper.png}
+			\end{center}
+		\end{column}
+	\end{columns}
+	\begin{columns}
+		\begin{column}[t]{0.5\textwidth}
+			\begin{itemize}
+				\item performance features of modern CPUs \alert{exploited}
+				\item \alert{side effects} of out-of-order and speculative execution
+				\item read normally innaccesible data from memory
+			\end{itemize}
+		\end{column}
+		\begin{column}[t]{0.5\textwidth}
+			\begin{itemize}
+				\item Linux’s TCP source port selection algorithm \alert{exploited}
+				\item \alert{side effects} of hash collisions
+				\item track devices through device ID tied to device-specific key
+			\end{itemize}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Introduction}{Online browser-based device tracking}
-	\ifbeamer
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item Identifying users across multiple sessions and websites on the Internet
-			% \item a list of motivations for web-based device tracking (fingerprinting) includes fraud detection, protection against account hijacking, anti-bot and anti-scraping services, enterprise security management, pro- tection against DDOS attacks, real-time targeted marketing, campaign measurement, reaching customers across devices, and limiting the number of accesses to services
-			\item Often performed to personalize ads or for surveillance purposes $\rightarrow$ degradation of user privacy, when a user’s device can be tracked across network changes, different browsers, VPNs, and browser privacy modes, often used in a clandestine manner, without the user’s awareness and without obtaining the user’s explicit consen
-			% \item can either be done by sites that users visit or by third-party companies (e.g. advertisement networks) which track users across multiple websites and applications (\enquote{cross-site tracking}). Traditionally, cross-site tracking was implemented via 3rd party cookies. However, nowadays, users are more aware of the cookies’ privacy hazards, and so they use multiple browsers, browser privacy mode, and cookie deletion to avoid such tracking. In addition, support for 3rd party cookies in major browsers is being withdrawn due to privacy concerns
-			% \begin{itemize}
-			%   \item Trackers are, therefore, on the look for new tracking technologies, particularly ones that can work across sites and across browsers and privacy modes%, thereby breaking the isolation the latter attempt to provide
-			% \end{itemize}
-			\item Ideally, a web-based tracking technique should work across browser privacy modes (switching between the normal browsing mode and the privacy mode such as “incognito”), across browsers, across networks (switching between cellu- lar networks, WiFi and Ethernet networks), and even across VPN connections
-			\item a tracking technique should address the \enquote{golden image} challenge, wherein an organization provisions a multitude of identical devices (fixed hardware and software configuration) to its employees. The tracking technique should thus tell these devices apart, even though there is no difference in their hardware and software
-			\item \alert{Tagging techniques:} Insert an ID to the device, typically at the browser level (e.g., a resource cached by the browser or an object added to the standard browser storage such as cookies or localStorage)
-			\item \alert{Fingerprinting techniques:} Fingerprinting techniques measure a system or browser’s features that can tell devices apart, such as fonts, hardware, and system language
-		\end{itemize}
-	\fi
+\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+	\begin{transformation}
+		\begin{adjustbox}{scale=1}
+			\begin{minipage}{1\textwidth}
+				\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_website.png}
+			\end{minipage}
+		\end{adjustbox}
+		\arrowx{information}
+		\begin{adjustbox}{scale=1}
+			\begin{minipage}{1\textwidth}
+				\includegraphics[width=0.8\textwidth]{./figures/evil_computer_scientist_alpha.png}
+			\end{minipage}
+		\end{adjustbox}
+	\end{transformation}
+	\vspace{-0.5cm}
+	\begin{itemize}
+		\item information collected through web browser
+		\item privacy risk
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+	\begin{columns}
+		\begin{column}{0.33\textwidth}
+			\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
+		\end{column}
+		\begin{column}{0.33\textwidth}
+			\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
+		\end{column}
+		\begin{column}{0.33\textwidth}
+			\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
+		\end{column}
+	\end{columns}
+	\vspace{-0.5cm}
+	\begin{itemize}
+		\item \alert{golden image challenge:} distinguish identical devices with same hardware and software configuration
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+	\begin{itemize}
+		\item \alert{Tagging techniques:} Insert an ID
+		\item \alert{Fingerprinting techniques:} measure characteristics
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Source Port Selection}
-	\ifbeamer
-		\begin{itemize}
-			\item test
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item There are several popular TCP source port generation algorithms that differ in the level of security vs. functionality they deliver
-			\begin{itemize}
-				\item Security-wise, TCP source ports should be as unpredictable as possible to off-path attackers
-				\item Functionality-wise, TCP source ports should not repeat too often (to mitigate the \enquote{instance-id collision} problem)
-			\end{itemize}
-			\item RFC 6056 \enquote{Recommendations for Transport-Protocol Port Randomization} lists five algorithms used by different operating systems to generate TCP source port numbers
-			\begin{itemize}
-				\item According to RFC 6056, the \enquote{Double-Hash Port Selection} algorithm offers the best trade-off between the design goals of TCP source ports
-				\item Starting with kernel version 5.12-rc1 it was recently adopted with minor modifications by Linux
-				% \item this port selection algorithm, which we expect to propagate into Android devices as well 
-			\end{itemize}
-			\item \underline{Two goals relevant to this work are:}
-			\begin{itemize}
-				\item Minimizing the predictability of the ephemeral port numbers used for future transport-protocol instances
-				\begin{itemize}
-					\item Aims for security against blind TCP attacks, such as blind reset or data injection attacks
-				\end{itemize}
-				\item Minimizing collisions of instance-ids
-				\begin{itemize}
-					\item Goal is functionality-related and ensures that successive port assignments for the same destination (IP and port) do not re-use the same source port since this can cause a TCP failure at the remote end
-					\begin{itemize}
-						\item That is because if the device terminates one TCP connection, the server may still keep it active (in the TCP \verb|TIME_WAIT| state) while the device attempts to establish a second connection with the same TCP 4-tuple, which will fail since the server has this 4-tuple still in use
-					\end{itemize}
-				\end{itemize}
-			\end{itemize}
-		\end{itemize}
-	\fi
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
-	\ifbeamer
-    \input{../report/share/dhps_algorithm.tex}
-	\else
-		\begin{itemize}
-			\item Attack focuses on this algorithm
-			\item Completes a 3-tuple into a (TCP) 4-tuple
-			\begin{itemize}
-				\item Selects a TCP source port for a given 3-tuple: $(IP_{SRC},IP_{DST},PORT_{DST})$
-			\end{itemize}
-			\item table is a \enquote{perturbation table} of $T$ integer counters (in the Linux kernel, $T = 256$),
-			\item $F$ is a cryptographic keyed-hash function which maps its inputs to a large range of integers, e.g., $[0,232-1]$, and
-			\item $G$ is a cryptographic keyed-hash function which maps its inputs to $[0,T-1]$
-			\item The TCP source ports the algorithm produces are in the range $[min\_ephemeral,max\_ephemeral]$
-			\begin{itemize}
-				\item in the Linux kernel, by default, $min\_ephemeral = 32768,max\_ephemeral = 60999$
-			\end{itemize}
-			\item DHPS calculates an index i to a counter in table based on a keyed-hash (G) of the given 3-tuple and uses the counter value offset by another keyed-hash (F) of the 3-tuple as a first candidate for a port number (using modular arithmetic to produce a value in $[min\_ephemeral,max\_ephemeral]$)
-			\begin{itemize}
-				\item DHPS then checks whether the port number candidate is suitable (\pr{CheckSuitablePort})
-				\item If this check passes, DHPS returns the candidate port
-				\item Otherwise, it increments the candidate port and runs the check again
-			\end{itemize}
-		\end{itemize}
-	\fi
+	\begin{center}
+		\begin{adjustbox}{scale=0.7}
+			\input{../report/share/dhps_algorithm.tex}
+		\end{adjustbox}
+	\end{center}
 \end{frame}
 
 \section{Attack}
 
-\begin{frame}[fragile]{Attack}{Technical details}
-	\ifbeamer
-		\begin{itemize}
-			\item assdf
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item Linux version 5.12-rc1 switched from RFC 6056’s Algorithm 3 (\enquote{Simple Hash-Based Port Selection Algorithm}) to DHPS. Starting from this version, the Linux kernel uses DHPS to generate TCP source ports for outbound TCP connections over IPv4 and IPv6
-			% \item Linux kernel version 5.15 is the first long-term service (LTS) kernel version in which DHPS is used
-			\item The Android operating system kernel is based on Linux and as such vulnerabilities found in Linux may also impact Android
-			\begin{itemize}
-				\item Since the vulnerability was patched on Linux in May 2022, and the patch was merged into Android as well, we expect future Linux and Android devices that use DHPS to be safe
-			\end{itemize}
-			\item Exploiting TCP source port generation mechanism recently introduced in Linux kernel
-			\item Based on an algorithm, standardized in RFC 6056, for boosting security by better randomizing port selection
-			\item Technique detects collisions in a hash function used in said algorithm
-			% \item based on sampling TCP source ports generated in an attacker-prescribed manner
-			\item Hash collisions depend solely on a per-device key, and thus the set of collisions forms a device ID that allows tracking devices across browsers, browser privacy modes, containers, and IPv4/IPv6 networks
-			\begin{itemize}
-				\item Can distinguish among devices with identical hardware and software
-			\end{itemize}
-			\item Lasts until the device restarts
-			\item Assumes that a browser renders a web page with an embedded tracking HTML snippet that communicates with a 1st-party tracking server (i.e., there is no reliance on common infrastructure among the tracking websites)
-			\begin{itemize}
-				\item Tracking server then calculates a device ID. This ID is based on kernel data. Therefore, the same device ID is calculated by any site that runs the same logic, regardless of the network from which the tracked device arrives, or the browser used
-			\end{itemize}
-			\item Tracking technique is based on observing the TCP source port numbers generated by the device’s TCP/IP stack, which is implemented in the operating system kernel
-			\item This technique finds hash collisions in one of the algorithm’s hash functions
-			\begin{itemize}
-				\item These collisions depend only on a secret hashing key that the OS kernel creates on boot time and maintains until the system is shut down
-				\item The set of collisions forms a device ID that spans the lifetime of this key, surviving changes to networks, transitions into and out of sleep mode, and using containers on the same machine
-				% \item It does not rely on the specific choice of the hash functions for the RFC 6056 algorithm beyond the RFC’s own require- ment, and as such, it presents a generic attack against the RFC algorithm.
-			\end{itemize}
-			\item It is ineffective when the client uses Tor or an HTTP forward proxy since they terminate the TCP connection originating at the device and establish their own TCP connection with the tracking server, since our technique relies on the client’s port selection algorithm
-			\begin{itemize}
-				\item Furthermore, if a middlebox rewrites the TCP source ports or throttles the traffic, it can interfere with our technique
-				% \item However, we note that this kind of interference is typically NAT-related and as such is unlikely to apply to IPv6 networks
-			\end{itemize}
-			\item Requires the browser to dwell on the web page for 10 seconds on average
-			\begin{itemize}
-				\item Resources device tracking requires from the attacker are low, which allow calculating IDs for millions of devices per tracking server
-			\end{itemize}
-			% \item Since off-the-shelf Android devices have not yet deployed Linux kernels that use the new port selection algorithm, we introduced the new algorithm through a patch to a Samsung Galaxy S21 mobile phone (Android device) and tested it
-		\end{itemize}
-	\fi
+\begin{frame}[fragile]{Attack}{}
 \end{frame}
 
-\begin{frame}[fragile]{Attack}{Attack model}
-	\ifbeamer
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\fi
+\begin{frame}[fragile]{Attack}{Phase 1}
+	\begin{center}
+		\begin{adjustbox}{scale=0.7}
+			\input{../report/share/phase1.tex}
+		\end{adjustbox}
+	\end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Attack}{Device ID}
-	\ifbeamer
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\fi
-\end{frame}
-
-\begin{frame}[fragile]{Attack}{Limitations}
-	\ifbeamer
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\fi
+\begin{frame}[fragile]{Attack}{Phase 2}
+	\begin{center}
+		\begin{adjustbox}{scale=0.7}
+			\input{../report/share/phase2.tex}
+		\end{adjustbox}
+	\end{center}
 \end{frame}
 
 \section{Countermeasures}
 
 \begin{frame}[fragile]{Countermeasures}{Possible solutions}
-	\ifbeamer
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\fi
 \end{frame}
 
-\begin{frame}[fragile]{Countermeasures}{Final solution}
-	\ifbeamer
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	\else
-		\begin{itemize}
-			\item Worked with the Linux kernel team to mitigate the exploit, resulting in a security patch introduced in May 2022 to the Linux kernel
-			% \item recommended countermeasures to the Linux kernel team and worked with them on a security patch that was released in May 2022
-		\end{itemize}
-	\fi
+\section{Appendix Work}
+
+\begin{frame}[fragile]{Appendix}{Related Work}
 \end{frame}
 
-\section{Related Work}
-
-\begin{frame}[fragile]{Related Work}{}
-	\ifbeamer
-	\else
-		\begin{itemize}
-			\item Klein and Pinkas provide an extensive review of browser-based tracking techniques, current for 2019. They evaluate the techniques’ coverage of the golden image challenge and ability to cross the privacy mode gap.
-			\begin{itemize}
-				\item They find that typically, fingerprinting techniques fail to address the golden image challenge
-				\item While tagging techniques fail when users use the browser in privacy mode
-				\item They found that no single existing technique was able to fulfill both requirements
-			\end{itemize}
-			\item In a recent (2020) list of fingerprinting techniques none the golden image challenge by default
-			\item A tagging technique used the browser favicons cache to store a device ID. This was since fixed in Chrome 91.0.4452.0
-			\item A fingerprinting technique based on measuring GPU features from the WebGL 2.0 API
-			\item A technique somewhat similar to that uses the stub resolver DNS cache and times DNS cache miss vs. DNS cache hit events is presented in, but this technique does not work across networks
-			\item The \enquote{Drawn Apart} browser-based tracking technique is based on measuring timing deviations in GPU execution units
-			\begin{itemize}
-				\item This technique is oblivious to the device’s network configuration and the choice of browser and privacy mode and can also tell apart devices with identical hardware and software configurations.
-				\item However, it does so with limited accuracy – 36.7\%-92.7\% in lab conditions, which is insufficient for large-scale tracking
-			\end{itemize}
-			\item Klein et al.’s works [2,7,9] revolved around a tracking concept based on kernel data leakage, which identifies individual devices.
-			\begin{itemize}
-				\item The leakage occurred in various network protocol headers (IPv4 ID, IPv6 flow label, UDP source port)
-				\item All of them were quickly fixed by the respective operating system vendors due to their severity and impact and is no longer in effect
-			\end{itemize}
-		\end{itemize}
-	\fi
+\begin{frame}[fragile]{Appendix}{Termination condition for phase 2}
 \end{frame}
 
 \section{Literature}
 
-% % \begin{frame}{Bücher}
-% %   \printbibliography[type=book,heading=subbibliography,title={Bücher}]
-% % \end{frame}
-
-\begin{frame}[allowframebreaks]{Articles}
+\begin{frame}[allowframebreaks]{Literature}
 	% print publications
 	% \printbibliography[category=myarticles,heading=subbibliography]
-	\printbibliography[type=misc,heading=subbibliography]
+	\printbibliography
 \end{frame}
 %
 % \begin{frame}[allowframebreaks]{Websites}
