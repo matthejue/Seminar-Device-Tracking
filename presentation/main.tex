@@ -112,7 +112,7 @@
 	\end{columns}
 	\vspace{-0.5cm}
 	\begin{itemize}
-		\item \alert{golden image challenge:} distinguish identical devices with same hardware and software configuration \checkboxUnchecked
+		\item \alert{golden image challenge:} distinguish identical devices with same hardware and software configuration \checkboxUnchecked \alert{$\Rightarrow$ device-specific key}
 	\end{itemize}
 \end{frame}
 
@@ -142,7 +142,6 @@
 		\end{center}
 	\end{itemize}
 	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		% Change the coordinates here to position the square anywhere on the slide
 		\draw[thick, draw=PrimaryColor] (0.6cm,1.1cm) rectangle (13.2cm,4.2cm);
 	\end{tikzpicture}
 	% \grid
@@ -150,18 +149,87 @@
 
 \begin{frame}[fragile]{Introduction}{Source Port Selection}
 	\begin{itemize}
-    \item \alert{4-tuple}: $(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$
-    \begin{columns}
-      \begin{column}{0.5\textwidth}
-        \includegraphics[width=0.4\textwidth]{./figures/apartment1.png}
-      \end{column}
-      \begin{column}{0.5\textwidth}
-        \raggedleft
-        \includegraphics[width=0.4\textwidth]{./figures/apartment2.png}
-      \end{column}
-    \end{columns}
-    \item chooses TCP \alert{source port} $Port_{Src}$ for \alert{3-tuple}: $(IP_{Src}, IP_{Dest}, Port_{Dest})$
+		\item \alert{4-tuple}: $(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$
+		\begin{transformation}[0.2][0.6][0.2]
+			\includegraphics[width=\textwidth]{./figures/apartment1.png}
+			\arrowxx{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}{\text{(10.0.0.12, 49210)}\hspace{1cm}\text{(74.125.133.109, 587)}}
+			\includegraphics[width=\textwidth]{./figures/apartment2.png}
+		\end{transformation}
+		\vspace{-0.4cm}
+		\begin{itemize}
+			\scriptsize
+			\item (10.0.0.12, 49210, 74.125.133.109, 587)
+			\item (123 Maple St., Apt. 5B, 456 Oak St., Apt. 9D
+		\end{itemize}
+		\item chooses TCP \alert{source port} $Port_{Src}$ for \alert{3-tuple}: $(IP_{Src}, IP_{Dest}, Port_{Dest})$
 	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Introduction}{Source Port Selection}
+	\begin{itemize}
+		\item \alert{Functionality:} Reusing soure ports can cause failures $\Rightarrow$ earlier connections might still be active (\texttt{TIME\_WAIT} state)
+		\item[$\Rightarrow$] \alert{Naive method:} Choose next available free port in sequence
+		\begin{transformation}[0.2][0.6][0.2]
+			\includegraphics[width=\textwidth]{./figures/apartment1.png}
+			\arrowxx{\includegraphics[width=0.3\textwidth]{./figures/evil_computer_scientist_bicycle.png}}{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}
+			\includegraphics[width=\textwidth]{./figures/apartment2.png}
+		\end{transformation}
+		\item \alert{Security:} Off-path attacks like blind reset, data injection
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
+	\begin{itemize}
+		\item TCP source ports divided into ranges:
+
+		\begin{adjustbox}{max width=0.9\textwidth}
+			\begin{tblr}{
+				colspec={|l|c|p{7cm}|},
+				hlines,
+				vlines,
+				colsep=5pt,
+				row{1} = {bg=PrimaryColor, fg=white, font=\bfseries},
+				row{2} = {bg=PrimaryColorDimmed},
+				row{3} = {bg=SecondaryColorDimmed},
+				row{4} = {bg=PrimaryColorDimmed}
+				}
+				Port Range Type  & Typical Range & Usage                                                               \\
+				Well-known ports & 0–1023        & Specific services, e.g. HTTP (80), HTTPS (443) etc.                 \\
+				Registered ports & 1024–49151    & User applications or services, not ephemeral                        \\
+				Ephemeral ports  & 49152–60999   & Dynamically allocated by OS for short-lived client-side connections \\
+			\end{tblr}
+		\end{adjustbox}
+	\end{itemize}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		\draw[thick, draw=PrimaryColor] (1.15cm,2.23cm) rectangle (13.5cm,3.22cm);
+    \draw[->, thick, draw=PrimaryColor] (14.4,2.75) -- (13.6,2.75);
+	\end{tikzpicture}
+	% \grid
+\end{frame}
+
+\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
+	\begin{itemize}
+		\item Complete 3-tuple to 4-tuple with cryptographic keyed-hash functions:
+		\begin{itemize}
+			\scriptsize
+			\item \( F_{K_1}: \text{3-Tuples} \xrightarrow{K_1} \{0, \ldots, 2^{32}\}\)
+			\item \( G_{K_2}: \text{3-Tuples} \xrightarrow{K_2} \{0, \ldots, T\}\) where $T$ is the size of the \alert{perturbation table}
+		\end{itemize}
+	\end{itemize}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item asdf
+      \end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\begin{adjustbox}{max width=\textwidth}
+					\tikzfig{perturbation_table}
+				\end{adjustbox}
+			\end{center}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}

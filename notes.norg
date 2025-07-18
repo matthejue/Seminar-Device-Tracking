@@ -6,6 +6,9 @@
   -- dementsprechend würde es auch Sinn machen, dass die Destinationports jedes mal die gleichen sind, da man jedes mal den gleichen Code schickt
 
 * Schindelhauer Fragen
+  - warum der double hash port selection algorithmus 2 keys hat und nicht einen key für beide hash functions?
+  - warum kann man bei tcp nicht einfach alle ports ausprobieren?
+
   - double hash Grund nirgendwo auffindbar -> bei 2 countern, deren offset sehr nah nebeneinern sind, würde die immer miteinander kollidierern
   - TCP annehmen ohne erklären?
   -- TCP Syn-Packete
@@ -64,6 +67,7 @@
   - Wie lange dauert Angriff?
   - Wieviele l braucht man den durchschnittlich?
   - was eine Hash Funktion nochmal war
+  - off-path attacks, such as blind reset or data injection attacks
 
 * Fragen an Studenten
   - welcher von beiden Keys ist der Key von dem ich Anfang gesprochen habe?

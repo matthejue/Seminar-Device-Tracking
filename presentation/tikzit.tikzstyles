@@ -15,9 +15,9 @@
 \tikzstyle{smallest node}=[fill={rgb,255: red,237; green,197; blue,149}, draw=none, shape=circle, inner sep=0cm, minimum size=0.5cm]
 
 % Edge styles
-\tikzstyle{directed edge}=[->, draw={rgb,255: red,3; green,104; blue,176}, very thick]
+\tikzstyle{directed edge}=[->, draw={rgb,255: red,237; green,135; blue,13}, very thick]
 \tikzstyle{invisbile edge}=[-, draw=none]
-\tikzstyle{directed dotted edge}=[draw={rgb,255: red,3; green,104; blue,176}, ->, dashed, very thick]
-\tikzstyle{rule}=[-, draw={rgb,255: red,3; green,104; blue,176}, very thick]
-\tikzstyle{shallowfill}=[-, fill={rgb,255: red,221; green,230; blue,239}, draw={rgb,255: red,3; green,104; blue,176}, very thick]
-\tikzstyle{visiblefill}=[-, draw={rgb,255: red,3; green,104; blue,176}, fill={rgb,255: red,117; green,196; blue,236}, very thick]
+\tikzstyle{directed dotted edge}=[draw={rgb,255: red,237; green,135; blue,13}, ->, dashed, very thick]
+\tikzstyle{rule}=[-, draw={rgb,255: red,237; green,135; blue,13}, very thick]
+\tikzstyle{shallowfill}=[-, fill={rgb,255: red,246; green,219; blue,176}, draw={rgb,255: red,246; green,219; blue,176}, very thick]
+\tikzstyle{visiblefill}=[-, draw={rgb,255: red,237; green,135; blue,13}, fill={rgb,255: red,237; green,197; blue,149}, very thick]
