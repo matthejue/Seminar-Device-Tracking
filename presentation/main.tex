@@ -18,7 +18,6 @@
 \input{./content/declarations}
 \fi
 
-
 % \includeonly{
   % ./content/appendix,
 % }
@@ -62,16 +61,16 @@
 	\begin{columns}
 		\begin{column}[t]{0.5\textwidth}
 			\begin{itemize}
-				\item performance features of modern CPUs \alert{exploited}
-				\item \alert{side effects} of out-of-order and speculative execution
-				\item read normally innaccesible data from memory
+				\item \alert{Exploited} performance features of modern CPUs
+				\item \alert{Side effects} of out-of-order and speculative execution
+				\item \alert{Allows} to read innaccesible data from memory
 			\end{itemize}
 		\end{column}
 		\begin{column}[t]{0.5\textwidth}
 			\begin{itemize}
-				\item Linux’s TCP source port selection algorithm \alert{exploited}
-				\item \alert{side effects} of hash collisions
-				\item track devices through device ID tied to device-specific key
+				\item \alert{Exploited} Linux’s TCP source port selection algorithm
+				\item \alert{Side effects} of hash collisions
+				\item \alert{Allows} to track devices through device ID tied to device-specific key
 			\end{itemize}
 		\end{column}
 	\end{columns}
@@ -93,8 +92,8 @@
 	\end{transformation}
 	\vspace{-0.5cm}
 	\begin{itemize}
-		\item information collected through web browser
-		\item privacy risk
+		\item Information collected through web browser
+		\item Privacy risk
 	\end{itemize}
 \end{frame}
 
@@ -112,7 +111,7 @@
 	\end{columns}
 	\vspace{-0.5cm}
 	\begin{itemize}
-		\item \alert{golden image challenge:} distinguish identical devices with same hardware and software configuration \checkboxUnchecked \alert{$\Rightarrow$ device-specific key}
+		\item \alert{Golden image challenge:} Distinguish identical devices with same hardware and software configuration \checkboxUnchecked \alert{$\Rightarrow$ device-specific key}
 	\end{itemize}
 \end{frame}
 
@@ -161,26 +160,59 @@
 			\item (10.0.0.12, 49210, 74.125.133.109, 587)
 			\item (123 Maple St., Apt. 5B, 456 Oak St., Apt. 9D
 		\end{itemize}
-		\item chooses TCP \alert{source port} $Port_{Src}$ for \alert{3-tuple}: $(IP_{Src}, IP_{Dest}, Port_{Dest})$
+		\item Chooses TCP \alert{source port} $Port_{Src}$ for \alert{3-tuple}: $(IP_{Src}, IP_{Dest}, Port_{Dest})$
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Source Port Selection}
 	\begin{itemize}
-		\item \alert{Functionality:} Reusing soure ports can cause failures $\Rightarrow$ earlier connections might still be active (\texttt{TIME\_WAIT} state)
-		\item[$\Rightarrow$] \alert{Naive method:} Choose next available free port in sequence
+		\item \alert{Functionality:} Reusing soure ports can cause failures
+		\begin{itemize}
+			\item[\alert{$\Rightarrow$}] Earlier connections might be active (\texttt{TIME\_WAIT} state)
+		\end{itemize}
+	\end{itemize}
+	\begin{columns}
+		\begin{column}[t]{0.33\textwidth}
+			\vspace{2cm}
+
+			\includegraphics[width=0.8\textwidth, center]{./figures/room_cleaned.png}
+		\end{column}
+		\begin{column}[t]{0.33\textwidth}
+			\vspace{0cm}
+
+			\includegraphics[width=0.8\textwidth, center]{./figures/room_not_cleaned.png}
+		\end{column}
+		\begin{column}[t]{0.33\textwidth}
+			\vspace{0cm}
+
+			\includegraphics[width=0.8\textwidth, center]{./figures/apartment2.png}
+		\end{column}
+	\end{columns}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		\draw[->, thick, draw=PrimaryColor] (4.35,2.3) -- (10.8,1.95);
+		\draw[->, thick, draw=PrimaryColor] (9.1,4.3) -- (11.7,3.1);
+	\end{tikzpicture}
+	% \grid
+\end{frame}
+
+\begin{frame}[fragile]{Introduction}{Source Port Selection}
+	\begin{itemize}
+		\item \alert{Security:}
+		\begin{itemize}
+			\item \alert{Off-path attacks} %like blind reset, data injection
+			\item Determine \alert{Device activity (number TCP connections per time)} % if an attacker could, e.g., force a client to periodically establish a new TCP connection to an attacker-controlled machine (or through an attacker- observable path), the attacker could subtract consecutive source port values to obtain the number of outgoing TCP connections established globally by the target host within that time period 
+		\end{itemize}
 		\begin{transformation}[0.2][0.6][0.2]
 			\includegraphics[width=\textwidth]{./figures/apartment1.png}
 			\arrowxx{\includegraphics[width=0.3\textwidth]{./figures/evil_computer_scientist_bicycle.png}}{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}
 			\includegraphics[width=\textwidth]{./figures/apartment2.png}
 		\end{transformation}
-		\item \alert{Security:} Off-path attacks like blind reset, data injection
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
 	\begin{itemize}
-		\item TCP source ports divided into ranges:
+		\item TCP source ports divided into \alert{ranges}:
 
 		\begin{adjustbox}{max width=0.9\textwidth}
 			\begin{tblr}{
@@ -202,25 +234,29 @@
 	\end{itemize}
 	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 		\draw[thick, draw=PrimaryColor] (1.15cm,2.23cm) rectangle (13.5cm,3.22cm);
-    \draw[->, thick, draw=PrimaryColor] (14.4,2.75) -- (13.6,2.75);
+		\draw[->, thick, draw=PrimaryColor] (14.4,2.75) -- (13.6,2.75);
 	\end{tikzpicture}
 	% \grid
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
 	\begin{itemize}
-		\item Complete 3-tuple to 4-tuple with cryptographic keyed-hash functions:
+		\item \alert{Complete 3-tuple to 4-tuple} with cryptographic keyed-hash functions:
 		\begin{itemize}
 			\scriptsize
 			\item \( F_{K_1}: \text{3-Tuples} \xrightarrow{K_1} \{0, \ldots, 2^{32}\}\)
-			\item \( G_{K_2}: \text{3-Tuples} \xrightarrow{K_2} \{0, \ldots, T\}\) where $T$ is the size of the \alert{perturbation table}
+			\item \( G_{K_2}: \text{3-Tuples} \xrightarrow{K_2} \{0, \ldots, T\}\) where $T$ is length of \alert{perturbation table}
 		\end{itemize}
 	\end{itemize}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-      \begin{itemize}
-        \item asdf
-      \end{itemize}
+			\begin{itemize}
+				\item Incrementation of port numbers separated into \alert{$T$ different spaces}
+				\begin{itemize}
+					\item[\alert{$\Rightarrow$}] Port-reuse frequency lower % (probabilistically) 
+					\item[\alert{$\Rightarrow$}] Harder to analyse device activity % if an attacker could, e.g., force a client to periodically establish a new TCP connection to an attacker-controlled machine (or through an attacker- observable path), the attacker could subtract consecutive source port values to obtain the number of outgoing TCP connections established globally by the target host within that time period
+				\end{itemize}
+			\end{itemize}
 		\end{column}
 		\begin{column}{0.5\textwidth}
 			\begin{center}
@@ -230,19 +266,78 @@
 			\end{center}
 		\end{column}
 	\end{columns}
+	% Further increasing the TABLE_LENGTH will increase the unpredictability of the resulting port number, and possibly further decrease the collision rate
 \end{frame}
 
 \begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
-	\begin{center}
-		\begin{adjustbox}{scale=0.7}
+	\begin{adjustbox}{scale=0.8}
+		\begin{minipage}{0.8\textwidth}
 			\input{../report/share/dhps_algorithm.tex}
-		\end{adjustbox}
-	\end{center}
+		\end{minipage}
+	\end{adjustbox}
+	% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}] % 1
+	% 	\node[anchor=north west]  at (9.3cm, 5.8cm) {%
+	% 		\includegraphics[scale=0.7]{./figures/external/dhps_source_port_calculation_2.pdf}
+	% 	};
+	% \end{tikzpicture}
+	% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+	% 	\node[anchor=north west] at (9cm, 7.1cm) {%
+	% 		\begin{minipage}{\textwidth}
+	% 			\begin{itemize}
+	%          \item \alert{Source port calculation:}
+	% 				\begin{itemize}
+	%            \scriptsize
+	% 					\item $offset=50'000$
+	% 					\item $index=255$
+	% 				\end{itemize}
+	% 			\end{itemize}
+	% 		\end{minipage}
+	% 	};
+	% \end{tikzpicture}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}] % 2
+		\node[anchor=north west]  at (9.3cm, 5.8cm) {%
+			\includegraphics[scale=0.7]{./figures/external/dhps_source_port_calculation_increment.pdf}
+		};
+	\end{tikzpicture}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		\node[anchor=north west] at (9cm, 7.1cm) {%
+			\begin{minipage}{\textwidth}
+				\begin{itemize}
+					\item \alert{Source port calculation:}
+					\begin{itemize}
+						\scriptsize
+						\item $offset=50'000$
+						\item $index=255$
+					\end{itemize}
+				\end{itemize}
+			\end{minipage}
+		};
+	\end{tikzpicture}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		% source port calculation % 1
+		% \draw[thick, draw=PrimaryColor] (1.55cm,5.0cm) rectangle (6.85cm,5.45cm);
+		% \draw[thick, draw=PrimaryColor] (1.55cm,4.6cm) rectangle (6.75cm,5.0cm);
+		% \draw[thick, draw=PrimaryColor] (2.15cm,3.1cm) rectangle (9.25cm,3.9cm);
+		% increase of table entry % 2
+		\draw[thick, draw=PrimaryColor] (2.15cm,2.75cm) rectangle (6.95cm,3.1cm);
+		\draw[thick, draw=PrimaryColor] (2.15cm,1.95cm) rectangle (7.35cm,2.75cm);
+		% loop termiation
+		% \draw[thick, draw=PrimaryColor] (1.55cm,4.25cm) rectangle (4.9cm,4.6cm);
+		% \draw[thick, draw=PrimaryColor] (2.15cm,1.6cm) rectangle (4.65cm,1.95cm);
+		% \draw[thick, draw=PrimaryColor] (1.55cm,1.2cm) rectangle (3.85cm,1.6cm);
+		% terminate with error
+		% \draw[thick, draw=PrimaryColor] (1.55cm,0.75cm) rectangle (3.45cm,1.2cm);
+	\end{tikzpicture}
+	% \grid
 \end{frame}
 
 \section{Attack}
 
-\begin{frame}[fragile]{Attack}{}
+\begin{frame}[fragile]{Attack}{Parties}
+	\centering
+	\begin{adjustbox}{max width=\textwidth}
+		\tikzfig{sequence_diagram_attack} % ./figures/sequence_diagram_attack.tikz
+	\end{adjustbox}
 \end{frame}
 
 \begin{frame}[fragile]{Attack}{Phase 1}

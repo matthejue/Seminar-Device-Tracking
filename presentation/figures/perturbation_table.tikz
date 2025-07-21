@@ -38,10 +38,10 @@
 		\node [style=none] (35) at (9, -6) {};
 		\node [style=none] (36) at (12, -6) {};
 		\node [style=none] (37) at (12, -4) {};
-		\node [style=none] (38) at (4.5, -5) {214};
+		\node [style=none] (38) at (4.5, -5) {43};
 		\node [style=none] (39) at (7.5, -5) {...};
-		\node [style=none] (40) at (10.5, -5) {103};
-		\node [style=none] (41) at (1.5, -5) {59};
+		\node [style=none] (40) at (10.5, -5) {1};
+		\node [style=none] (41) at (1.5, -5) {16};
 		\node [style=none] (43) at (12.5, -2.5) {};
 		\node [style=none] (44) at (12.5, -5.5) {};
 		\node [style=none] (45) at (0, -7) {};
@@ -54,10 +54,10 @@
 		\node [style=none] (52) at (9, -9) {};
 		\node [style=none] (53) at (12, -9) {};
 		\node [style=none] (54) at (12, -7) {};
-		\node [style=none] (55) at (4.5, -8) {214};
+		\node [style=none] (55) at (4.5, -8) {43};
 		\node [style=none] (56) at (7.5, -8) {...};
-		\node [style=none] (57) at (10.5, -8) {104};
-		\node [style=none] (58) at (1.5, -8) {59};
+		\node [style=none] (57) at (10.5, -8) {2};
+		\node [style=none] (58) at (1.5, -8) {16};
 		\node [style=none] (59) at (12.5, -7.5) {};
 		\node [style=none] (60) at (12.5, 0.5) {};
 		\node [style=none] (61) at (12.5, -1.5) {};
@@ -70,58 +70,62 @@
 		\node [style=none] (70) at (10.5, 3) {255};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw [style=shallowfill] (1.center) to (2.center);
-		\draw [style=shallowfill] (2.center) to (5.center);
-		\draw [style=shallowfill] (5.center) to (7.center);
-		\draw [style=shallowfill] (7.center) to (8.center);
-		\draw [style=shallowfill] (8.center) to (9.center);
-		\draw [style=shallowfill] (6.center) to (9.center);
-		\draw [style=shallowfill] (6.center) to (4.center);
-		\draw [style=shallowfill] (4.center) to (3.center);
-		\draw [style=shallowfill] (3.center) to (0.center);
-		\draw [style=shallowfill] (1.center) to (0.center);
-		\draw [style=shallowfill] (2.center) to (3.center);
-		\draw [style=shallowfill] (5.center) to (4.center);
-		\draw [style=shallowfill] (7.center) to (6.center);
-		\draw [style=shallowfill] (15.center) to (16.center);
-		\draw [style=shallowfill] (16.center) to (19.center);
-		\draw [style=shallowfill] (19.center) to (21.center);
-		\draw [style=shallowfill] (21.center) to (22.center);
-		\draw [style=shallowfill] (22.center) to (23.center);
-		\draw [style=shallowfill] (20.center) to (23.center);
-		\draw [style=shallowfill] (20.center) to (18.center);
-		\draw [style=shallowfill] (18.center) to (17.center);
-		\draw [style=shallowfill] (17.center) to (14.center);
-		\draw [style=shallowfill] (15.center) to (14.center);
-		\draw [style=shallowfill] (16.center) to (17.center);
-		\draw [style=shallowfill] (19.center) to (18.center);
-		\draw [style=shallowfill] (21.center) to (20.center);
-		\draw [style=shallowfill] (29.center) to (30.center);
-		\draw [style=shallowfill] (30.center) to (33.center);
-		\draw [style=shallowfill] (33.center) to (35.center);
-		\draw [style=shallowfill] (35.center) to (36.center);
-		\draw [style=shallowfill] (36.center) to (37.center);
-		\draw [style=shallowfill] (34.center) to (37.center);
-		\draw [style=shallowfill] (34.center) to (32.center);
-		\draw [style=shallowfill] (32.center) to (31.center);
-		\draw [style=shallowfill] (31.center) to (28.center);
-		\draw [style=shallowfill] (29.center) to (28.center);
-		\draw [style=shallowfill] (30.center) to (31.center);
-		\draw [style=shallowfill] (33.center) to (32.center);
-		\draw [style=shallowfill] (35.center) to (34.center);
-		\draw [style=shallowfill] (46.center) to (47.center);
-		\draw [style=shallowfill] (47.center) to (50.center);
-		\draw [style=shallowfill] (50.center) to (52.center);
-		\draw [style=shallowfill] (52.center) to (53.center);
-		\draw [style=shallowfill] (53.center) to (54.center);
-		\draw [style=shallowfill] (51.center) to (54.center);
-		\draw [style=shallowfill] (51.center) to (49.center);
-		\draw [style=shallowfill] (49.center) to (48.center);
-		\draw [style=shallowfill] (48.center) to (45.center);
-		\draw [style=shallowfill] (46.center) to (45.center);
-		\draw [style=shallowfill] (47.center) to (48.center);
-		\draw [style=shallowfill] (50.center) to (49.center);
-		\draw [style=shallowfill] (52.center) to (51.center);
+		\draw [style=visiblefill] (7.center)
+			 to (5.center)
+			 to (2.center)
+			 to (1.center)
+			 to (0.center)
+			 to (3.center)
+			 to (4.center)
+			 to (6.center)
+			 to [in=180, out=0] (9.center)
+			 to (8.center)
+			 to cycle;
+		\draw [style=rule] (2.center) to (3.center);
+		\draw [style=rule] (5.center) to (4.center);
+		\draw [style=rule] (7.center) to (6.center);
+		\draw [style=visiblefill] (23.center)
+			 to (22.center)
+			 to [in=360, out=180] (21.center)
+			 to (19.center)
+			 to (16.center)
+			 to (15.center)
+			 to (14.center)
+			 to (17.center)
+			 to (18.center)
+			 to (20.center)
+			 to cycle;
+		\draw [style=rule] (16.center) to (17.center);
+		\draw [style=rule] (19.center) to (18.center);
+		\draw [style=rule] (21.center) to (20.center);
+		\draw [style=visiblefill] (36.center)
+			 to (37.center)
+			 to (34.center)
+			 to (32.center)
+			 to (31.center)
+			 to (28.center)
+			 to (29.center)
+			 to (30.center)
+			 to (33.center)
+			 to (35.center)
+			 to cycle;
+		\draw [style=rule] (30.center) to (31.center);
+		\draw [style=rule] (33.center) to (32.center);
+		\draw [style=rule] (35.center) to (34.center);
+		\draw [style=visiblefill] (50.center)
+			 to (52.center)
+			 to (53.center)
+			 to (54.center)
+			 to (51.center)
+			 to (49.center)
+			 to (48.center)
+			 to (45.center)
+			 to (46.center)
+			 to (47.center)
+			 to cycle;
+		\draw [style=rule] (47.center) to (48.center);
+		\draw [style=rule] (50.center) to (49.center);
+		\draw [style=rule] (52.center) to (51.center);
 		\draw [style=directed edge, bend left=45, looseness=1.50] (60.center) to (61.center);
 		\draw [style=directed edge, bend left=45, looseness=1.50] (43.center) to (62.center);
 		\draw [style=directed edge, bend left=45, looseness=1.50] (44.center) to (59.center);

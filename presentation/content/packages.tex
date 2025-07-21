@@ -47,8 +47,11 @@
 % └──────────┘
 \usepackage{tikz}
 \usetikzlibrary{mindmap, shadows, backgrounds} % , calc
+\usetikzlibrary{arrows.meta, positioning}
 \usepackage{tikzit}
 \input{tikzit.tikzstyles}
+% \usetikzlibrary{external}
+% \tikzexternalize[prefix=figures/external/]
 
 % ┌────────┐
 % │ Citing │
@@ -94,6 +97,7 @@
 % https://tex.stackexchange.com/questions/358292/creating-a-subcounter-to-a-counter-i-created
 \usepackage{chngcntr}
 \usepackage{totcount}
+% \usepackage{showframe}
 
 % ┌───────┐
 % │ Boxes │

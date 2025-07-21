@@ -8,6 +8,7 @@
 * Schindelhauer Fragen
   - warum der double hash port selection algorithmus 2 keys hat und nicht einen key für beide hash functions?
   - warum kann man bei tcp nicht einfach alle ports ausprobieren?
+  - in the Linux kernel, by default, min_ephemeral = 32768,max_ephemeral = 60999
 
   - double hash Grund nirgendwo auffindbar -> bei 2 countern, deren offset sehr nah nebeneinern sind, würde die immer miteinander kollidierern
   - TCP annehmen ohne erklären?
@@ -51,6 +52,7 @@
   - warum ist noise beim phase 2 algorithmus kein Problem?
   - warum returnt der phase 2 algorithmus auch l?
   - why individual countermeasures necessary? why not one of them enough?
+  - was ist der Datentyp der einzelnen Zellen der perturbation table?
 
 * Darüber noch informieren
   - How Meltdown work, so sind sich beide Verfahren ähnlich?
@@ -95,6 +97,7 @@
   - golden image test name origin
   - whhat is this? -> transitivity
   - remeber this (k over 2)
+  - multiuser system
 
 * Appendix Fragen
   - this formula behind n
@@ -155,6 +158,7 @@
   - nur attempts nötig
   - collisions in same parturbation table cell mention G_{K_2}
   - (Connection localhost address und loopback 3-tuples), corrected
+  - informieren, ob
 
 * Erklärweise
 ** Vogehen allgemien

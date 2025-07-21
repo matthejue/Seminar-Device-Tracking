@@ -28,7 +28,7 @@
 \setminted{fontsize=\tiny,breaklines,highlightcolor=SecondaryColorDimmed,autogobble,escapeinside=||,breakaftersymbolpre={},breakaftersymbolpost={},breakbeforesymbolpre={},breakbeforesymbolpost={},breaksymbolsepleft=2mm,breaksymbolsepright=0mm,breakindent=0mm,breaksymbolindentleft=5mm,breaksymbolindentright=0mm,numbersep=2.5mm}
 
 \newenvironment{linenums}{
-  \setminted{linenos}
+	\setminted{linenos}
 }{}
 
 % ┌───────┐
@@ -37,40 +37,40 @@
 
 \DeclareTotalTCBox{\inlinebox}{ s m }
 {verbatim,colback=PrimaryColorDimmed,colframe=PrimaryColor,nobeforeafter,tcbox raise base,top=0mm,bottom=0mm,
-  right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
+	right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
 {\IfBooleanTF{#1}%
-{\textcolor{PrimaryColor}{\setBold >\enspace\ignorespaces}#2}%
-{#2}}
+	{\textcolor{PrimaryColor}{\setBold >\enspace\ignorespaces}#2}%
+	{#2}}
 
 \DeclareTotalTCBox{\key}{ m }
 {verbatim,colback=PrimaryColorDimmed,colframe=PrimaryColor,nobeforeafter,tcbox raise base,top=0mm,bottom=0mm,
-  right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
+	right=0mm,left=0mm,arc=0.1cm,boxsep=0.1cm}
 {$\mathtt{#1}$}
 
 \newtcolorbox{sidenote}{enhanced,boxrule=0cm,frame hidden,arc=0.2cm,title=\small Sidenote,attach boxed title to top text left={yshift=-0.2cm},colback=PrimaryColorDimmed,boxed title style={boxrule=0cm,frame hidden,colback=PrimaryColor,arc=0.1cm},fonttitle=\bfseries,
-after title={\hspace{0.2cm}\includegraphics[height=0.25cm]{./figures/lupe.png}}
+	after title={\hspace{0.2cm}\includegraphics[height=0.25cm]{./figures/lupe.png}}
 }
 % drop fuzzy shadow,
 
 \newtcblisting{terminal}{
-enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,arc=0.2cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,boxrule=0.05cm,listing only,minted language=text,listing engine=minted,minted options={escapeinside=||,autogobble,fontsize=\tiny}
+	enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,arc=0.2cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,boxrule=0.05cm,listing only,minted language=text,listing engine=minted,minted options={escapeinside=||,autogobble,fontsize=\tiny}
 }
 
 % https://tex.stackexchange.com/questions/593218/nested-inline-math-for-new-command-with-argument
 \newcommand{\prompt}{\textcolor{PrimaryColor}{\setBold >\;\ignorespaces}}
 
 \DeclareTCBInputListing{\file}{o m}{
-listing file={#2},enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseries\tiny,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing only,listing engine=minted,#1}
+	listing file={#2},enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseries\tiny,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing only,listing engine=minted,#1}
 
 \DeclareTCBListing{dfile}{o}{
-enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseries\tiny,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.2cm,top=0.1cm,left=0.1cm,right=0.1cm,listing only,listing engine=minted,#1}
+	enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseries\tiny,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.2cm,top=0.1cm,left=0.1cm,right=0.1cm,listing only,listing engine=minted,#1}
 
 \DeclareTCBInputListing{\codebox}{ s o m }{listing file={#3},
-  enhanced,colframe=PrimaryColor,colback=BoxColor,IfBooleanTF={#1}{colframe=SecondaryColor}{colframe=PrimaryColor},fonttitle=\bfseries\small,#2,listing only,halign title=center,drop fuzzy shadow,arc=0,2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing engine=minted}
+	enhanced,colframe=PrimaryColor,colback=BoxColor,IfBooleanTF={#1}{colframe=SecondaryColor}{colframe=PrimaryColor},fonttitle=\bfseries\small,#2,listing only,halign title=center,drop fuzzy shadow,arc=0,2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing engine=minted}
 % , sharpish corners
 
 \DeclareTCBListing{dcodebox}{ s o }{
-  enhanced,colframe=PrimaryColor,IfBooleanTF={#1}{colframe=SecondaryColor,colback=SecondaryColorDimmed}{colframe=PrimaryColor,colback=PrimaryColorDimmed},hbox,fonttitle=\bfseries\small,#2,listing only,halign title=center,drop fuzzy shadow,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing engine=minted}
+	enhanced,colframe=PrimaryColor,IfBooleanTF={#1}{colframe=SecondaryColor,colback=SecondaryColorDimmed}{colframe=PrimaryColor,colback=PrimaryColorDimmed},hbox,fonttitle=\bfseries\small,#2,listing only,halign title=center,drop fuzzy shadow,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.1cm,right=0.1cm,listing engine=minted}
 % , sharpish corners
 
 % % https://tex.stackexchange.com/questions/585582/inside-of-a-newtcbinputlisting-how-can-i-change-the-color-of-the-line-number-as
@@ -80,11 +80,11 @@ enhanced,colframe=PrimaryColor,colback=PrimaryColorDimmed,hbox,fonttitle=\bfseri
 % \renewcommand{\theFancyVerbLine}{\sffamily \textcolor[rgb]{0.5,0.5,1.0}{\huge \oldstylenums{\arabic{FancyVerbLine}}}}
 
 \newtcbinputlisting{\numberedcodebox}[2][]{
-  listing file={#2}, enhanced, colframe=PrimaryColor,colback=BoxColor,fonttitle=\bfseries\small,#1,listing only,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.5cm,right=0.1cm,listing engine=minted,overlay={\begin{tcbclipinterior}\fill[PrimaryColorDimmed] (frame.south west) rectangle ([xshift=0.5cm]frame.north west);\end{tcbclipinterior}}
+	listing file={#2}, enhanced, colframe=PrimaryColor,colback=BoxColor,fonttitle=\bfseries\small,#1,listing only,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.5cm,right=0.1cm,listing engine=minted,overlay={\begin{tcbclipinterior}\fill[PrimaryColorDimmed] (frame.south west) rectangle ([xshift=0.5cm]frame.north west);\end{tcbclipinterior}}
 }
 
 \newtcblisting{dnumberedcodebox}[1][]{
-enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\tiny,#1,listing only,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.5cm,right=0.1cm,listing engine=minted,overlay={\begin{tcbclipinterior}\fill[PrimaryColor] (frame.south west) rectangle ([xshift=0.5cm]frame.north west);\end{tcbclipinterior}}
+	enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\tiny,#1,listing only,halign title=center,arc=0.2cm,boxrule=0.05cm,bottom=0.1cm,top=0.1cm,left=0.5cm,right=0.1cm,listing engine=minted,overlay={\begin{tcbclipinterior}\fill[PrimaryColor] (frame.south west) rectangle ([xshift=0.5cm]frame.north west);\end{tcbclipinterior}}
 }
 
 
@@ -94,8 +94,8 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 
 % https://tex.stackexchange.com/questions/585582/inside-of-a-newtcbinputlisting-how-can-i-change-the-color-of-the-line-number-as
 \renewcommand{\theFancyVerbLine}{\sffamily
-    \textcolor{white}{\tiny
-        \oldstylenums{\arabic{FancyVerbLine}}}}
+	\textcolor{white}{\tiny
+		\oldstylenums{\arabic{FancyVerbLine}}}}
 
 % ------------------
 
@@ -116,29 +116,29 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 
 % https://tex.stackexchange.com/questions/152565/define-a-new-block-environment-in-latex-beamer
 \renewenvironment<>{exercise}[1][]{%
-  \setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
-\begin{block}#2{Aufgabe \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}}{\end{block}\stepcounter{exercise}}
+	\setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
+	\begin{block}#2{Aufgabe \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}}{\end{block}\stepcounter{exercise}}
 
 % https://tex.stackexchange.com/questions/152565/define-a-new-block-environment-in-latex-beamer
 \renewenvironment<>{exercisenoinc}[1][]{%
-  \setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
-\begin{block}#2{Aufgabe \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}}{\end{block}}
+	\setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
+	\begin{block}#2{Aufgabe \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}}{\end{block}}
 
 \newenvironment<>{requirements}[1][]{%
-  \setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
-\begin{block}#2{Voraussetzungen \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}\itshape}{\end{block}\stepcounter{exercise}}
+	\setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
+	\begin{block}#2{Voraussetzungen \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}\itshape}{\end{block}\stepcounter{exercise}}
 
 \newenvironment<>{requirementsnoinc}[1][]{%
-  \setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
-\begin{block}#2{Voraussetzungen \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}\itshape}{\end{block}}
+	\setbeamercolor{block title}{fg=white,bg=SecondaryColor}%
+	\begin{block}#2{Voraussetzungen \thesection{.}\theexercise\enspace\ignorespaces #1 \anotebook}\itshape}{\end{block}}
 
 \newenvironment<>{solution}[1][]{%
-  \setbeamercolor{block title}{fg=white,bg=PrimaryColor}%
-\begin{block}#2{Lösung \thesection{.}\theexercise\enspace\ignorespaces #1 \notebook}\itshape}{\end{block}\stepcounter{exercise}}
+	\setbeamercolor{block title}{fg=white,bg=PrimaryColor}%
+	\begin{block}#2{Lösung \thesection{.}\theexercise\enspace\ignorespaces #1 \notebook}\itshape}{\end{block}\stepcounter{exercise}}
 
 \newenvironment<>{solutionnoinc}[1][]{%
-  \setbeamercolor{block title}{fg=white,bg=PrimaryColor}%
-\begin{block}#2{Lösung \thesection{.}\theexercise\enspace\ignorespaces #1 \notebook}\itshape}{\end{block}}
+	\setbeamercolor{block title}{fg=white,bg=PrimaryColor}%
+	\begin{block}#2{Lösung \thesection{.}\theexercise\enspace\ignorespaces #1 \notebook}\itshape}{\end{block}}
 
 % https://stackoverflow.com/questions/34274267/how-can-i-number-theorems-definitions-etc-etc-consecutively-in-latex-without
 \newtheorem{customtheorem}{Custom Theorem}[section]
@@ -150,10 +150,10 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 % └──────────────┘
 
 % alternative alert
-\newcommand\aalert[1]{\textcolor{PrimaryColor}{#1}}
+\newcommand\aalert[1]{\textcolor{SecondaryColor}{#1}}
 
 \newcommand{\aitem}{%
-\item[\textcolor{PrimaryColor}{$\blacktriangleright$}]\ignorespaces}
+	\item[\textcolor{PrimaryColor}{$\blacktriangleright$}]\ignorespaces}
 
 % % https://tex.stackexchange.com/questions/8351/what-do-makeatletter-and-makeatother-do
 % \makeatletter
@@ -168,7 +168,7 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 % \makeatother
 
 \newcommand{\grayitem}{%
-\item[\textcolor{gray!90!black}{$\blacktriangleright$}]\ignorespaces}
+	\item[\textcolor{gray!90!black}{$\blacktriangleright$}]\ignorespaces}
 
 % https://tex.stackexchange.com/questions/329990/how-do-i-change-the-color-of-itemize-bullet-specific-and-default
 % \renewcommand{\labelitemi}{$\textcolor{PrimaryColor}{\bullet}$}
@@ -183,11 +183,11 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 \newcommand{\magnifier}{\hfill\includegraphics[height=3mm]{./figures/lupe.png}}
 
 \newcommand\RemoveMargin[2][3em]{%
-\makebox[\linewidth][c]{%
-  \begin{minipage}{\dimexpr\textwidth+#1\relax}
-  \raggedright#2
-  \end{minipage}%
-  }%
+	\makebox[\linewidth][c]{%
+		\begin{minipage}{\dimexpr\textwidth+#1\relax}
+			\raggedright#2
+		\end{minipage}%
+	}%
 }
 
 % https://tex.stackexchange.com/questions/188379/theorem-numbering-in-beamer
@@ -200,24 +200,24 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 \newcommand{\highlightonslide}{\only{\color{SecondaryColor}}}
 
 \newcommand{\checkboxUnchecked}{
-  \begin{tikzpicture}[baseline=0.6mm]
-    \draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
-  \end{tikzpicture}
+	\begin{tikzpicture}[baseline=0.6mm]
+		\draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
+	\end{tikzpicture}
 }
 
 \newcommand{\checkboxChecked}{
-  \begin{tikzpicture}[baseline=0.5mm]
-    \draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
-    \draw[SecondaryColor, line width=0.3mm] (0.05,0.15) -- (0.15,0.05) -- (0.25,0.25);
-  \end{tikzpicture}
+	\begin{tikzpicture}[baseline=0.5mm]
+		\draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
+		\draw[SecondaryColor, line width=0.3mm] (0.05,0.15) -- (0.15,0.05) -- (0.25,0.25);
+	\end{tikzpicture}
 }
 
 \newcommand{\checkboxHalfChecked}{
-  % \tikz[baseline=-0.5ex]{}
-  \begin{tikzpicture}[baseline=0.5mm]
-    \draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
-    \draw[SecondaryColor, line width=0.3mm] (0.05,0.15) -- (0.25,0.15);
-  \end{tikzpicture}
+	% \tikz[baseline=-0.5ex]{}
+	\begin{tikzpicture}[baseline=0.5mm]
+		\draw[PrimaryColor, line width=0.3mm] (0,0) rectangle (0.3,0.3);
+		\draw[SecondaryColor, line width=0.3mm] (0.05,0.15) -- (0.25,0.15);
+	\end{tikzpicture}
 }
 
 % ┌──────────────────┐
@@ -225,15 +225,15 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 % └──────────────────┘
 
 \newenvironmentx{transformation}[3][1=0.4, 2=0.2, 3=0.4]{
-  \newcommand{\compilesto}{%
-  \end{column}\begin{column}[c]{#2\linewidth}\centering$\Rightarrow$\end{column}\begin{column}[c]{#3\linewidth}\centering}
-  \newcommand{\arrowx}[1]{%
-  \end{column}\begin{column}[c]{#2\linewidth}\centering$\xRightarrow{##1}$\end{column}\begin{column}[c]{#3\linewidth}\centering}
-  \newcommand{\arrowxx}[2]{%
-  \end{column}\begin{column}[c]{#2\linewidth}\centering$\xRightarrow[##2]{##1}$\end{column}\begin{column}[c]{#3\linewidth}\centering}
-  \begin{columns}\begin{column}[c]{#1\linewidth}\centering
-  }{%
-  \end{column}\end{columns}%
+	\newcommand{\compilesto}{%
+		\end{column}\begin{column}[c]{#2\linewidth}\centering$\Rightarrow$\end{column}\begin{column}[c]{#3\linewidth}\centering}
+			\newcommand{\arrowx}[1]{%
+		\end{column}\begin{column}[c]{#2\linewidth}\centering$\xRightarrow{##1}$\end{column}\begin{column}[c]{#3\linewidth}\centering}
+			\newcommand{\arrowxx}[2]{%
+		\end{column}\begin{column}[c]{#2\linewidth}\centering$\xRightarrow[##2]{##1}$\end{column}\begin{column}[c]{#3\linewidth}\centering}
+	\begin{columns}\begin{column}[c]{#1\linewidth}\centering
+			}{%
+		\end{column}\end{columns}%
 }
 
 \newcommand{\ma}[1]{$\mathcal{#1}$}
@@ -251,50 +251,62 @@ enhanced, colframe=PrimaryColor,colback=PrimaryColorDimmed,fonttitle=\bfseries\t
 
 
 \newcommand{\grid}{
-  \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 
-  \def\solidstep{1}
-  \def\halfstep{0.5}
-  \def\minorstep{0.1}
+		\def\solidstep{1}
+		\def\halfstep{0.5}
+		\def\minorstep{0.1}
 
-  \pgfmathsetmacro{\xmax}{\paperwidth}
-  \pgfmathsetmacro{\ymax}{\paperheight}
-  \pgfmathsetmacro{\xmaxcm}{\xmax/1cm}
-  \pgfmathsetmacro{\ymaxcm}{\ymax/1cm}
+		\pgfmathsetmacro{\xmax}{\paperwidth}
+		\pgfmathsetmacro{\ymax}{\paperheight}
+		\pgfmathsetmacro{\xmaxcm}{\xmax/1cm}
+		\pgfmathsetmacro{\ymaxcm}{\ymax/1cm}
 
-  % --- Light minor grid lines every 0.1 cm ---
-  \foreach \x in {0,\minorstep,...,\xmaxcm} {
-    \draw[gray!15] (\x cm,0) -- (\x cm,\ymax);
-  }
+		% --- Light minor grid lines every 0.1 cm ---
+		\foreach \x in {0,\minorstep,...,\xmaxcm} {
+				\draw[gray!15] (\x cm,0) -- (\x cm,\ymax);
+			}
 
-  \foreach \y in {0,\minorstep,...,\ymaxcm} {
-    \draw[gray!15] (0,\y cm) -- (\xmax,\y cm);
-  }
+		\foreach \y in {0,\minorstep,...,\ymaxcm} {
+				\draw[gray!15] (0,\y cm) -- (\xmax,\y cm);
+			}
 
-  % --- Dotted half-step grid lines ---
-  \foreach \x in {\halfstep,\solidstep,...,\xmaxcm} {
-    \pgfmathsetmacro{\xf}{\x - \halfstep}
-    \draw[gray!30] (\xf cm,0) -- (\xf cm,\ymax);
-  }
+		% --- Dotted half-step grid lines ---
+		\foreach \x in {\halfstep,\solidstep,...,\xmaxcm} {
+				\pgfmathsetmacro{\xf}{\x - \halfstep}
+				\draw[gray!30] (\xf cm,0) -- (\xf cm,\ymax);
+			}
 
-  \foreach \y in {\halfstep,\solidstep,...,\ymaxcm} {
-    \pgfmathsetmacro{\yf}{\y - \halfstep}
-    \draw[gray!30] (0,\yf cm) -- (\xmax,\yf cm);
-  }
+		\foreach \y in {\halfstep,\solidstep,...,\ymaxcm} {
+				\pgfmathsetmacro{\yf}{\y - \halfstep}
+				\draw[gray!30] (0,\yf cm) -- (\xmax,\yf cm);
+			}
 
-  % --- Solid major grid lines every 1 cm with labels ---
-  \foreach \x in {0,\solidstep,...,\xmaxcm} {
-    \draw[gray!60] (\x cm,0) -- (\x cm,\ymax);
-    \node[font=\scriptsize, anchor=north, yshift=0.45cm, rotate=90] at (\x cm,0) {\x};
-  }
+		% --- Solid major grid lines every 1 cm with labels ---
+		\foreach \x in {0,\solidstep,...,\xmaxcm} {
+				\draw[gray!60] (\x cm,0) -- (\x cm,\ymax);
+				\node[font=\scriptsize, anchor=north, yshift=0.45cm, rotate=90] at (\x cm,0) {\x};
+			}
 
-  \foreach \y in {0,\solidstep,...,\ymaxcm} {
-    \draw[gray!60] (0,\y cm) -- (\xmax,\y cm);
-    \node[font=\scriptsize, anchor=west, xshift=0.1cm] at (0,\y cm) {\y};
-  }
+		\foreach \y in {0,\solidstep,...,\ymaxcm} {
+				\draw[gray!60] (0,\y cm) -- (\xmax,\y cm);
+				\node[font=\scriptsize, anchor=west, xshift=0.1cm] at (0,\y cm) {\y};
+			}
 
-  % Red border around slide
-  \draw[red, thick] (0,0) rectangle (\xmax,\ymax);
+		% Red border around slide
+		\draw[red, thick] (0,0) rectangle (\xmax,\ymax);
 
-\end{tikzpicture}
+	\end{tikzpicture}
+}
+
+\newcommand{\showcolumnwidth}{
+	\begin{tikzpicture}
+		\node[draw, inner sep=5pt, minimum width=\linewidth, anchor=north west] at (0,0) {
+			\begin{minipage}[t]{\linewidth}
+				This column has a border that matches its full width.
+
+				You can add text, lists, etc.
+			\end{minipage}
+		};
+	\end{tikzpicture}
 }

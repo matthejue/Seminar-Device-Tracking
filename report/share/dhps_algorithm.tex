@@ -8,9 +8,9 @@
     \tt{index} $\leftarrow$ $\cn{G}_{K_2}$($\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$) \\
 		\tt{count} $\leftarrow$ \tt{num\_ephemeral} \\
 		repeat \\+
-		$\tt{port} $\leftarrow$ \tt{min\_ephemeral}$+\\+
+		$\tt{port}$ $\leftarrow$ $\tt{min\_ephemeral}$+\\+
 		$((\tt{offset}+\tt{table[index]})$ $mod$ $\tt{num\_ephemeral})$ \\-
-		$\tt{table[index]} $\leftarrow$ \tt{table[index]} +\tn{1}$ \\
+		$\tt{table[index]}$ $\leftarrow$ $\tt{table[index]} +\tn{1}$ \\
 		if \cn{CheckSuitablePort}(\tt{port}) then \\+
 		return \tt{port} \\-
 		$\tt{count} $\leftarrow$ \tt{count} - \tn{1}$ \\-

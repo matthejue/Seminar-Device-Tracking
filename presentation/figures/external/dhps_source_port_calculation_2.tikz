@@ -1,0 +1,64 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 14) {};
+		\node [style=none] (1) at (0, 12) {};
+		\node [style=none] (2) at (4, 14) {};
+		\node [style=none] (3) at (4, 12) {};
+		\node [style=none] (4) at (0, 10) {};
+		\node [style=none] (5) at (4, 10) {};
+		\node [style=none] (6) at (0, 8) {};
+		\node [style=none] (7) at (4, 8) {};
+		\node [style=none] (8) at (0, 6) {};
+		\node [style=none] (9) at (4, 6) {};
+		\node [style=none] (10) at (0, 4) {};
+		\node [style=none] (11) at (4, 4) {};
+		\node [style=none, text centered] (12) at (2, 13) {min ephem.};
+		\node [style=none] (13) at (2, 11) {...};
+		\node [style=none] (14) at (2, 9) {50'000};
+		\node [style=none] (15) at (2, 3) {...};
+		\node [style=none] (16) at (2, 1) {max ephem.};
+		\node [style=none] (17) at (0, 2) {};
+		\node [style=none] (18) at (4, 2) {};
+		\node [style=none] (19) at (0, 0) {};
+		\node [style=none] (20) at (4, 0) {};
+		\node [style=none] (21) at (2, 7) {50'001};
+		\node [style=none] (22) at (2, 5) {50'002};
+		\node [style=none] (23) at (4.25, 9) {};
+		\node [style=none] (24) at (5.25, 9) {};
+		\node [style=none] (25) at (4.25, 7) {};
+		\node [style=none] (26) at (5.25, 7) {};
+		\node [style=none] (28) at (6.5, 9) {offset};
+		\node [style=none] (29) at (8.75, 7) {offset + table[index]};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=shallowfill] (17.center)
+			 to (10.center)
+			 to (8.center)
+			 to (9.center)
+			 to (11.center)
+			 to (18.center)
+			 to (20.center)
+			 to (19.center)
+			 to cycle;
+		\draw [style=visiblefill] (8.center)
+			 to (6.center)
+			 to (7.center)
+			 to (9.center)
+			 to cycle;
+		\draw [style=shallowfill] (1.center)
+			 to (0.center)
+			 to (2.center)
+			 to (3.center)
+			 to (5.center)
+			 to (7.center)
+			 to (6.center)
+			 to (4.center)
+			 to cycle;
+		\draw [style=rule] (11.center) to (10.center);
+		\draw [style=rule] (5.center) to (4.center);
+		\draw [style=rule] (3.center) to (1.center);
+		\draw [style=rule] (18.center) to (17.center);
+		\draw [style=directed dotted edge] (24.center) to (23.center);
+		\draw [style=directed edge] (26.center) to (25.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
