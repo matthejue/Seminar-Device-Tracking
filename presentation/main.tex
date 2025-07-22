@@ -340,6 +340,42 @@
 	\end{adjustbox}
 \end{frame}
 
+\begin{frame}[fragile]{Attack}{2 Types of 3-tuples}
+	\begin{itemize}
+		\item \aalert{Attacker 3-tuples}:
+
+		\tikzfig{attacker_3-tuple} % ./figures/attacker_3-tuple.tikz
+		\item \aalert{Loopback 3-tuples}:
+
+		\tikzfig{loopback_3-tuple} % ./figures/loopback_3-tuple.tikz
+	\end{itemize}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		\draw[thick, draw=PrimaryColor] (0.6cm,0.9cm) rectangle (13.9cm,3.7cm);
+	\end{tikzpicture}
+	% \grid
+\end{frame}
+
+\begin{frame}[fragile]{Attack}{Devide ID}
+	\begin{itemize}
+		\item structure formed by \alert{collisions of loopback 3-tuples} via $G_{K_2}$:
+	\end{itemize}
+	\begin{equation*}
+		\begin{split}
+			index_1 = G_{K_{2}}\bigl(
+			\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\;
+			\mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\;
+			\mathrm{Port}_{\mathrm{Dst}} = x
+			\bigr)
+			= \\
+			G_{K_{2}}\bigl(
+			\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\;
+			\mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\;
+			\mathrm{Port}_{\mathrm{Dst}} = y
+			\bigr) = index_2
+		\end{split}
+	\end{equation*}
+\end{frame}
+
 \begin{frame}[fragile]{Attack}{Phase 1}
 	\begin{center}
 		\begin{adjustbox}{scale=0.7}

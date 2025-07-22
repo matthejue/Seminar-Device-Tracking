@@ -53,6 +53,7 @@
   - warum returnt der phase 2 algorithmus auch l?
   - why individual countermeasures necessary? why not one of them enough?
   - was ist der Datentyp der einzelnen Zellen der perturbation table?
+  - prüfen, wie das mit den Port ranges wirklich ist, ob sie wirklich disjunkt sind
 
 * Darüber noch informieren
   - How Meltdown work, so sind sich beide Verfahren ähnlich?
