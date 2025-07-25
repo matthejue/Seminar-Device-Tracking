@@ -393,8 +393,8 @@
 	\begin{columns}
 		\begin{column}{0.6\textwidth}
 			% \ctikzfig{perturbation_table_collision} % ./figures/perturbation_table_collision.tikz
-      \vspace{0.5cm}
-      \includegraphics[width=\textwidth]{./figures/external/perturbation_table_collision.pdf}
+			\vspace{0.5cm}
+			\includegraphics[width=\textwidth]{./figures/external/perturbation_table_collision.pdf}
 		\end{column}
 		\begin{column}{0.4\textwidth}
 			\begin{itemize}
@@ -430,7 +430,7 @@
 		\end{column}
 	\end{columns}
 	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-    \draw[thick, draw=PrimaryColor] (1cm,2.35cm) rectangle ++(0.36cm,0.36cm);
+		\draw[thick, draw=PrimaryColor] (1cm,2.35cm) rectangle ++(0.36cm,0.36cm);
 		\draw[thick, draw=PrimaryColor] (1.5cm,1.95cm) rectangle ++(0.36cm,0.36cm);
 		% arrows
 		% \draw[->, thick, draw=PrimaryColor] (6.4,4.3) -- (9.2,2.8);
@@ -473,9 +473,15 @@
 		\end{column}
 	\end{columns}
 	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-    \draw[thick, draw=PrimaryColor] (0.7cm,5.1cm) rectangle (8.1cm,6cm);
-    \draw[thick, draw=PrimaryColor] (9.2cm,5cm) rectangle (10.2cm,5.6cm);
+		\draw[thick, draw=PrimaryColor] (0.7cm,5.1cm) rectangle (8.1cm,6cm);
+		\draw[thick, draw=PrimaryColor] (9.2cm,5cm) rectangle (10.2cm,5.6cm);
+		\node[anchor=south west] at (10.5cm,5.3cm) {%
+			\begin{minipage}{\textwidth}
+        \alert{$=$ Device ID}
+			\end{minipage}
+		};
 	\end{tikzpicture}
+  % \grid
 \end{frame}
 
 \begin{frame}[fragile]{Attack}{Device ID}
@@ -490,28 +496,28 @@
 \end{frame}
 
 \begin{frame}[fragile]{Attack}{Sandwiching Technique}
-  \begin{columns}
-    \begin{column}[t]{0.4\textwidth}
-      \vspace{0cm}
+	\begin{columns}
+		\begin{column}[t]{0.4\textwidth}
+			\vspace{0cm}
 
 			\begin{itemize}
 				\item no access to \alert{kernel internals} % like \alert{perturbation table}
 			\end{itemize}
-      \vspace{0.3cm}
+			\vspace{0.3cm}
 
-    \ctikzfig{read_tcp_syn} % ./figures/read_tcp_syn.tikz
+			\ctikzfig{read_tcp_syn} % ./figures/read_tcp_syn.tikz
 		\end{column}
-    \begin{column}[t]{0.6\textwidth}
-      \vspace{0cm}
+		\begin{column}[t]{0.6\textwidth}
+			\vspace{0cm}
 
-      \includegraphics[width=0.6\textwidth]{./figures/external/cannot_see_collisions.pdf}
+			\includegraphics[width=0.6\textwidth]{./figures/external/cannot_see_collisions.pdf}
 			\begin{itemize}
 				\item \alert{side effect}: predictable increment
-						\[
-							\texttt{table[index]} \leftarrow \texttt{table[index]} + 1
-						\]
-          \item analalyse source port increments via \raisebox{-0.2\height}{\includegraphics[scale=0.015]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/sandwich_alpha.png}}
-          \item[\alert{$\Rightarrow$}] derive \raisebox{-0.2\height}{\includegraphics[scale=0.0175]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/device_id.png}}
+				\[
+					\texttt{table[index]} \leftarrow \texttt{table[index]} + 1
+				\]
+				\item analyse source port increments via \raisebox{-0.2\height}{\includegraphics[scale=0.015]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/sandwich_alpha.png}}
+				\item[\alert{$\Rightarrow$}] derive \raisebox{-0.2\height}{\includegraphics[scale=0.0175]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/device_id.png}}
 			\end{itemize}
 
 		\end{column}
@@ -519,45 +525,116 @@
 \end{frame}
 
 \begin{frame}[fragile]{Attack}{Sandwiching Technique}
-	\begin{itemize}
-		\item no direct access to kernel internals like \alert{perturbation table}%\raisebox{-0.2\height}{\includegraphics[width=0.04\textwidth]{./figures/perturbation_table.png}}
-		\item collisions must be inferred indirectly
-		\item[\alert{$\Rightarrow$}] analyzing the side effects that appear as observable patterns in how TCP source ports are incremented across connections by DHPS
-	\end{itemize}
-	% \begin{columns}
-	% 	\begin{column}{0.5\textwidth}
-	% 	\end{column}
-	% 	\begin{column}{0.5\textwidth}
-	%      \includegraphics[width=0.6\textwidth, center]{./figures/cern_tunnel.jpg}
-	% 	\end{column}
-	% \end{columns}
-	\begin{itemize}
-		\item \raisebox{-0.2\height}{\includegraphics[scale=0.02]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/analyse_patterns.png}} because of:
-		\vspace{-0.4cm}
-		\begin{adjustbox}{max width=0.8\textwidth}
-			\begin{minipage}{\textwidth}
-				\[
-					\texttt{table[index]} \leftarrow \texttt{table[index]} + 1
-				\]
-			\end{minipage}
+	\begin{center}
+		\begin{adjustbox}{max height=0.8\textheight, max width=0.8\textwidth}
+			\begin{tblr}{
+				colspec={|c|Q[l]|},
+				row{1}={bg=PrimaryColor,fg=white,font=\bfseries},
+				row{2}={bg=PrimaryColorDimmed},
+				row{3}={bg=SecondaryColorDimmed},
+				row{4}={bg=PrimaryColorDimmed},
+				hlines
+				}
+				\textbf{Step} & \textbf{Calculation} \\
+
+				Wrapper       &
+				\(
+				\begin{aligned}
+					 & i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                                   \\
+					 & \text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                     \\
+					 & \text{Port}_{\text{Src},1} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i]\bigr)\bmod \text{num\_ephemeral} \\
+					 & \text{table}[i] = \text{table}[i] + 1
+				\end{aligned}
+				\)                                   \\
+
+				Filling       &
+				\(
+				\begin{aligned}
+					 & j = G_{K_2}(\text{IP}_{\text{Src},Y}, \text{IP}_{\text{Dst},Y}, \text{Port}_{\text{Dst},Y})                                   \\
+					 & \text{offset}_Y = F_{K_1}(\text{IP}_{\text{Src},Y}, \text{IP}_{\text{Dst},Y}, \text{Port}_{\text{Dst},Y})                     \\
+					 & \text{Port}_{\text{Src},2} = \text{min\_ephemeral} + \bigl(\text{offset}_Y + \text{table}[j]\bigr)\bmod \text{num\_ephemeral} \\
+					 & \text{table}[j] = \text{table}[j] + 1
+				\end{aligned}
+				\)                                   \\
+
+				Wrapper       &
+				\(
+				\begin{aligned}
+					 & i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                                    \\
+					 & \text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                      \\
+					 & \text{Port}_{\text{Src},3} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i] \bigr)\bmod \text{num\_ephemeral} \\
+					 & \text{table}[i] = \text{table}[i] + 1
+				\end{aligned}
+				\)                                   \\
+			\end{tblr}
 		\end{adjustbox}
-		\vspace{0.8cm}
-		\begin{itemize}
-			\item \alert{predictable!}
-		\end{itemize}
-		\item[\alert{$\Rightarrow$}] \alert{Sandwiching technique}
-	\end{itemize}
+	\end{center}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		% \draw[thick, draw=PrimaryColor] (4.5cm,6.1cm) rectangle (7.8cm,6.6cm);
+		% \draw[thick, draw=PrimaryColor] (4.5cm,2.3cm) rectangle (7.8cm,2.7cm);
+		%   \fill[fill=PrimaryColorDimmed] (3.3cm,4.75cm) rectangle (12.6cm,6.1cm);
+		%   \fill[fill=SecondaryColorDimmed] (3.3cm,2.8cm) rectangle (12.6cm,4.2cm);
+		%   \fill[fill=PrimaryColorDimmed] (3.3cm,0.9cm) rectangle (12.6cm,2.3cm);
+
+		% \fill[fill=PrimaryColorDimmed] (3.3cm,4.75cm) rectangle (12.6cm,5.7cm);
+		% \fill[fill=SecondaryColorDimmed] (3.3cm,2.8cm) rectangle (12.6cm,3.7cm);
+		% \fill[fill=PrimaryColorDimmed] (3.3cm,0.9cm) rectangle (12.6cm,1.8cm);
+
+		% \fill[fill=PrimaryColorDimmed] (3.3cm,4.75cm) rectangle (12.6cm,5.2cm);
+		% \fill[fill=SecondaryColorDimmed] (3.3cm,2.8cm) rectangle (12.6cm,3.2cm);
+		% \fill[fill=PrimaryColorDimmed] (3.3cm,0.9cm) rectangle (12.6cm,1.3cm);
+		%
+		% \draw[thick, draw=PrimaryColor] (8.65cm,3.3cm) rectangle (9.6cm,3.7cm);
+		% \draw[thick, draw=PrimaryColor] (8.65cm,1.35cm) rectangle (9.6cm,1.75cm);
+		% \fill[white, opacity=0.95] (1cm,4.68cm) rectangle (14cm,7.2cm);
+		% \node[anchor=south west] at (2cm,5.8cm) {%
+		% 	\begin{adjustbox}{max width=0.7\textwidth}
+		% 		$\displaystyle
+		% 			table[j] =
+		% 			\begin{cases}
+		% 				rand(j)\, + 0, & \text{if } i \neq j,\ \text{meaning perturbation table cell } i \text{ was not used,} \\
+		% 				rand(j)\, + 1, & \text{if } i = j,\ \text{meaning perturbation table cell } i \text{ was used}
+		% 			\end{cases}
+		% 		$
+		% 	\end{adjustbox}
+		% };
+		% \node[anchor=south west] at (2cm,4.7cm) {%
+		% 	\begin{adjustbox}{max width=0.7\textwidth}
+		% 		$\displaystyle
+		% 			table[i] =
+		% 			\begin{cases}
+		% 				rand(i)\, + 1, & \text{if } i \neq j,\ \text{meaning perturbation table cell } i \text{ was not used,} \\
+		% 				rand(i)\, + 2, & \text{if } i = j,\ \text{meaning perturbation table cell } i \text{ was used}
+		% 			\end{cases}
+		% 		$
+		% 	\end{adjustbox}
+		% };
+
+		\fill[white, opacity=0.95] (1cm,2.76cm) rectangle (14cm,4.67cm);
+		\node[anchor=south west] at (2.1cm,2.9cm) {%
+			\begin{minipage}{\textwidth}
+				\begin{itemize}
+					\item[] Collision between 3-tuples \( X \) and \( Y \)
+					\item[\alert{$\Leftrightarrow$}] $G_{K_2}$ maps 3-tuples \( X \) and \( Y \) to same perturbation table cell
+					\item[\alert{$\Leftrightarrow$}] \(\text{Port}_{\text{Src},3}\) is greater than \(\text{Port}_{\text{Src},1} + 1\)
+				\end{itemize}
+			\end{minipage}
+		};
+		\draw[thick, draw=PrimaryColor] (3.3cm,1.3cm) rectangle (4.5cm,1.8cm);
+		\draw[thick, draw=PrimaryColor] (3.3cm,5.2cm) rectangle (4.5cm,5.6cm);
+	\end{tikzpicture}
+	\grid
 \end{frame}
 
-\begin{frame}[fragile]{Attack}{Devide ID}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-
-		\end{column}
-		\begin{column}{0.5\textwidth}
-
-		\end{column}
-	\end{columns}
+\begin{frame}[fragile]{Attack}{Sandwiching Technique}
+  \begin{itemize}
+    \item to consider in practise:
+      \begin{itemize}
+        \item \alert{Background noise}
+        \item \alert{Multiple connection attempts in all steps}
+        \item \alert{Limitations for loopback 3-tuples}
+      \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \ifattackphaseone
