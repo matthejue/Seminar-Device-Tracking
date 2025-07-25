@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-6, -1.75) {};
+		\node [style=none] (1) at (13, -1.75) {};
+		\node [style=none] (2) at (-8, -1.75) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/client_device_2.png}};
+		\node [style=none] (3) at (15, -2) {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tracking_server_2.png}};
+		\node [style=none] (4) at (13, -2.25) {};
+		\node [style=none] (6) at (-8, -0.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=directed edge, bend left=15] (0.center) to node [midway, below, sloped] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/ethernet.png}} node [midway, above, sloped] {$(192.0.2.10, 49'999, 192.0.2.1, 443)$} (1.center);
+		\draw [style=directed edge, bend right=15] (0.center) to node [midway, above, sloped] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/wifi.png}} node [midway, below, sloped] {$(203.0.113.10, 55'555, 203.0.113.1, 443)$} (4.center);
+    \draw [style=directed edge] (6.center) to[in=135, out=45, distance=2cm] node [midway, above, align=center, xshift=1.8cm] {(127.0.0.1, 49'999, 127.1.2.3, 443)} node [midway, below, align=center] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/loopback.png}} (6.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

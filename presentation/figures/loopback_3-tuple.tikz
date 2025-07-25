@@ -4,10 +4,10 @@
 		\node [style=none] (4) at (2, 0) {};
 		\node [style=none] (6) at (7.25, 0.9) {};
 		\node [style=none] (7) at (7, 1.8) {};
-		\node [style=none] (8) at (7.5, 2.25) {$DHPS(IP_{Src}=127.0.0.1, IP_{Dst}=127.1.2.3, Port_{Dst}=443)$};
+		\node [style=none] (8) at (7.5, 2.25) {$DHPS(IP_{Src}=127.1.2.3, IP_{Dst}=127.0.0.1, Port_{Dst}=443)$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=directed edge] (7.center) to node [midway, right] {$=$} (6.center);
-    \draw [style=directed edge] (4.center) to[in=45, out=-45, distance=2cm] node [midway, right, align=center] {$(127.0.0.1, 49'999, 127.1.2.3, 443)$\\\textcolor{gray}{$(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$}} (4.center);
+    \draw [style=directed edge] (4.center) to[in=45, out=-45, distance=2cm] node [midway, right, align=center] {$(127.1.2.3, 49'999, 127.0.0.1, 443)$\\\textcolor{gray}{$(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$}} (4.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

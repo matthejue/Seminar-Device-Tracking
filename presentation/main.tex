@@ -1,6 +1,34 @@
 \newif\ifbeamer
-\beamertrue % Set to \beamerfalse to use article class
-% \beamerfalse % Set to \beamerfalse to use article class
+\beamertrue
+% \beamerfalse
+
+\newif\ifintroduction
+% \introductiontrue
+\introductionfalse
+
+\newif\ifattack
+\attacktrue
+% \attackfalse
+
+\newif\ifattackphaseone
+% \attackphaseonetrue
+\attackphaseonefalse
+
+\newif\ifattackphasetwo
+% \attackphasetwotrue
+\attackphasetwofalse
+
+\newif\ifcountermeasures
+% \countermeasurestrue
+\countermeasuresfalse
+
+\newif\ifappendix
+% \appendixtrue
+\appendixfalse
+
+\newif\ifliterature
+% \literaturetrue
+\literaturefalse
 
 \ifbeamer
 \documentclass[aspectratio=169, hyperref={colorlinks=true, allcolors=SecondaryColor}, c]{beamer}
@@ -40,296 +68,300 @@
 
 \setcounter{section}{0}
 
-\section{Introduction}
+\ifintroduction
+	\section{Introduction}
 
-\begin{frame}[fragile]{Introduction}{Motivation}
-	\begin{columns}
-		\begin{column}[t]{0.5\textwidth}
-			\begin{center}
-				\includegraphics[width=0.2\textwidth]{./figures/meltdown.png}\hspace{0.4cm}\cite{MeltdownSecurityVulnerability2024}
-				\hspace{0.5cm}
-				\includegraphics[width=0.3\textwidth]{./figures/spectre.png}\cite{SpectreSecurityVulnerability2025}
-			\end{center}
-		\end{column}
-		\begin{column}[t]{0.5\textwidth}
-			\begin{center}
-				\includegraphics[width=0.4\textwidth]{./figures/sandwich_alpha.png}
-				% \includegraphics[width=\textwidth]{./figures/paper.png}
-			\end{center}
-		\end{column}
-	\end{columns}
-	\begin{columns}
-		\begin{column}[t]{0.5\textwidth}
-			\begin{itemize}
-				\item \alert{Exploited} performance features of modern CPUs
-				\item \alert{Side effects} of out-of-order and speculative execution
-				\item \alert{Allows} to read innaccesible data from memory
-			\end{itemize}
-		\end{column}
-		\begin{column}[t]{0.5\textwidth}
-			\begin{itemize}
-				\item \alert{Exploited} Linux’s TCP source port selection algorithm
-				\item \alert{Side effects} of hash collisions
-				\item \alert{Allows} to track devices through device ID tied to device-specific key
-			\end{itemize}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
-	\begin{transformation}
-		\begin{adjustbox}{scale=1}
-			\begin{minipage}{1\textwidth}
-				\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_website.png}
-			\end{minipage}
-		\end{adjustbox}
-		\arrowx{\text{information}}
-		\begin{adjustbox}{scale=1}
-			\begin{minipage}{1\textwidth}
-				\includegraphics[width=0.8\textwidth]{./figures/evil_computer_scientist_alpha.png}
-			\end{minipage}
-		\end{adjustbox}
-	\end{transformation}
-	\vspace{-0.5cm}
-	\begin{itemize}
-		\item Information collected through web browser
-		\item Privacy risk
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
-	\begin{columns}
-		\begin{column}{0.33\textwidth}
-			\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
-		\end{column}
-		\begin{column}{0.33\textwidth}
-			\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
-		\end{column}
-		\begin{column}{0.33\textwidth}
-			\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
-		\end{column}
-	\end{columns}
-	\vspace{-0.5cm}
-	\begin{itemize}
-		\item \alert{Golden image challenge:} Distinguish identical devices with same hardware and software configuration \checkboxUnchecked \alert{$\Rightarrow$ device-specific key}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
-	\begin{itemize}
-		\item \alert{Tagging techniques:} Insert an ID
+	\begin{frame}[fragile]{Introduction}{Motivation}
 		\begin{columns}
-			\begin{column}{0.33\textwidth}
-				\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_1.png}
+			\begin{column}[t]{0.5\textwidth}
+				\begin{center}
+					\includegraphics[width=0.2\textwidth]{./figures/meltdown.png}\hspace{0.4cm}\cite{MeltdownSecurityVulnerability2024}
+					\hspace{0.5cm}
+					\includegraphics[width=0.3\textwidth]{./figures/spectre.png}\cite{SpectreSecurityVulnerability2025}
+				\end{center}
 			\end{column}
-			\begin{column}{0.33\textwidth}
-				\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_2.png}
-			\end{column}
-			\begin{column}{0.33\textwidth}
-				\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_3.png}
+			\begin{column}[t]{0.5\textwidth}
+				\begin{center}
+					\includegraphics[width=0.4\textwidth]{./figures/sandwich_alpha.png}
+					% \includegraphics[width=\textwidth]{./figures/paper.png}
+				\end{center}
 			\end{column}
 		\end{columns}
-		\item \alert{Fingerprinting techniques:} Measure characteristics
-		\begin{center}
-			\begin{minipage}{0.7\textwidth}
-				\begin{transformation}
-					\includegraphics[width=0.7\textwidth]{./figures/computer_alpha_screen_2_golden.png}
-					\arrowx{\text{generate fingerprint}}
-					\includegraphics[width=0.3\textwidth]{./figures/fingerprint.png}
-				\end{transformation}
-			\end{minipage}
-		\end{center}
-	\end{itemize}
-	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		\draw[thick, draw=PrimaryColor] (0.6cm,1.1cm) rectangle (13.2cm,4.2cm);
-	\end{tikzpicture}
-	% \grid
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Source Port Selection}
-	\begin{itemize}
-		\item \alert{4-tuple}: $(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$
-		\begin{transformation}[0.2][0.6][0.2]
-			\includegraphics[width=\textwidth]{./figures/apartment1.png}
-			\arrowxx{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}{\text{(10.0.0.12, 49210)}\hspace{1cm}\text{(74.125.133.109, 587)}}
-			\includegraphics[width=\textwidth]{./figures/apartment2.png}
-		\end{transformation}
-		\vspace{-0.4cm}
-		\begin{itemize}
-			\scriptsize
-			\item (10.0.0.12, 49210, 74.125.133.109, 587)
-			\item (123 Maple St., Apt. 5B, 456 Oak St., Apt. 9D
-		\end{itemize}
-		\item Chooses TCP \alert{source port} $Port_{Src}$ for \alert{3-tuple}: $(IP_{Src}, IP_{Dest}, Port_{Dest})$
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Source Port Selection}
-	\begin{itemize}
-		\item \alert{Functionality:} Reusing soure ports can cause failures
-		\begin{itemize}
-			\item[\alert{$\Rightarrow$}] Earlier connections might be active (\texttt{TIME\_WAIT} state)
-		\end{itemize}
-	\end{itemize}
-	\begin{columns}
-		\begin{column}[t]{0.33\textwidth}
-			\vspace{2cm}
-
-			\includegraphics[width=0.8\textwidth, center]{./figures/room_cleaned.png}
-		\end{column}
-		\begin{column}[t]{0.33\textwidth}
-			\vspace{0cm}
-
-			\includegraphics[width=0.8\textwidth, center]{./figures/room_not_cleaned.png}
-		\end{column}
-		\begin{column}[t]{0.33\textwidth}
-			\vspace{0cm}
-
-			\includegraphics[width=0.8\textwidth, center]{./figures/apartment2.png}
-		\end{column}
-	\end{columns}
-	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		\draw[->, thick, draw=PrimaryColor] (4.35,2.3) -- (10.8,1.95);
-		\draw[->, thick, draw=PrimaryColor] (9.1,4.3) -- (11.7,3.1);
-	\end{tikzpicture}
-	% \grid
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Source Port Selection}
-	\begin{itemize}
-		\item \alert{Security:}
-		\begin{itemize}
-			\item \alert{Off-path attacks} %like blind reset, data injection
-			\item Determine \alert{Device activity (number TCP connections per time)} % if an attacker could, e.g., force a client to periodically establish a new TCP connection to an attacker-controlled machine (or through an attacker- observable path), the attacker could subtract consecutive source port values to obtain the number of outgoing TCP connections established globally by the target host within that time period 
-		\end{itemize}
-		\begin{transformation}[0.2][0.6][0.2]
-			\includegraphics[width=\textwidth]{./figures/apartment1.png}
-			\arrowxx{\includegraphics[width=0.3\textwidth]{./figures/evil_computer_scientist_bicycle.png}}{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}
-			\includegraphics[width=\textwidth]{./figures/apartment2.png}
-		\end{transformation}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
-	\begin{itemize}
-		\item TCP source ports divided into \alert{ranges}:
-
-		\begin{adjustbox}{max width=0.9\textwidth}
-			\begin{tblr}{
-				colspec={|l|c|p{7cm}|},
-				hlines,
-				vlines,
-				colsep=5pt,
-				row{1} = {bg=PrimaryColor, fg=white, font=\bfseries},
-				row{2} = {bg=PrimaryColorDimmed},
-				row{3} = {bg=SecondaryColorDimmed},
-				row{4} = {bg=PrimaryColorDimmed}
-				}
-				Port Range Type  & Typical Range & Usage                                                               \\
-				Well-known ports & 0–1023        & Specific services, e.g. HTTP (80), HTTPS (443) etc.                 \\
-				Registered ports & 1024–49151    & User applications or services, not ephemeral                        \\
-				Ephemeral ports  & 49152–60999   & Dynamically allocated by OS for short-lived client-side connections \\
-			\end{tblr}
-		\end{adjustbox}
-	\end{itemize}
-	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		\draw[thick, draw=PrimaryColor] (1.15cm,2.23cm) rectangle (13.5cm,3.22cm);
-		\draw[->, thick, draw=PrimaryColor] (14.4,2.75) -- (13.6,2.75);
-	\end{tikzpicture}
-	% \grid
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
-	\begin{itemize}
-		\item \alert{Complete 3-tuple to 4-tuple} with cryptographic keyed-hash functions:
-		\begin{itemize}
-			\scriptsize
-			\item \( F_{K_1}: \text{3-Tuples} \xrightarrow{K_1} \{0, \ldots, 2^{32}\}\)
-			\item \( G_{K_2}: \text{3-Tuples} \xrightarrow{K_2} \{0, \ldots, T\}\) where $T$ is length of \alert{perturbation table}
-		\end{itemize}
-	\end{itemize}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{itemize}
-				\item Incrementation of port numbers separated into \alert{$T$ different spaces}
+		\begin{columns}
+			\begin{column}[t]{0.5\textwidth}
 				\begin{itemize}
-					\item[\alert{$\Rightarrow$}] Port-reuse frequency lower % (probabilistically) 
-					\item[\alert{$\Rightarrow$}] Harder to analyse device activity % if an attacker could, e.g., force a client to periodically establish a new TCP connection to an attacker-controlled machine (or through an attacker- observable path), the attacker could subtract consecutive source port values to obtain the number of outgoing TCP connections established globally by the target host within that time period
+					\item \alert{Exploited} performance features of modern CPUs
+					\item \alert{Side effects} of out-of-order and speculative execution
+					\item \alert{Allows} to read innaccesible data from memory
 				\end{itemize}
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				\begin{adjustbox}{max width=\textwidth}
-					\tikzfig{perturbation_table}
-				\end{adjustbox}
-			\end{center}
-		\end{column}
-	\end{columns}
-	% Further increasing the TABLE_LENGTH will increase the unpredictability of the resulting port number, and possibly further decrease the collision rate
-\end{frame}
-
-\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
-	\begin{adjustbox}{scale=0.8}
-		\begin{minipage}{0.8\textwidth}
-			\input{../report/share/dhps_algorithm.tex}
-		\end{minipage}
-	\end{adjustbox}
-	% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}] % 1
-	% 	\node[anchor=north west]  at (9.3cm, 5.8cm) {%
-	% 		\includegraphics[scale=0.7]{./figures/external/dhps_source_port_calculation_2.pdf}
-	% 	};
-	% \end{tikzpicture}
-	% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-	% 	\node[anchor=north west] at (9cm, 7.1cm) {%
-	% 		\begin{minipage}{\textwidth}
-	% 			\begin{itemize}
-	%          \item \alert{Source port calculation:}
-	% 				\begin{itemize}
-	%            \scriptsize
-	% 					\item $offset=50'000$
-	% 					\item $index=255$
-	% 				\end{itemize}
-	% 			\end{itemize}
-	% 		\end{minipage}
-	% 	};
-	% \end{tikzpicture}
-	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}] % 2
-		\node[anchor=north west]  at (9.3cm, 5.8cm) {%
-			\includegraphics[scale=0.7]{./figures/external/dhps_source_port_calculation_increment.pdf}
-		};
-	\end{tikzpicture}
-	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		\node[anchor=north west] at (9cm, 7.1cm) {%
-			\begin{minipage}{\textwidth}
+			\end{column}
+			\begin{column}[t]{0.5\textwidth}
 				\begin{itemize}
-					\item \alert{Source port calculation:}
+					\item \alert{Exploited} Linux’s TCP source port selection algorithm
+					\item \alert{Side effects} of hash collisions
+					\item \alert{Allows} to track devices through device ID tied to device-specific key
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+		\begin{transformation}
+			\begin{adjustbox}{scale=1}
+				\begin{minipage}{1\textwidth}
+					\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_website.png}
+				\end{minipage}
+			\end{adjustbox}
+			\arrowx{\text{information}}
+			\begin{adjustbox}{scale=1}
+				\begin{minipage}{1\textwidth}
+					\includegraphics[width=0.8\textwidth]{./figures/evil_computer_scientist_alpha.png}
+				\end{minipage}
+			\end{adjustbox}
+		\end{transformation}
+		\vspace{-0.5cm}
+		\begin{itemize}
+			\item Information collected through web browser
+			\item Privacy risk
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+		\begin{columns}
+			\begin{column}{0.33\textwidth}
+				\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
+			\end{column}
+			\begin{column}{0.33\textwidth}
+				\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
+			\end{column}
+			\begin{column}{0.33\textwidth}
+				\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
+			\end{column}
+		\end{columns}
+		\vspace{-0.5cm}
+		\begin{itemize}
+			\item \alert{Golden image challenge:} Distinguish identical devices with same hardware and software configuration \checkboxUnchecked \alert{$\Rightarrow$ device-specific key}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+		\begin{itemize}
+			\item \alert{Tagging techniques:} Insert an ID
+			\begin{columns}
+				\begin{column}{0.33\textwidth}
+					\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_1.png}
+				\end{column}
+				\begin{column}{0.33\textwidth}
+					\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_2.png}
+				\end{column}
+				\begin{column}{0.33\textwidth}
+					\includegraphics[width=0.5\textwidth, center]{./figures/computer_alpha_cookie_3.png}
+				\end{column}
+			\end{columns}
+			\item \alert{Fingerprinting techniques:} Measure characteristics
+			\begin{center}
+				\begin{minipage}{0.7\textwidth}
+					\begin{transformation}
+						\includegraphics[width=0.7\textwidth]{./figures/computer_alpha_screen_2_golden.png}
+						\arrowx{\text{generate fingerprint}}
+						\includegraphics[width=0.3\textwidth]{./figures/fingerprint.png}
+					\end{transformation}
+				\end{minipage}
+			\end{center}
+		\end{itemize}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\draw[thick, draw=PrimaryColor] (0.3cm,1.1cm) rectangle (13.2cm,4.2cm);
+		\end{tikzpicture}
+		% \grid
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Source Port Selection}
+		\begin{itemize}
+			\item \alert{4-tuple}: $(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$
+			\begin{transformation}[0.2][0.6][0.2]
+				\includegraphics[width=\textwidth]{./figures/apartment1.png}
+				\arrowxx{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}{\text{(10.0.0.12, 49210)}\hspace{1cm}\text{(74.125.133.109, 587)}}
+				\includegraphics[width=\textwidth]{./figures/apartment2.png}
+			\end{transformation}
+			\vspace{-0.4cm}
+			\begin{itemize}
+				\scriptsize
+				\item (10.0.0.12, 49210, 74.125.133.109, 587)
+				\item (123 Maple St., Apt. 5B, 456 Oak St., Apt. 9D
+			\end{itemize}
+			\item Chooses TCP \alert{source port} $Port_{Src}$ for \alert{3-tuple}: $(IP_{Src}, IP_{Dest}, Port_{Dest})$
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Source Port Selection}
+		\begin{itemize}
+			\item \alert{Functionality:} Reusing soure ports can cause failures
+			\begin{itemize}
+				\item[\alert{$\Rightarrow$}] Earlier connections might be active (\texttt{TIME\_WAIT} state)
+			\end{itemize}
+		\end{itemize}
+		\begin{columns}
+			\begin{column}[t]{0.33\textwidth}
+				\vspace{2cm}
+
+				\includegraphics[width=0.8\textwidth, center]{./figures/room_cleaned.png}
+			\end{column}
+			\begin{column}[t]{0.33\textwidth}
+				\vspace{0cm}
+
+				\includegraphics[width=0.8\textwidth, center]{./figures/room_not_cleaned.png}
+			\end{column}
+			\begin{column}[t]{0.33\textwidth}
+				\vspace{0cm}
+
+				\includegraphics[width=0.8\textwidth, center]{./figures/apartment2.png}
+			\end{column}
+		\end{columns}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\draw[->, thick, draw=PrimaryColor] (4.35,2.3) -- (10.8,1.95);
+			\draw[->, thick, draw=PrimaryColor] (9.1,4.3) -- (11.7,3.1);
+		\end{tikzpicture}
+		% \grid
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Source Port Selection}
+		\begin{itemize}
+			\item \alert{Security:}
+			\begin{itemize}
+				\item \alert{Off-path attacks} %like blind reset, data injection
+				\item Determine \alert{Device activity (number TCP connections per time)} % if an attacker could, e.g., force a client to periodically establish a new TCP connection to an attacker-controlled machine (or through an attacker- observable path), the attacker could subtract consecutive source port values to obtain the number of outgoing TCP connections established globally by the target host within that time period 
+			\end{itemize}
+			\begin{transformation}[0.2][0.6][0.2]
+				\includegraphics[width=\textwidth]{./figures/apartment1.png}
+				\arrowxx{\includegraphics[width=0.3\textwidth]{./figures/evil_computer_scientist_bicycle.png}}{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}
+				\includegraphics[width=\textwidth]{./figures/apartment2.png}
+			\end{transformation}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
+		\begin{itemize}
+			\item TCP source ports divided into \alert{ranges}:
+
+			\begin{adjustbox}{max width=0.9\textwidth}
+				\begin{tblr}{
+					colspec={|l|c|p{7cm}|},
+					hlines,
+					vlines,
+					colsep=5pt,
+					row{1} = {bg=PrimaryColor, fg=white, font=\bfseries},
+					row{2} = {bg=PrimaryColorDimmed},
+					row{3} = {bg=SecondaryColorDimmed},
+					row{4} = {bg=PrimaryColorDimmed}
+					}
+					Port Range Type  & Typical Range & Usage                                                               \\
+					Well-known ports & 0–1023        & Specific services, e.g. HTTP (80), HTTPS (443) etc.                 \\
+					Registered ports & 1024–49151    & User applications or services, not ephemeral                        \\
+					Ephemeral ports  & 49152–60999   & Dynamically allocated by OS for short-lived client-side connections \\
+				\end{tblr}
+			\end{adjustbox}
+		\end{itemize}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\draw[thick, draw=PrimaryColor] (0.9cm,2.23cm) rectangle (13.2cm,3.22cm);
+			\draw[->, thick, draw=PrimaryColor] (14.3,2.75) -- (13.3,2.75);
+		\end{tikzpicture}
+		% \grid
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
+		\begin{itemize}
+			\item \alert{Complete 3-tuple to 4-tuple} with cryptographic keyed-hash functions:
+			\begin{itemize}
+				\scriptsize
+				\item \( F_{K_1}: \text{3-Tuples} \xrightarrow{K_1} \{0, \ldots, 2^{32}\}\)
+				\item \( G_{K_2}: \text{3-Tuples} \xrightarrow{K_2} \{0, \ldots, T\}\) where $T$ is length of \alert{perturbation table}
+			\end{itemize}
+		\end{itemize}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}
+					\item Incrementation of port numbers separated into \alert{$T$ different spaces}
 					\begin{itemize}
-						\scriptsize
-						\item $offset=50'000$
-						\item $index=255$
+						\item[\alert{$\Rightarrow$}] Port-reuse frequency lower % (probabilistically) 
+						\item[\alert{$\Rightarrow$}] Harder to analyse device activity % if an attacker could, e.g., force a client to periodically establish a new TCP connection to an attacker-controlled machine (or through an attacker- observable path), the attacker could subtract consecutive source port values to obtain the number of outgoing TCP connections established globally by the target host within that time period
 					\end{itemize}
 				\end{itemize}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{center}
+					\begin{adjustbox}{max width=\textwidth}
+						\tikzfig{perturbation_table}
+					\end{adjustbox}
+				\end{center}
+			\end{column}
+		\end{columns}
+		% Further increasing the TABLE_LENGTH will increase the unpredictability of the resulting port number, and possibly further decrease the collision rate
+	\end{frame}
+
+	\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
+		\begin{adjustbox}{scale=0.8}
+			\begin{minipage}{0.8\textwidth}
+				\input{../report/share/dhps_algorithm.tex}
 			\end{minipage}
-		};
-	\end{tikzpicture}
-	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		% source port calculation % 1
-		% \draw[thick, draw=PrimaryColor] (1.55cm,5.0cm) rectangle (6.85cm,5.45cm);
-		% \draw[thick, draw=PrimaryColor] (1.55cm,4.6cm) rectangle (6.75cm,5.0cm);
-		% \draw[thick, draw=PrimaryColor] (2.15cm,3.1cm) rectangle (9.25cm,3.9cm);
-		% increase of table entry % 2
-		\draw[thick, draw=PrimaryColor] (2.15cm,2.75cm) rectangle (6.95cm,3.1cm);
-		\draw[thick, draw=PrimaryColor] (2.15cm,1.95cm) rectangle (7.35cm,2.75cm);
-		% loop termiation
-		% \draw[thick, draw=PrimaryColor] (1.55cm,4.25cm) rectangle (4.9cm,4.6cm);
-		% \draw[thick, draw=PrimaryColor] (2.15cm,1.6cm) rectangle (4.65cm,1.95cm);
-		% \draw[thick, draw=PrimaryColor] (1.55cm,1.2cm) rectangle (3.85cm,1.6cm);
-		% terminate with error
-		% \draw[thick, draw=PrimaryColor] (1.55cm,0.75cm) rectangle (3.45cm,1.2cm);
-	\end{tikzpicture}
-	% \grid
-\end{frame}
+		\end{adjustbox}
+		% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}] % 1
+		% 	\node[anchor=north west]  at (9.3cm, 5.8cm) {%
+		% 		\includegraphics[scale=0.7]{./figures/external/dhps_source_port_calculation_2.pdf}
+		% 	};
+		% \end{tikzpicture}
+		% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		% 	\node[anchor=north west] at (9cm, 7.1cm) {%
+		% 		\begin{minipage}{\textwidth}
+		% 			\begin{itemize}
+		%          \item \alert{Source port calculation:}
+		% 				\begin{itemize}
+		%            \scriptsize
+		% 					\item $offset=50'000$
+		% 					\item $index=255$
+		% 				\end{itemize}
+		% 			\end{itemize}
+		% 		\end{minipage}
+		% 	};
+		% \end{tikzpicture}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}] % 2
+			\node[anchor=north west]  at (9.4cm, 5.8cm) {%
+				\includegraphics[scale=0.7]{./figures/external/dhps_source_port_calculation_increment.pdf}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\node[anchor=north west] at (9.3cm, 7.1cm) {%
+				\begin{minipage}{\textwidth}
+					\begin{itemize}
+						\item \alert{Source port calculation:}
+						\begin{itemize}
+							\scriptsize
+							\item $offset=50'000$
+							\item $index=255$
+						\end{itemize}
+					\end{itemize}
+				\end{minipage}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			% source port calculation % 1
+			% \draw[thick, draw=PrimaryColor] (1.5cm,5.0cm) rectangle (6.75cm,5.45cm);
+			% \draw[thick, draw=PrimaryColor] (1.5cm,4.6cm) rectangle (6.65cm,5.0cm);
+			% \draw[thick, draw=PrimaryColor] (2.1cm,3.1cm) rectangle (9.15cm,3.9cm);
+			% increase of table entry % 2
+			\draw[thick, draw=PrimaryColor] (2.1cm,2.75cm) rectangle (6.85cm,3.1cm);
+			\draw[thick, draw=PrimaryColor] (2.1cm,1.95cm) rectangle (7.25cm,2.75cm);
+			% loop termiation
+			% \draw[thick, draw=PrimaryColor] (1.5cm,4.25cm) rectangle (4.8cm,4.6cm);
+			% \draw[thick, draw=PrimaryColor] (2.1cm,1.6cm) rectangle (4.55cm,1.95cm);
+			% \draw[thick, draw=PrimaryColor] (1.5cm,1.2cm) rectangle (3.75cm,1.6cm);
+			% terminate with error
+			% \draw[thick, draw=PrimaryColor] (1.5cm,0.75cm) rectangle (3.35cm,1.2cm);
+		\end{tikzpicture}
+		% \grid
+	\end{frame}
+\else
+
+\fi
 
 \section{Attack}
 
@@ -350,85 +382,252 @@
 		\tikzfig{loopback_3-tuple} % ./figures/loopback_3-tuple.tikz
 	\end{itemize}
 	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		\draw[thick, draw=PrimaryColor] (0.6cm,0.9cm) rectangle (13.9cm,3.7cm);
+		\draw[thick, draw=PrimaryColor] (0.3cm,0.9cm) rectangle (13.7cm,3.7cm);
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[fragile]{Attack}{Devide ID}
+	\begin{itemize}
+		\item Structure formed by \alert{collisions of loopback 3-tuples} via $G_{K_2}$:
+	\end{itemize}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			% \ctikzfig{perturbation_table_collision} % ./figures/perturbation_table_collision.tikz
+      \vspace{0.5cm}
+      \includegraphics[width=\textwidth]{./figures/external/perturbation_table_collision.pdf}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{itemize}
+				% \item \raisebox{-0.2\height}{\includegraphics[width=0.1\textwidth]{./figures/hash_collision.png}}'s depend on $K_2$
+				\item Collisions depend on $K_2$
+				\item $K_2$ randomly generated at \raisebox{-0.2\height}{\includegraphics[width=0.08\textwidth]{./figures/system_restart.png}}
+				\begin{itemize}
+					\item[\alert{$\Rightarrow$}] Persists across \raisebox{-0.2\height}{\includegraphics[width=0.08\textwidth]{./figures/browsere_sessions.png}} and \raisebox{-0.2\height}{\includegraphics[width=0.08\textwidth]{./figures/network_changes.png}}
+					\item[\alert{$\Rightarrow$}] Also \raisebox{-0.2\height}{\includegraphics[scale=0.0175]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/device_id.png}} persists
+				\end{itemize}
+			\end{itemize}
+
+			% \begin{center}
+			% 	\vspace{-0.1cm}
+			% 	\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+			% \end{center}
+			%
+			% \begin{itemize}
+			% 	\item \raisebox{-0.2\height}{\includegraphics[scale=0.02]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/analyse_patterns.png}} because of:
+			%      \vspace{-0.4cm}
+			% 	\begin{adjustbox}{max width=0.8\textwidth}
+			% 		\begin{minipage}{\textwidth}
+			% 			\[
+			% 				\texttt{table[index]} \leftarrow \texttt{table[index]} + 1
+			% 			\]
+			% 		\end{minipage}
+			% 	\end{adjustbox}
+			%      \vspace{0.8cm}
+			%      \begin{itemize}
+			%        \item \alert{predictable!}
+			%      \end{itemize}
+			% \end{itemize}
+		\end{column}
+	\end{columns}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    \draw[thick, draw=PrimaryColor] (1cm,2.35cm) rectangle ++(0.36cm,0.36cm);
+		\draw[thick, draw=PrimaryColor] (1.5cm,1.95cm) rectangle ++(0.36cm,0.36cm);
+		% arrows
+		% \draw[->, thick, draw=PrimaryColor] (6.4,4.3) -- (9.2,2.8);
 	\end{tikzpicture}
 	% \grid
 \end{frame}
 
 \begin{frame}[fragile]{Attack}{Devide ID}
 	\begin{itemize}
-		\item structure formed by \alert{collisions of loopback 3-tuples} via $G_{K_2}$:
+		\item Consists of set of all such colliding \alert{independant} pairs:
 	\end{itemize}
-	\begin{equation*}
-		\begin{split}
-			index_1 = G_{K_{2}}\bigl(
-			\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\;
-			\mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\;
-			\mathrm{Port}_{\mathrm{Dst}} = x
-			\bigr)
-			= \\
-			G_{K_{2}}\bigl(
-			\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\;
-			\mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\;
-			\mathrm{Port}_{\mathrm{Dst}} = y
-			\bigr) = index_2
-		\end{split}
-	\end{equation*}
+	\vspace{0.5cm}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\begin{adjustbox}{max width=\textwidth}
+				\tikzfig{independant_pairs} % ./figures/independant_pairs.tikz
+			\end{adjustbox}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{itemize}
+				\item \raisebox{-0.2\height}{\includegraphics[width=0.08\textwidth]{./figures/iterations.png}}: 6
+				\item \raisebox{-0.2\height}{\includegraphics[width=0.08\textwidth]{./figures/hash_collision.png}}: 3, evidence how $K_2$ maps into \alert{perturbation table} cells% \raisebox{-0.2\height}{\includegraphics[width=0.08\textwidth]{./figures/perturbation_table.png}} % each captures a distinct piece of evidence about how the secret key $K_2$ maps destination ports into perturbation table cells
+			\end{itemize}
+
+			\begin{center}
+				\vspace{-0.1cm}
+				\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+			\end{center}
+
+			\begin{itemize}
+				\item \alert{Why?}
+				\begin{itemize}
+					\item $\binom{3}{2}$ pairs of $\{T_3, T_2, T_5\}$
+					\begin{itemize}
+						\item $3-1$ are independant
+					\end{itemize}
+					\item $\{(T_3, T_2), (T_3, T_5)\}$ imply $(T_2, T_5)$
+				\end{itemize}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    \draw[thick, draw=PrimaryColor] (0.7cm,5.1cm) rectangle (8.1cm,6cm);
+    \draw[thick, draw=PrimaryColor] (9.2cm,5cm) rectangle (10.2cm,5.6cm);
+	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}[fragile]{Attack}{Phase 1}
-	\begin{center}
-		\begin{adjustbox}{scale=0.7}
-			\input{../report/share/phase1.tex}
+\begin{frame}[fragile]{Attack}{Device ID}
+	\begin{itemize}
+		\item \alert{Attacker 3-tuples} not consistent across \raisebox{-0.2\height}{\includegraphics[scale=0.06]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/networks.png}}% networks % loopback 3-tuples with loopback addresses such as 127.x.x.x are internal to the device and remain stable across networks
+		\item \alert{Loopback 3-tuples} don't have this problem % loopback 3-tuples with loopback addresses such as 127.x.x.x are internal to the device and remain stable across networks
+	\end{itemize}
+	\ctikzfig{attacker_3-tuple_id} % ./figures/attacker_3-tuple_id.tikz
+	\begin{itemize}
+		\item[\alert{$\Rightarrow$}] \alert{Loopback 3-tuples} used for generating \raisebox{-0.2\height}{\includegraphics[scale=0.0175]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/device_id.png}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Attack}{Sandwiching Technique}
+  \begin{columns}
+    \begin{column}[t]{0.4\textwidth}
+      \vspace{0cm}
+
+			\begin{itemize}
+				\item no access to \alert{kernel internals} % like \alert{perturbation table}
+			\end{itemize}
+      \vspace{0.3cm}
+
+    \ctikzfig{read_tcp_syn} % ./figures/read_tcp_syn.tikz
+		\end{column}
+    \begin{column}[t]{0.6\textwidth}
+      \vspace{0cm}
+
+      \includegraphics[width=0.6\textwidth]{./figures/external/cannot_see_collisions.pdf}
+			\begin{itemize}
+				\item \alert{side effect}: predictable increment
+						\[
+							\texttt{table[index]} \leftarrow \texttt{table[index]} + 1
+						\]
+          \item analalyse source port increments via \raisebox{-0.2\height}{\includegraphics[scale=0.015]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/sandwich_alpha.png}}
+          \item[\alert{$\Rightarrow$}] derive \raisebox{-0.2\height}{\includegraphics[scale=0.0175]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/device_id.png}}
+			\end{itemize}
+
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Attack}{Sandwiching Technique}
+	\begin{itemize}
+		\item no direct access to kernel internals like \alert{perturbation table}%\raisebox{-0.2\height}{\includegraphics[width=0.04\textwidth]{./figures/perturbation_table.png}}
+		\item collisions must be inferred indirectly
+		\item[\alert{$\Rightarrow$}] analyzing the side effects that appear as observable patterns in how TCP source ports are incremented across connections by DHPS
+	\end{itemize}
+	% \begin{columns}
+	% 	\begin{column}{0.5\textwidth}
+	% 	\end{column}
+	% 	\begin{column}{0.5\textwidth}
+	%      \includegraphics[width=0.6\textwidth, center]{./figures/cern_tunnel.jpg}
+	% 	\end{column}
+	% \end{columns}
+	\begin{itemize}
+		\item \raisebox{-0.2\height}{\includegraphics[scale=0.02]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/analyse_patterns.png}} because of:
+		\vspace{-0.4cm}
+		\begin{adjustbox}{max width=0.8\textwidth}
+			\begin{minipage}{\textwidth}
+				\[
+					\texttt{table[index]} \leftarrow \texttt{table[index]} + 1
+				\]
+			\end{minipage}
 		\end{adjustbox}
-	\end{center}
+		\vspace{0.8cm}
+		\begin{itemize}
+			\item \alert{predictable!}
+		\end{itemize}
+		\item[\alert{$\Rightarrow$}] \alert{Sandwiching technique}
+	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Attack}{Phase 2}
-	\begin{center}
-		\begin{adjustbox}{scale=0.7}
-			\input{../report/share/phase2.tex}
-		\end{adjustbox}
-	\end{center}
+\begin{frame}[fragile]{Attack}{Devide ID}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+
+		\end{column}
+		\begin{column}{0.5\textwidth}
+
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\section{Countermeasures}
+\ifattackphaseone
+	\begin{frame}[fragile]{Attack}{Phase 1}
+		\begin{center}
+			\begin{adjustbox}{scale=0.7}
+				\input{../report/share/phase1.tex}
+			\end{adjustbox}
+		\end{center}
+	\end{frame}
+\else
+\fi
 
-\begin{frame}[fragile]{Countermeasures}{Possible solutions}
-\end{frame}
+\ifattackphaseone
+	\begin{frame}[fragile]{Attack}{Phase 2}
+		\begin{center}
+			\begin{adjustbox}{scale=0.7}
+				\input{../report/share/phase2.tex}
+			\end{adjustbox}
+		\end{center}
+	\end{frame}
+\else
+\fi
 
-\section{Appendix Work}
+\ifcountermeasures
+	\section{Countermeasures}
 
-\begin{frame}[fragile]{Appendix}{Related Work}
-\end{frame}
+	\begin{frame}[fragile]{Countermeasures}{Possible solutions}
+	\end{frame}
+\else
+\fi
 
-\begin{frame}[fragile]{Appendix}{Termination condition for phase 2}
-\end{frame}
+\ifappendix
+	\section{Appendix}
 
-\section{Literature}
+	\begin{frame}[fragile]{Appendix}{Related Work}
+	\end{frame}
 
-\begin{frame}[allowframebreaks]{Literature}
-	% print publications
-	% \printbibliography[category=myarticles,heading=subbibliography]
-	\printbibliography
-\end{frame}
-%
-% \begin{frame}[allowframebreaks]{Websites}
-% 	\printbibliography[type=online,heading=subbibliography]
-% \end{frame}
-%
-% \begin{frame}[allowframebreaks]{Images}
-% 	\printbibliography[type=artwork,heading=subbibliography]
-% 	\printbibliography[category=myimages,heading=subbibliography]
-% \end{frame}
+	\begin{frame}[fragile]{Appendix}{Termination condition for phase 2}
+	\end{frame}
+\else
+\fi
 
-% \begin{frame}[allowframebreaks]{Literature} % {Online}
-%   \nocite{palswimAnswerCreateCustom2019}\nocite{tinoAnswerHowGet2020}\nocite{CallingTextMateOther}
-%   % \printbibliography[type=online,heading=subbibliography,title={Online}]
-%   \printbibliography[heading=none]
-% \end{frame}
+\ifliterature
+	\section{Literature}
 
-% \begin{frame}{Sonstiges}
-%   \printbibliography[nottype=book, nottype=article, nottype=online, nottype=unpublished,heading=subbibliography,title={Sonstige Quellen}]
-% \end{frame}
+	\begin{frame}[allowframebreaks]{Literature}
+		% print publications
+		% \printbibliography[category=myarticles,heading=subbibliography]
+		\printbibliography
+	\end{frame}
+	%
+	% \begin{frame}[allowframebreaks]{Websites}
+	% 	\printbibliography[type=online,heading=subbibliography]
+	% \end{frame}
+	%
+	% \begin{frame}[allowframebreaks]{Images}
+	% 	\printbibliography[type=artwork,heading=subbibliography]
+	% 	\printbibliography[category=myimages,heading=subbibliography]
+	% \end{frame}
+
+	% \begin{frame}[allowframebreaks]{Literature} % {Online}
+	%   \nocite{palswimAnswerCreateCustom2019}\nocite{tinoAnswerHowGet2020}\nocite{CallingTextMateOther}
+	%   % \printbibliography[type=online,heading=subbibliography,title={Online}]
+	%   \printbibliography[heading=none]
+	% \end{frame}
+
+	% \begin{frame}{Sonstiges}
+	%   \printbibliography[nottype=book, nottype=article, nottype=online, nottype=unpublished,heading=subbibliography,title={Sonstige Quellen}]
+	% \end{frame}
+\else
+\fi
 \end{document}
