@@ -1,0 +1,100 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {};
+		\node [style=none] (1) at (0, 3) {};
+		\node [style=none] (2) at (0, 6) {};
+		\node [style=none] (3) at (0, 9) {};
+		\node [style=none] (4) at (13.5, 0) {};
+		\node [style=none] (5) at (13.5, 3) {};
+		\node [style=none] (6) at (13.5, 6) {};
+		\node [style=none] (7) at (13.5, 9) {};
+		\node [style=none] (8) at (8.25, 8.5) {(192.0.2.10, 49'999, 192.0.2.1, 1)};
+		\node [style=none] (9) at (8.25, 7.5) {(192.0.2.10, 49'999, 192.0.2.1, 2)};
+		\node [style=none] (10) at (8.25, 6.5) {(192.0.2.10, 49'999, 192.0.2.1, 3)};
+		\node [style=none] (11) at (8.25, 2.5) {(192.0.2.10, 49'999, 192.0.2.1, 1)};
+		\node [style=none] (12) at (8.25, 1.5) {(192.0.2.10, 49'999, 192.0.2.1, 2)};
+		\node [style=none] (13) at (8.25, 0.5) {(192.0.2.10, 49'999, 192.0.2.1, 3)};
+		\node [style=none] (14) at (8.25, 5.5) {(127.1.2.3, 49'999, 127.0.0.1, 1)};
+		\node [style=none] (15) at (8.25, 4.5) {(127.1.2.3, 49'999, 127.0.0.1, 2)};
+		\node [style=none] (16) at (8.25, 3.5) {(127.1.2.3, 49'999, 127.0.0.1, 3)};
+		\node [style=none] (17) at (3, 9) {};
+		\node [style=none] (18) at (1.5, 7.5) {Wrapper};
+		\node [style=none] (19) at (1.5, 4.5) {Filling};
+		\node [style=none] (20) at (1.5, 1.5) {Wrapper};
+		\node [style=none] (21) at (3, 0) {};
+		\node [style=none] (22) at (14, 8.5) {};
+		\node [style=none] (23) at (14, 7.5) {};
+		\node [style=none] (24) at (14, 6.5) {};
+		\node [style=none] (25) at (14, 5.5) {};
+		\node [style=none] (26) at (14, 4.5) {};
+		\node [style=none] (27) at (14, 3.5) {};
+		\node [style=none] (28) at (14, 2.5) {};
+		\node [style=none] (29) at (14, 1.5) {};
+		\node [style=none] (30) at (14, 0.5) {};
+		\node [style=none] (31) at (17, 8.5) {};
+		\node [style=none] (32) at (17, 7.5) {};
+		\node [style=none] (33) at (17, 6.5) {};
+		\node [style=none] (37) at (17.25, 2.5) {};
+		\node [style=none] (38) at (17, 1.5) {};
+		\node [style=none] (39) at (17, 0.5) {};
+		\node [style=none] (48) at (17.5, 5.275) {IP layer};
+		\node [style=none, align=center] (49) at (17.5, 3.775) {Transport\\layer};
+		\node [style=none] (50) at (20.5, 5.275) {IP$_{Src}$};
+		\node [style=none] (51) at (23.5, 5.275) {IP$_{Dest}$};
+		\node [style=none] (52) at (20.5, 3.775) {Port$_{Src}$};
+		\node [style=none] (53) at (23.5, 3.775) {Port$_{Dest}$};
+		\node [style=none] (64) at (16, 3.025) {};
+		\node [style=none] (65) at (16, 6.025) {};
+		\node [style=none] (66) at (19, 6.025) {};
+		\node [style=none] (67) at (19, 3.025) {};
+		\node [style=none] (68) at (25, 3.025) {};
+		\node [style=none] (69) at (25, 6.025) {};
+		\node [style=none] (70) at (16, 4.525) {};
+		\node [style=none] (72) at (25, 4.525) {};
+		\node [style=none] (73) at (32.5, 4.5) {$(IP_{Src}, IP_{Dst}, Port_{Dst}) \;\mapsto\; Port_{Src})$
+};
+		\node [style=none] (74) at (25.5, 4.525) {};
+		\node [style=none] (75) at (26.5, 4.525) {};
+		\node [style=none] (76) at (23, 8.5) {$(192.0.2.10, IP_{Dst}, Port_{Dst}) \;\mapsto\; Port_{Src})$
+};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=visiblefill] (3.center)
+			 to (2.center)
+			 to [in=180, out=0] (6.center)
+			 to (7.center)
+			 to cycle;
+		\draw [style=visiblefill] (0.center)
+			 to (1.center)
+			 to (5.center)
+			 to (4.center)
+			 to cycle;
+		\draw [style=shallowfill] (6.center)
+			 to (5.center)
+			 to (1.center)
+			 to (2.center)
+			 to cycle;
+		\draw [style=rule] (17.center) to (21.center);
+		\draw [style=directed edge] (22.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (31.center);
+		\draw [style=directed edge] (23.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (32.center);
+		\draw [style=directed edge] (24.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (33.center);
+		\draw [style=directed edge, loop] (25.center) to node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} ();
+		\draw [style=directed edge, loop] (26.center) to node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} ();
+		\draw [style=directed edge, loop] (27.center) to node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} ();
+		\draw [style=directed edge] (28.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (37.center);
+		\draw [style=directed edge] (29.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (38.center);
+		\draw [style=directed edge] (30.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (39.center);
+		\draw [style=visiblefill] (72.center)
+			 to (70.center)
+			 to (65.center)
+			 to (69.center)
+			 to cycle;
+		\draw [style=shallowfill] (70.center)
+			 to (72.center)
+			 to (68.center)
+			 to (64.center)
+			 to cycle;
+		\draw [style=rule] (66.center) to (67.center);
+		\draw [style=directed edge] (74.center) to (75.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

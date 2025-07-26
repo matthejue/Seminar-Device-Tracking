@@ -1,0 +1,47 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {\includegraphics[scale=0.04]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/client_device_2.png}};
+		\node [style=none] (1) at (17, -3) {\includegraphics[scale=0.04]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/world_wide_web.png}};
+		\node [style=none] (2) at (1.5, 0) {};
+		\node [style=none] (3) at (16, -3) {};
+		\node [style=none] (4) at (17, 0.05) {\includegraphics[scale=0.06]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tracking_server_2.png}};
+		\node [style=none] (5) at (15.75, 0.05) {};
+		\node [style=none] (6) at (0.05, 1.1) {};
+		\node [style=none] (7) at (25.725, -3.5) {G(tuple$_3$) = i};
+		\node [style=none] (8) at (24.4, -2.5) {G(tuple$_2$) = i};
+		\node [style=none] (9) at (23, -1.5) {G(tuple$_1$) = i};
+		\node [style=none] (14) at (30.825, -0.5) {};
+		\node [style=none] (15) at (30.825, 1.5) {};
+		\node [style=none] (16) at (18.825, -0.5) {};
+		\node [style=none] (17) at (18.825, 1.5) {};
+		\node [style=none] (18) at (20.825, -0.5) {};
+		\node [style=none] (19) at (20.825, 1.5) {};
+		\node [style=none] (20) at (28.825, 1.5) {};
+		\node [style=none] (21) at (28.825, -0.5) {};
+		\node [style=none] (22) at (19.825, 0.5) {...};
+		\node [style=none] (23) at (24.825, 0.5) {rand(i) + 1 + 1 + 1};
+		\node [style=none] (24) at (29.825, 0.5) {...};
+		\node [style=none] (25) at (24.825, 2) {i};
+		\node [style=none] (26) at (25.025, -1) {};
+		\node [style=none] (27) at (25.025, 0) {};
+		\node [style=none] (28) at (26.4, -2) {};
+		\node [style=none] (29) at (26.4, 0) {};
+		\node [style=none] (30) at (27.75, -3) {};
+		\node [style=none] (31) at (27.75, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=directed edge] (2.center) to node [midway, sloped, below] {tuple$_3$=(203.0.113.10, 55'555, 203.0.113.1, 443)} node [midway, sloped, above] {noise} (3.center);
+    \draw [style=directed edge] (6.center) to[in=135, out=45, distance=1cm] node [midway, above, xshift=2.7cm] {tuple$_1$=(127.0.0.1, 49'999, 127.1.2.3, 443)} (6.center);
+		\draw [style=directed edge] (2.center) to node [midway, sloped, above] {tuple$_2$=(192.0.2.10, 49'999, 192.0.2.1, 443)} (5.center);
+		\draw [style=visiblefill] (16.center)
+			 to (14.center)
+			 to (15.center)
+			 to (17.center)
+			 to cycle;
+		\draw [style=rule] (21.center) to (20.center);
+		\draw [style=rule] (19.center) to (18.center);
+		\draw [style=directed edge] (26.center) to (27.center);
+		\draw [style=directed edge] (28.center) to (29.center);
+		\draw [style=directed edge] (30.center) to (31.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

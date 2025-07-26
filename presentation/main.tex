@@ -3,8 +3,8 @@
 % \beamerfalse
 
 \newif\ifintroduction
-% \introductiontrue
-\introductionfalse
+\introductiontrue
+% \introductionfalse
 
 \newif\ifattack
 \attacktrue
@@ -394,7 +394,7 @@
 		\begin{column}{0.6\textwidth}
 			% \ctikzfig{perturbation_table_collision} % ./figures/perturbation_table_collision.tikz
 			\vspace{0.5cm}
-			\includegraphics[width=\textwidth]{./figures/external/perturbation_table_collision.pdf}
+			\includegraphics[width=\textwidth]{./figures/external/perturbation_table_collision.pdf} % ./figures/external/perturbation_table_collision.tikz
 		\end{column}
 		\begin{column}{0.4\textwidth}
 			\begin{itemize}
@@ -477,11 +477,11 @@
 		\draw[thick, draw=PrimaryColor] (9.2cm,5cm) rectangle (10.2cm,5.6cm);
 		\node[anchor=south west] at (10.5cm,5.3cm) {%
 			\begin{minipage}{\textwidth}
-        \alert{$=$ Device ID}
+				\alert{$=$ Device ID}
 			\end{minipage}
 		};
 	\end{tikzpicture}
-  % \grid
+	% \grid
 \end{frame}
 
 \begin{frame}[fragile]{Attack}{Device ID}
@@ -623,18 +623,21 @@
 		\draw[thick, draw=PrimaryColor] (3.3cm,1.3cm) rectangle (4.5cm,1.8cm);
 		\draw[thick, draw=PrimaryColor] (3.3cm,5.2cm) rectangle (4.5cm,5.6cm);
 	\end{tikzpicture}
-	\grid
+	% \grid
 \end{frame}
 
 \begin{frame}[fragile]{Attack}{Sandwiching Technique}
-  \begin{itemize}
-    \item to consider in practise:
-      \begin{itemize}
-        \item \alert{Background noise}
-        \item \alert{Multiple connection attempts in all steps}
-        \item \alert{Limitations for loopback 3-tuples}
-      \end{itemize}
-  \end{itemize}
+	\begin{itemize}
+		\item to consider in practise:
+		\begin{itemize}
+			\item \alert{Background noise}
+			%
+			% \includegraphics[width=0.9\textwidth]{./figures/external/noise.pdf} % ./figures/external/noise.tikz
+			\item \alert{Multiple 3-tuples used in steps}
+			\includegraphics[width=0.9\textwidth]{./figures/external/noise.pdf}
+			\item \alert{Limitations for loopback 3-tuples}
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \ifattackphaseone
