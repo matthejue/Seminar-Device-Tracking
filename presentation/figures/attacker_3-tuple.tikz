@@ -5,12 +5,12 @@
 		\node [style=none] (2) at (21, 1) {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tracking_server_2.png}};
 		\node [style=none] (3) at (19, -0.25) {};
 		\node [style=none] (4) at (2, -0.25) {};
-		\node [style=none] (5) at (8.2, 2.75) {$DHPS(IP_{Src}=192.0.2.123, IP_{Dst}=203.0.113.123, Port_{Dst}=443)$};
+		\node [style=none] (5) at (8.2, 2.75) {$DHPS(IP_{Src}=192.0.2.123, IP_{Dst}=203.0.113.10, Port_{Dst}=456)$};
 		\node [style=none] (6) at (8.5, 1) {};
 		\node [style=none] (7) at (8, 2.25) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-    \draw [style=directed edge] (4.center) to node [midway, above] {$(192.0.2.123, 55'555, 203.0.113.123, 443)$} node [midway, below] {\textcolor{gray}{$(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$}} (3.center);
+    \draw [style=directed edge] (4.center) to node [midway, above] {$(192.0.2.123, 55'555, 203.0.113.10, 456)$} node [midway, below] {\textcolor{gray}{$(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$}} (3.center);
     \draw [style=directed edge] (7.center) to node [midway, right] {$=$} (6.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

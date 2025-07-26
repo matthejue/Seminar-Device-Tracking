@@ -8,15 +8,15 @@
 		\node [style=none] (5) at (13.5, 3) {};
 		\node [style=none] (6) at (13.5, 6) {};
 		\node [style=none] (7) at (13.5, 9) {};
-		\node [style=none] (8) at (8.25, 8.5) {(192.0.2.10, 49'999, 192.0.2.1, 1)};
-		\node [style=none] (9) at (8.25, 7.5) {(192.0.2.10, 49'999, 192.0.2.1, 2)};
-		\node [style=none] (10) at (8.25, 6.5) {(192.0.2.10, 49'999, 192.0.2.1, 3)};
-		\node [style=none] (11) at (8.25, 2.5) {(192.0.2.10, 49'999, 192.0.2.1, 1)};
-		\node [style=none] (12) at (8.25, 1.5) {(192.0.2.10, 49'999, 192.0.2.1, 2)};
-		\node [style=none] (13) at (8.25, 0.5) {(192.0.2.10, 49'999, 192.0.2.1, 3)};
-		\node [style=none] (14) at (8.25, 5.5) {(127.1.2.3, 49'999, 127.0.0.1, 1)};
-		\node [style=none] (15) at (8.25, 4.5) {(127.1.2.3, 49'999, 127.0.0.1, 2)};
-		\node [style=none] (16) at (8.25, 3.5) {(127.1.2.3, 49'999, 127.0.0.1, 3)};
+		\node [style=none] (8) at (8.25, 8.5) {(192.0.2.2, 203.0.113.10, 1'000)};
+		\node [style=none] (9) at (8.25, 7.5) {(192.0.2.2, 203.0.113.10, 2'000)};
+		\node [style=none] (10) at (8.25, 6.5) {(192.0.2.2, 203.0.113.10, 3'000)};
+		\node [style=none] (11) at (8.25, 2.5) {(192.0.2.2, 203.0.113.10, 1'000)};
+		\node [style=none] (12) at (8.25, 1.5) {(192.0.2.2, 203.0.113.10, 2'000)};
+		\node [style=none] (13) at (8.25, 0.5) {(192.0.2.2, 203.0.113.10, 3'000)};
+		\node [style=none] (14) at (8.25, 5.5) {(127.0.0.1, 127.0.0.3, 11'111')};
+		\node [style=none] (15) at (8.25, 4.5) {(127.0.0.1, 127.0.0.3, 22'222')};
+		\node [style=none] (16) at (8.25, 3.5) {(127.0.0.1, 127.0.0.3, 33'333')};
 		\node [style=none] (17) at (3, 9) {};
 		\node [style=none] (18) at (1.5, 7.5) {Wrapper};
 		\node [style=none] (19) at (1.5, 4.5) {Filling};
@@ -31,32 +31,44 @@
 		\node [style=none] (28) at (14, 2.5) {};
 		\node [style=none] (29) at (14, 1.5) {};
 		\node [style=none] (30) at (14, 0.5) {};
-		\node [style=none] (31) at (17, 8.5) {};
-		\node [style=none] (32) at (17, 7.5) {};
+		\node [style=none] (31) at (21, 8.5) {};
+		\node [style=none] (32) at (19, 7.5) {};
 		\node [style=none] (33) at (17, 6.5) {};
-		\node [style=none] (37) at (17.25, 2.5) {};
-		\node [style=none] (38) at (17, 1.5) {};
-		\node [style=none] (39) at (17, 0.5) {};
-		\node [style=none] (48) at (17.5, 5.275) {IP layer};
-		\node [style=none, align=center] (49) at (17.5, 3.775) {Transport\\layer};
-		\node [style=none] (50) at (20.5, 5.275) {IP$_{Src}$};
-		\node [style=none] (51) at (23.5, 5.275) {IP$_{Dest}$};
-		\node [style=none] (52) at (20.5, 3.775) {Port$_{Src}$};
-		\node [style=none] (53) at (23.5, 3.775) {Port$_{Dest}$};
-		\node [style=none] (64) at (16, 3.025) {};
-		\node [style=none] (65) at (16, 6.025) {};
-		\node [style=none] (66) at (19, 6.025) {};
-		\node [style=none] (67) at (19, 3.025) {};
-		\node [style=none] (68) at (25, 3.025) {};
-		\node [style=none] (69) at (25, 6.025) {};
-		\node [style=none] (70) at (16, 4.525) {};
-		\node [style=none] (72) at (25, 4.525) {};
-		\node [style=none] (73) at (32.5, 4.5) {$(IP_{Src}, IP_{Dst}, Port_{Dst}) \;\mapsto\; Port_{Src})$
-};
-		\node [style=none] (74) at (25.5, 4.525) {};
-		\node [style=none] (75) at (26.5, 4.525) {};
-		\node [style=none] (76) at (23, 8.5) {$(192.0.2.10, IP_{Dst}, Port_{Dst}) \;\mapsto\; Port_{Src})$
-};
+		\node [style=none] (37) at (17, 2.5) {};
+		\node [style=none] (38) at (19, 1.5) {};
+		\node [style=none] (39) at (21, 0.5) {};
+		\node [style=none] (48) at (36, 7.775) {IP layer};
+		\node [style=none, align=center] (49) at (39, 7.775) {Transport\\layer};
+		\node [style=none] (50) at (36, 6.025) {IP$_{Src}$};
+		\node [style=none] (51) at (36, 4.525) {IP$_{Dest}$};
+		\node [style=none] (52) at (39, 6.025) {Port$_{Src}$};
+		\node [style=none] (53) at (39, 4.525) {Port$_{Dest}$};
+		\node [style=none] (73) at (37.5, 2.25) {$(IP_{Src}, IP_{Dst}, Port_{Dst})$};
+		\node [style=none] (74) at (37.5, 3.525) {};
+		\node [style=none] (75) at (37.5, 2.775) {};
+		\node [style=none] (76) at (27.5, 8.5) {(192.0.2.2, 203.0.113.10, 1'000) $\mapsto$ 48'000};
+		\node [style=none] (77) at (34.5, 8.75) {};
+		\node [style=none] (78) at (40.5, 8.75) {};
+		\node [style=none] (79) at (37.5, 8.75) {};
+		\node [style=none] (80) at (37.5, 3.75) {};
+		\node [style=none] (81) at (40.5, 3.75) {};
+		\node [style=none] (82) at (34.5, 3.75) {};
+		\node [style=none] (83) at (34.5, 6.75) {};
+		\node [style=none] (84) at (40.5, 6.75) {};
+		\node [style=none] (85) at (25.5, 7.5) {(192.0.2.2, 203.0.113.10, 2'000) $\mapsto$ 49'000};
+		\node [style=none] (86) at (23.5, 6.5) {(192.0.2.2, 203.0.113.10, 3'000) $\mapsto$ 50'000};
+		\node [style=none] (87) at (23.5, 2.5) {(192.0.2.2, 203.0.113.10, 1'000) $\mapsto$ 50'002};
+		\node [style=none] (88) at (25.5, 1.5) {(192.0.2.2, 203.0.113.10, 2'000) $\mapsto$ 49'003};
+		\node [style=none] (89) at (27.5, 0.5) {(192.0.2.2, 203.0.113.10, 3'000) $\mapsto$ 48'001};
+		\node [style=none] (91) at (37.5, 0.5) {$Port_{Src}$};
+		\node [style=none, rotate=-90] (92) at (37.5, 1.5) {$\mapsto$};
+		\node [style=none] (93) at (28.75, 6) {};
+		\node [style=none] (94) at (28.75, 3) {};
+		\node [style=none] (95) at (30.75, 2) {};
+		\node [style=none] (96) at (30.75, 7) {};
+		\node [style=none] (97) at (32.75, 8) {};
+		\node [style=none] (98) at (32.75, 1) {};
+		\node [style=none] (100) at (34.5, 8.75) {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=visiblefill] (3.center)
@@ -78,23 +90,26 @@
 		\draw [style=directed edge] (22.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (31.center);
 		\draw [style=directed edge] (23.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (32.center);
 		\draw [style=directed edge] (24.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (33.center);
-		\draw [style=directed edge, loop] (25.center) to node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} ();
-		\draw [style=directed edge, loop] (26.center) to node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} ();
-		\draw [style=directed edge, loop] (27.center) to node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} ();
+		\draw [distance=1cm, style=directed edge] (25.center) to[in=45, out=-45, distance=1cm] node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (25.center);
+		\draw [distance=1cm, style=directed edge] (26.center) to[in=45, out=-45, distance=1cm] node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (26.center);
+		\draw [distance=1cm, style=directed edge] (27.center) to[in=45, out=-45, distance=1cm] node [midway, right] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (27.center);
 		\draw [style=directed edge] (28.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (37.center);
 		\draw [style=directed edge] (29.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (38.center);
 		\draw [style=directed edge] (30.center) to node [midway] {\includegraphics[scale=0.08]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}} (39.center);
-		\draw [style=visiblefill] (72.center)
-			 to (70.center)
-			 to (65.center)
-			 to (69.center)
-			 to cycle;
-		\draw [style=shallowfill] (70.center)
-			 to (72.center)
-			 to (68.center)
-			 to (64.center)
-			 to cycle;
-		\draw [style=rule] (66.center) to (67.center);
 		\draw [style=directed edge] (74.center) to (75.center);
+		\draw [style=visiblefill] (77.center)
+			 to (82.center)
+			 to (80.center)
+			 to (79.center)
+			 to cycle;
+		\draw [style=shallowfill] (81.center)
+			 to (78.center)
+			 to (79.center)
+			 to (80.center)
+			 to cycle;
+		\draw [style=visiblefill] (84.center) to (83.center);
+		\draw [style=both direction directed edge] (93.center) to node [midway, fill=white, draw=orange] {$\Delta$=2} (94.center);
+		\draw [style=both direction directed edge] (96.center) to node [midway, fill=white, draw=orange] {$\Delta$=3} (95.center);
+		\draw [style=both direction directed edge] (97.center) to node [midway, fill=white, draw=orange] {$\Delta$=1} (98.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

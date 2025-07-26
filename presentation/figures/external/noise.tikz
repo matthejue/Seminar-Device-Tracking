@@ -30,9 +30,9 @@
 		\node [style=none] (31) at (27.75, 0) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw [style=directed edge] (2.center) to node [midway, sloped, below] {tuple$_3$=(203.0.113.10, 55'555, 203.0.113.1, 443)} node [midway, sloped, above] {noise} (3.center);
-    \draw [style=directed edge] (6.center) to[in=135, out=45, distance=1cm] node [midway, above, xshift=2.7cm] {tuple$_1$=(127.0.0.1, 49'999, 127.1.2.3, 443)} (6.center);
-		\draw [style=directed edge] (2.center) to node [midway, sloped, above] {tuple$_2$=(192.0.2.10, 49'999, 192.0.2.1, 443)} (5.center);
+		\draw [style=directed edge] (2.center) to node [midway, sloped, below] {tuple$_3$=(192.0.2.123, 49'999, 198.51.100.20, 3)} node [midway, sloped, above] {noise} (3.center);
+    \draw [style=directed edge] (6.center) to[in=135, out=45, distance=1cm] node [midway, above, xshift=2.7cm] {tuple$_1$=(127.0.0.1, 48'888, 127.0.0.3, 1)} (6.center);
+		\draw [style=directed edge] (2.center) to node [midway, sloped, above] {tuple$_2$=(192.0.2.123, 55'555, 203.0.113.10, 2)} (5.center);
 		\draw [style=visiblefill] (16.center)
 			 to (14.center)
 			 to (15.center)

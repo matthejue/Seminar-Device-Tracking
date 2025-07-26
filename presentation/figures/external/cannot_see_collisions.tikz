@@ -14,10 +14,10 @@
 		\node [style=none] (17) at (10.5, -1) {9+1+1};
 		\node [style=none] (18) at (10.45, -3.5) {};
 		\node [style=none] (19) at (10.45, -2.25) {};
-		\node [style=none] (20) at (5.85, -4) {G$_{K_{2}}$(127.1.2.3, 127.0.0.1, x)=T-2};
+		\node [style=none] (20) at (5.85, -4) {G$_{K_{2}}$(127.0.0.1, 127.0.0.3, x)=T-2};
 		\node [style=none] (21) at (11.375, -4.25) {};
 		\node [style=none] (22) at (11.375, -2.25) {};
-		\node [style=none] (23) at (6.775, -4.75) {G$_{K_{2}}$(127.1.2.3, 127.0.0.1, y)=T-2};
+		\node [style=none] (23) at (6.775, -4.75) {G$_{K_{2}}$(127.0.0.1, 127.0.0.3, y)=T-2};
 		\node [style=none] (24) at (3, 0) {};
 		\node [style=none] (25) at (3, -2) {};
 		\node [style=none] (26) at (6, -2) {};

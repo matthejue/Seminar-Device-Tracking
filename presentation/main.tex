@@ -180,14 +180,14 @@
 			\item \alert{4-tuple}: $(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$
 			\begin{transformation}[0.2][0.6][0.2]
 				\includegraphics[width=\textwidth]{./figures/apartment1.png}
-				\arrowxx{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}{\text{(10.0.0.12, 49210)}\hspace{1cm}\text{(74.125.133.109, 587)}}
+				\arrowxx{\text{(123 Maple St., Apt. 5B)}\hspace{1cm}\text{(456 Oak St., Apt. 9D)}}{\text{(192.0.2.123, 55'555)}\hspace{1cm}\text{(203.0.113.456, 49'999)}}
 				\includegraphics[width=\textwidth]{./figures/apartment2.png}
 			\end{transformation}
 			\vspace{-0.4cm}
 			\begin{itemize}
 				\scriptsize
-				\item (10.0.0.12, 49210, 74.125.133.109, 587)
-				\item (123 Maple St., Apt. 5B, 456 Oak St., Apt. 9D
+				\item (192.0.2.123, 55'555, 203.0.113.10, 49'999)
+				\item (123 Maple St., Apt. 5B, 456 Oak St., Apt. 9D)
 			\end{itemize}
 			\item Chooses TCP \alert{source port} $Port_{Src}$ for \alert{3-tuple}: $(IP_{Src}, IP_{Dest}, Port_{Dest})$
 		\end{itemize}
@@ -430,8 +430,8 @@
 		\end{column}
 	\end{columns}
 	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		\draw[thick, draw=PrimaryColor] (1cm,2.35cm) rectangle ++(0.36cm,0.36cm);
-		\draw[thick, draw=PrimaryColor] (1.5cm,1.95cm) rectangle ++(0.36cm,0.36cm);
+		\draw[thick, draw=PrimaryColor] (1.05cm,2.35cm) rectangle ++(0.37cm,0.37cm);
+		\draw[thick, draw=PrimaryColor] (1.5cm,1.95cm) rectangle ++(0.37cm,0.37cm);
 		% arrows
 		% \draw[->, thick, draw=PrimaryColor] (6.4,4.3) -- (9.2,2.8);
 	\end{tikzpicture}
@@ -486,7 +486,7 @@
 
 \begin{frame}[fragile]{Attack}{Device ID}
 	\begin{itemize}
-		\item \alert{Attacker 3-tuples} not consistent across \raisebox{-0.2\height}{\includegraphics[scale=0.06]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/networks.png}}% networks % loopback 3-tuples with loopback addresses such as 127.x.x.x are internal to the device and remain stable across networks
+		\item \alert{Attacker 3-tuples} not consistent across \raisebox{-0.2\height}{\includegraphics[scale=0.06]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/networks.png}} % networks % loopback 3-tuples with loopback addresses such as 127.x.x.x are internal to the device and remain stable across networks
 		\item \alert{Loopback 3-tuples} don't have this problem % loopback 3-tuples with loopback addresses such as 127.x.x.x are internal to the device and remain stable across networks
 	\end{itemize}
 	\ctikzfig{attacker_3-tuple_id} % ./figures/attacker_3-tuple_id.tikz
@@ -631,10 +631,10 @@
 		\item to consider in practise:
 		\begin{itemize}
 			\item \alert{Background noise}
-			%
+
 			% \includegraphics[width=0.9\textwidth]{./figures/external/noise.pdf} % ./figures/external/noise.tikz
 			\item \alert{Multiple 3-tuples used in steps}
-			\includegraphics[width=0.9\textwidth]{./figures/external/noise.pdf}
+			% \includegraphics[width=0.9\textwidth]{./figures/external/multiple_3-tuples_used_in_steps.pdf} % ./figures/external/multiple_3-tuples_used_in_steps.tikz
 			\item \alert{Limitations for loopback 3-tuples}
 		\end{itemize}
 	\end{itemize}

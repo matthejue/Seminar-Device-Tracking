@@ -8,8 +8,8 @@
 		\node [style=none] (6) at (-8, -0.25) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw [style=directed edge, bend left=15] (0.center) to node [midway, below, sloped] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/ethernet.png}} node [midway, above, sloped] {(192.0.2.10, 49'999, 192.0.2.1, 443)} (1.center);
-		\draw [style=directed edge, bend right=15] (0.center) to node [midway, above, sloped] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/wifi.png}} node [midway, below, sloped] {(203.0.113.10, 55'555, 203.0.113.1, 443)} (4.center);
-    \draw [style=directed edge] (6.center) to[in=135, out=45, distance=2cm] node [midway, above, align=center, xshift=1.8cm] {(127.0.0.1, 49'999, 127.1.2.3, 443)} node [midway, below, align=center] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/loopback.png}} (6.center);
+		\draw [style=directed edge, bend left=15] (0.center) to node [midway, below, sloped] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/ethernet.png}} node [midway, above, sloped] {(192.0.2.111, 55'555, 203.0.113.10, 22'222)} (1.center);
+		\draw [style=directed edge, bend right=15] (0.center) to node [midway, above, sloped] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/wifi.png}} node [midway, below, sloped] {(192.0.2.222, 49'999, 203.0.113.10, 33'333)} (4.center);
+    \draw [style=directed edge] (6.center) to[in=135, out=45, distance=2cm] node [midway, above, align=center, xshift=1.8cm] {(127.0.0.1, 48'888, 127.0.0.3, 11'111)} node [midway, below, align=center] {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/loopback.png}} (6.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

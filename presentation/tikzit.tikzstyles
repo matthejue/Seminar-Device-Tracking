@@ -18,6 +18,7 @@
 
 % Edge styles
 \tikzstyle{directed edge}=[->, draw={rgb,255: red,237; green,135; blue,13}, very thick]
+\tikzstyle{both direction directed edge}=[<->, draw={rgb,255: red,237; green,135; blue,13}, very thick]
 \tikzstyle{invisbile edge}=[-, draw=none]
 \tikzstyle{directed dotted edge}=[draw={rgb,255: red,237; green,135; blue,13}, ->, dashed, very thick]
 \tikzstyle{rule}=[-, draw={rgb,255: red,237; green,135; blue,13}, very thick]
