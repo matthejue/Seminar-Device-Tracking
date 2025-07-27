@@ -706,7 +706,15 @@
 
 	\begin{frame}[fragile]{Countermeasures Overview}{Root cause and ideal solution}
 		\begin{itemize}
-			\item
+			\item root cause of attack: shared perturbation table between TCP conection attempts allows detect devic specific hash collisions
+			\item ideal solution: separate perturbation table for each network context but high memory cost
+			\item general countermeasures:
+      \begin{itemize}
+        \item making more difficult for attackers to detect hash collisions, longer to execute attack and limiting time window for attack
+      \end{itemize}
+			% \item The root cause of the attack is the ability to detect device-specific hash collisions in GK2 through a shared perturbation table between TCP connection attempts, which is incremented in a predictable way.
+			% \item An ideal solution would be to use a separate perturbation table for each network context, but this is impractical due to the high memory cost.
+			% \item In general, countermeasures to prevent this attack focus on making hash collisions less frequent or making it much more difficult for attackers to de- tect them
 		\end{itemize}
 	\end{frame}
 
@@ -715,7 +723,7 @@
 			\item \alert{Periodic re-keying}: Every $10$ seconds
 
 			% \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
-      \item \alert{Increase table size $T$}: From $256$ to $64\,\text{KiB}$
+			\item \alert{Increase table size $T$}: From $256$ to $64\,\text{KiB}$
 
 			\includegraphics[width=0.95\textwidth]{./figures/external/increasing_table_size.pdf} % ./figures/external/increrasing_table_size.tikz
 			\item \alert{Introduce more noise}: Each increment randomly between 1 and 8
