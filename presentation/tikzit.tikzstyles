@@ -13,7 +13,7 @@
 \tikzstyle{small rect}=[fill={rgb,255: red,237; green,197; blue,149}, draw=none, shape=rectangle, minimum size=1cm, rounded rectangle]
 \tikzstyle{invisible space node}=[fill=none, draw=none, shape=circle, inner sep=0cm]
 \tikzstyle{smallest end node}=[fill={rgb,255: red,237; green,197; blue,149}, draw={rgb,255: red,237; green,135; blue,13}, shape=circle, inner sep=0cm, minimum size=0.5cm]
-\tikzstyle{smallest node}=[fill={rgb,255: red,237; green,197; blue,149}, draw=none, shape=circle, inner sep=0cm, minimum size=0.5cm]
+\tikzstyle{smallest node}=[fill={rgb,255: red,237; green,197; blue,149}, draw=none, shape=circle, inner sep=0cm, minimum size=0.4cm]
 \tikzstyle{new style 0}=[fill=white, draw={rgb,255: red,237; green,135; blue,13}, shape=rectangle, minimum size=0.3cm]
 
 % Edge styles

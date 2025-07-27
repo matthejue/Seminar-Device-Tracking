@@ -702,13 +702,23 @@
 \ifcountermeasures
 	\section{Countermeasures}
 
-	\begin{frame}[fragile]{Countermeasures}{Implemented changes}
+	\subsection{Discussion of countermeasures}
+
+	\begin{frame}[fragile]{Discussion of countermeasures}{Root cause and ideal solution}
+    \begin{itemize}
+      \item 
+    \end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Discussion of countermeasures}{Implemented changes}
 		\begin{itemize}
-      \item \alert{Periodic re-keying}
+      \item \alert{Periodic re-keying}: Every $10$ seconds
 
         % \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
-			\item \alert{Increase table size $T$}
-			\item \alert{Introduce more noise}
+			\item \alert{Increase table size $T$}: From $256$ to $64KiB$
+
+        % \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
+			\item \alert{Introduce more noise}: Each increment $rand(1, 8)$
 		\end{itemize}
 	\end{frame}
 \else

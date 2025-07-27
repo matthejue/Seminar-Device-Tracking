@@ -76,7 +76,7 @@
 		\node [style=none] (88) at (37, 0.25) {...};
 		\node [style=none] (89) at (42, 0.25) {...};
 		\node [style=none] (90) at (10, 5.5) {$G_{K_2}(\{T_1, T_2, T_3, T_4, T_5, T_6\})$};
-		\node [style=none] (91) at (34.5, 5.5) {$G_{K'_2}(\{T_1, T_2, T_3, T_4, T_5, T_6, \ldots, T_{15}\})$};
+		\node [style=none] (91) at (34.5, 5.5) {$G_{K'_2}(\{T_1, T_2, T_3, T_4, T_5, T_6, \ldots, T_{12}\})$};
 		\node [style=none] (92) at (5.5, 5.75) {};
 		\node [style=none] (93) at (5.5, 5.5) {};
 		\node [style=none] (94) at (6, 5.25) {};
@@ -98,10 +98,10 @@
 		\node [style=none] (110) at (10, 7.5) {\raisebox{-0.2\height}{\includegraphics[width=0.06\textwidth]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/hash_collision.png}}: 3};
 		\node [style=none] (111) at (10, 9.45) {\raisebox{-0.2\height}{\includegraphics[width=0.06\textwidth]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/iterations.png}}: 6};
 		\node [style=none] (112) at (32, 7.5) {\raisebox{-0.2\height}{\includegraphics[width=0.06\textwidth]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/hash_collision.png}}: 2};
-		\node [style=none] (113) at (32, 9.45) {\raisebox{-0.2\height}{\includegraphics[width=0.06\textwidth]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/iterations.png}}: 15};
+		\node [style=none] (113) at (32, 9.45) {\raisebox{-0.2\height}{\includegraphics[width=0.06\textwidth]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/iterations.png}}: 12};
 		\node [style=none] (114) at (43, 0.5) {};
 		\node [style=none] (115) at (43, 0) {};
-		\node [style=small node] (116) at (44.5, 2) {$T_{15}$};
+		\node [style=small node] (116) at (44.5, 2) {$T_{12}$};
 		\node [style=none] (117) at (46, 0.5) {};
 		\node [style=none] (118) at (46, 0) {};
 		\node [style=none] (119) at (46.5, 0.25) {...};
@@ -121,7 +121,7 @@
 		\node [style=none] (133) at (0.75, 10.5) {};
 		\node [style=none] (134) at (19.25, 8.5) {};
 		\node [style=none] (135) at (19.25, 10.5) {};
-		\node [style=none, align=center] (136) at (39.5, 9.5) {(example tresholds chosen,\\not real tresholds)};
+		\node [style=none, align=center] (136) at (43, 9.5) {(for N=100 and T=16)};
 		\node [style=none] (137) at (44.5, -1) {\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/index_fog.png}};
 		\node [style=none] (138) at (29.525, 5.025) {};
 		\node [style=none] (139) at (29.525, 5.775) {};
@@ -131,6 +131,26 @@
 		\node [style=none] (143) at (6.275, 5.775) {};
 		\node [style=none] (144) at (7.025, 5.025) {};
 		\node [style=none] (145) at (7.025, 5.775) {};
+		\node [style=none] (146) at (22, -1.5) {};
+		\node [style=none] (147) at (22, -2) {};
+		\node [style=none] (148) at (47, -1.5) {};
+		\node [style=none] (149) at (47, -2) {};
+		\node [style=none] (150) at (34.5, -2) {};
+		\node [style=none] (151) at (34.5, -2.5) {};
+		\node [style=none] (152) at (22, -2) {};
+		\node [style=none] (153) at (22, -1.5) {};
+		\node [style=none] (154) at (34.5, -3) {16};
+		\node [style=none] (155) at (0, -1.5) {};
+		\node [style=none] (156) at (0, -2) {};
+		\node [style=none] (157) at (20, -1.5) {};
+		\node [style=none] (158) at (20, -2) {};
+		\node [style=none] (159) at (10, -2) {};
+		\node [style=none] (160) at (10, -2.5) {};
+		\node [style=none] (161) at (0, -2) {};
+		\node [style=none] (162) at (0, -1.5) {};
+		\node [style=none] (163) at (10, -3) {16};
+		\node [style=none] (164) at (20.5, 9.5) {= \raisebox{-0.2\height}{\includegraphics[scale=0.0175]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/device_id.png}}};
+		\node [style=none] (165) at (35, 9.5) {= \raisebox{-0.2\height}{\includegraphics[scale=0.0175]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/device_id.png}}};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=visiblefill] (2.center)
@@ -190,5 +210,15 @@
 		\draw [style=rule] (143.center) to (142.center);
 		\draw [style=rule] (142.center) to (144.center);
 		\draw [style=rule] (144.center) to (145.center);
+		\draw [style=rule] (153.center) to (152.center);
+		\draw [style=rule] (152.center) to (150.center);
+		\draw [style=rule] (150.center) to (149.center);
+		\draw [style=rule] (149.center) to (148.center);
+		\draw [style=rule] (150.center) to (151.center);
+		\draw [style=rule] (162.center) to (161.center);
+		\draw [style=rule] (161.center) to (159.center);
+		\draw [style=rule] (159.center) to (158.center);
+		\draw [style=rule] (158.center) to (157.center);
+		\draw [style=rule] (159.center) to (160.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

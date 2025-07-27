@@ -112,6 +112,12 @@ def main():
     elif len(args) == 2:
         # Table generation mode: N T
         N, T = map(int, args)
+
+        print("\n--- Parameter Assignment ---")
+        print(f"N  (number of devices)  = {N}")
+        print(f"T  (perturbation length)= {T}")
+        print("-----------------------------")
+
         generate_n_star_table(N, T)
 
     else:

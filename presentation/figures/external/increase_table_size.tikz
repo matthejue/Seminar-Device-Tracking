@@ -1,2 +1,42 @@
 \begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {};
+		\node [style=none] (1) at (20, 0) {};
+		\node [style=none] (2) at (0, 0.5) {};
+		\node [style=none] (5) at (20, 0.5) {};
+		\node [style=smallest node] (14) at (2.525, 2) {$T_3$};
+		\node [style=smallest node] (15) at (2.525, 4.25) {$T_2$};
+		\node [style=smallest node] (16) at (2.525, 6.5) {$T_5$};
+		\node [style=smallest node] (17) at (7.5, 2) {$T_6$};
+		\node [style=smallest node] (19) at (17.5, 2) {$T_1$};
+		\node [style=smallest node] (20) at (17.5, 4.25) {$T_4$};
+		\node [style=none] (21) at (12.5, -1) {\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/index_fog.png}};
+		\node [style=none] (22) at (7.5, -1) {\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/index_fog.png}};
+		\node [style=none] (23) at (2.5, -1) {};
+		\node [style=none] (24) at (17.5, -1) {\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/index_fog.png}};
+		\node [style=none] (26) at (2.5, -1) {\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/index_fog.png}};
+		\node [style=none, align=center] (28) at (2.5, 9.5) {$\{(T_3, T_2)$,\\$(T_3, T_5)\}$};
+		\node [style=none] (31) at (17.5, 9.5) {$\{(T_1, T_4)\}$};
+		\node [style=none] (51) at (0.5, 0.25) {1};
+		\node [style=none] (52) at (4, -2.5) {};
+		\node [style=none] (53) at (4, -2.5) {larger T};
+		\node [style=none] (55) at (18.25, -2.5) {$P^l_D(n) \uparrow$};
+		\node [style=none] (56) at (11, -2.5) {on average less collisions (n $\downarrow$)};
+		\node [style=none] (57) at (27.5, -2.5) {termination ($P^i(n) < p^*$) needs more iterations};
+		\node [style=none] (58) at (1.5, 0.25) {2};
+		\node [style=none] (59) at (2.5, 0.25) {3};
+		\node [style=none] (60) at (1, 0) {};
+		\node [style=none] (61) at (1, 0.5) {};
+		\node [style=none] (62) at (2, 0.5) {};
+		\node [style=none] (63) at (2, 0) {};
+		\node [style=none] (64) at (3, 0) {};
+		\node [style=none] (65) at (3, 0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=visiblefill] (2.center)
+			 to (0.center)
+			 to (1.center)
+			 to (5.center)
+			 to cycle;
+	\end{pgfonlayer}
 \end{tikzpicture}
