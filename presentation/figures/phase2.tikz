@@ -64,36 +64,36 @@
 		\node [style=none] (63) at (7.5, 10.85) {101};
 		\node [style=none] (64) at (1.5, 11.6) {21};
 		\node [style=none] (68) at (13.5, 10.1) {201};
-		\node [style=none] (69) at (1.5, 5.35) {25};
+		\node [style=none] (69) at (7.5, 5.35) {102};
 		\node [style=none] (70) at (1.5, 6.85) {23};
 		\node [style=none] (71) at (1.5, 7.6) {22};
 		\node [style=none] (72) at (1.5, 6.1) {24};
-		\node [style=none] (73) at (1.5, 1.35) {26};
+		\node [style=none] (73) at (1.5, 1.35) {25};
 		\node [style=none] (74) at (13.5, 2.85) {202};
 		\node [style=none] (75) at (19.5, 3.6) {4};
-		\node [style=none] (76) at (7.5, 2.1) {102};
+		\node [style=none] (76) at (7.5, 2.1) {103};
 		\node [style=none] (77) at (30, 9.35) {};
 		\node [style=none] (78) at (34, 10.85) {};
 		\node [style=none] (79) at (36, 11.6) {};
 		\node [style=none] (80) at (32, 10.1) {};
-		\node [style=none] (81) at (20.5, 5.35) {};
-		\node [style=none] (82) at (20.5, 6.85) {};
-		\node [style=none] (83) at (20.5, 7.6) {};
-		\node [style=none] (84) at (20.5, 6.1) {};
+		\node [style=none] (81) at (20.25, 5.35) {};
+		\node [style=none] (82) at (20.25, 6.85) {};
+		\node [style=none] (83) at (20.25, 7.6) {};
+		\node [style=none] (84) at (20.25, 6.1) {};
 		\node [style=none] (85) at (36, 1.35) {};
 		\node [style=none] (86) at (32, 2.85) {};
 		\node [style=none] (87) at (30, 3.6) {};
 		\node [style=none] (88) at (34, 2.1) {};
 		\node [style=none] (89) at (23.5, 13.25) {192.0.2.2};
 		\node [style=none] (90) at (33, 12.75) {203.0.113.10};
-		\node [style=none] (91) at (37, 1.325) {50'026};
+		\node [style=none] (91) at (37, 1.325) {50'025};
 		\node [style=none] (92) at (35, 2.075) {51'102};
-		\node [style=none] (93) at (33, 2.825) {52'202};
-		\node [style=none] (94) at (31, 3.575) {53'004};
-		\node [style=none] (95) at (37, 11.575) {50'021};
-		\node [style=none] (96) at (35, 10.825) {51'101};
-		\node [style=none] (97) at (33, 10.075) {52'201};
-		\node [style=none] (98) at (31, 9.325) {53'003};
+		\node [style=none] (93) at (33, 2.825) {52'201};
+		\node [style=none] (94) at (31, 3.575) {53'003};
+		\node [style=none] (95) at (37, 11.575) {50'020};
+		\node [style=none] (96) at (35, 10.825) {51'100};
+		\node [style=none] (97) at (33, 10.075) {52'200};
+		\node [style=none] (98) at (31, 9.325) {53'002};
 		\node [style=none] (99) at (37, 1.75) {};
 		\node [style=none] (100) at (35, 2.5) {};
 		\node [style=none] (101) at (33, 3.25) {};
@@ -110,9 +110,13 @@
 		\node [style=none] (112) at (24.5, 2.85) {+F$_{K_2}$(..., 3'000)=52'000};
 		\node [style=none] (113) at (24.5, 2.1) {+F$_{K_2}$(..., 2'000)=51'000};
 		\node [style=none] (114) at (24.5, 1.35) {+F$_{K_2}$(..., 1'000)=50'000};
-		\node [style=none] (115) at (23.25, 7.25) {\includegraphics[scale=0.04]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/client_device_2.png}};
-		\node [style=none] (116) at (23.25, 5.5) {(127.0.0.3, 1'000)};
+		\node [style=none] (115) at (23.25, 7.75) {\includegraphics[scale=0.03]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/client_device_2.png}};
+		\node [style=none] (116) at (23.25, 6.25) {(127.0.0.3, 1'000)};
 		\node [style=none] (117) at (23.5, 12.5) {/ 127.0.0.1};
+		\node [style=none] (118) at (-1, 5.75) {};
+		\node [style=none] (119) at (26, 5.75) {};
+		\node [style=none] (120) at (23.675, 5.35) {\includegraphics[scale=0.02]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/world_wide_web.png}};
+		\node [style=none] (121) at (22.675, 5.35) {\includegraphics[scale=0.06]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/noise.png}};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=visiblefill] (1.center)
@@ -166,8 +170,9 @@
 		\draw [style=directed edge] (63.center) to (78.center);
 		\draw [style=directed edge, in=180, out=0] (64.center) to (79.center);
 		\draw [style=both direction directed edge] (99.center) to node [midway, draw=orange] {$\Delta$=5} (106.center);
-		\draw [style=both direction directed edge] (105.center) to node [midway] {$\Delta$=1} (100.center);
+		\draw [style=both direction directed edge] (105.center) to node [midway] {$\Delta$=2} (100.center);
 		\draw [style=both direction directed edge] (101.center) to node [midway] {$\Delta$=1} (104.center);
 		\draw [style=both direction directed edge] (103.center) to node [midway] {$\Delta$=1} (102.center);
+		\draw [style=new edge style 1] (118.center) to (119.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

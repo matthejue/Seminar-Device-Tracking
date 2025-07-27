@@ -3,24 +3,24 @@
 % \beamerfalse
 
 \newif\ifintroduction
-\introductiontrue
-% \introductionfalse
+% \introductiontrue
+\introductionfalse
 
 \newif\ifattack
-\attacktrue
-% \attackfalse
+% \attacktrue
+\attackfalse
 
 \newif\ifattackphaseone
-\attackphaseonetrue
-% \attackphaseonefalse
+% \attackphaseonetrue
+\attackphaseonefalse
 
 \newif\ifattackphasetwo
-\attackphasetwotrue
-% \attackphasetwofalse
+% \attackphasetwotrue
+\attackphasetwofalse
 
 \newif\ifcountermeasures
-% \countermeasurestrue
-\countermeasuresfalse
+\countermeasurestrue
+% \countermeasuresfalse
 
 \newif\ifappendix
 % \appendixtrue
@@ -71,7 +71,9 @@
 \ifintroduction
 	\section{Introduction}
 
-	\begin{frame}[fragile]{Introduction}{Motivation}
+  \subsection{Motivation}
+
+	\begin{frame}[fragile]{Motivation}{Meltdown and Spectre}
 		\begin{columns}
 			\begin{column}[t]{0.5\textwidth}
 				\begin{center}
@@ -105,7 +107,9 @@
 		\end{columns}
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+  \subsection{Browser-based device tracking}
+
+	\begin{frame}[fragile]{Browser-based device tracking}{Definition and Problem}
 		\begin{transformation}
 			\begin{adjustbox}{scale=1}
 				\begin{minipage}{1\textwidth}
@@ -126,7 +130,7 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+	\begin{frame}[fragile]{Browser-based device tracking}{Goldene image challenge}
 		\begin{columns}
 			\begin{column}{0.33\textwidth}
 				\includegraphics[width=1\textwidth]{./figures/computer_alpha_screen_2_golden.png}
@@ -144,7 +148,7 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Browser-based device tracking}
+	\begin{frame}[fragile]{Browser-based device tracking}{Types of techniques}
 		\begin{itemize}
 			\item \alert{Tagging techniques:} Insert an ID
 			\begin{columns}
@@ -175,7 +179,9 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Source Port Selection}
+  \subsection{Source Port Selection}
+
+	\begin{frame}[fragile]{Source Port Selection}{4-Tuple}
 		\begin{itemize}
 			\item \alert{4-tuple}: $(IP_{Src}, Port_{Src}, IP_{Dest}, Port_{Dest})$
 			\begin{transformation}[0.2][0.6][0.2]
@@ -193,7 +199,7 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Source Port Selection}
+	\begin{frame}[fragile]{Source Port Selection}{Goals}
 		\begin{itemize}
 			\item \alert{Functionality:} Reusing soure ports can cause failures
 			\begin{itemize}
@@ -224,7 +230,7 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Source Port Selection}
+	\begin{frame}[fragile]{Source Port Selection}{Goals}
 		\begin{itemize}
 			\item \alert{Security:}
 			\begin{itemize}
@@ -239,7 +245,9 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
+  \subsection{Double-Hash Port Selection Algorithm (DHPS)}
+
+	\begin{frame}[fragile]{Double-Hash Port Selection Algorithm (DHPS)}{Algorithm Overview}
 		\begin{itemize}
 			\item TCP source ports divided into \alert{ranges}:
 
@@ -268,7 +276,7 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
+	\begin{frame}[fragile]{Double-Hash Port Selection Algorithm (DHPS)}{Algorithm Overview}
 		\begin{itemize}
 			\item \alert{Complete 3-tuple to 4-tuple} with cryptographic keyed-hash functions:
 			\begin{itemize}
@@ -298,7 +306,7 @@
 		% Further increasing the TABLE_LENGTH will increase the unpredictability of the resulting port number, and possibly further decrease the collision rate
 	\end{frame}
 
-	\begin{frame}[fragile]{Introduction}{Double-Hash Port Selection Algorithm (DHPS)}
+	\begin{frame}[fragile]{Double-Hash Port Selection Algorithm (DHPS)}{Pseudocode}
 		\begin{adjustbox}{scale=0.8}
 			\begin{minipage}{0.8\textwidth}
 				\input{../report/share/dhps_algorithm.tex}
@@ -365,14 +373,16 @@
 \ifattack
 	\section{Attack}
 
-	\begin{frame}[fragile]{Attack}{Parties}
+	\subsection{Attack Overview}
+
+	\begin{frame}[fragile]{Attack Overview}{Parties}
 		\centering
 		\begin{adjustbox}{max width=\textwidth}
 			\tikzfig{sequence_diagram_attack} % ./figures/sequence_diagram_attack.tikz
 		\end{adjustbox}
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{2 Types of 3-tuples}
+	\begin{frame}[fragile]{Attack Overview}{2 Types of 3-tuples}
 		\begin{itemize}
 			\item \aalert{Attacker 3-tuples}:
 
@@ -386,7 +396,9 @@
 		\end{tikzpicture}
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{Devide ID}
+	\subsection{Device ID}
+
+	\begin{frame}[fragile]{Devide ID}{Collisions}
 		\begin{itemize}
 			\item Structure formed by \alert{collisions of loopback 3-tuples} via $G_{K_2}$:
 		\end{itemize}
@@ -438,7 +450,7 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{Devide ID}
+	\begin{frame}[fragile]{Devide ID}{Independant pairs}
 		\begin{itemize}
 			\item Consists of set of all such colliding \alert{independant} pairs:
 		\end{itemize}
@@ -484,7 +496,7 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{Device ID}
+	\begin{frame}[fragile]{Device ID}{Why loopback 3-tuples?}
 		\begin{itemize}
 			\item \alert{Attacker 3-tuples} not consistent across \raisebox{-0.2\height}{\includegraphics[scale=0.06]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/networks.png}} % networks % loopback 3-tuples with loopback addresses such as 127.x.x.x are internal to the device and remain stable across networks
 			\item \alert{Loopback 3-tuples} don't have this problem % loopback 3-tuples with loopback addresses such as 127.x.x.x are internal to the device and remain stable across networks
@@ -495,7 +507,9 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{Sandwiching Technique}
+	\subsection{Sandwiching Technique}
+
+	\begin{frame}[fragile]{Sandwiching Technique}{Cannot directly observe collisions}
 		\begin{columns}
 			\begin{column}[t]{0.4\textwidth}
 				\vspace{0cm}
@@ -524,7 +538,7 @@
 		\end{columns}
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{Sandwiching Technique}
+	\begin{frame}[fragile]{Sandwiching Technique}{General principle}
 		\begin{center}
 			\begin{adjustbox}{max height=0.8\textheight, max width=0.8\textwidth}
 				\begin{tblr}{
@@ -626,20 +640,17 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{Sandwiching Technique}
+	\begin{frame}[fragile, t]{Sandwiching Technique}{To consider in practise}
 		\begin{itemize}
-			\item to consider in practise:
-			\begin{itemize}
-				\item \alert{Background noise}
-				%
-				% \includegraphics[width=0.9\textwidth]{./figures/external/noise.pdf} % ./figures/external/noise.tikz
-				\item \alert{Multiple 3-tuples used in steps}
+			\item \alert{Background noise}
 
-				\includegraphics[width=0.9\textwidth]{./figures/external/multiple_3-tuples_used_in_steps.pdf} % ./figures/external/multiple_3-tuples_used_in_steps.tikz
-				\item \alert{Limitations for loopback 3-tuples}
-        %
-				% \includegraphics[width=0.9\textwidth]{./figures/external/4-tuple_not_visible_from_browser.pdf} % ./figures/external/attacker_to_loopback_transitivity.tex
-			\end{itemize}
+			% \includegraphics[width=0.95\textwidth]{./figures/external/noise.pdf} % ./figures/external/noise.tikz
+			\item \alert{Multiple 3-tuples used in steps}
+
+			\includegraphics[width=0.95\textwidth]{./figures/external/multiple_3-tuples_used_in_steps.pdf} % ./figures/external/multiple_3-tuples_used_in_steps.tikz
+			\item \alert{Limitations for loopback 3-tuples}
+
+			% \includegraphics[width=0.95\textwidth]{./figures/external/4-tuple_not_visible_from_browser.pdf} % ./figures/external/attacker_to_loopback_transitivity.tex
 		\end{itemize}
 		% \grid
 	\end{frame}
@@ -647,15 +658,17 @@
 \fi
 
 \ifattackphaseone
-	\begin{frame}[fragile]{Attack}{Phase 1}
-    \vspace{0.5cm}
+	\subsection{Phase 1}
+
+	\begin{frame}[fragile]{Phase 1}{Overview}
+		\vspace{0.5cm}
 
 		\begin{adjustbox}{max width=\textwidth}
 			\tikzfig{phase1} % ./figures/phase1.tikz
 		\end{adjustbox}
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{Phase 1}
+	\begin{frame}[fragile]{Phase 1}{Pseudocode}
 		\begin{center}
 			\begin{adjustbox}{scale=0.7}
 				\input{../report/share/phase1.tex}
@@ -666,15 +679,17 @@
 \fi
 
 \ifattackphasetwo
-	\begin{frame}[fragile]{Attack}{Phase 2}
-    \vspace{0.5cm}
+	\subsection{Phase 2}
+
+	\begin{frame}[fragile]{Phase 2}{Overview}
+		\vspace{0.5cm}
 
 		\begin{adjustbox}{max width=\textwidth}
 			\tikzfig{phase2} % ./figures/phase2.tikz
 		\end{adjustbox}
 	\end{frame}
 
-	\begin{frame}[fragile]{Attack}{Phase 2}
+	\begin{frame}[fragile]{Phase 2}{Pseudocode}
 		\begin{center}
 			\begin{adjustbox}{scale=0.7}
 				\input{../report/share/phase2.tex}
@@ -687,7 +702,12 @@
 \ifcountermeasures
 	\section{Countermeasures}
 
-	\begin{frame}[fragile]{Countermeasures}{Possible solutions}
+	\begin{frame}[fragile]{Countermeasures}{Implemented changes}
+		\begin{itemize}
+			\item \alert{Increase table size $T$}
+			\item \alert{Periodic re-keying}
+			\item \alert{Introduce more noise}
+		\end{itemize}
 	\end{frame}
 \else
 \fi
