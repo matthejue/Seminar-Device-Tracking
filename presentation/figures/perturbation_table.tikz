@@ -41,7 +41,7 @@
 		\node [style=none] (38) at (4.5, -5) {43};
 		\node [style=none] (39) at (7.5, -5) {...};
 		\node [style=none] (40) at (10.5, -5) {1};
-		\node [style=none] (41) at (1.5, -5) {16};
+		\node [style=none] (41) at (1.5, -5) {20};
 		\node [style=none] (43) at (12.5, -2.5) {};
 		\node [style=none] (44) at (12.5, -5.5) {};
 		\node [style=none] (45) at (0, -7) {};
@@ -57,7 +57,7 @@
 		\node [style=none] (55) at (4.5, -8) {43};
 		\node [style=none] (56) at (7.5, -8) {...};
 		\node [style=none] (57) at (10.5, -8) {2};
-		\node [style=none] (58) at (1.5, -8) {16};
+		\node [style=none] (58) at (1.5, -8) {20};
 		\node [style=none] (59) at (12.5, -7.5) {};
 		\node [style=none] (60) at (12.5, 0.5) {};
 		\node [style=none] (61) at (12.5, -1.5) {};

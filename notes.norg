@@ -54,6 +54,7 @@
   - why individual countermeasures necessary? why not one of them enough?
   - was ist der Datentyp der einzelnen Zellen der perturbation table?
   - prüfen, wie das mit den Port ranges wirklich ist, ob sie wirklich disjunkt sind
+  - warum sind off-paths attacks so benannt?
 
 * Darüber noch informieren
   - How Meltdown work, so sind sich beide Verfahren ähnlich?
