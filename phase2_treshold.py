@@ -7,17 +7,24 @@ def is_probability_acceptable(i, n, N, T, verbose=True):
     """
     Checks whether the probability P_D^i(n) is less than the threshold p* = 1 / C(N, 2).
     """
-    if n <= 0 or N < 2 or T <= 0:
-        raise ValueError("Invalid input: Ensure n > 0, N >= 2, and T > 0.")
+    if n < 0 or N < 2 or T <= 0:
+        raise ValueError("Invalid input: Ensure n >= 0, N >= 2, and T > 0.")
 
     if i < n:
         return False
 
-    product_term = 1.0
-    for j in range(i - n):
-        product_term *= (1 - j / T)
+    if n == 0:
+        # P_D^i(0) = ∏_{j=0}^{i-1} (1 - j/T)
+        product_term = 1.0
+        for j in range(i):
+            product_term *= (1 - j / T)
+        P_D_in = product_term
+    else:
+        product_term = 1.0
+        for j in range(i - n):
+            product_term *= (1 - j / T)
+        P_D_in = (1 / T ** n) * product_term
 
-    P_D_in = (1 / T ** n) * product_term
     p_star = 2 / (N * (N - 1))
 
     if verbose:
@@ -31,13 +38,13 @@ def find_minimum_n(i, N, T, n_max=100, verbose=False):
     """
     Finds the smallest n* such that is_probability_acceptable(i, n, N, T) returns True.
     """
-    for n in range(1, n_max + 1):
+    for n in range(0, n_max + 1):  # Now starts from 0
         try:
             if is_probability_acceptable(i, n, N, T, verbose=verbose):
                 return n
         except ValueError:
             continue
-    return 0
+    return None
 
 def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
     """
@@ -56,29 +63,28 @@ def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
     while i <= i_max:
         n_star = find_minimum_n(i, N, T, n_max=n_max, verbose=False)
 
-        # If we encounter n* = 0, flush the last valid range and print 0 row
-        if n_star == 0:
-            if found_first:
-                if range_start is not None and current_n_star is not None:
-                    print(f"{range_start}–{i - 1:<10} | {current_n_star}")
-                print(f"{i:<15} | 0")
-                break
-            else:
-                i += 1
-                continue
+        if n_star is None:
+            i += 1
+            continue
 
         if not found_first:
             current_n_star = n_star
             range_start = i
             found_first = True
+
         elif n_star != current_n_star:
             print(f"{range_start}–{i - 1:<10} | {current_n_star}")
             range_start = i
             current_n_star = n_star
 
+        # If n* = 0, finalize and stop
+        if n_star == 0:
+            print(f"{range_start:<15} | 0")
+            break
+
         i += 1
 
-    # In case loop ends unexpectedly before n* = 0
+    # Fallback flush in case loop ends before n* = 0
     if found_first and current_n_star != 0 and i > range_start:
         print(f"{range_start}–{i - 1:<10} | {current_n_star}")
 
