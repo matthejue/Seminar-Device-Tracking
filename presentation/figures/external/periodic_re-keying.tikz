@@ -121,7 +121,7 @@
 		\node [style=none] (133) at (0.75, 10.5) {};
 		\node [style=none] (134) at (19.25, 8.5) {};
 		\node [style=none] (135) at (19.25, 10.5) {};
-		\node [style=none, align=center] (136) at (43, 9.5) {(for N=100 and T=16)};
+		\node [style=none, align=center] (136) at (41.25, 9.5) {(for N=100 and T=16)};
 		\node [style=none] (137) at (44.5, -1) {\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/index_fog.png}};
 		\node [style=none] (138) at (29.525, 5.025) {};
 		\node [style=none] (139) at (29.525, 5.775) {};

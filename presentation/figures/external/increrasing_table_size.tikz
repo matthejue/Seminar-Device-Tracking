@@ -1,0 +1,85 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, -0.5) {};
+		\node [style=none] (1) at (0, 0) {};
+		\node [style=none] (2) at (2, 0) {};
+		\node [style=none] (3) at (2, -0.5) {};
+		\node [style=none] (4) at (4, -0.5) {};
+		\node [style=none] (5) at (4, 0) {};
+		\node [style=none] (6) at (6, 0) {};
+		\node [style=none] (7) at (6, -0.5) {};
+		\node [style=none] (8) at (8, -0.5) {};
+		\node [style=none] (9) at (8, 0) {};
+		\node [style=none] (10) at (10, -0.5) {};
+		\node [style=none] (11) at (10, 0) {};
+		\node [style=none] (12) at (1, -1) {0};
+		\node [style=none] (13) at (3, -1) {1};
+		\node [style=none] (14) at (5, -1) {...};
+		\node [style=none] (15) at (7, -1) {254};
+		\node [style=none] (16) at (9, -1) {255};
+		\node [style=none] (17) at (12, -0.5) {};
+		\node [style=none] (18) at (12, 0) {};
+		\node [style=none] (19) at (14, 0) {};
+		\node [style=none] (20) at (14, -0.5) {};
+		\node [style=none] (21) at (16, -0.5) {};
+		\node [style=none] (22) at (16, 0) {};
+		\node [style=none] (23) at (18, 0) {};
+		\node [style=none] (24) at (18, -0.5) {};
+		\node [style=none] (25) at (20, -0.5) {};
+		\node [style=none] (26) at (20, 0) {};
+		\node [style=none] (27) at (22, -0.5) {};
+		\node [style=none] (28) at (22, 0) {};
+		\node [style=none] (29) at (13, -1) {0};
+		\node [style=none] (30) at (15, -1) {1};
+		\node [style=none] (31) at (17, -1) {...};
+		\node [style=none] (32) at (19, -1) {65534};
+		\node [style=none] (33) at (21, -1) {65535};
+		\node [style=none] (34) at (5, 3) {\raisebox{-0.2\height}{\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/stopwatch.png}}};
+		\node [style=none] (35) at (17, 3) {\raisebox{-0.2\height}{\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/stopwatch.png}}};
+		\node [style=medium node] (37) at (3, 1.25) {$T_{253}$};
+		\node [style=none] (38) at (5, 1) {...};
+		\node [style=none] (40) at (9, 1) {$T_3$};
+		\node [style=smallest node] (42) at (15, 1.25) {$T_{65534}$};
+		\node [style=none] (43) at (17, 1) {...};
+		\node [style=none] (45) at (21, 1) {$T_1$};
+		\node [style=none] (46) at (6, 3) {};
+		\node [style=none] (47) at (16, 3) {};
+		\node [style=none] (48) at (19, 1) {};
+		\node [style=none] (49) at (19, 0.25) {};
+		\node [style=none] (50) at (7, 1) {};
+		\node [style=none] (51) at (7, 0.25) {};
+		\node [style=none] (52) at (13, 1) {};
+		\node [style=none] (53) at (13, 0.25) {};
+		\node [style=none] (54) at (1, 1) {};
+		\node [style=none] (55) at (1, 0.25) {};
+		\node [style=none] (59) at (1, 1.5) {\raisebox{-0.2\height}{\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/magnifier_glass.png}}};
+		\node [style=none] (60) at (7, 1.5) {\raisebox{-0.2\height}{\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/magnifier_glass.png}}};
+		\node [style=none] (61) at (13, 1.5) {\raisebox{-0.2\height}{\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/magnifier_glass.png}}};
+		\node [style=none] (62) at (19, 1.5) {\raisebox{-0.2\height}{\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/magnifier_glass.png}}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=visiblefill] (1.center)
+			 to (0.center)
+			 to (10.center)
+			 to (11.center)
+			 to cycle;
+		\draw [style=rule] (8.center) to (9.center);
+		\draw [style=rule] (6.center) to (7.center);
+		\draw [style=rule] (3.center) to (2.center);
+		\draw [style=rule] (4.center) to (5.center);
+		\draw [style=visiblefill] (18.center)
+			 to (17.center)
+			 to (27.center)
+			 to (28.center)
+			 to cycle;
+		\draw [style=rule] (25.center) to (26.center);
+		\draw [style=rule] (23.center) to (24.center);
+		\draw [style=rule] (20.center) to (19.center);
+		\draw [style=rule] (21.center) to (22.center);
+		\draw [style=directed dotted edge] (46.center) to node [midway, above] {$\times$ 256 longer} (47.center);
+		\draw [style=directed edge] (48.center) to (49.center);
+		\draw [style=directed edge] (50.center) to (51.center);
+		\draw [style=directed edge] (52.center) to (53.center);
+		\draw [style=directed edge] (54.center) to (55.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

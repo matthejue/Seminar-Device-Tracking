@@ -71,7 +71,7 @@
 \ifintroduction
 	\section{Introduction}
 
-  \subsection{Motivation}
+	\subsection{Motivation}
 
 	\begin{frame}[fragile]{Motivation}{Meltdown and Spectre}
 		\begin{columns}
@@ -107,7 +107,7 @@
 		\end{columns}
 	\end{frame}
 
-  \subsection{Browser-based device tracking}
+	\subsection{Browser-based device tracking}
 
 	\begin{frame}[fragile]{Browser-based device tracking}{Definition and Problem}
 		\begin{transformation}
@@ -179,7 +179,7 @@
 		% \grid
 	\end{frame}
 
-  \subsection{Source Port Selection}
+	\subsection{Source Port Selection}
 
 	\begin{frame}[fragile]{Source Port Selection}{4-Tuple}
 		\begin{itemize}
@@ -245,7 +245,7 @@
 		\end{itemize}
 	\end{frame}
 
-  \subsection{Double-Hash Port Selection Algorithm (DHPS)}
+	\subsection{Double-Hash Port Selection Algorithm (DHPS)}
 
 	\begin{frame}[fragile]{Double-Hash Port Selection Algorithm (DHPS)}{Algorithm Overview}
 		\begin{itemize}
@@ -702,23 +702,25 @@
 \ifcountermeasures
 	\section{Countermeasures}
 
-	\subsection{Discussion of countermeasures}
+	\subsection{Countermeasures Overview}
 
-	\begin{frame}[fragile]{Discussion of countermeasures}{Root cause and ideal solution}
-    \begin{itemize}
-      \item 
-    \end{itemize}
+	\begin{frame}[fragile]{Countermeasures Overview}{Root cause and ideal solution}
+		\begin{itemize}
+			\item
+		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Discussion of countermeasures}{Implemented changes}
+	\begin{frame}[fragile]{Countermeasures Overview}{Implemented changes}
 		\begin{itemize}
-      \item \alert{Periodic re-keying}: Every $10$ seconds
+			\item \alert{Periodic re-keying}: Every $10$ seconds
 
-        % \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
-			\item \alert{Increase table size $T$}: From $256$ to $64KiB$
+			% \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
+      \item \alert{Increase table size $T$}: From $256$ to $64\,\text{KiB}$
 
-        % \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
-			\item \alert{Introduce more noise}: Each increment $rand(1, 8)$
+			\includegraphics[width=0.95\textwidth]{./figures/external/increasing_table_size.pdf} % ./figures/external/increrasing_table_size.tikz
+			\item \alert{Introduce more noise}: Each increment randomly between 1 and 8
+
+			% \includegraphics[width=0.95\textwidth]{./figures/external/introduce_more_noise.pdf} % ./figures/external/introduce_more_noise.tikz
 		\end{itemize}
 	\end{frame}
 \else
