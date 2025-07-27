@@ -3,16 +3,16 @@
 % \beamerfalse
 
 \newif\ifintroduction
-\introductiontrue
-% \introductionfalse
+% \introductiontrue
+\introductionfalse
 
 \newif\ifattack
-\attacktrue
-% \attackfalse
+% \attacktrue
+\attackfalse
 
 \newif\ifattackphaseone
-% \attackphaseonetrue
-\attackphaseonefalse
+\attackphaseonetrue
+% \attackphaseonefalse
 
 \newif\ifattackphasetwo
 % \attackphasetwotrue
@@ -631,13 +631,16 @@
 		\item to consider in practise:
 		\begin{itemize}
 			\item \alert{Background noise}
-
+			%
 			% \includegraphics[width=0.9\textwidth]{./figures/external/noise.pdf} % ./figures/external/noise.tikz
 			\item \alert{Multiple 3-tuples used in steps}
+			%
 			% \includegraphics[width=0.9\textwidth]{./figures/external/multiple_3-tuples_used_in_steps.pdf} % ./figures/external/multiple_3-tuples_used_in_steps.tikz
 			\item \alert{Limitations for loopback 3-tuples}
+          \includegraphics[width=0.9\textwidth]{./figures/external/4-tuple_not_visible_from_browser.pdf} % ./figures/external/attacker_to_loopback_transitivity.tex
 		\end{itemize}
 	\end{itemize}
+	% \grid
 \end{frame}
 
 \ifattackphaseone

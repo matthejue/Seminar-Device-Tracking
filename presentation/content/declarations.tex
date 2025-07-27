@@ -249,6 +249,11 @@
 % └───────┘
 \newcommand{\cmt}[1]{\textcolor[gray]{0.7}{\textnormal{#1}}}
 
+\newcommand{\printtextwidth}{\printinunitsof{cm}\prntlen{\textwidth}}
+\newcommand{\printlinewidth}{\printinunitsof{cm}\prntlen{\linewidth}}
+
+\newcommand{\showtextwidth}{\rule{\textwidth}{1pt}}
+\newcommand{\showlinewidth}{\rule{\linewidth}{1pt}}
 
 \newcommand{\grid}{
 	\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]

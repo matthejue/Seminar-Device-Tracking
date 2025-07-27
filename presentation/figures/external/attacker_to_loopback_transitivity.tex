@@ -1,0 +1,34 @@
+\documentclass{standalone}
+
+\usepackage{amsmath}
+
+\begin{document}
+\begin{minipage}{19.8cm}
+\[
+	\begin{aligned}
+		 &
+		\begin{aligned}
+			 & \begin{array}{c}
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_1 \bigr) \\[0.3em]
+				   =                                                                                                                             \\[0.3em]
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 192.0.2.123,\ \text{IP}_{\text{Dst}} = 203.0.113.10,\ \text{Port}_{\text{Dest}} = y \bigr)
+			   \end{array}
+			\\[1em]
+			 & \begin{array}{c}
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_2 \bigr) \\[0.3em]
+				   =                                                                                                                             \\[0.3em]
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 192.0.2.123,\ \text{IP}_{\text{Dst}} = 203.0.113.10,\ \text{Port}_{\text{Dest}} = y \bigr)
+			   \end{array}
+		\end{aligned}
+		\Longrightarrow
+		\begin{aligned}
+			 & \begin{array}{c}
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_1 \bigr) \\[0.3em]
+				   =                                                                                                                             \\[0.3em]
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_2 \bigr)
+			   \end{array}
+		\end{aligned}
+	\end{aligned}
+\]
+\end{minipage}
+\end{document}
