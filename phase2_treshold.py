@@ -1,23 +1,17 @@
 #!/usr/bin/env python3
 
 import math
-import argparse
+import sys
 
-def is_probability_acceptable(i, n, N, T):
+def is_probability_acceptable(i, n, N, T, verbose=True):
     """
     Checks whether the probability P_D^i(n) is less than the threshold p* = 1 / C(N, 2).
-
-    Parameters:
-    - i: Number of iterations
-    - n: Number of collisions
-    - N: Number of devices
-    - T: Length of perturbation
-
-    Returns:
-    - True if P_D^i(n) < p*, False otherwise.
     """
-    if n <= 0 or N < 2 or i < n or T <= 0:
-        raise ValueError("Invalid input: Ensure i >= n, n > 0, N >= 2, and T > 0.")
+    if n <= 0 or N < 2 or T <= 0:
+        raise ValueError("Invalid input: Ensure n > 0, N >= 2, and T > 0.")
+
+    if i < n:
+        return False
 
     product_term = 1.0
     for j in range(i - n):
@@ -26,64 +20,93 @@ def is_probability_acceptable(i, n, N, T):
     P_D_in = (1 / T ** n) * product_term
     p_star = 2 / (N * (N - 1))
 
-    print(f"P_D^{i}({n}) = {P_D_in:.5e}")
-    print(f"p* = {p_star:.5e}")
+    if verbose:
+        print(f"P_D^{i}({n}) = {P_D_in:.5e}")
+        print(f"p*           = {p_star:.5e}")
+        print(f"P_D^{i}({n}) < p* ? → {P_D_in < p_star}\n")
 
     return P_D_in < p_star
 
-def find_minimum_n(i, N, T, n_start=1, n_max=100):
+def find_minimum_n(i, N, T, n_max=100, verbose=False):
     """
-    Finds the smallest n (n*) for which is_probability_acceptable returns True.
-
-    Parameters:
-    - i: Number of iterations
-    - N: Number of devices
-    - T: Length of perturbation
-    - n_start: Starting value of n to test
-    - n_max: Maximum n to try before giving up
-
-    Returns:
-    - n*: Minimum n such that is_probability_acceptable(i, n, N, T) == True
-    - None if no suitable n is found in the range
+    Finds the smallest n* such that is_probability_acceptable(i, n, N, T) returns True.
     """
-    for n in range(n_start, min(i + 1, n_max + 1)):
+    for n in range(1, n_max + 1):
         try:
-            if is_probability_acceptable(i, n, N, T):
-                print(f"n* = {n}")
+            if is_probability_acceptable(i, n, N, T, verbose=verbose):
                 return n
         except ValueError:
             continue
-    print("No suitable n found within range.")
-    return None
+    return 0
+
+def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
+    """
+    Generates a table of i-ranges where the minimum n* value is constant.
+    Stops when n* = 0 or i reaches i_max.
+    """
+    found_first = False
+    i = i_start
+
+    print("\n--- n* Table (constant ranges) ---")
+    print(f"{'i-range':<15} | n*")
+    print("-" * 27)
+
+    while i <= i_max:
+        n_star = find_minimum_n(i, N, T, n_max=n_max, verbose=False)
+
+        if n_star == 0:
+            if found_first:
+                print(f"{i:<15} | 0")
+                break
+            else:
+                i += 1
+                continue
+
+        if not found_first:
+            current_n_star = n_star
+            range_start = i
+            found_first = True
+
+        elif n_star != current_n_star:
+            print(f"{range_start}–{i - 1:<10} | {current_n_star}")
+            range_start = i
+            current_n_star = n_star
+
+        i += 1
+
+    if found_first and current_n_star != 0:
+        print(f"{range_start}–{i - 1:<10} | {current_n_star}")
+
+    print("-------------------------------")
 
 def main():
-    parser = argparse.ArgumentParser(description="Check whether P_D^i(n) < p* = 1 / C(N, 2)")
-    parser.add_argument("i", type=int, help="Number of iterations")
-    parser.add_argument("n", type=int, help="Number of collisions")
-    parser.add_argument("N", type=int, help="Number of devices")
-    parser.add_argument("T", type=int, help="Length of perturbation")
-    parser.add_argument("-m", "--minimize", action="store_true", help="Find the minimum n (n*) for which the function becomes acceptable")
+    args = sys.argv[1:]
 
-    args = parser.parse_args()
+    if len(args) == 4:
+        # Single test mode: i n N T
+        i, n, N, T = map(int, args)
 
-    # Print parameter assignment
-    print("\n--- Parameter Assignment ---")
-    print(f"i  (iterations)         = {args.i}")
-    print(f"n  (collisions)         = {args.n}")
-    print(f"N  (number of devices)  = {args.N}")
-    print(f"T  (perturbation length)= {args.T}")
-    print(f"Minimize search         = {args.minimize}")
-    print("-----------------------------\n")
+        print("\n--- Parameter Assignment ---")
+        print(f"i  (iterations)         = {i}")
+        print(f"n  (collisions)         = {n}")
+        print(f"N  (number of devices)  = {N}")
+        print(f"T  (perturbation length)= {T}")
+        print("-----------------------------\n")
 
-    try:
-        if args.minimize:
-            find_minimum_n(args.i, args.N, args.T)
-        else:
-            result = is_probability_acceptable(args.i, args.n, args.N, args.T)
-            print("Result:", result)
-    except ValueError as e:
-        print("Error:", e)
+        try:
+            is_probability_acceptable(i, n, N, T, verbose=True)
+        except ValueError as e:
+            print("Error:", e)
+
+    elif len(args) == 2:
+        # Table generation mode: N T
+        N, T = map(int, args)
+        generate_n_star_table(N, T)
+
+    else:
+        print("Usage:")
+        print("  ./phase2_treshold.py i n N T       → check if P_D^i(n) < p*")
+        print("  ./phase2_treshold.py N T           → generate n* table")
 
 if __name__ == "__main__":
     main()
-
