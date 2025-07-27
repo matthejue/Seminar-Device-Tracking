@@ -46,6 +46,8 @@ def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
     """
     found_first = False
     i = i_start
+    current_n_star = None
+    range_start = None
 
     print("\n--- n* Table (constant ranges) ---")
     print(f"{'i-range':<15} | n*")
@@ -54,8 +56,11 @@ def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
     while i <= i_max:
         n_star = find_minimum_n(i, N, T, n_max=n_max, verbose=False)
 
+        # If we encounter n* = 0, flush the last valid range and print 0 row
         if n_star == 0:
             if found_first:
+                if range_start is not None and current_n_star is not None:
+                    print(f"{range_start}–{i - 1:<10} | {current_n_star}")
                 print(f"{i:<15} | 0")
                 break
             else:
@@ -66,7 +71,6 @@ def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
             current_n_star = n_star
             range_start = i
             found_first = True
-
         elif n_star != current_n_star:
             print(f"{range_start}–{i - 1:<10} | {current_n_star}")
             range_start = i
@@ -74,7 +78,8 @@ def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
 
         i += 1
 
-    if found_first and current_n_star != 0:
+    # In case loop ends unexpectedly before n* = 0
+    if found_first and current_n_star != 0 and i > range_start:
         print(f"{range_start}–{i - 1:<10} | {current_n_star}")
 
     print("-------------------------------")
