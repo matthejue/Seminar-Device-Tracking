@@ -6,7 +6,7 @@ import argparse
 def is_probability_acceptable(i, n, N, T):
     """
     Checks whether the probability P_D^i(n) is less than the threshold p* = 1 / C(N, 2).
-    
+
     Parameters:
     - i: Number of iterations
     - n: Number of collisions
@@ -19,7 +19,6 @@ def is_probability_acceptable(i, n, N, T):
     if n <= 0 or N < 2 or i < n or T <= 0:
         raise ValueError("Invalid input: Ensure i >= n, n > 0, N >= 2, and T > 0.")
 
-    # Compute product term ∏_{j=0}^{i - n - 1} (1 - j/T)
     product_term = 1.0
     for j in range(i - n):
         product_term *= (1 - j / T)
@@ -29,8 +28,33 @@ def is_probability_acceptable(i, n, N, T):
 
     print(f"P_D^{i}({n}) = {P_D_in:.5e}")
     print(f"p* = {p_star:.5e}")
-    
+
     return P_D_in < p_star
+
+def find_minimum_n(i, N, T, n_start=1, n_max=100):
+    """
+    Finds the smallest n (n*) for which is_probability_acceptable returns True.
+
+    Parameters:
+    - i: Number of iterations
+    - N: Number of devices
+    - T: Length of perturbation
+    - n_start: Starting value of n to test
+    - n_max: Maximum n to try before giving up
+
+    Returns:
+    - n*: Minimum n such that is_probability_acceptable(i, n, N, T) == True
+    - None if no suitable n is found in the range
+    """
+    for n in range(n_start, min(i + 1, n_max + 1)):
+        try:
+            if is_probability_acceptable(i, n, N, T):
+                print(f"n* = {n}")
+                return n
+        except ValueError:
+            continue
+    print("No suitable n found within range.")
+    return None
 
 def main():
     parser = argparse.ArgumentParser(description="Check whether P_D^i(n) < p* = 1 / C(N, 2)")
@@ -38,14 +62,28 @@ def main():
     parser.add_argument("n", type=int, help="Number of collisions")
     parser.add_argument("N", type=int, help="Number of devices")
     parser.add_argument("T", type=int, help="Length of perturbation")
+    parser.add_argument("-m", "--minimize", action="store_true", help="Find the minimum n (n*) for which the function becomes acceptable")
 
     args = parser.parse_args()
 
+    # Print parameter assignment
+    print("\n--- Parameter Assignment ---")
+    print(f"i  (iterations)         = {args.i}")
+    print(f"n  (collisions)         = {args.n}")
+    print(f"N  (number of devices)  = {args.N}")
+    print(f"T  (perturbation length)= {args.T}")
+    print(f"Minimize search         = {args.minimize}")
+    print("-----------------------------\n")
+
     try:
-        result = is_probability_acceptable(args.i, args.n, args.N, args.T)
-        print("Result:", result)
+        if args.minimize:
+            find_minimum_n(args.i, args.N, args.T)
+        else:
+            result = is_probability_acceptable(args.i, args.n, args.N, args.T)
+            print("Result:", result)
     except ValueError as e:
         print("Error:", e)
 
 if __name__ == "__main__":
     main()
+
