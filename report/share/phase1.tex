@@ -2,20 +2,20 @@
 
 \begin{algorithm}{\pr{Finding Attacker 3-Tuple per Cell (Phase 1)}}{\thetcbcounter}\label{alg:phase1}
 	\begin{pseudo}[indent-mark,kw,hl-warn=false]
-    procedure \cn{SendBurst}(\tt{X})\\+
+    procedure \cn{SendBurst}\tn{(}\tt{X}\tn{)}\\+
     for all \tt{x} $\in$ \tt{X} do\\+
-\cn{AttemptConnectTCP}(\tt{x})\\--
-procedure \cn{GetSourcePorts}(\tt{U})\\+
-\cn{SendBurst}(\tt{U})\\
-\tt{R} $\leftarrow$ \cn{ReceiveAttackerTupleToPortMap}()\\
+\cn{AttemptConnectTCP}\tn{(}\tt{x}\tn{)}\\--
+procedure \cn{GetSourcePorts}\tn{(}\tt{U}\tn{)}\\+
+\cn{SendBurst}\tn{(}\tt{U}\tn{)}\\
+\tt{R} $\leftarrow$ \cn{ReceiveAttackerTupleToPortMap}\tn{()}\\
 return \tt{R}\\-
 procedure \cn{Phase1}\\+
 \tt{S'} $\leftarrow\emptyset$\\
 while $|\tt{S'}| < \tt{T}$ do\\+
-$\tt{S}$ $\leftarrow$ \cn{GetNewExternalDestinations}()\\
-\tt{P} $\leftarrow$ \cn{GetSroucePorts}($\tt{S}$) \cmt{// 1st burst}\\
-\cn{SendBurst}(\tt{S'}) \cmt{// 2nd burst}\\
-\tt{P'} $\leftarrow$ \cn{GetSourcePorts}($\tt{S}$) \cmt{// 3rd burst}\\
+$\tt{S}$ $\leftarrow$ \cn{GetNewExternalDestinations}\tn{()}\\
+\tt{P} $\leftarrow$ \cn{GetSroucePorts}\tn{(}$\tt{S}$\tn{)} \cmt{// 1st burst}\\
+\cn{SendBurst}\tn{(}\tt{S'}\tn{)} \cmt{// 2nd burst}\\
+\tt{P'} $\leftarrow$ \cn{GetSourcePorts}\tn{(}$\tt{S}$\tn{)} \cmt{// 3rd burst}\\
 \tt{S'} $\leftarrow \tt{S'} \cup \{x\,|\,\tt{P'}(x)-\tt{P}(x)=1\}$\\-
 return \tt{S'}
 	\end{pseudo}

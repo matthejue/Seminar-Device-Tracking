@@ -64,10 +64,10 @@
 		\node [style=none, anchor=west] (125) at (15.25, 3.6) {(192.0.2.2, 203.0.113.10, 5'000)};
 		\node [style=none, anchor=west] (126) at (15.25, 2.1) {(192.0.2.2, 203.0.113.10, 7'000)};
 		\node [style=none] (127) at (27, 9.35) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
-		\node [style=none] (128) at (27, 1.85) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
-		\node [style=none] (129) at (27, 2.6) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
-		\node [style=none] (130) at (27, 3.35) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
-		\node [style=none] (131) at (27, 1.1) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (128) at (27, 2.1) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (129) at (27, 2.85) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (130) at (27, 3.6) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (131) at (27, 1.35) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
 		\node [style=none] (132) at (27, 6.1) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
 		\node [style=none] (133) at (27, 6.85) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
 		\node [style=none] (134) at (27, 7.6) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};

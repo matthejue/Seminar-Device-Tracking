@@ -4,17 +4,17 @@
 	\begin{pseudo}[indent-mark,kw,hl-warn=false]
 		procedure \cn{SelectEphemeralPort} \\+
 		\tt{num\_ephemeral} $\leftarrow \tt{max\_ephemeral} - \tt{min\_ephemeral}+\tn{1}$ \\
-    \tt{offset} $\leftarrow$ $\cn{F}_{K_1}$($\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$) \\
-    \tt{index} $\leftarrow$ $\cn{G}_{K_2}$($\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$) \\
+    \tt{offset} $\leftarrow$ $\cn{F}_{K_1}$\tn{(}$\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$\tn{)} \\
+    \tt{index} $\leftarrow$ $\cn{G}_{K_2}$\tn{(}$\tt{IP}_{SRC}$,$\tt{IP}_{DST}$,$\tt{PORT}_{DST}$\tn{)} \\
 		\tt{count} $\leftarrow$ \tt{num\_ephemeral} \\
 		repeat \\+
-		$\tt{port}$ $\leftarrow$ $\tt{min\_ephemeral}$+\\+
+		$\tt{port}$ $\leftarrow$ $\tt{min\_ephemeral}$ $+$\\+
 		$((\tt{offset}+\tt{table[index]})$ $mod$ $\tt{num\_ephemeral})$ \\-
 		$\tt{table[index]}$ $\leftarrow$ $\tt{table[index]} +\tn{1}$ \\
-		if \cn{CheckSuitablePort}(\tt{port}) then \\+
+		if \cn{CheckSuitablePort}\tn{(}\tt{port}\tn{)} then \\+
 		return \tt{port} \\-
 		$\tt{count} $\leftarrow$ \tt{count} - \tn{1}$ \\-
-		until \tt{count} = \tn{0} \\
+		until \tt{count} $=$ \tn{0} \\
 		return \tt{Error}\\
 	\end{pseudo}
 \end{algorithm}
