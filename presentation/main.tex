@@ -708,27 +708,15 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Phase 2}{Termination condition}
-		\begin{center}
-			\begin{adjustbox}{max width=\textwidth}
-				\begin{minipage}[t]{\textwidth}
-					\[
-						\underbrace{
-							P_D^l(n)
-							=
-							\frac{1}{T^n}
-							\cdot
-							\prod_{j=0}^{l - n - 1}
-							\left(1 - \frac{j}{T}\right)
-						}_{\text{probability that a random device yields same device ID as device D}}
-						\;<\;
-						\underbrace{
-							p^* = \frac{1}{\binom{N}{2}}
-						}_{\text{threshold acceptance probability}}
-					\]
-				\end{minipage}
-			\end{adjustbox}
-		\end{center}
+    \vspace{0.2cm}
+
+    \includegraphics[width=0.95\textwidth]{./figures/external/termination_formula_explained.pdf}
+    % \begin{itemize}
+    %   \item balls in buckets problem, but buckets cannot be mapped between devices, can only see which balls fall into same bucket
+    %   \item probability does not depend on the structure (how many balls go into each of the buckets), it only depends on the total number of independent collisions, n
+    % \end{itemize}
 	\end{frame}
+
 	\begin{frame}[fragile]{Phase 2}{Termination condition}
 		\begin{center}
 			\tikzfig{termination_table} % ./figures/termination_table.tikz
