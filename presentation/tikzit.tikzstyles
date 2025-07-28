@@ -22,10 +22,14 @@
 
 % Edge styles
 \tikzstyle{directed edge}=[->, draw={rgb,255: red,237; green,135; blue,13}, very thick]
+\tikzstyle{directed edge 2}=[->, draw={rgb,255: red,246; green,175; blue,61}, very thick]
+\tikzstyle{increase}=[->, draw={rgb,255: red,99; green,141; blue,58}, ultra thick]
+\tikzstyle{decrease}=[->, draw={rgb,255: red,222; green,50; blue,9}, ultra thick]
 \tikzstyle{both direction directed edge}=[<->, draw={rgb,255: red,237; green,135; blue,13}, very thick]
 \tikzstyle{invisbile edge}=[-, draw=none]
 \tikzstyle{directed dotted edge}=[draw={rgb,255: red,237; green,135; blue,13}, ->, dashed, very thick]
 \tikzstyle{rule}=[-, draw={rgb,255: red,237; green,135; blue,13}, very thick]
+\tikzstyle{rule 2}=[-, draw={rgb,255: red,246; green,175; blue,61}, very thick]
 \tikzstyle{shallowfill}=[-, fill={rgb,255: red,246; green,219; blue,176}, draw={rgb,255: red,237; green,135; blue,13}, very thick]
 \tikzstyle{visiblefill}=[-, draw={rgb,255: red,237; green,135; blue,13}, fill={rgb,255: red,237; green,197; blue,149}, very thick]
 \tikzstyle{new edge style 0}=[-, draw={rgb,255: red,246; green,219; blue,176}, very thick]

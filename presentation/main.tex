@@ -19,8 +19,8 @@
 % \attackphasetwofalse
 
 \newif\ifcountermeasures
-% \countermeasurestrue
-\countermeasuresfalse
+\countermeasurestrue
+% \countermeasuresfalse
 
 \newif\ifappendix
 % \appendixtrue
@@ -720,42 +720,70 @@
 	\begin{frame}[fragile]{Phase 2}{Termination condition}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-
+				\includegraphics[width=\textwidth]{./figures/external/independant_pairs_2.pdf}
 			\end{column}
 			\begin{column}{0.5\textwidth}
 				\begin{itemize}
 					% \item balls in buckets problem, but buckets cannot be mapped between devices, can only see which balls fall into same bucket
 					\item can only see which balls fall into same bucket
 					% \item probability does not depend on the structure (how many balls go into each of the buckets), it only depends on the total number of independent collisions, n
-					\item probability only depends on \alert{total number of independent collisions}
+					\item probability \alert{only} depends on \alert{total number of independent collisions}
 				\end{itemize}
 			\end{column}
 		\end{columns}
 		\begin{itemize}
 			\item \alert{Correlations}:
 			\begin{itemize}
-				\item increase $i$ \alert{$\Rightarrow$} $P^i_D(n)$ decreases \alert{$\Rightarrow$} $P^i_D(n) < p^*$ closer to being satisfied % closer to termination
-				\item increase $n$ \alert{$\Rightarrow$} $P^i_D(n)$ decreases \alert{$\Rightarrow$} $P^i_D(n) < p^*$ closer to being satisfied % closer to termination
+				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ closer to being satisfied % closer to termination
+				\vspace{-0.4cm}
+
+				\includegraphics[width=0.95\textwidth]{./figures/external/increase_i.pdf} % ./figures/external/increase_i.tikz
+				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ closer to being satisfied % closer to termination
+				\vspace{-0.4cm}
+
+				\includegraphics[width=0.95\textwidth]{./figures/external/increase_n.pdf} % ./figures/external/increase_n.tikz
 			\end{itemize}
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}[fragile]{Phase 2}{Termination condition}
-		\begin{center}
-			\tikzfig{termination_table} % ./figures/termination_table.tikz
-		\end{center}
-		\[
-			n^*[i]
-			=
-			\min
-			\left\{
-			n
-			\;\middle|\;
-			P_D^i(n)
-			<
-			p^*
-			\right\}.
-		\]
+		% \begin{center}
+		% 	\tikzfig{termination_table} % ./figures/termination_table.tikz
+		% \end{center}
+		\begin{columns}
+      \begin{column}[t]{0.6\textwidth}
+        \vspace{0cm}
+
+				\includegraphics[width=\textwidth]{./figures/external/termination_table.pdf} % ./figures/external/termination_table.tikz
+
+			\end{column}
+      \begin{column}[t]{0.4\textwidth}
+        \vspace{0cm}
+
+				\begin{itemize}
+					\item precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P_D^i(n) < p^* \right\}\)
+          \item \(n \ge n^*[i]\) replaces \(P_D^i(n) < p^*\)
+					\item[\alert{$\Rightarrow$}] avoid repeated computation
+				\end{itemize}
+        \vspace{0.2cm}
+        \centering
+
+				\begin{tblr}{
+						colspec = {|c|c|},
+						hlines,
+						vlines,
+						row{1} = {bg=PrimaryColor, fg=white, font=\bfseries},  % Header row: bold, white text, colored background
+						row{2-Z} = {bg=SecondaryColorDimmed},                  % Other rows: dimmed background
+					}
+					i-range & n$^*$[i] \\
+					4--5    & 4        \\
+					6--11   & 3        \\
+					12--12  & 2        \\
+					13--13  & 1        \\
+					14      & 0        \\
+				\end{tblr}
+			\end{column}
+		\end{columns}
 	\end{frame}
 \else
 \fi
@@ -783,7 +811,7 @@
 
 	\begin{frame}[fragile]{Countermeasures Overview}{General countermeasures}
 		\begin{itemize}
-			\item make \alert{\Large $\uparrow$}\raisebox{-0.2\height}{\includegraphics[width=0.03\textwidth]{./figures/weight.png}} and \alert{\Large $\downarrow$}\raisebox{-0.2\height}{\includegraphics[width=0.04\textwidth]{./figures/dices.png}}  for detecting hash collisions
+			\item make detecting hash collisions \,{\thickuparrow}\,\raisebox{-0.2\height}{\includegraphics[width=0.03\textwidth]{./figures/weight.png}} and \,{\thickdownarrow}\,\raisebox{-0.2\height}{\includegraphics[width=0.04\textwidth]{./figures/dices.png}}
 			\begin{itemize}
 				\item \alert{make it more time intensive}:
 
@@ -800,10 +828,10 @@
 		\begin{itemize}
 			\item \alert{Periodic re-keying}: Every $10$ seconds
 
-			% \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
+			\includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
 			\item \alert{Increase table size $T$}: From $256$ to $64\,\text{KiB}$
 
-			\includegraphics[width=0.95\textwidth]{./figures/external/increasing_table_size.pdf} % ./figures/external/increrasing_table_size.tikz
+			% \includegraphics[width=0.95\textwidth]{./figures/external/increasing_table_size.pdf} % ./figures/external/increrasing_table_size.tikz
 			\item \alert{Introduce more noise}: Each increment randomly between 1 and 8
 
 			% \includegraphics[width=0.95\textwidth]{./figures/external/introduce_more_noise.pdf} % ./figures/external/introduce_more_noise.tikz

@@ -36,12 +36,12 @@
 		\node [style=none] (33) at (21, -1) {65535};
 		\node [style=none] (34) at (5, 4.75) {\raisebox{-0.2\height}{\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/stopwatch.png}}};
 		\node [style=none] (35) at (17, 4.75) {\raisebox{-0.2\height}{\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/stopwatch.png}}};
-		\node [style=medium node] (37) at (3, 1.25) {$T_{253}$};
+		\node [style=attacker node] (37) at (3, 1.25) {\textcolor{white}{$T_{253}$}};
 		\node [style=none] (38) at (5, 1) {...};
-		\node [style=medium node] (40) at (9, 1.25) {$T_3$};
-		\node [style=smallest node] (42) at (15, 1.25) {$T_{65534}$};
+		\node [style=attacker node] (40) at (9, 1.25) {\textcolor{white}{$T_3$}};
+		\node [style=attacker node] (42) at (15, 1.25) {\textcolor{white}{$T_{65534}$}};
 		\node [style=none] (43) at (17, 1) {...};
-		\node [style=medium node] (45) at (21, 1.25) {$T_1$};
+		\node [style=attacker node] (45) at (21, 1.25) {\textcolor{white}{$T_1$}};
 		\node [style=none] (46) at (6, 4.75) {};
 		\node [style=none] (47) at (16, 4.75) {};
 		\node [style=none] (48) at (19, 1) {};

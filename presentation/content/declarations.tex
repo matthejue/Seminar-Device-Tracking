@@ -315,3 +315,11 @@
 		};
 	\end{tikzpicture}
 }
+
+\newcommand{\thickuparrow}{%
+  \tikz[baseline=-0.5ex, line width=2pt, ->, >=angle 60] \draw[Increase] (0,-0.2) -- (0,0.3);%
+}
+
+\newcommand{\thickdownarrow}{%
+  \tikz[baseline=-0.5ex, line width=2pt, ->, >=angle 60] \draw[Decrease] (0,0.3) -- (0,-0.2);%
+}

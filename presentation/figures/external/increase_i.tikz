@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {\includegraphics[scale=1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/external/probability_formula.pdf}};
+		\node [style=none] (1) at (-0.3, 0.25) {};
+		\node [style=none] (2) at (-0.3, 0.75) {};
+		\node [style=none] (3) at (0.2, 0.75) {};
+		\node [style=none] (4) at (0.2, 0.25) {};
+		\node [style=none] (5) at (5, -0.25) {};
+		\node [style=none] (6) at (7, -0.25) {};
+		\node [style=none] (7) at (8.5, -0.25) {};
+		\node [style=none, anchor=west] (8) at (7.5, -0.25) {multiply number $<1$ more often};
+		\node [style=none] (9) at (18, -0.25) {};
+		\node [style=none] (10) at (20, -0.25) {};
+		\node [style=none] (11) at (21.5, -0.25) {$P^i_D(n)$};
+		\node [style=none] (12) at (22.775, 0.175) {};
+		\node [style=none] (13) at (22.775, -0.575) {};
+		\node [style=none] (14) at (23.525, -0.325) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=rule] (2.center) to (3.center);
+		\draw [style=rule] (4.center) to (3.center);
+		\draw [style=rule] (4.center) to (1.center);
+		\draw [style=rule] (1.center) to (2.center);
+		\draw [style=directed edge] (5.center) to (6.center);
+		\draw [style=directed edge] (9.center) to (10.center);
+		\draw [style=decrease] (12.center) to (13.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
