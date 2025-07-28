@@ -1,0 +1,6 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (1, 1) {\includegraphics[scale=0.2]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/program_execution.png}};
+		\node [style=none] (1) at (5, 1) {\includegraphics[scale=0.2]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/stopwatch.png}};
+	\end{pgfonlayer}
+\end{tikzpicture}

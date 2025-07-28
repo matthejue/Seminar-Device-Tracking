@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 1) {};
+		\node [style=none] (1) at (0, -1) {};
+		\node [style=none] (2) at (0, 0) {};
+		\node [style=none] (3) at (10, 0) {};
+		\node [style=none] (4) at (10, 1) {};
+		\node [style=none] (5) at (10, -1) {};
+		\node [style=none] (6) at (5, 1.75) {\includegraphics[scale=0.2]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/stopwatch.png}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=rule] (1.center) to (0.center);
+		\draw [style=rule] (5.center) to (4.center);
+		\draw [style=rule] (3.center) to (2.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
