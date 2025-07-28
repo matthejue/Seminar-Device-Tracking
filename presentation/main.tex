@@ -11,8 +11,8 @@
 \attackfalse
 
 \newif\ifattackphaseone
-% \attackphaseonetrue
-\attackphaseonefalse
+\attackphaseonetrue
+% \attackphaseonefalse
 
 \newif\ifattackphasetwo
 \attackphasetwotrue
@@ -736,6 +736,32 @@
 			\draw[thick, draw=PrimaryColor] (1.35cm,2.85) rectangle (3.4cm,3.25cm);
 			\draw[thick, draw=PrimaryColor] (1.35cm,0.9) rectangle (2.55cm,1.2cm);
 		\end{tikzpicture}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\node[anchor=north west, text width=5.5cm] at (8.5cm, 7cm) {%
+				\scriptsize
+				\begin{itemize}
+					\item $S$: New \alert{candidate attacker 3-tuples}
+					\item $S'$: \alert{Unique attacker 3-tuples} found so far ($\emptyset$ at the beginning)%, maximal $T$ attacker 3-tuples) % quiz question!!!
+					\item $P, P'$: Function for all new candiate attacker 3-tuples in 1st ($P$) and 2nd wrapper ($P'$) a TCP-SYN mapping $(IP_{Src}, IP_{Dest}, Port_{Dest})\mapsto Port_{Src}$
+					\item $x$: \alert{Candidate attacker 3-tuple}
+				\end{itemize}
+
+				\begin{center}
+					\vspace{-0.1cm}
+					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				\end{center}
+
+				\begin{itemize}
+					\item 3-tuples only incremeted by 1
+					\begin{itemize}
+						\item[$\Rightarrow$] Does \alert{not collide} with \alert{unique attacer 3-tuples} found so far, else increment $>1$
+						\item[$\Rightarrow$] \alert{First} to map to a certain table cell
+					\end{itemize}
+				\end{itemize}
+
+				% 1st iteration S'is empty
+			};
+		\end{tikzpicture}
 		\grid
 	\end{frame}
 \else
@@ -818,7 +844,7 @@
 
 	\begin{frame}[fragile]{Phase 2}{Pseudocode}
 		\begin{adjustbox}{scale=0.7}
-			\begin{minipage}{0.84\textwidth}
+			\begin{minipage}{0.7\textwidth}
 				\input{../report/share/phase2.tex}
 			\end{minipage}
 		\end{adjustbox}
@@ -832,9 +858,62 @@
 			\draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.4cm,3.4cm);
 			\draw[thick, draw=PrimaryColor] (2.4cm,2.45cm) rectangle (4.95cm,3.1cm);
 			\draw[thick, draw=PrimaryColor] (2.4cm,1.75cm) rectangle (3.75cm,2.1cm);
-      % while loop
+			% while loop
 			\draw[thick, draw=PrimaryColor] (1.3cm,1.4cm) rectangle (6.85cm,1.75cm);
 			\draw[thick, draw=PrimaryColor] (1.3cm,1cm) rectangle (2.9cm,1.4cm);
+		\end{tikzpicture}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
+				\scriptsize
+				\begin{itemize}
+					\item i: Number of iterations
+					\item n: Number of independent pairs / collisions of loopback 3-tuples
+					\item $L_i$: Single loopback 3-tuple
+					\item S': Unique attacker 3-tuples from Phase 1
+					\item w: The one unique attacker 3-tuple
+					\item $\iota w$: \alert{Definite Description Operator}, means \enquote{the unique w} attacker 3-tuple %satisfying the condition
+				\end{itemize}
+
+				\begin{center}
+					\vspace{-0.1cm}
+					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				\end{center}
+
+				\begin{itemize}
+					\item \alert{Only one loopback 3-tuple} send repeatedly
+					\begin{itemize}
+						\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
+						\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
+					\end{itemize}
+					\item Foreach table cell there's an attacker 3-tuple 
+            \begin{itemize}
+              \item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
+            \end{itemize}
+				\end{itemize}
+
+				\begin{center}
+					\vspace{-0.1cm}
+					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				\end{center}
+
+				\begin{itemize}
+					\item $B[w]$: \alert{dictionary}, keys = unique attacker 3-tuples, values = first loopback 3-tuple
+					% \begin{itemize}
+					%   \item used to record the first loopback 3-tuple observed for each unique attacker 3-tuple w
+					% \end{itemize}
+					% \item building independant pairs $\{(T_3, T_2), (T_3, T_5)\}$ for bucket of loopback 3-tupleS colliding via $G_{K_2}$ in the same perturbation table cell
+					\item $\{T_3, T_2, T_5\}$ \alert{$\Rightarrow$} $\{(T_3, T_2), (T_3, T_5)\}$ % independant pairs 
+				\end{itemize}
+
+				% \begin{center}
+				% 	\vspace{-0.1cm}
+				% 	\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				% \end{center}
+				%
+				% \begin{itemize}
+				%       \item device ID unique enough such that none of the other devices has same
+				% \end{itemize}
+			};
 		\end{tikzpicture}
 		\grid
 	\end{frame}
@@ -857,9 +936,9 @@
 			\begin{column}{0.5\textwidth}
 				\begin{itemize}
 					% \item balls in buckets problem, but buckets cannot be mapped between devices, can only see which balls fall into same bucket
-					\item can only see which balls fall into same bucket
+					\item Can only see which balls fall into same bucket
 					% \item probability does not depend on the structure (how many balls go into each of the buckets), it only depends on the total number of independent collisions, n
-					\item probability \alert{only} depends on \alert{total number of independent collisions}
+					\item Probability \alert{only} depends on \alert{total number of independent collisions}
 				\end{itemize}
 			\end{column}
 		\end{columns}
@@ -893,9 +972,9 @@
 				\vspace{0cm}
 
 				\begin{itemize}
-					\item precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P_D^i(n) < p^* \right\}\)
+					\item Precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P_D^i(n) < p^* \right\}\)
 					\item \(n \ge n^*[i]\) replaces \(P_D^i(n) < p^*\)
-					\item[\alert{$\Rightarrow$}] avoid repeated computation
+					\item[\alert{$\Rightarrow$}] Avoid repeated computation
 				\end{itemize}
 				\vspace{0.2cm}
 				\centering
