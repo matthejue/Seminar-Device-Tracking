@@ -13,6 +13,8 @@
 
 \usetheme{default}
 \useoutertheme{infolines}
+% \usetheme{Madrid}
+% \usecolortheme{default}
 
 % ┌─────────────────────┐
 % │ Color Configuration │
@@ -53,14 +55,16 @@
 
 % https://github.com/josephwright/beamer/blob/main/base/themes/color/beamercolorthemedefault.sty
 % https://github.com/josephwright/beamer/blob/main/base/themes/outer/beamerouterthemeinfolines.sty
-\setbeamercolor{author in head/foot}{fg=PrimaryColor, bg=PrimaryColorDimmed}
-\setbeamercolor{title in head/foot}{fg=SecondaryColor, bg=SecondaryColorDimmed}
-\setbeamercolor{date in head/foot}{fg=PrimaryColor, bg=PrimaryColorDimmed}
+\setbeamercolor{author in head/foot}{fg=black, bg=PrimaryColorDimmed}
+\setbeamercolor{title in head/foot}{fg=black, bg=SecondaryColorDimmed}
+\setbeamercolor{date in head/foot}{fg=black, bg=PrimaryColorDimmed}
 
-\setbeamercolor{palette primary}{fg=PrimaryColor,bg=PrimaryColorDimmed}
-\setbeamercolor{palette secondary}{fg=SecondaryColor,bg=SecondaryColorDimmed}
-\setbeamercolor{palette tertiary}{fg=PrimaryColor,bg=PrimaryColorDimmed}
-\setbeamercolor{palette quaternary}{fg=PrimaryColor,bg=PrimaryColorDimmed}
+\setbeamercolor{section in head/foot}{fg=black,bg=PrimaryColorDimmed}
+
+\setbeamercolor{palette primary}{fg=black,bg=PrimaryColorDimmed}
+\setbeamercolor{palette secondary}{fg=black,bg=SecondaryColorDimmed}
+\setbeamercolor{palette tertiary}{fg=black,bg=black}
+\setbeamercolor{palette quaternary}{fg=black,bg=PrimaryColorDimmed}
 
 \setbeamercolor{block title}{fg=white, bg=PrimaryColor}
 \setbeamercolor{block body}{fg=black, bg=BoxColor}
@@ -182,6 +186,10 @@
 % │ Footline and Headline │
 % └───────────────────────┘
 
+% \setbeamercolor{section in head/foot}           {fg=black,bg=black}
+% \setbeamercolor{section in head/foot shaded}    {fg=black,bg=black}
+% \setbeamercolor{section in head/foot in head/foot}{fg=black,bg=black}
+
 % https://github.com/josephwright/beamer/blob/main/base/themes/outer/beamerouterthemeinfolines.sty
 \makeatletter
 \setbeamertemplate{footline}{%
@@ -212,9 +220,32 @@
   \hbox{%
     % https://tex.stackexchange.com/questions/85439/custom-headline-in-latex-beamer
     \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{palette quaternary}%
-      \textcolor{PrimaryColor}{\insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1filll}{\hskip0pt plus1filll}}
+      \textcolor{black}{\insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1filll}{\hskip0pt plus1filll}}
     \end{beamercolorbox}%
   }
+}
+
+% \setbeamertemplate{headline}{
+%   \leavevmode%
+%   \hbox{%
+%     \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}
+%       % No text here
+%     \end{beamercolorbox}%
+%   }
+% }
+\newcommand{\setsectionname}[1]{\def\currentsectionname{#1}}
+
+% Default value
+\setsectionname{}
+
+% Custom centered headline
+\setbeamertemplate{headline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex,center]{section in head/foot}
+      \usebeamerfont{section in head/foot}\currentsectionname
+    \end{beamercolorbox}%
+  }%
 }
 
 % https://tex.stackexchange.com/questions/44983/beamer-removing-headline-and-its-space-on-a-single-frame-for-plan-but-keepin
@@ -272,7 +303,7 @@
   }
   \begin{frame}
     \centering
-    \textcolor{PrimaryColor}{\insertsectionHEAD}
+    \textcolor{black}{\insertsectionHEAD}
   \end{frame}
   \endgroup
 }

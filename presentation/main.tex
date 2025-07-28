@@ -3,20 +3,20 @@
 % \beamerfalse
 
 \newif\ifintroduction
-% \introductiontrue
-\introductionfalse
+\introductiontrue
+% \introductionfalse
 
 \newif\ifattack
 % \attacktrue
 \attackfalse
 
 \newif\ifattackphaseone
-\attackphaseonetrue
-% \attackphaseonefalse
+% \attackphaseonetrue
+\attackphaseonefalse
 
 \newif\ifattackphasetwo
-\attackphasetwotrue
-% \attackphasetwofalse
+% \attackphasetwotrue
+\attackphasetwofalse
 
 \newif\ifcountermeasures
 % \countermeasurestrue
@@ -27,8 +27,8 @@
 \appendixfalse
 
 \newif\ifliterature
-% \literaturetrue
-\literaturefalse
+\literaturetrue
+% \literaturefalse
 
 \ifbeamer
 \documentclass[aspectratio=169, hyperref={colorlinks=true, allcolors=SecondaryColor}, c]{beamer}
@@ -69,7 +69,10 @@
 \setcounter{section}{0}
 
 \ifintroduction
-	\section{Introduction}
+	\setsectionname{Introduction}
+	\begin{withoutheadline}
+		\section{Introduction}
+	\end{withoutheadline}
 
 	\subsection{Motivation}
 
@@ -290,7 +293,7 @@
 				\begin{itemize}
 					\item Incrementation of port numbers separated into \alert{$T$ different spaces}
 					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] Port-reuse frequency lower % (probabilistically) 
+						\item[\alert{$\Rightarrow$}] Port-reuse frequency lower\cite{larsenRecommendationsTransportProtocolPort2011} % (probabilistically) 
 						\item[\alert{$\Rightarrow$}] Harder to analyse device activity % if an attacker could, e.g., force a client to periodically establish a new TCP connection to an attacker-controlled machine (or through an attacker- observable path), the attacker could subtract consecutive source port values to obtain the number of outgoing TCP connections established globally by the target host within that time period
 					\end{itemize}
 				\end{itemize}
@@ -371,7 +374,11 @@
 \fi
 
 \ifattack
-	\section{Attack}
+	\setsectionname{Attack}
+
+	\begin{withoutheadline}
+		\section{Attack}
+	\end{withoutheadline}
 
 	\subsection{Attack Overview}
 
@@ -763,7 +770,7 @@
 				% 1st iteration S'is empty
 			};
 		\end{tikzpicture}
-		\grid
+		% \grid
 	\end{frame}
 \else
 \fi
@@ -888,10 +895,10 @@
 						\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
 						\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
 					\end{itemize}
-					\item Foreach table cell there's an attacker 3-tuple 
-            \begin{itemize}
-              \item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
-            \end{itemize}
+					\item Foreach table cell there's an attacker 3-tuple
+					\begin{itemize}
+						\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
+					\end{itemize}
 				\end{itemize}
 
 				\begin{center}
@@ -918,7 +925,7 @@
 				% \end{itemize}
 			};
 		\end{tikzpicture}
-		\grid
+		% \grid
 	\end{frame}
 
 	\begin{frame}[fragile]{Phase 2}{Termination condition}
@@ -1003,7 +1010,11 @@
 \fi
 
 \ifcountermeasures
+	\setsectionname{Countermeasures}
+
+	\begin{withoutheadline}
 	\section{Countermeasures}
+	\end{withoutheadline}
 
 	\subsection{Countermeasures Overview}
 
@@ -1055,7 +1066,10 @@
 \fi
 
 \ifappendix
+	\setsectionname{Appendix}
+	\begin{withoutheadline}
 	\section{Appendix}
+	\end{withoutheadline}
 
 	\begin{frame}[fragile]{Appendix}{Related Work}
 	\end{frame}
@@ -1066,12 +1080,18 @@
 \fi
 
 \ifliterature
+	\setsectionname{Literature}
+	\begin{withoutheadline}
 	\section{Literature}
+	\end{withoutheadline}
 
 	\begin{frame}[allowframebreaks]{Literature}
 		% print publications
 		% \printbibliography[category=myarticles,heading=subbibliography]
 		\printbibliography
+		\begin{itemize}
+			\item All other images have been generated with ChatGPT and DALL-E 3
+		\end{itemize}
 	\end{frame}
 	%
 	% \begin{frame}[allowframebreaks]{Websites}
