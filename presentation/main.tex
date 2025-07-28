@@ -661,13 +661,13 @@
 	\subsection{Phase 1}
 
 	\begin{frame}[fragile]{Phase 1}{Reason for Phase 1}
-    \begin{adjustbox}{max width=\textwidth}
-      \tikzfig{reason_for_phase_1} % ./figures/reason_for_phase_1.tikz
-    \end{adjustbox}
-    \begin{itemize}
-      \item every cell should be testable for collisions
-      \item[\alert{$\Rightarrow$}] set of \alert{unique attacker 3-tuples} that collectively cover all cells
-    \end{itemize}
+		\begin{adjustbox}{max width=\textwidth}
+			\tikzfig{reason_for_phase_1} % ./figures/reason_for_phase_1.tikz
+		\end{adjustbox}
+		\begin{itemize}
+			\item every cell should be testable for collisions
+			\item[\alert{$\Rightarrow$}] set of \alert{unique attacker 3-tuples} that collectively cover all cells
+		\end{itemize}
 	\end{frame}
 
 	\begin{frame}[fragile]{Phase 1}{Overview}
@@ -708,7 +708,43 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Phase 2}{Termination condition}
-    \ctikzfig{termination_table} % ./figures/termination_table.tikz
+		\begin{center}
+			\begin{adjustbox}{max width=\textwidth}
+				\begin{minipage}[t]{\textwidth}
+					\[
+						\underbrace{
+							P_D^l(n)
+							=
+							\frac{1}{T^n}
+							\cdot
+							\prod_{j=0}^{l - n - 1}
+							\left(1 - \frac{j}{T}\right)
+						}_{\text{probability that a random device yields same device ID as device D}}
+						\;<\;
+						\underbrace{
+							p^* = \frac{1}{\binom{N}{2}}
+						}_{\text{threshold acceptance probability}}
+					\]
+				\end{minipage}
+			\end{adjustbox}
+		\end{center}
+	\end{frame}
+	\begin{frame}[fragile]{Phase 2}{Termination condition}
+		\begin{center}
+			\tikzfig{termination_table} % ./figures/termination_table.tikz
+		\end{center}
+		\[
+			n^*[i]
+			=
+			\min
+			\left\{
+			n
+			\;\middle|\;
+			P_D^i(n)
+			<
+			p^*
+			\right\}.
+		\]
 	\end{frame}
 \else
 \fi
@@ -719,34 +755,34 @@
 	\subsection{Countermeasures Overview}
 
 	\begin{frame}[fragile]{Countermeasures Overview}{Root cause}
-    \includegraphics[width=\textwidth]{./figures/external/root_cause.pdf} % ./figures/external/root_cause.tikz
-    \begin{itemize}
-      \item shared perturbation table \alert{$\Rightarrow$} device-specific hash collisions %between TCP connection attempts 
-      \item predictable increment
-    \end{itemize}
+		\includegraphics[width=\textwidth]{./figures/external/root_cause.pdf} % ./figures/external/root_cause.tikz
+		\begin{itemize}
+			\item shared perturbation table \alert{$\Rightarrow$} device-specific hash collisions %between TCP connection attempts 
+			\item predictable increment
+		\end{itemize}
 	\end{frame}
 
 	\begin{frame}[fragile]{Countermeasures Overview}{Ideal solution}
-    \includegraphics[width=\textwidth]{./figures/external/ideal_solution.pdf} % ./figures/external/ideal_solution.tikz
-    \begin{itemize}
-      \item separate perturbation table for each network context
-      \item[\alert{$\Rightarrow$}] high memory cost % impractical due to the high memory cost
-    \end{itemize}
+		\includegraphics[width=\textwidth]{./figures/external/ideal_solution.pdf} % ./figures/external/ideal_solution.tikz
+		\begin{itemize}
+			\item separate perturbation table for each network context
+			\item[\alert{$\Rightarrow$}] high memory cost % impractical due to the high memory cost
+		\end{itemize}
 	\end{frame}
 
 	\begin{frame}[fragile]{Countermeasures Overview}{General countermeasures}
-    \begin{itemize}
-      \item make \alert{\Large $\uparrow$}\raisebox{-0.2\height}{\includegraphics[width=0.03\textwidth]{./figures/weight.png}} and \alert{\Large $\downarrow$}\raisebox{-0.2\height}{\includegraphics[width=0.04\textwidth]{./figures/dices.png}}  for detecting hash collisions
-        \begin{itemize}
-          \item \alert{make it more time intensive}:
+		\begin{itemize}
+			\item make \alert{\Large $\uparrow$}\raisebox{-0.2\height}{\includegraphics[width=0.03\textwidth]{./figures/weight.png}} and \alert{\Large $\downarrow$}\raisebox{-0.2\height}{\includegraphics[width=0.04\textwidth]{./figures/dices.png}}  for detecting hash collisions
+			\begin{itemize}
+				\item \alert{make it more time intensive}:
 
-            \tikzfig{make_it_more_time_intensive} % ./figures/make_it_more_time_intensive.tikz
-          \item \alert{limit time}:
-            \vspace{-0.2cm}
+				\tikzfig{make_it_more_time_intensive} % ./figures/make_it_more_time_intensive.tikz
+				\item \alert{limit time}:
+				\vspace{-0.2cm}
 
-            \tikzfig{limit_time} % ./figures/limit_time.tikz
-        \end{itemize}
-    \end{itemize}
+				\tikzfig{limit_time} % ./figures/limit_time.tikz
+			\end{itemize}
+		\end{itemize}
 	\end{frame}
 
 	\begin{frame}[fragile]{Countermeasures Overview}{Implemented changes}
