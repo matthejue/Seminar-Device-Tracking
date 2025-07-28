@@ -18,7 +18,9 @@
 \tikzstyle{invisible space node}=[fill=none, draw=none, shape=circle, inner sep=0cm]
 \tikzstyle{smallest end node}=[fill={rgb,255: red,237; green,197; blue,149}, draw={rgb,255: red,237; green,135; blue,13}, shape=circle, inner sep=0cm, minimum size=0.5cm]
 \tikzstyle{smallest node}=[fill={rgb,255: red,237; green,197; blue,149}, draw=none, shape=circle, inner sep=0cm, minimum size=0.4cm]
-\tikzstyle{new style 0}=[fill=white, draw={rgb,255: red,237; green,135; blue,13}, shape=rectangle, minimum size=0.3cm]
+\tikzstyle{empty box}=[fill=white, draw={rgb,255: red,237; green,135; blue,13}, shape=rectangle, minimum size=0.3cm]
+\tikzstyle{prim color box}=[fill={rgb,255: red,237; green,197; blue,149}, draw={rgb,255: red,237; green,135; blue,13}, shape=rectangle, minimum size=0.3cm, very thick, inner sep=0.05cm]
+\tikzstyle{sec color box}=[fill={rgb,255: red,246; green,219; blue,176}, draw={rgb,255: red,237; green,135; blue,13}, shape=rectangle, minimum size=0.3cm, very thick, inner sep=0.05cm]
 
 % Edge styles
 \tikzstyle{directed edge}=[->, draw={rgb,255: red,237; green,135; blue,13}, very thick]

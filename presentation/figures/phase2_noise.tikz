@@ -111,7 +111,7 @@
 		\node [style=none] (113) at (24.5, 2.1) {+F$_{K_2}$(..., 2'000)=51'000};
 		\node [style=none] (114) at (24.5, 1.35) {+F$_{K_2}$(..., 1'000)=50'000};
 		\node [style=none] (115) at (23.25, 7.75) {\includegraphics[scale=0.03]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/client_device_2.png}};
-		\node [style=none] (116) at (23.25, 6.25) {(127.0.0.3, 1'000)};
+		\node [style=none] (116) at (23.25, 6.25) {(127.0.0.3, 1'111)};
 		\node [style=none] (117) at (23.5, 12.5) {/ 127.0.0.1};
 		\node [style=none] (118) at (-1, 5.75) {};
 		\node [style=none] (119) at (26, 5.75) {};

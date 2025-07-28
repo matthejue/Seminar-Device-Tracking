@@ -670,14 +670,12 @@
 		\end{itemize}
 	\end{frame}
 
-	% \begin{frame}[fragile]{Phase 1}{Overview}
-	% 	\vspace{0.5cm}
-	%
-	% 	\begin{adjustbox}{max width=\textwidth}
-	% 		\tikzfig{phase1_overview} % ./figures/phase1_overview.tikz
-	% 	\end{adjustbox}
-	% 	% \grid
-	% \end{frame}
+	\begin{frame}[fragile]{Phase 1}{Overview}
+    \vspace{0.2cm}
+
+    \includegraphics[width=0.95\textwidth]{./figures/external/phase1_overview.pdf}
+		% \grid
+	\end{frame}
 
 	\begin{frame}[fragile]{Phase 1}{Condition for unique attacker 3-tuple}
 		\vspace{0.5cm}
@@ -685,18 +683,18 @@
 		\begin{adjustbox}{max width=\textwidth}
 			\tikzfig{phase1} % ./figures/phase1.tikz
 		\end{adjustbox}
-		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
-			\node[anchor=south west] at (2cm,1cm) {%
-				\begin{minipage}{10cm}
-					\begin{equation*}
-						P'(x) - P(x) = 1
-						\quad \text{when sandwiching } S' \text{ as filling}
-					\end{equation*}
-				\end{minipage}
-			};
-			\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (5.9,1.5);
-		\end{tikzpicture}
+		% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		% 	\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
+		% 	\node[anchor=south west] at (2cm,1cm) {%
+		% 		\begin{minipage}{10cm}
+		% 			\begin{equation*}
+		% 				P'(x) - P(x) = 1
+		% 				\quad \text{when sandwiching } S' \text{ as filling}
+		% 			\end{equation*}
+		% 		\end{minipage}
+		% 	};
+		% 	\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (5.9,1.5);
+		% \end{tikzpicture}
 		% \grid
 	\end{frame}
 
@@ -733,14 +731,12 @@
 \ifattackphasetwo
 	\subsection{Phase 2}
 
-	% \begin{frame}[fragile]{Phase 2}{Overview}
-	% 	\vspace{0.5cm}
-	%
-	% 	\begin{adjustbox}{max width=\textwidth}
-	% 		\tikzfig{phase2_overview} % ./figures/phase2_overview.tikz
-	% 	\end{adjustbox}
-	% 	% \grid
-	% \end{frame}
+	\begin{frame}[fragile]{Phase 2}{Overview}
+    \vspace{0.2cm}
+
+    \includegraphics[width=\textwidth]{./figures/external/phase2_overview.pdf}
+		% \grid
+	\end{frame}
 
 	\begin{frame}[fragile]{Phase 2}{Condition for collision between attacker 3-tuple and loopback 3-tuple}
 		\vspace{0.5cm}
@@ -748,18 +744,18 @@
 		\begin{adjustbox}{max width=\textwidth}
 			\tikzfig{phase2} % ./figures/phase2.tikz
 		\end{adjustbox}
-		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
-			\node[anchor=south west] at (2cm,1cm) {%
-				\begin{minipage}{10cm}
-					\begin{equation*}
-						P'(w) - P(w) > 1
-						\quad \text{when sandwiching } L_i \text{ as filling}
-					\end{equation*}
-				\end{minipage}
-			};
-			\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (6.2,1.5);
-		\end{tikzpicture}
+		% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		% 	\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
+		% 	\node[anchor=south west] at (2cm,1cm) {%
+		% 		\begin{minipage}{10cm}
+		% 			\begin{equation*}
+		% 				P'(w) - P(w) > 1
+		% 				\quad \text{when sandwiching } L_i \text{ as filling}
+		% 			\end{equation*}
+		% 		\end{minipage}
+		% 	};
+		% 	\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (6.2,1.5);
+		% \end{tikzpicture}
 		% \grid
 	\end{frame}
 
@@ -842,11 +838,11 @@
 		\begin{itemize}
 			\item \alert{Correlations}:
 			\begin{itemize}
-				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ closer to being satisfied % closer to termination
+				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ potentially closer to being satisfied % closer to termination
 				\vspace{-0.4cm}
 
 				\includegraphics[width=0.95\textwidth]{./figures/external/increase_i.pdf} % ./figures/external/increase_i.tikz
-				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ closer to being satisfied % closer to termination
+				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ potentially closer to being satisfied % closer to termination
 				\vspace{-0.4cm}
 
 				\includegraphics[width=0.95\textwidth]{./figures/external/increase_n.pdf} % ./figures/external/increase_n.tikz

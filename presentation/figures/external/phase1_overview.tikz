@@ -1,0 +1,128 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (13) at (11, 13) {};
+		\node [style=none] (14) at (26, 13) {};
+		\node [style=none] (15) at (26, 1) {};
+		\node [style=none] (16) at (11, 1) {};
+		\node [style=none] (17) at (13, 7.25) {\includegraphics[scale=0.04]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/client_device_2.png}};
+		\node [style=none] (18) at (28, 1) {};
+		\node [style=none] (19) at (28, 13) {};
+		\node [style=none] (20) at (36, 13) {};
+		\node [style=none] (21) at (36, 1) {};
+		\node [style=none] (22) at (33.75, 7.5) {\includegraphics[scale=0.06]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tracking_server_2.png}};
+		\node [style=none] (28) at (15, 12) {};
+		\node [style=none] (29) at (15, 9) {};
+		\node [style=none] (30) at (15, 8) {};
+		\node [style=none] (31) at (15, 5) {};
+		\node [style=none] (32) at (15, 4) {};
+		\node [style=none] (33) at (15, 1) {};
+		\node [style=none] (34) at (31.5, 1) {};
+		\node [style=none] (35) at (31.5, 4) {};
+		\node [style=none] (36) at (31.5, 5) {};
+		\node [style=none] (37) at (31.5, 8) {};
+		\node [style=none] (38) at (31.5, 9) {};
+		\node [style=none] (39) at (31.5, 12) {};
+		\node [style=none] (62) at (25, 9.35) {};
+		\node [style=none] (63) at (25, 10.85) {};
+		\node [style=none] (64) at (25, 11.6) {};
+		\node [style=none] (68) at (25, 10.1) {};
+		\node [style=none] (69) at (25, 5.35) {};
+		\node [style=none] (70) at (25, 6.85) {};
+		\node [style=none] (71) at (25, 7.6) {};
+		\node [style=none] (72) at (25, 6.1) {};
+		\node [style=none] (73) at (25, 1.35) {};
+		\node [style=none] (74) at (25, 2.85) {};
+		\node [style=none] (75) at (25, 3.6) {};
+		\node [style=none] (76) at (25, 2.1) {};
+		\node [style=none] (77) at (29, 9.35) {};
+		\node [style=none] (78) at (29, 10.85) {};
+		\node [style=none] (79) at (29, 11.6) {};
+		\node [style=none] (80) at (29, 10.1) {};
+		\node [style=none] (81) at (29, 5.35) {};
+		\node [style=none] (82) at (29, 6.85) {};
+		\node [style=none] (83) at (29, 7.6) {};
+		\node [style=none] (84) at (29, 6.1) {};
+		\node [style=none] (85) at (29, 1.35) {};
+		\node [style=none] (86) at (29, 2.85) {};
+		\node [style=none] (87) at (29, 3.6) {};
+		\node [style=none] (88) at (29, 2.1) {};
+		\node [style=none] (89) at (13, 5.5) {192.0.2.2};
+		\node [style=none] (90) at (33.75, 5.25) {203.0.113.10};
+		\node [style=none] (108) at (27, 10.1) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (109) at (27, 10.85) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (110) at (27, 11.6) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none, anchor=west] (115) at (15.25, 9.35) {(192.0.2.2, 203.0.113.10, 8'000)};
+		\node [style=none, anchor=west] (116) at (15.25, 10.85) {(192.0.2.2, 203.0.113.10, 6'000)};
+		\node [style=none, anchor=west] (117) at (15.25, 11.6) {(192.0.2.2, 203.0.113.10, 5'000)};
+		\node [style=none, anchor=west] (118) at (15.25, 10.1) {(192.0.2.2, 203.0.113.10, 7'000)};
+		\node [style=none, anchor=west] (119) at (15.25, 5.35) {(192.0.2.2, 203.0.113.10, 4'000)};
+		\node [style=none, anchor=west] (120) at (15.25, 6.85) {(192.0.2.2, 203.0.113.10, 2'000)};
+		\node [style=none, anchor=west] (121) at (15.25, 7.6) {(192.0.2.2, 203.0.113.10, 1'000)};
+		\node [style=none, anchor=west] (122) at (15.25, 6.1) {(192.0.2.2, 203.0.113.10, 3'000)};
+		\node [style=none, anchor=west] (123) at (15.25, 1.35) {(192.0.2.2, 203.0.113.10, 8'000)};
+		\node [style=none, anchor=west] (124) at (15.25, 2.85) {(192.0.2.2, 203.0.113.10, 6'000)};
+		\node [style=none, anchor=west] (125) at (15.25, 3.6) {(192.0.2.2, 203.0.113.10, 5'000)};
+		\node [style=none, anchor=west] (126) at (15.25, 2.1) {(192.0.2.2, 203.0.113.10, 7'000)};
+		\node [style=none] (127) at (27, 9.35) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (128) at (27, 1.85) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (129) at (27, 2.6) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (130) at (27, 3.35) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (131) at (27, 1.1) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (132) at (27, 6.1) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (133) at (27, 6.85) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (134) at (27, 7.6) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none] (135) at (27, 5.35) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tcp_syn_package.png}};
+		\node [style=none, anchor=east] (136) at (31.25, 9.35) {53'021};
+		\node [style=none, anchor=east] (137) at (31.25, 10.85) {51'100};
+		\node [style=none, anchor=east] (138) at (31.25, 11.6) {50'200};
+		\node [style=none, anchor=east] (139) at (31.25, 10.1) {52'020};
+		\node [style=none, anchor=east] (140) at (31.25, 5.35) {-};
+		\node [style=none, anchor=east] (141) at (31.25, 6.85) {-};
+		\node [style=none, anchor=east] (142) at (31.25, 7.6) {-};
+		\node [style=none, anchor=east] (143) at (31.25, 6.1) {-};
+		\node [style=none, anchor=east] (144) at (31.25, 1.35) {53'023};
+		\node [style=none, anchor=east] (145) at (31.25, 2.85) {51'103};
+		\node [style=none, anchor=east] (146) at (31.25, 3.6) {50'201};
+		\node [style=none, anchor=east] (147) at (31.25, 2.1) {52'022};
+		\node [style=prim color box] (148) at (23.5, 12.425) {Candidate Attacker 3-Tuples};
+		\node [style=prim color box] (149) at (23.25, 4.425) {Candidate Attacker 3-Tuples};
+		\node [style=prim color box] (150) at (23.25, 8.425) {Unique Attacker 3-Tuples found so far};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=new edge style 1] (16.center) to (15.center);
+		\draw [style=new edge style 1] (15.center) to (14.center);
+		\draw [style=new edge style 1] (14.center) to (13.center);
+		\draw [style=new edge style 1] (13.center) to (16.center);
+		\draw [style=new edge style 1] (18.center) to (21.center);
+		\draw [style=new edge style 1] (21.center) to (20.center);
+		\draw [style=new edge style 1] (20.center) to (19.center);
+		\draw [style=new edge style 1] (19.center) to (18.center);
+		\draw [style=visiblefill] (29.center)
+			 to (28.center)
+			 to [in=180, out=0] (39.center)
+			 to (38.center)
+			 to cycle;
+		\draw [style=shallowfill] (30.center)
+			 to (37.center)
+			 to (36.center)
+			 to (31.center)
+			 to cycle;
+		\draw [style=visiblefill] (32.center)
+			 to (33.center)
+			 to (34.center)
+			 to (35.center)
+			 to cycle;
+		\draw [style=directed dotted edge] (71.center) to (83.center);
+		\draw [style=directed dotted edge] (70.center) to (82.center);
+		\draw [style=directed dotted edge] (72.center) to (84.center);
+		\draw [style=directed dotted edge] (69.center) to (81.center);
+		\draw [style=directed dotted edge] (75.center) to (87.center);
+		\draw [style=directed dotted edge] (74.center) to (86.center);
+		\draw [style=directed dotted edge] (76.center) to (88.center);
+		\draw [style=directed dotted edge] (73.center) to (85.center);
+		\draw [style=directed dotted edge, in=180, out=0] (62.center) to (77.center);
+		\draw [style=directed dotted edge] (68.center) to (80.center);
+		\draw [style=directed dotted edge] (63.center) to (78.center);
+		\draw [style=directed dotted edge] (64.center) to (79.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
