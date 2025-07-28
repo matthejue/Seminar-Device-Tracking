@@ -35,8 +35,8 @@
 		\node [style=none] (33) at (-1, 1) {};
 		\node [style=none] (34) at (38, 1) {};
 		\node [style=none] (35) at (38, 4) {};
-		\node [style=none] (36) at (26, 5) {};
-		\node [style=none] (37) at (26, 8) {};
+		\node [style=none] (36) at (38, 5) {};
+		\node [style=none] (37) at (38, 8) {};
 		\node [style=none] (38) at (38, 9) {};
 		\node [style=none] (39) at (38, 12) {};
 		\node [style=none] (40) at (1.5, 14) {20};
@@ -60,34 +60,38 @@
 		\node [style=none] (59) at (13.5, 0) {};
 		\node [style=none] (60) at (19.5, 13) {};
 		\node [style=none] (61) at (19.5, 0) {};
-		\node [style=none] (62) at (19.5, 9.35) {3};
+		\node [style=none] (62) at (1.5, 9.35) {22};
 		\node [style=none] (63) at (7.5, 10.85) {101};
-		\node [style=none] (64) at (1.5, 11.6) {21};
-		\node [style=none] (68) at (13.5, 10.1) {201};
-		\node [style=none] (70) at (1.5, 6.6) {22};
-		\node [style=none] (73) at (1.5, 1.35) {23};
-		\node [style=none] (74) at (13.5, 2.85) {202};
-		\node [style=none] (75) at (19.5, 3.6) {4};
-		\node [style=none] (76) at (7.5, 2.1) {102};
+		\node [style=none] (64) at (13.5, 11.6) {201};
+		\node [style=none] (68) at (1.5, 10.1) {21};
+		\node [style=none] (70) at (19.5, 6.85) {4};
+		\node [style=none] (71) at (19.5, 7.6) {3};
+		\node [style=none] (72) at (7.5, 6.1) {102};
+		\node [style=none] (73) at (13.5, 1.35) {203};
+		\node [style=none] (74) at (1.5, 2.85) {23};
+		\node [style=none] (75) at (1.5, 3.6) {24};
+		\node [style=none] (76) at (7.5, 2.1) {103};
 		\node [style=none] (77) at (30, 9.35) {};
 		\node [style=none] (78) at (34, 10.85) {};
 		\node [style=none] (79) at (36, 11.6) {};
 		\node [style=none] (80) at (32, 10.1) {};
-		\node [style=none] (82) at (20.25, 6.6) {};
+		\node [style=none] (82) at (29, 6.85) {};
+		\node [style=none] (83) at (29, 7.6) {};
+		\node [style=none] (84) at (29, 6.1) {};
 		\node [style=none] (85) at (36, 1.35) {};
 		\node [style=none] (86) at (32, 2.85) {};
 		\node [style=none] (87) at (30, 3.6) {};
 		\node [style=none] (88) at (34, 2.1) {};
 		\node [style=none] (89) at (23.5, 13.25) {192.0.2.2};
 		\node [style=none] (90) at (33, 12.75) {203.0.113.10};
-		\node [style=none] (91) at (37, 1.325) {50'022};
-		\node [style=none] (92) at (35, 2.075) {51'101};
-		\node [style=none] (93) at (33, 2.825) {52'201};
-		\node [style=none] (94) at (31, 3.575) {53'003};
-		\node [style=none] (95) at (37, 11.575) {50'020};
+		\node [style=none] (91) at (37, 1.325) {50'202};
+		\node [style=none] (92) at (35, 2.075) {51'102};
+		\node [style=none] (93) at (33, 2.825) {52'022};
+		\node [style=none] (94) at (31, 3.575) {53'023};
+		\node [style=none] (95) at (37, 11.575) {50'200};
 		\node [style=none] (96) at (35, 10.825) {51'100};
-		\node [style=none] (97) at (33, 10.075) {52'200};
-		\node [style=none] (98) at (31, 9.325) {53'002};
+		\node [style=none] (97) at (33, 10.075) {52'020};
+		\node [style=none] (98) at (31, 9.325) {53'021};
 		\node [style=none] (99) at (37, 1.75) {};
 		\node [style=none] (100) at (35, 2.5) {};
 		\node [style=none] (101) at (33, 3.25) {};
@@ -104,10 +108,13 @@
 		\node [style=none] (112) at (24.5, 2.85) {+F$_{K_2}$(..., 3'000)=52'000};
 		\node [style=none] (113) at (24.5, 2.1) {+F$_{K_2}$(..., 2'000)=51'000};
 		\node [style=none] (114) at (24.5, 1.35) {+F$_{K_2}$(..., 1'000)=50'000};
-		\node [style=none] (115) at (23.25, 7) {\includegraphics[scale=0.03]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/client_device_2.png}};
-		\node [style=none] (116) at (23.25, 5.5) {(127.0.0.3, 1'000)};
-		\node [style=none] (117) at (23.5, 12.5) {/ 127.0.0.1};
-		\node [style=none] (119) at (26, 5.75) {};
+		\node [style=none] (115) at (-1, 5.75) {};
+		\node [style=none] (116) at (38, 5.75) {};
+		\node [style=none] (117) at (26, 5) {};
+		\node [style=none] (118) at (13.5, 5.35) {202};
+		\node [style=none] (119) at (23.25, 5.35) {};
+		\node [style=none] (120) at (24.925, 5.35) {\includegraphics[scale=0.02]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/world_wide_web.png}};
+		\node [style=none] (121) at (23.925, 5.35) {\includegraphics[scale=0.06]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/noise.png}};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=visiblefill] (1.center)
@@ -148,7 +155,9 @@
 		\draw [style=rule] (59.center) to (58.center);
 		\draw [style=rule] (56.center) to (57.center);
 		\draw [style=rule] (54.center) to (55.center);
+		\draw [style=directed dotted edge] (71.center) to (83.center);
 		\draw [style=directed dotted edge] (70.center) to (82.center);
+		\draw [style=directed dotted edge] (72.center) to (84.center);
 		\draw [style=directed dotted edge] (75.center) to (87.center);
 		\draw [style=directed dotted edge] (74.center) to (86.center);
 		\draw [style=directed dotted edge] (76.center) to (88.center);
@@ -158,8 +167,10 @@
 		\draw [style=directed dotted edge] (63.center) to (78.center);
 		\draw [style=directed dotted edge, in=180, out=0] (64.center) to (79.center);
 		\draw [style=both direction directed edge] (99.center) to node [midway, draw=orange] {$\Delta$=2} (106.center);
-		\draw [style=both direction directed edge] (105.center) to node [midway] {$\Delta$=1} (100.center);
-		\draw [style=both direction directed edge] (101.center) to node [midway] {$\Delta$=1} (104.center);
-		\draw [style=both direction directed edge] (103.center) to node [midway] {$\Delta$=1} (102.center);
+		\draw [style=both direction directed edge] (105.center) to node [midway] {$\Delta$=2} (100.center);
+		\draw [style=both direction directed edge] (101.center) to node [midway] {$\Delta$=2} (104.center);
+		\draw [style=both direction directed edge] (103.center) to node [midway] {$\Delta$=2} (102.center);
+		\draw [style=rule] (115.center) to (116.center);
+		\draw [style=directed dotted edge] (118.center) to (119.center);
 	\end{pgfonlayer}
 \end{tikzpicture}
