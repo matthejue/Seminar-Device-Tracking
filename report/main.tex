@@ -304,7 +304,7 @@ A technique that exploits these predictable TCP source port increments to detect
 			\begin{aligned}
 				 & i = G_{K_2}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                                             \\
 				 & \text{offset}_X = F_{K_1}(\text{IP}_{\text{Src},X}, \text{IP}_{\text{Dst},X}, \text{Port}_{\text{Dst},X})                               \\
-				 & \text{Port}_{\text{Src},3} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \text{table}[i] + \delta \bigr)\bmod \text{num\_ephemeral} \\
+				 & \text{Port}_{\text{Src},3} = \text{min\_ephemeral} + \bigl(\text{offset}_X + \delta \bigr)\bmod \text{num\_ephemeral} \\
 				 & \text{table}[i] = \text{table}[i] + 1
 			\end{aligned}
 			\)                                   \\
@@ -315,12 +315,12 @@ where
 \vspace{-1cm}
 \begin{center}
 	\begin{adjustbox}{max width=\columnwidth}
-		\begin{minipage}[t]{0.4\textwidth}
+		\begin{minipage}[t]{0.46\textwidth}
 			\[
 				\delta =
 				\begin{cases}
-					1, & \text{if } i \neq j,\ \text{meaning perturbation table cell } i \text{ was not used,}\footnote{\tiny Used or not used in the filling step.} \\
-					2, & \text{if } i = j,\ \text{meaning perturbation table cell } i \text{ was used}
+					\text{table}[i] + 1, & \text{if } i \neq j,\ \text{meaning perturbation table cell } i \text{ was not used,}\footnote{\tiny Used or not used in the filling step.} \\
+					\text{table}[i] + 2, & \text{if } i = j,\ \text{meaning perturbation table cell } i \text{ was used}
 				\end{cases}
 			\]
 		\end{minipage}
