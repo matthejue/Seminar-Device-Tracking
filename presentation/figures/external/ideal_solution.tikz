@@ -1,0 +1,93 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (21) at (0, 1) {\includegraphics[scale=0.05]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/client_device_2.png}};
+		\node [style=none] (22) at (-9, 3) {};
+		\node [style=none] (23) at (-9, 5) {};
+		\node [style=none] (24) at (-6, 5) {};
+		\node [style=none] (25) at (-6, 3) {};
+		\node [style=none] (26) at (-12, 3) {};
+		\node [style=none] (27) at (-12, 5) {};
+		\node [style=none] (28) at (-15, 3) {};
+		\node [style=none] (29) at (-15, 5) {};
+		\node [style=none] (30) at (-18, 3) {};
+		\node [style=none] (31) at (-18, 5) {};
+		\node [style=none] (32) at (-16.5, 6) {0};
+		\node [style=none] (33) at (-13.5, 6) {1};
+		\node [style=none] (34) at (-10.5, 6) {...};
+		\node [style=none] (35) at (-7.5, 6) {T-1};
+		\node [style=none] (36) at (-16.5, 4) {20+1};
+		\node [style=none] (37) at (-13.5, 4) {43};
+		\node [style=none] (38) at (-10.5, 4) {...};
+		\node [style=none] (39) at (-7.5, 4) {2+1+1};
+		\node [style=none] (40) at (13, 4) {\includegraphics[scale=0.07]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tracking_server_2.png}};
+		\node [style=none] (41) at (13, -2) {\includegraphics[scale=0.07]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/tracking_server_2.png}};
+		\node [style=none] (44) at (11, 4) {};
+		\node [style=none] (45) at (11, -2) {};
+		\node [style=none] (46) at (11, -1) {};
+		\node [style=none] (47) at (11, -3) {};
+		\node [style=none] (48) at (11, 3) {};
+		\node [style=none] (49) at (11, 5) {};
+		\node [style=none] (50) at (2.25, 1.5) {};
+		\node [style=none] (51) at (2.25, 2) {};
+		\node [style=none] (52) at (2.25, 0.75) {};
+		\node [style=none] (53) at (2.25, 0.25) {};
+		\node [style=none] (54) at (2.25, -0.25) {};
+		\node [style=none] (55) at (2.25, 2.5) {};
+		\node [style=none] (56) at (-2.25, 2) {};
+		\node [style=none] (57) at (-2.25, 0) {};
+		\node [style=none] (58) at (-5.5, 4) {};
+		\node [style=none] (59) at (-5.5, -2) {};
+		\node [style=none] (60) at (-9, -3) {};
+		\node [style=none] (61) at (-9, -1) {};
+		\node [style=none] (62) at (-6, -1) {};
+		\node [style=none] (63) at (-6, -3) {};
+		\node [style=none] (64) at (-12, -3) {};
+		\node [style=none] (65) at (-12, -1) {};
+		\node [style=none] (66) at (-15, -3) {};
+		\node [style=none] (67) at (-15, -1) {};
+		\node [style=none] (68) at (-18, -3) {};
+		\node [style=none] (69) at (-18, -1) {};
+		\node [style=none] (70) at (-16.5, 0) {0};
+		\node [style=none] (71) at (-13.5, 0) {1};
+		\node [style=none] (72) at (-10.5, 0) {...};
+		\node [style=none] (73) at (-7.5, 0) {T-1};
+		\node [style=none] (74) at (-16.5, -2) {101};
+		\node [style=none] (75) at (-13.5, -2) {9+1+1};
+		\node [style=none] (76) at (-10.5, -2) {...};
+		\node [style=none] (77) at (-7.5, -2) {78};
+		\node [style=none] (78) at (-11, 1.75) {};
+		\node [style=none] (79) at (-11.5, 2) {};
+		\node [style=none] (80) at (-11.25, 1.25) {};
+		\node [style=none] (81) at (-10.75, 1) {};
+		\node [style=none] (82) at (-12.5, 1.5) {\includegraphics[scale=0.1]{/home/areo/Documents/Studium/Semester_4_Master/Seminar/presentation/figures/memory_cost.png}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=visiblefill] (30.center)
+			 to (31.center)
+			 to (24.center)
+			 to (25.center)
+			 to cycle;
+		\draw [style=visiblefill] (28.center) to (29.center);
+		\draw [style=visiblefill] (26.center) to (27.center);
+		\draw [style=visiblefill] (23.center) to (22.center);
+		\draw [style=directed edge] (55.center) to (49.center);
+		\draw [style=directed edge] (51.center) to node [midway, fill=white, draw=orange, sloped] {TCP SYN} (44.center);
+		\draw [style=directed edge] (50.center) to (48.center);
+		\draw [style=directed edge] (52.center) to (46.center);
+		\draw [style=directed edge] (53.center) to node [midway, fill=white, draw=orange, sloped] {TCP SYN} (45.center);
+		\draw [style=directed edge] (54.center) to (47.center);
+		\draw [style=directed edge] (56.center) to node [midway, fill=white, draw=orange] {G$_{K_2}$} (58.center);
+		\draw [style=directed edge] (57.center) to node [midway, fill=white, draw=orange] {G$_{K'_2}$} (59.center);
+		\draw [style=visiblefill] (68.center)
+			 to (69.center)
+			 to (62.center)
+			 to (63.center)
+			 to cycle;
+		\draw [style=visiblefill] (66.center) to (67.center);
+		\draw [style=visiblefill] (64.center) to (65.center);
+		\draw [style=visiblefill] (61.center) to (60.center);
+		\draw [style=directed edge] (78.center) to (81.center);
+		\draw [style=rule] (78.center) to (80.center);
+		\draw [style=rule] (80.center) to (79.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -704,18 +704,26 @@
 
 	\subsection{Countermeasures Overview}
 
-	\begin{frame}[fragile]{Countermeasures Overview}{Root cause and ideal solution}
-		\begin{itemize}
-			\item root cause of attack: shared perturbation table between TCP conection attempts allows detect devic specific hash collisions
-			\item ideal solution: separate perturbation table for each network context but high memory cost
-			\item general countermeasures:
-      \begin{itemize}
-        \item making more difficult for attackers to detect hash collisions, longer to execute attack and limiting time window for attack
-      \end{itemize}
-			% \item The root cause of the attack is the ability to detect device-specific hash collisions in GK2 through a shared perturbation table between TCP connection attempts, which is incremented in a predictable way.
-			% \item An ideal solution would be to use a separate perturbation table for each network context, but this is impractical due to the high memory cost.
-			% \item In general, countermeasures to prevent this attack focus on making hash collisions less frequent or making it much more difficult for attackers to de- tect them
-		\end{itemize}
+	\begin{frame}[fragile]{Countermeasures Overview}{Root cause}
+    \includegraphics[width=\textwidth]{./figures/external/root_cause.pdf} % ./figures/external/root_cause.tikz
+    \begin{itemize}
+      \item shared perturbation table \alert{$\Rightarrow$} device-specific hash collisions %between TCP connection attempts 
+      \item predictable increment
+    \end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Countermeasures Overview}{Ideal solution}
+    \includegraphics[width=\textwidth]{./figures/external/ideal_solution.pdf} % ./figures/external/ideal_solution.tikz
+    \begin{itemize}
+      \item separate perturbation table for each network context
+      \item[\alert{$\Rightarrow$}] high memory cost % impractical due to the high memory cost
+    \end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Countermeasures Overview}{General countermeasures}
+    \begin{itemize}
+      \item detecting hash collisions more difficult
+    \end{itemize}
 	\end{frame}
 
 	\begin{frame}[fragile]{Countermeasures Overview}{Implemented changes}
