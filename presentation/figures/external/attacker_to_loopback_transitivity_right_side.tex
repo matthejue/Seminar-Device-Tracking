@@ -1,0 +1,31 @@
+\documentclass{standalone}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{relsize}
+\usepackage{xcolor}
+
+\definecolor{PrimaryColor}{HTML}{ED870D}
+
+\begin{document}
+\centering
+\begin{minipage}{9.2cm}
+\[
+		\begin{aligned}
+			 & \begin{array}{c}
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_1 \bigr) \\[0.3em]
+				   =                                                                                                                             \\[0.3em]
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_2 \bigr)
+			   \end{array}
+			\\[1cm]
+			 & \begin{array}{c}
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_3 \bigr) \\[0.3em]
+           % \overset{\textcolor{PrimaryColor}{\Huge ?}}{=}                                                                                                                            \\[0.3em]
+            % \overset{\textcolor{PrimaryColor}{\mathlarger{\mathlarger{\mathlarger{?}}}}}{=}                                                                                                                            \\[0.3em]
+           \overset{\mathbf{\textcolor{PrimaryColor}{\scalebox{2}{?}}}}{=}                                                                                                                            \\[0.3em]
+				   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_4 \bigr)
+			   \end{array}
+		\end{aligned}
+\]
+\end{minipage}
+\end{document}

@@ -8,6 +8,8 @@
 \tikzstyle{end node}=[fill={rgb,255: red,237; green,197; blue,149}, draw={rgb,255: red,237; green,135; blue,13}, shape=circle, very thick, minimum size=2cm]
 \tikzstyle{small node}=[fill={rgb,255: red,237; green,197; blue,149}, draw=none, shape=circle, minimum size=1cm]
 \tikzstyle{medium node}=[fill={rgb,255: red,237; green,197; blue,149}, draw=none, shape=circle, inner sep=0.cm, minimum size=1cm]
+\tikzstyle{loopback node}=[fill={rgb,255: red,99; green,141; blue,58}, draw=none, shape=circle, inner sep=0.cm, minimum size=1cm]
+\tikzstyle{attacker node}=[fill={rgb,255: red,222; green,50; blue,9}, draw=none, shape=circle, inner sep=0.cm, minimum size=1cm]
 \tikzstyle{small end node}=[fill={rgb,255: red,237; green,197; blue,149}, draw={rgb,255: red,237; green,135; blue,13}, shape=circle, very thick, minimum size=1cm]
 \tikzstyle{rectangle for title}=[fill={rgb,255: red,237; green,197; blue,149}, draw={rgb,255: red,237; green,135; blue,13}, shape=rectangle, very thick, minimum size=1cm]
 \tikzstyle{small rect end}=[fill={rgb,255: red,237; green,197; blue,149}, draw={rgb,255: red,237; green,135; blue,13}, shape=rectangle, minimum size=1cm, rounded corners=1mm, very thick]

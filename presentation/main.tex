@@ -84,8 +84,8 @@
 			\end{column}
 			\begin{column}[t]{0.5\textwidth}
 				\begin{center}
-					\includegraphics[width=0.4\textwidth]{./figures/sandwich_alpha.png}
-					% \includegraphics[width=\textwidth]{./figures/paper.png}
+					% \includegraphics[width=0.4\textwidth]{./figures/sandwich_alpha.png}
+					\includegraphics[width=\textwidth]{./figures/paper.png}
 				\end{center}
 			\end{column}
 		\end{columns}
@@ -660,6 +660,16 @@
 \ifattackphaseone
 	\subsection{Phase 1}
 
+	\begin{frame}[fragile]{Phase 1}{Reason for Phase 1}
+    \begin{adjustbox}{max width=\textwidth}
+      \tikzfig{reason_for_phase_1} % ./figures/reason_for_phase_1.tikz
+    \end{adjustbox}
+    \begin{itemize}
+      \item every cell should be testable for collisions
+      \item[\alert{$\Rightarrow$}] set of \alert{unique attacker 3-tuples} that collectively cover all cells
+    \end{itemize}
+	\end{frame}
+
 	\begin{frame}[fragile]{Phase 1}{Overview}
 		\vspace{0.5cm}
 
@@ -695,6 +705,10 @@
 				\input{../report/share/phase2.tex}
 			\end{adjustbox}
 		\end{center}
+	\end{frame}
+
+	\begin{frame}[fragile]{Phase 2}{Termination condition}
+    \ctikzfig{termination_table} % ./figures/termination_table.tikz
 	\end{frame}
 \else
 \fi
