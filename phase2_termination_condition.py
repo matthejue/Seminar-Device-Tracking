@@ -56,9 +56,8 @@ def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
     current_n_star = None
     range_start = None
 
-    print("\n--- n* Table (constant ranges) ---")
-    print(f"{'i-range':<15} | n*")
-    print("-" * 27)
+    print(f"{'i-range':<15} | {'n*[i]':>6}")
+    print("-" * 25)
 
     while i <= i_max:
         n_star = find_minimum_n(i, N, T, n_max=n_max, verbose=False)
@@ -73,22 +72,20 @@ def generate_n_star_table(N, T, i_start=1, i_max=300, n_max=100):
             found_first = True
 
         elif n_star != current_n_star:
-            print(f"{range_start}–{i - 1:<10} | {current_n_star}")
+            print(f"{str(range_start) + '–' + str(i - 1):<15} | {current_n_star:>6}")
             range_start = i
             current_n_star = n_star
 
-        # If n* = 0, finalize and stop
         if n_star == 0:
-            print(f"{range_start:<15} | 0")
+            print(f"{i:<15} | {0:>6}")
             break
 
         i += 1
 
-    # Fallback flush in case loop ends before n* = 0
     if found_first and current_n_star != 0 and i > range_start:
-        print(f"{range_start}–{i - 1:<10} | {current_n_star}")
+        print(f"{str(range_start) + '–' + str(i - 1):<15} | {current_n_star:>6}")
 
-    print("-------------------------------")
+    print("-" * 25)
 
 def main():
     args = sys.argv[1:]
