@@ -1355,7 +1355,7 @@
 			\item \alert{Multiple 3-tuples used in steps}
 
 			% \includegraphics[width=0.95\textwidth]{./figures/external/multiple_3-tuples_used_in_steps.pdf} % ./figures/external/multiple_3-tuples_used_in_steps.tikz
-			\item \alert{Limitations for loopback 3-tuples}
+			\item \alert{Limitations of client device}
 
 			% \includegraphics[width=0.95\textwidth]{./figures/external/4-tuple_not_visible_from_browser.pdf} % ./figures/external/attacker_to_loopback_transitivity.tex
 		\end{itemize}
@@ -1482,10 +1482,11 @@
 				\end{center}
 
 				\begin{itemize}
-					\item 3-tuples only incremeted by 1
+					\item Candidate attacker 3-tuple only incremeted by 1
 					\begin{itemize}
-						\item[$\Rightarrow$] Does \alert{not collide} with \alert{unique attacer 3-tuples} found so far, else increment $>1$
-						\item[$\Rightarrow$] \alert{First} to map to a certain table cell
+						\item[\alert{$\Rightarrow$}] Does \alert{not collide} with \alert{unique attacker 3-tuples} found so far, else increment $>1$
+						\item[\alert{$\Rightarrow$}] \alert{First} to map to a certain table cell
+						\item[\alert{$\Rightarrow$}] Is a \alert{unique attacker 3-tuple}
 					\end{itemize}
 				\end{itemize}
 
@@ -1806,7 +1807,7 @@
 			\node[anchor=south west] at (2cm,0.8cm) {%
 				\begin{minipage}{\textwidth}
 					\begin{itemize}
-						\item \alert{Repeated connection attempts} to same loopback 3-tuple% to produce a detectable increment in its perturbation table cell
+						\item \alert{Repeated connection attempts} with same loopback 3-tuple% to produce a detectable increment in its perturbation table cell
 						\item[\alert{$\Rightarrow$}] Any increments caused by noise are \alert{outweighed}
 					\end{itemize}
 				\end{minipage}
