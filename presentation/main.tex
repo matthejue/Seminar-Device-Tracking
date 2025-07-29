@@ -1305,95 +1305,6 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Phase 1}{Overview}
-		\vspace{0.2cm}
-
-		\includegraphics[width=0.95\textwidth]{./figures/external/phase1_overview.pdf}
-		% \grid
-	\end{frame}
-
-	\begin{frame}[fragile]{Phase 1}{Condition for unique attacker 3-tuple}
-		\vspace{0.5cm}
-
-		\begin{adjustbox}{max width=\textwidth}
-			\tikzfig{phase1} % ./figures/phase1.tikz
-		\end{adjustbox}
-		% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		% 	\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
-		% 	\node[anchor=south west] at (2cm,1cm) {%
-		% 		\begin{minipage}{10cm}
-		% 			\begin{equation*}
-		% 				P'(x) - P(x) = 1
-		% 				\quad \text{when sandwiching } S' \text{ as filling}
-		% 			\end{equation*}
-		% 		\end{minipage}
-		% 	};
-		% 	\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (5.9,1.5);
-		% \end{tikzpicture}
-		% \grid
-	\end{frame}
-
-	\begin{frame}[fragile]{Phase 1}{Condition for unique attacker 3-tuple}
-		\vspace{0.5cm}
-
-		\begin{adjustbox}{max width=\textwidth}
-			\tikzfig{phase1} % ./figures/phase1.tikz
-		\end{adjustbox}
-		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
-			\node[anchor=south west] at (2cm,1cm) {%
-				\begin{minipage}{10cm}
-					\begin{equation*}
-						P'(x) - P(x) = 1
-						\quad \text{when sandwiching } S' \text{ as filling}
-					\end{equation*}
-				\end{minipage}
-			};
-			\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (5.9,1.5);
-		\end{tikzpicture}
-		% \grid
-	\end{frame}
-
-	\begin{frame}[fragile]{Phase 1}{Influence of noise}
-		\vspace{0.5cm}
-
-		\begin{adjustbox}{max width=\textwidth}
-			\tikzfig{phase1_noise} % ./figures/phase1.tikz
-		\end{adjustbox}
-		% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-		% 	\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
-		% 	\node[anchor=south west] at (1cm,1cm) {%
-		% 		\begin{minipage}{\textwidth}
-		% 			\begin{itemize}
-		% 				\item Noise can \alert{hide} a unique attacker 3-tuple, but it \alert{can’t fabricate} one
-		% 			\end{itemize}
-		% 		\end{minipage}
-		% 	};
-		% 	\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (3.9,1.5);
-		% \end{tikzpicture}
-		% \grid
-	\end{frame}
-
-	\begin{frame}[fragile]{Phase 1}{Influence of noise}
-		\vspace{0.5cm}
-
-		\begin{adjustbox}{max width=\textwidth}
-			\tikzfig{phase1_noise} % ./figures/phase1.tikz
-		\end{adjustbox}
-		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
-			\node[anchor=south west] at (1cm,1cm) {%
-				\begin{minipage}{\textwidth}
-					\begin{itemize}
-						\item Noise can \alert{hide} a unique attacker 3-tuple, but it \alert{can’t fabricate} one
-					\end{itemize}
-				\end{minipage}
-			};
-			\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (3.9,1.5);
-		\end{tikzpicture}
-		% \grid
-	\end{frame}
-
 	\begin{frame}[fragile]{Phase 1}{Pseudocode}
 		\begin{adjustbox}{scale=0.7}
 			\begin{minipage}{0.84\textwidth}
@@ -1424,6 +1335,13 @@
 				\end{itemize}
 			};
 		\end{tikzpicture}
+		% \grid
+	\end{frame}
+
+	\begin{frame}[fragile]{Phase 1}{Overview}
+		\vspace{0.2cm}
+
+		\includegraphics[width=0.95\textwidth]{./figures/external/phase1_overview.pdf}
 		% \grid
 	\end{frame}
 
@@ -1475,6 +1393,48 @@
 		% \grid
 	\end{frame}
 
+	\begin{frame}[fragile]{Phase 1}{Condition for unique attacker 3-tuple}
+		\vspace{0.5cm}
+
+		\begin{adjustbox}{max width=\textwidth}
+			\tikzfig{phase1} % ./figures/phase1.tikz
+		\end{adjustbox}
+		% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		% 	\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
+		% 	\node[anchor=south west] at (2cm,1cm) {%
+		% 		\begin{minipage}{10cm}
+		% 			\begin{equation*}
+		% 				P'(x) - P(x) = 1
+		% 				\quad \text{when sandwiching } S' \text{ as filling}
+		% 			\end{equation*}
+		% 		\end{minipage}
+		% 	};
+		% 	\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (5.9,1.5);
+		% \end{tikzpicture}
+		% \grid
+	\end{frame}
+
+	\begin{frame}[fragile]{Phase 1}{Condition for unique attacker 3-tuple}
+		\vspace{0.5cm}
+
+		\begin{adjustbox}{max width=\textwidth}
+			\tikzfig{phase1} % ./figures/phase1.tikz
+		\end{adjustbox}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
+			\node[anchor=south west] at (2cm,1cm) {%
+				\begin{minipage}{10cm}
+					\begin{equation*}
+						P'(x) - P(x) = 1
+						\quad \text{when sandwiching } S' \text{ as filling}
+					\end{equation*}
+				\end{minipage}
+			};
+			\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (5.9,1.5);
+		\end{tikzpicture}
+		% \grid
+	\end{frame}
+
 	\begin{frame}[fragile]{Phase 1}{Pseudocode}
 		\begin{adjustbox}{scale=0.7}
 			\begin{minipage}{0.84\textwidth}
@@ -1522,16 +1482,149 @@
 		\end{tikzpicture}
 		% \grid
 	\end{frame}
+
+	\begin{frame}[fragile]{Phase 1}{Influence of noise}
+		\vspace{0.5cm}
+
+		\begin{adjustbox}{max width=\textwidth}
+			\tikzfig{phase1_noise} % ./figures/phase1.tikz
+		\end{adjustbox}
+		% \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+		% 	\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
+		% 	\node[anchor=south west] at (1cm,1cm) {%
+		% 		\begin{minipage}{\textwidth}
+		% 			\begin{itemize}
+		% 				\item Noise can \alert{hide} a unique attacker 3-tuple, but it \alert{can’t fabricate} one
+		% 			\end{itemize}
+		% 		\end{minipage}
+		% 	};
+		% 	\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (3.9,1.5);
+		% \end{tikzpicture}
+		% \grid
+	\end{frame}
+
+	\begin{frame}[fragile]{Phase 1}{Influence of noise}
+		\vspace{0.5cm}
+
+		\begin{adjustbox}{max width=\textwidth}
+			\tikzfig{phase1_noise} % ./figures/phase1.tikz
+		\end{adjustbox}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\fill[white, opacity=0.95] (0cm,0cm) rectangle (14.4cm,2.2cm);
+			\node[anchor=south west] at (1cm,1cm) {%
+				\begin{minipage}{\textwidth}
+					\begin{itemize}
+						\item Noise can \alert{hide} a unique attacker 3-tuple, but it \alert{can’t fabricate} one
+					\end{itemize}
+				\end{minipage}
+			};
+			\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (3.9,1.5);
+		\end{tikzpicture}
+		% \grid
+	\end{frame}
 \else
 \fi
 
 \ifattackphasetwo
 	\subsection{Phase 2}
 
+	\begin{frame}[fragile]{Phase 2}{Pseudocode}
+		\begin{adjustbox}{scale=0.7}
+			\begin{minipage}{0.7\textwidth}
+				\input{../report/share/phase2.tex}
+			\end{minipage}
+		\end{adjustbox}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			% sandwich
+			\draw[thick, draw=PrimaryColor] (1.9cm,4.75cm) rectangle (3.2cm,5.1cm);
+			\draw[thick, draw=PrimaryColor] (1.9cm,3.75cm) rectangle (7.25cm,4.75cm);
+			% condition
+			% \draw[thick, draw=PrimaryColor] (1.9cm,3.4cm) rectangle (5cm,3.75cm);
+			% \draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,4.1cm);
+			% if
+			% \draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.4cm,3.4cm);
+			% \draw[thick, draw=PrimaryColor] (2.4cm,2.45cm) rectangle (4.95cm,3.1cm);
+			% \draw[thick, draw=PrimaryColor] (2.4cm,1.75cm) rectangle (3.75cm,2.1cm);
+			% \draw[->, thick, draw=PrimaryColor] (3.8cm,1.9cm) -- (7.6cm,1.6cm);
+			% while loop
+			% \draw[thick, draw=PrimaryColor] (1.3cm,1.4cm) rectangle (6.85cm,1.75cm);
+			% \draw[thick, draw=PrimaryColor] (1.3cm,1cm) rectangle (2.9cm,1.4cm);
+		\end{tikzpicture}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
+				\scriptsize
+				\begin{itemize}
+					\item i: Number of iterations
+					\item n: Number of independent pairs / collisions of loopback 3-tuples
+					\item $L_i$: Single loopback 3-tuple
+					\item S': Unique attacker 3-tuples from Phase 1
+					\item w: The one unique attacker 3-tuple
+				\end{itemize}
+			};
+		\end{tikzpicture}
+		% \grid
+	\end{frame}
+
 	\begin{frame}[fragile]{Phase 2}{Overview}
 		\vspace{0.2cm}
 
 		\includegraphics[width=\textwidth]{./figures/external/phase2_overview.pdf}
+		% \grid
+	\end{frame}
+
+	\begin{frame}[fragile]{Phase 2}{Pseudocode}
+		\begin{adjustbox}{scale=0.7}
+			\begin{minipage}{0.7\textwidth}
+				\input{../report/share/phase2.tex}
+			\end{minipage}
+		\end{adjustbox}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			% sandwich
+			% \draw[thick, draw=PrimaryColor] (1.9cm,4.75cm) rectangle (3.2cm,5.1cm);
+			% \draw[thick, draw=PrimaryColor] (1.9cm,3.75cm) rectangle (7.25cm,4.75cm);
+			% condition
+			\draw[thick, draw=PrimaryColor] (1.9cm,3.4cm) rectangle (5cm,3.75cm);
+			\draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,4.1cm);
+			\draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,5.0cm);
+			% if
+			% \draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.4cm,3.4cm);
+			% \draw[thick, draw=PrimaryColor] (2.4cm,2.45cm) rectangle (4.95cm,3.1cm);
+			% \draw[thick, draw=PrimaryColor] (2.4cm,1.75cm) rectangle (3.75cm,2.1cm);
+			% \draw[->, thick, draw=PrimaryColor] (3.8cm,1.9cm) -- (7.6cm,1.6cm);
+			% while loop
+			% \draw[thick, draw=PrimaryColor] (1.3cm,1.4cm) rectangle (6.85cm,1.75cm);
+			% \draw[thick, draw=PrimaryColor] (1.3cm,1cm) rectangle (2.9cm,1.4cm);
+		\end{tikzpicture}
+		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
+				\scriptsize
+				\begin{itemize}
+					\item i: Number of iterations
+					\item n: Number of independent pairs / collisions of loopback 3-tuples
+					\item $L_i$: Single loopback 3-tuple
+					\item S': Unique attacker 3-tuples from Phase 1
+					\item w: The one unique attacker 3-tuple
+					\item $\iota w$: \alert{Definite Description Operator}, means \enquote{the unique w} attacker 3-tuple %satisfying the condition
+				\end{itemize}
+
+				\begin{center}
+					\vspace{-0.1cm}
+					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				\end{center}
+
+				\begin{itemize}
+					\item \alert{Only one loopback 3-tuple} send repeatedly
+					\begin{itemize}
+						\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
+						\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
+					\end{itemize}
+					\item Foreach table cell there's an attacker 3-tuple
+					\begin{itemize}
+						\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
+					\end{itemize}
+				\end{itemize}
+			};
+		\end{tikzpicture}
 		% \grid
 	\end{frame}
 
@@ -1623,7 +1716,7 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Phase 2}{Overview}
+	\begin{frame}[fragile]{Phase 2}{Condition for collision between attacker 3-tuple and loopback 3-tuple}
 		\vspace{0.5cm}
 
 		\begin{adjustbox}{max width=\textwidth}
@@ -1644,7 +1737,7 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Phase 2}{Overview}
+	\begin{frame}[fragile]{Phase 2}{Condition for collision between attacker 3-tuple and loopback 3-tuple}
 		\vspace{0.5cm}
 
 		\begin{adjustbox}{max width=\textwidth}
@@ -1661,99 +1754,6 @@
 				\end{minipage}
 			};
 			\draw[->, thick, draw=PrimaryColor] (13.23,2.85) -- (6.2,1.5);
-		\end{tikzpicture}
-		% \grid
-	\end{frame}
-
-	\begin{frame}[fragile]{Phase 2}{Pseudocode}
-		\begin{adjustbox}{scale=0.7}
-			\begin{minipage}{0.7\textwidth}
-				\input{../report/share/phase2.tex}
-			\end{minipage}
-		\end{adjustbox}
-		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			% sandwich
-			\draw[thick, draw=PrimaryColor] (1.9cm,4.75cm) rectangle (3.2cm,5.1cm);
-			\draw[thick, draw=PrimaryColor] (1.9cm,3.75cm) rectangle (7.25cm,4.75cm);
-			% condition
-			% \draw[thick, draw=PrimaryColor] (1.9cm,3.4cm) rectangle (5cm,3.75cm);
-			% \draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,4.1cm);
-			% if
-			% \draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.4cm,3.4cm);
-			% \draw[thick, draw=PrimaryColor] (2.4cm,2.45cm) rectangle (4.95cm,3.1cm);
-			% \draw[thick, draw=PrimaryColor] (2.4cm,1.75cm) rectangle (3.75cm,2.1cm);
-			% \draw[->, thick, draw=PrimaryColor] (3.8cm,1.9cm) -- (7.6cm,1.6cm);
-			% while loop
-			% \draw[thick, draw=PrimaryColor] (1.3cm,1.4cm) rectangle (6.85cm,1.75cm);
-			% \draw[thick, draw=PrimaryColor] (1.3cm,1cm) rectangle (2.9cm,1.4cm);
-		\end{tikzpicture}
-		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
-				\scriptsize
-				\begin{itemize}
-					\item i: Number of iterations
-					\item n: Number of independent pairs / collisions of loopback 3-tuples
-					\item $L_i$: Single loopback 3-tuple
-					\item S': Unique attacker 3-tuples from Phase 1
-					\item w: The one unique attacker 3-tuple
-				\end{itemize}
-			};
-		\end{tikzpicture}
-		% \grid
-	\end{frame}
-
-	\begin{frame}[fragile]{Phase 2}{Pseudocode}
-		\begin{adjustbox}{scale=0.7}
-			\begin{minipage}{0.7\textwidth}
-				\input{../report/share/phase2.tex}
-			\end{minipage}
-		\end{adjustbox}
-		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			% sandwich
-			% \draw[thick, draw=PrimaryColor] (1.9cm,4.75cm) rectangle (3.2cm,5.1cm);
-			% \draw[thick, draw=PrimaryColor] (1.9cm,3.75cm) rectangle (7.25cm,4.75cm);
-			% condition
-			\draw[thick, draw=PrimaryColor] (1.9cm,3.4cm) rectangle (5cm,3.75cm);
-			\draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,4.1cm);
-			\draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,5.0cm);
-			% if
-			% \draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.4cm,3.4cm);
-			% \draw[thick, draw=PrimaryColor] (2.4cm,2.45cm) rectangle (4.95cm,3.1cm);
-			% \draw[thick, draw=PrimaryColor] (2.4cm,1.75cm) rectangle (3.75cm,2.1cm);
-			% \draw[->, thick, draw=PrimaryColor] (3.8cm,1.9cm) -- (7.6cm,1.6cm);
-			% while loop
-			% \draw[thick, draw=PrimaryColor] (1.3cm,1.4cm) rectangle (6.85cm,1.75cm);
-			% \draw[thick, draw=PrimaryColor] (1.3cm,1cm) rectangle (2.9cm,1.4cm);
-		\end{tikzpicture}
-		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
-				\scriptsize
-				\begin{itemize}
-					\item i: Number of iterations
-					\item n: Number of independent pairs / collisions of loopback 3-tuples
-					\item $L_i$: Single loopback 3-tuple
-					\item S': Unique attacker 3-tuples from Phase 1
-					\item w: The one unique attacker 3-tuple
-					\item $\iota w$: \alert{Definite Description Operator}, means \enquote{the unique w} attacker 3-tuple %satisfying the condition
-				\end{itemize}
-
-				\begin{center}
-					\vspace{-0.1cm}
-					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
-				\end{center}
-
-				\begin{itemize}
-					\item \alert{Only one loopback 3-tuple} send repeatedly
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
-						\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
-					\end{itemize}
-					\item Foreach table cell there's an attacker 3-tuple
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
-					\end{itemize}
-				\end{itemize}
-			};
 		\end{tikzpicture}
 		% \grid
 	\end{frame}
