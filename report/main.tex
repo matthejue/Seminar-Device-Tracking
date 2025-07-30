@@ -31,11 +31,11 @@
 
 In 2018, the \alert{Meltdown} and \alert{Spectre} attacks caused widespread concern by revealing how modern CPUs’ performance features could be exploited to read sensitive data from memory that should have remained inaccessible to user processes.
 
-These attacks demonstrated a broader principle: that subtle side effects in complex systems can leak internal information not intended to be observable.
+These attacks demonstrated a broader principle that subtle side effects in complex systems can leak internal information not intended to be observable.
 
 In a similar spirit, researchers Moshe Kol, Amit Klein, and Yossi Gilad from the Hebrew University of Jerusalem discovered an attack that exploits Linux’s \alert{TCP source port selection algorithm} to track devices.
 
-Like Meltdown, this attack targets \alert{security} and compromises confidentiality, but not by directly revealing secret data, but by exploiting side effects of \alert{hash collisions} that manifest as observable patterns in how \alert{TCP source ports} are incremented across connections. These patterns allow an attacker to infer a fingerprint uniquely tied to a \alert{secret device-specific key}.
+This attack exploits side effects of \alert{hash collisions} that manifest as observable patterns in how \alert{TCP source ports} are incremented across connections. These patterns allow an attacker to infer a fingerprint uniquely tied to a \alert{secret device-specific key}.
 
 \subsection{About this report}
 \label{sec:goal_of_this_report}
@@ -84,7 +84,7 @@ The goal of this report is to provide insight into a specific browser-based devi
     \item the \alert{destination port}.
   \end{itemize}
 
-	\alert{Ports} exist so that multiple simultaneous network connections can operate on the same device, even to the same destination IP address and destination port. For example, a single machine might want to establish several independent TCP connections to the same remote server, and different source ports allow the operating system to distinguish these connections.
+	\alert{Ports} exist so that multiple simultaneous network connections can operate on the same device. For example, a single machine might want to establish several independent TCP connections to the same remote server, and different source ports allow the operating system to distinguish these connections.
 }{
 Source port selection is a mechanism used by the TCP/IP stack of operating systems to choose a TCP source port number for outbound TCP connections. It is required because a TCP connection between two endpoints is uniquely identified by a \alert{4-tuple}, consisting of the \alert{source IP} address, the \alert{source port}, the \alert{destination IP} address, and the \alert{destination port}.
 }
@@ -109,7 +109,7 @@ To address these goals, several algorithms for TCP source port selection have be
 		\item \aalert{Ephemeral ports} (typically in the higher range, e.g. 49152–60999 in Linux) are \alert{dynamically} allocated by the operating system for \alert{short-lived} client-side connections.
 	\end{itemize}
 
-	For the DHPS algorithm, the \alert{ephemeral port} range is particularly relevant because it represents the pool from which source ports are selected for outbound connections.
+	For the DHPS algorithm, the \alert{ephemeral port} range is the relevant one, because it represents the pool from which source ports are selected for outbound connections.
 
 	DHPS selects a TCP \alert{source port} for outbound TCP connections from the ephemeral range based on a given \alert{3-tuple}, consisting of:
 	\begin{itemize}
@@ -123,7 +123,7 @@ To address these goals, several algorithms for TCP source port selection have be
 		\item \( G_{K_2} \), which maps its inputs to a range corresponding to the size of the \alert{perturbation table} \texttt{table}, using the key \( K_2 \).
 	\end{itemize}
 
-	The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add randomness and unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries, all initially set to zero. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port.%, thus improving security and preventing collisions of TCP 4-tuples.
+	The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port.%, thus improving security and preventing collisions of TCP 4-tuples.
 }{
 	TCP source ports are divided into different ranges, each serving distinct purposes. For the DHPS algorithm, the ephemeral port range is particularly relevant because it represents the pool from which source ports are selected for outbound connections. \alert{Ephemeral ports} (typically in the higher range, e.g. 32768–60999 in Linux) are dynamically allocated by the operating system for short-lived client-side connections.
 
@@ -132,7 +132,7 @@ To address these goals, several algorithms for TCP source port selection have be
 		\item \( F_{K_1} \), which maps its inputs to a large range of integers, using the key \( K_1 \),
 		\item \( G_{K_2} \), which maps its inputs to a range corresponding to the size of the \alert{perturbation table} \texttt{table}, using the key \( K_2 \).
 	\end{itemize}
-	The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add randomness and unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries, all initially set to zero. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port. % and preventing collisions of TCP 4-tuples.
+	The \alert{perturbation table} in the DHPS algorithm is a fixed-size array of integer counters used to add unpredictability to TCP source port selection. In Linux, it consists of $T = 256$ entries, all initially set to zero. Each time a connection uses a specific table entry, the counter at that index is incremented, so the table evolves over time as more connections are made. This mechanism ensures that successive connections to the same destination do not repeatedly use the same source port. % and preventing collisions of TCP 4-tuples.
  % and preventing collision
 }
 
@@ -177,7 +177,7 @@ Next, it computes a \alert{candidate port number} using the following calculatio
 
 where \texttt{min\_ephemeral} and \texttt{num\_ephemeral} define the allowed range of ephemeral ports.
 
-It checks whether the candidate port is suitable. If the port is already in use or otherwise unsuitable, the algorithm increments the entry in the perturbation \texttt{table} at the calculated \texttt{index}. As a consequence, the next time this same table entry is used, the computed port number is also \alert{incremented by 1}, unless the port is already at the end of the ephemeral range, in which case it wraps around to the beginning of the range.
+It checks whether the candidate port is suitable. If the port is already in use or otherwise unsuitable, the algorithm has incremented the entry in the perturbation \texttt{table} at the calculated \texttt{index} before. As a consequence, the next time this same table entry is used, the computed port number is also \alert{incremented by 1}, unless the port is already at the end of the ephemeral range, in which case it wraps around to the beginning of the range.
 
 This process \alert{repeats until} a free port is found or no ports remain. This loop is controlled by the variable \texttt{count}, which is decremented on each attempt and terminates the algorithm with an error when it reaches zero.
 
@@ -192,7 +192,7 @@ In the attack, two main parties are involved:
 \begin{itemize}
 	\item \aalert{Tracking server}: This server is controlled by the \alert{attacker} and receives the TCP connection attempts initiated from the client device. It analyzes the observed TCP source ports in order to calculate a device ID and track the client device.%across networks and browsing sessions.
 
-	\item \aalert{Client device}: This is the \alert{victim’s} (Linux-based) device, which runs a browser that renders a web page containing a \alert{tracking snippet}, a small piece of HTML and JavaScript code that operates within the browser’s JavaScript sandbox. When the browser renders the tracking snippet and executes the JavaScript code, the code causes the browser to initiate a series of TCP connection attempts to the \alert{tracking server}, interleaved with TCP connection attempts to a \alert{loopback address}.
+	\item \aalert{Client device}: This is the \alert{victim’s} (Linux-based) device, which runs a browser that renders a web page recieved from the tracking server containing a \alert{tracking snippet}, a small piece of JavaScript code that operates within the browser’s JavaScript sandbox. When the browser executes the tracking snippet, the JavaScript code causes the browser to initiate a series of TCP connection attempts to the \alert{tracking server}, interleaved with TCP connection attempts to a \alert{loopback address}.
 \end{itemize}
 
 Two \alert{types of 3-tuples} are distinguished in the attack:
@@ -226,14 +226,14 @@ The fingerprint mentioned in the introduction Section~\ref{sec:introduction} of 
 		\mathrm{IP}_{\mathrm{Src}} = 127.0.0.1,\;
 		\mathrm{IP}_{\mathrm{Dst}} = 127.1.2.3,\;
 		\mathrm{Port}_{\mathrm{Dst}} = y
-		\bigr)
+		\bigr),
 	\end{split}
 \end{equation*}
 \vspace{-0.5cm}
 
-meaning that both tuples hash to the same cell in the perturbation table under the function $\mathrm{G_{K_2}}$. These collisions depend solely on the kernel’s \alert{secret key} $K_2$, which is the same secret key mentioned in the introduction Section~\ref{sec:introduction}. This key is randomly generated each time the \alert{system starts} and remains constant as long as the device stays powered on. Consequently, the device ID is directly tied to $K_2$ and persists across browser sessions, private browsing modes, and network changes.
+meaning that both tuples hash to the same cell in the perturbation table under the function $\mathrm{G_{K_2}}$. These collisions depend solely on the kernel’s \alert{secret key} $K_2$, which is the same secret key mentioned in the introduction Section~\ref{sec:introduction}. This key is randomly generated each time the system starts and \alert{remains constant} as long as the device stays powered on. Consequently, the device ID is directly tied to $K_2$ and persists across browser sessions, private browsing modes, and network changes.
 
-The device ID consists of the set of all such colliding pairs:
+The device ID consists of a set of such colliding, independant pairs:
 
 \vspace{-0.2cm}
 \begin{minipage}{\columnwidth}
@@ -242,7 +242,7 @@ The device ID consists of the set of all such colliding pairs:
 	\]
 \end{minipage}
 
-where each pair $(x_i, y_i)$ represents \alert{two destination ports} whose corresponding loopback 3-tuples collide into the same perturbation table cell. These pairs are chosen to be \alert{\hypertarget{independant}{independant}}, meaning that each one captures a distinct piece of evidence about how the secret key $K_2$ maps destination ports into perturbation table cells. Specifically, if $k$ loopback 3-tuples fall into the same cell, there are $\binom{k}{2}$ possible pairs, but only $k-1$ of these are independent. The independent pairs for one of the buckets of colliding loopback 3-tuples are chosen as:
+where each pair $(x_i, y_i)$ represents \alert{two destination ports} whose corresponding loopback 3-tuples collide into the same perturbation table cell. These pairs are chosen to be \alert{\hypertarget{independant}{independant}}, meaning that each one captures a distinct piece of evidence about how the secret key $K_2$ maps destination ports into perturbation table cells. Specifically, if $k$ loopback 3-tuples fall into the same cell (one says these 3-tuples are in the same \alert{bucket}), there are $\binom{k}{2}$ possible pairs, but only $k-1$ of these are independent. The independent pairs for one of the buckets of colliding loopback 3-tuples are chosen as:
 
 \vspace{-0.2cm}
 \begin{minipage}{\columnwidth}
@@ -364,13 +364,13 @@ The consequence of what is explained in \hyperlink{limitations}{Limitations for 
 						 & \begin{array}{c}
 							   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_1 \bigr) \\[0.3em]
 							   =                                                                                                                             \\[0.3em]
-							   G_{K_2}\bigl(\text{IP}_{\text{Src}} = D,\ \text{IP}_{\text{Dst}} = A,\ \text{Port}_{\text{Dest}} = y \bigr)
+							   G_{K_2}\bigl(\text{IP}_{\text{Src}} = \text{Client device},\ \text{IP}_{\text{Dst}} = \text{Tracking Server},\ \text{Port}_{\text{Dest}} = y \bigr)
 						   \end{array}
 						\\[1em]
 						 & \begin{array}{c}
 							   G_{K_2}\bigl(\text{IP}_{\text{Src}} = 127.0.0.1,\ \text{IP}_{\text{Dst}} = 127.1.2.3,\ \text{Port}_{\text{Dest}} = x_2 \bigr) \\[0.3em]
 							   =                                                                                                                             \\[0.3em]
-							   G_{K_2}\bigl(\text{IP}_{\text{Src}} = D,\ \text{IP}_{\text{Dst}} = A,\ \text{Port}_{\text{Dest}} = y \bigr)
+                 G_{K_2}\bigl(\text{IP}_{\text{Src}} = \text{Client device},\ \text{IP}_{\text{Dst}} = \text{Tracking Server},\ \text{Port}_{\text{Dest}} = y \bigr)
 						   \end{array}
 					\end{aligned}
 					\quad \Longrightarrow \quad
@@ -387,7 +387,7 @@ The consequence of what is explained in \hyperlink{limitations}{Limitations for 
 	\end{adjustbox}
 \end{center}
 
-In phase 2 (Section~\ref{sec:phase 2}) of the attack, the sandwiching method is used to detect collisions between loopback 3-tuples indirectly, by checking whether they collide with the same attacker 3-tuples. To enable this, it is necessary to have a set of attacker 3-tuples that collectively cover all cells of the perturbation table, ensuring that every cell can be tested for potential collisions. These so-called \alert{unique attacker 3-tuples} have to be first determined in phase 1 (Section~\ref{sec:phase 1}), also via the sandwiching method.
+In phase 2 (Section~\ref{sec:phase 2}) of the attack, the sandwiching method is used to detect collisions between loopback 3-tuples indirectly, by checking whether they collide with the same attacker 3-tuples. To enable this, it is necessary to have a set of attacker 3-tuples that collectively cover all cells of the perturbation table, ensuring that every cell can be tested for potential collisions\footnote{\tiny In more detail, Phase 1 is necessary, because one can only conclude that 2 loopback 3-tuples collide with each other (these loopback 3-tuple collisions build up the device ID), if there's an unique attacker 3-tuple already covering the perturbation table cell where both loopback 3-tuples collide. Thus one needs to have every perturbation table cell covered by one unique attacker 3-tuple which to be even able to detect loopback 3-tuple collisions in phase 2.}. These so-called \alert{unique attacker 3-tuples} have to be first determined in phase 1 (Section~\ref{sec:phase 1}), also via the sandwiching method.
 
 \subsection{Phase 1}
 \label{sec:phase 1}
