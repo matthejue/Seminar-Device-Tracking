@@ -10,7 +10,7 @@ $\tt{C} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{// 1st burst}\\
 \cn{AttemptConnectTCP}\tn{(}$\{\tt{L}_i\}$\tn{)} \cmt{// 2nd burst}\\
 $\tt{C'} \leftarrow \cn{GetSourcePorts}\tn{(}\tt{S'})$ \cmt{// 3rd burst}\\
 $\tt{w} \leftarrow \text{\iota}w(\tt{C'}(w) - \tt{C}(w) > \tn{\varepsilon})$\\
-if \cn{Defined}\tn{(}\tt{B[w]}\tn{)} then \cmt{// A collision was found}\\+
+if \cn{Defined}\tn{(}\tt{B[w]}\tn{)} then \cmt{// Collision was found}\\+
 $\tt{p} \leftarrow p \cup \{(\tt{L}_i,\tt{B}[w])\}$\\
 $\tt{n} \leftarrow n+1$\\-
 else\\+

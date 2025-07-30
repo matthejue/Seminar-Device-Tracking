@@ -1203,27 +1203,15 @@
 			% \fill[fill=SecondaryColorDimmed] (3.3cm,2.8cm) rectangle (12.6cm,3.2cm);
 			% \fill[fill=PrimaryColorDimmed] (3.3cm,0.9cm) rectangle (12.6cm,1.3cm);
 
-			\draw[thick, draw=PrimaryColor] (8.65cm,3.3cm) rectangle (9.6cm,3.7cm);
 			\draw[thick, draw=PrimaryColor] (8.65cm,1.35cm) rectangle (9.6cm,1.75cm);
 			\fill[white, opacity=0.95] (1cm,4.68cm) rectangle (14cm,7.2cm);
-			\node[anchor=south west] at (2cm,5.8cm) {%
-				\begin{adjustbox}{max width=0.7\textwidth}
-					$\displaystyle
-						table[j] =
-						\begin{cases}
-							rand(j)\, + 0, & \text{if } i \neq j,\ \text{meaning perturbation table cell } i \text{ was not used,} \\
-							rand(j)\, + 1, & \text{if } i = j,\ \text{meaning perturbation table cell } i \text{ was used}
-						\end{cases}
-					$
-				\end{adjustbox}
-			};
-			\node[anchor=south west] at (2cm,4.7cm) {%
+			\node[anchor=south west] at (2cm,5.2cm) {%
 				\begin{adjustbox}{max width=0.7\textwidth}
 					$\displaystyle
 						table[i] =
 						\begin{cases}
-							rand(i)\, + 1, & \text{if } i \neq j,\ \text{meaning perturbation table cell } i \text{ was not used,} \\
-							rand(i)\, + 2, & \text{if } i = j,\ \text{meaning perturbation table cell } i \text{ was used}
+							rand(i)\, + 1, & \text{if } i \neq j,\ \text{meaning table cell } i \text{ was not used filling step} \\
+							rand(i)\, + 2, & \text{if } i = j,\ \text{meaning table cell } i \text{ was used in filling step}
 						\end{cases}
 					$
 				\end{adjustbox}
@@ -1871,7 +1859,7 @@
 			% \draw[thick, draw=PrimaryColor] (1.9cm,3.4cm) rectangle (5cm,3.75cm);
 			% \draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,4.1cm);
 			% if
-			\draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.4cm,3.4cm);
+			\draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.35cm,3.4cm);
 			\draw[thick, draw=PrimaryColor] (2.4cm,2.45cm) rectangle (4.95cm,3.1cm);
 			\draw[thick, draw=PrimaryColor] (2.4cm,1.75cm) rectangle (3.75cm,2.1cm);
 			\draw[->, thick, draw=PrimaryColor] (3.8cm,1.9cm) -- (7.6cm,2.4cm);
@@ -1914,7 +1902,7 @@
 				\end{center}
 
 				\begin{itemize}
-					\item $B[w]$: \alert{Dictionary}, keys = unique attacker 3-tuples, values = first loopback 3-tuple
+					\item $B[w]$: \alert{Dictionary}, keys = unique attacker 3-tuples, values = first loopback 3-tuples
 					\item $\{T_3, T_2, T_5\}$ \alert{$\Rightarrow$} $\{(T_3, T_2), (T_3, T_5)\}$ % independent pairs 
 				\end{itemize}
 			};
@@ -1979,7 +1967,7 @@
 				\end{center}
 
 				\begin{itemize}
-					\item $B[w]$: \alert{Dictionary}, keys = unique attacker 3-tuples, values = first loopback 3-tuple
+					\item $B[w]$: \alert{Dictionary}, keys = unique attacker 3-tuples, values = first loopback 3-tuples
 					\item $\{T_3, T_2, T_5\}$ \alert{$\Rightarrow$} $\{(T_3, T_2), (T_3, T_5)\}$ % independent pairs 
 				\end{itemize}
 			};
