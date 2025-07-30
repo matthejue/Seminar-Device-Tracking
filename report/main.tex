@@ -491,10 +491,7 @@ This condition guarantees:
     \end{adjustbox}
 \end{center}
 
-where \( T \) is the \alert{number of perturbation table cells}, \( N \) is the \alert{total number of tracked devices}, \( c \) is the \alert{maximum average number of device ID collisions} within the tracked devices ($c$ is usually just $1$), and \( p^* \) is the \alert{maximum acceptable probability} that any pair of devices produces the same device ID. Setting \( p^* = \frac{1}{\binom{N}{2}} \) ensures that the average number of device ID collisions among all pairs in the entire population is \alert{at most one}.
-
-For an individual device the term $\prod_{j=0}^{i - n - 1} \left(1 - \frac{j}{T}\right)$ accounts for the combined probability of all first loopback 3-tuples in their buckets to match the structure.
- the term $\frac{1}{T^N}$ accounts for the probabiliy that all non-first loopback 3-tuples go into the same buckets
+where \( T \) is the \alert{number of perturbation table cells}, \( N \) is the \alert{total number of tracked devices}, \( c \) is the \alert{maximum average number of device ID collisions} within the tracked devices ($c$ is usually just $1$), and \( p^* \) is the \alert{maximum acceptable probability} that any pair of devices produces the same device ID. Setting \( p^* = \frac{1}{\binom{N}{2}} \) ensures that the average number of device ID collisions among all pairs in the entire population is \alert{at most one}. This termination condition formula is derived in Section~\ref{sec:derivation of the termination condition formula of phase 2} of the Appendix for the ones interested.
 
 The table \( n^*[i] \) is determined as:
 
@@ -563,6 +560,19 @@ Throughout this report, the following terminology and conventions are used:
 \iftoggle{longversion}{}{
 	\devicetrackig
 }
+
+\subsection{Derivation of the termination condition formula of phase 2}
+\label{sec:derivation of the termination condition formula of phase 2}
+
+The \alert{term $\prod_{j=0}^{i - n - 1} \left(1 - \frac{j}{T}\right)$} accounts for the combined probability for another device to have all first loopback 3-tuples in their buckets to match the structure of the device at hand. The product goes from $0$ to $i - n - 1$, because $i - n$ is the \alert{number of non-empty buckets} of loopback 3-tuples colliding in the same perturbation table cell. One has to substract 1, because the indices start at $0$. 
+
+In every iteration there's the possibility that a loopback 3-tuple is the first to map to a certain perturbation table cell und thus creating a new non-empty bucket. If a loopback 3-tuple is not the first and thus doesn't create a new non-empty bucket, then it collides with one of the first loopback 3-tuples. This means it is added to an already existing bucket and thus doesn't increase the number of non-empty buckets and thus has to be substracted from the number of iterations. This means one has to substract the number of loopback 3-tuple collisions / independant pairs $n$ from $l$ to get the number of non-empty buckets. 
+
+The \alert{first choosen first loopback 3-tuple} of another device has a probabiliy of $\frac{T}{T} = 1$ to match the structure of the device at hand, it can basically choose any perturbation table cell. The \alert{second choosen first loopback 3-tuple} of another device has the probability of $\frac{T - 1}{T}$ to match the structure of the device at hand as it just has to pick another cell then the one chosen by the first chosen first loopback 3-tuple to be a first loopback 3-tuple and the exact perturbationt table cell is only known to the operating system of the client device but not known to the attacker. Thus for \alert{all first loopback 3-tuples} the probability is: $\frac{T}{T} \cdot \frac{T - 1}{T} \cdot \ldots \cdot \frac{T - (i - n - 1)}{T} = \prod_{j=0}^{i - n - 1} \left(\frac{T-j}{T}\right) = \prod_{j=0}^{i - n - 1} \left(\frac{T}{T} - \frac{j}{T}\right) = \prod_{j=0}^{i - n - 1} \left(1 - \frac{j}{T}\right)$.
+
+The \alert{term $\frac{1}{T^n}$} accounts for the probabiliy for another device that all remaining non-first loopback 3-tuples go into the same buckets as for the device at hand. Because the buckets can be distinguished from each other by the first loopback 3-tuples in them, the probability is $T^n$. The probabiliy has to be formulated in terms of $T$ and not the just the number of nom-empty buckets, because it is still the probabiliy of the loopback 3-tuple choosing the perturbation table cell of a certain first loopback 3-tuple over all other perturbaton table cells.
+
+Why the \alert{term $\binom{N}{2}$} accounts for the number of pairs of devices among the $N$ devices makes intuitively sense as soon as one knows that $\binom{N}{2}$ is the number of possible 2-tuples of devices among a set of $N$ devices.
 
 \section{Bibliography}
 \label{sec:bibliography}
