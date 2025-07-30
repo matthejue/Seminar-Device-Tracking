@@ -320,12 +320,12 @@
 			\end{minipage}
 		\end{adjustbox}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}] % 1
-			\node[anchor=north west]  at (9.3cm, 5.8cm) {%
+			\node[anchor=north west]  at (9.4cm, 5.8cm) {%
 				\includegraphics[scale=0.7]{./figures/external/dhps_source_port_calculation_2.pdf}
 			};
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-			\node[anchor=north west] at (9cm, 7.1cm) {%
+			\node[anchor=north west] at (9.3cm, 7.1cm) {%
 				\begin{minipage}{\textwidth}
 					\begin{itemize}
 		         \item \alert{Source port calculation:}
@@ -1428,11 +1428,11 @@
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 			\node[anchor=north west, text width=5.5cm] at (8.5cm, 7cm) {%
-				\scriptsize
+				% \scriptsize
 				\begin{itemize}
 					\item $S$: New \alert{candidate attacker 3-tuples}
-					\item $S'$: \alert{Unique attacker 3-tuples} found so far ($\emptyset$ at the beginning)%, maximal $T$ attacker 3-tuples) % quiz question!!!
-					\item $P, P'$: Function for all new candiate attacker 3-tuples in 1st ($P$) and 2nd wrapper ($P'$) a TCP-SYN mapping $(IP_{Src}, IP_{Dest}, Port_{Dest})\mapsto Port_{Src}$
+					\item $S'$: \alert{Unique attacker 3-tuples} found so far%, maximal $T$ attacker 3-tuples) % quiz question!!!
+					\item $P, P'$: Functions of $(IP_{Src}, IP_{Dest}, Port_{Dest})\mapsto Port_{Src}$ for \alert{new candiate attacker 3-tuples}
 					\item $x$: \alert{Candidate attacker 3-tuple}
 				\end{itemize}
 			};
@@ -1460,7 +1460,7 @@
 
 			% condition, new set of found unique attacker 3-tuples
 			\draw[thick, draw=PrimaryColor] (1.9cm,1.2) rectangle (5.8cm,1.55cm);
-			\draw[->, thick, draw=PrimaryColor] (5.9cm,1.4cm) -- (8.5cm,3.6cm);
+			% \draw[->, thick, draw=PrimaryColor] (5.9cm,1.4cm) -- (8.5cm,3.6cm);
 
 			% while loop
 			% \draw[thick, draw=PrimaryColor] (1.35cm,2.85) rectangle (3.4cm,3.25cm);
@@ -1468,27 +1468,27 @@
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 			\node[anchor=north west, text width=5.5cm] at (8.5cm, 7cm) {%
-				\scriptsize
+				% \scriptsize
 				\begin{itemize}
 					\item $S$: New \alert{candidate attacker 3-tuples}
-					\item $S'$: \alert{Unique attacker 3-tuples} found so far ($\emptyset$ at the beginning)%, maximal $T$ attacker 3-tuples) % quiz question!!!
-					\item $P, P'$: Function for all new candiate attacker 3-tuples in 1st ($P$) and 2nd wrapper ($P'$) a TCP-SYN mapping $(IP_{Src}, IP_{Dest}, Port_{Dest})\mapsto Port_{Src}$
+					\item $S'$: \alert{Unique attacker 3-tuples} found so far%, maximal $T$ attacker 3-tuples) % quiz question!!!
+					\item $P, P'$: Functions of $(IP_{Src}, IP_{Dest}, Port_{Dest})\mapsto Port_{Src}$ for \alert{new candiate attacker 3-tuples}
 					\item $x$: \alert{Candidate attacker 3-tuple}
 				\end{itemize}
 
-				\begin{center}
-					\vspace{-0.1cm}
-					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
-				\end{center}
+				% \begin{center}
+				% 	\vspace{-0.1cm}
+				% 	\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				% \end{center}
 
-				\begin{itemize}
-					\item Candidate attacker 3-tuple only incremeted by 1
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] Does \alert{not collide} with \alert{unique attacker 3-tuples} found so far, else increment $>1$
-						\item[\alert{$\Rightarrow$}] \alert{First} to map to a certain table cell
-						\item[\alert{$\Rightarrow$}] Is a \alert{unique attacker 3-tuple}
-					\end{itemize}
-				\end{itemize}
+				% \begin{itemize}
+				% 	\item Candidate attacker 3-tuple only incremeted by 1
+				% 	\begin{itemize}
+				% 		\item[\alert{$\Rightarrow$}] Does \alert{not collide} with \alert{unique attacker 3-tuples} found so far, else increment $>1$
+				% 		\item[\alert{$\Rightarrow$}] \alert{First} to map to a certain table cell
+				% 		\item[\alert{$\Rightarrow$}] Is a \alert{unique attacker 3-tuple}
+				% 	\end{itemize}
+				% \end{itemize}
 
 				% 1st iteration S'is empty
 			};
@@ -1559,26 +1559,25 @@
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 			\node[anchor=north west, text width=5.5cm] at (8.5cm, 7cm) {%
-				\scriptsize
 				\begin{itemize}
 					\item $S$: New \alert{candidate attacker 3-tuples}
-					\item $S'$: \alert{Unique attacker 3-tuples} found so far ($\emptyset$ at the beginning)%, maximal $T$ attacker 3-tuples) % quiz question!!!
-					\item $P, P'$: Function for all new candiate attacker 3-tuples in 1st ($P$) and 2nd wrapper ($P'$) a TCP-SYN mapping $(IP_{Src}, IP_{Dest}, Port_{Dest})\mapsto Port_{Src}$
+					\item $S'$: \alert{Unique attacker 3-tuples} found so far%, maximal $T$ attacker 3-tuples) % quiz question!!!
+					\item $P, P'$: Functions of $(IP_{Src}, IP_{Dest}, Port_{Dest})\mapsto Port_{Src}$ for \alert{new candiate attacker 3-tuples}
 					\item $x$: \alert{Candidate attacker 3-tuple}
 				\end{itemize}
 
-				\begin{center}
-					\vspace{-0.1cm}
-					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
-				\end{center}
+				% \begin{center}
+				% 	\vspace{-0.1cm}
+				% 	\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				% \end{center}
 
-				\begin{itemize}
-					\item 3-tuples only incremeted by 1
-					\begin{itemize}
-						\item[$\Rightarrow$] Does \alert{not collide} with \alert{unique attacer 3-tuples} found so far, else increment $>1$
-						\item[$\Rightarrow$] \alert{First} to map to a certain table cell
-					\end{itemize}
-				\end{itemize}
+				% \begin{itemize}
+				% 	\item 3-tuples only incremeted by 1
+				% 	\begin{itemize}
+				% 		\item[$\Rightarrow$] Does \alert{not collide} with \alert{unique attacer 3-tuples} found so far, else increment $>1$
+				% 		\item[$\Rightarrow$] \alert{First} to map to a certain table cell
+				% 	\end{itemize}
+				% \end{itemize}
 
 				% 1st iteration S'is empty
 			};
@@ -1655,7 +1654,6 @@
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
-				\scriptsize
 				\begin{itemize}
 					\item i: Number of iterations
 					\item n: Number of independent pairs / collisions of loopback 3-tuples
@@ -1686,9 +1684,8 @@
 			% \draw[thick, draw=PrimaryColor] (1.9cm,4.75cm) rectangle (3.2cm,5.1cm);
 			% \draw[thick, draw=PrimaryColor] (1.9cm,3.75cm) rectangle (7.25cm,4.75cm);
 			% condition
-			\draw[thick, draw=PrimaryColor] (1.9cm,3.4cm) rectangle (5cm,3.75cm);
-			\draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,4.1cm);
-			\draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,5.0cm);
+			\draw[thick, draw=PrimaryColor] (1.9cm,3.4cm) rectangle (5.15cm,3.75cm);
+			\draw[->, thick, draw=PrimaryColor] (5.2cm,3.6cm) -- (7.6cm,3.55cm);
 			% if
 			% \draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.4cm,3.4cm);
 			% \draw[thick, draw=PrimaryColor] (2.4cm,2.45cm) rectangle (4.95cm,3.1cm);
@@ -1700,32 +1697,31 @@
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
-				\scriptsize
 				\begin{itemize}
 					\item i: Number of iterations
 					\item n: Number of independent pairs / collisions of loopback 3-tuples
 					\item $L_i$: Single loopback 3-tuple
 					\item S': Unique attacker 3-tuples from Phase 1
 					\item w: The one unique attacker 3-tuple
-					\item $\iota w$: \alert{Definite Description Operator}, means \enquote{the unique w} attacker 3-tuple %satisfying the condition
+					\item $\iota w$: \alert{Definite Description Operator}, \enquote{the unique w} attacker 3-tuple %satisfying the condition
 				\end{itemize}
 
-				\begin{center}
-					\vspace{-0.1cm}
-					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
-				\end{center}
+				% \begin{center}
+				% 	\vspace{-0.1cm}
+				% 	\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				% \end{center}
 
-				\begin{itemize}
-					\item \alert{Only one loopback 3-tuple} send repeatedly
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
-						\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
-					\end{itemize}
-					\item Foreach table cell there's an attacker 3-tuple
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
-					\end{itemize}
-				\end{itemize}
+				% \begin{itemize}
+				% 	\item \alert{Only one loopback 3-tuple} send repeatedly
+				% 	\begin{itemize}
+				% 		\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
+				% 		\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
+				% 	\end{itemize}
+				% 	\item Foreach table cell there's an attacker 3-tuple
+				% 	\begin{itemize}
+				% 		\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
+				% 	\end{itemize}
+				% \end{itemize}
 			};
 		\end{tikzpicture}
 		% \grid
@@ -1878,42 +1874,42 @@
 			\draw[thick, draw=PrimaryColor] (1.9cm,1.75cm) rectangle (7.4cm,3.4cm);
 			\draw[thick, draw=PrimaryColor] (2.4cm,2.45cm) rectangle (4.95cm,3.1cm);
 			\draw[thick, draw=PrimaryColor] (2.4cm,1.75cm) rectangle (3.75cm,2.1cm);
-			\draw[->, thick, draw=PrimaryColor] (3.8cm,1.9cm) -- (7.6cm,1.6cm);
+			\draw[->, thick, draw=PrimaryColor] (3.8cm,1.9cm) -- (7.6cm,2.4cm);
 			% while loop
 			% \draw[thick, draw=PrimaryColor] (1.3cm,1.4cm) rectangle (6.85cm,1.75cm);
 			% \draw[thick, draw=PrimaryColor] (1.3cm,1cm) rectangle (2.9cm,1.4cm);
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
-				\scriptsize
+				% \scriptsize
 				\begin{itemize}
 					\item i: Number of iterations
 					\item n: Number of independent pairs / collisions of loopback 3-tuples
 					\item $L_i$: Single loopback 3-tuple
 					\item S': Unique attacker 3-tuples from Phase 1
 					\item w: The one unique attacker 3-tuple
-					\item $\iota w$: \alert{Definite Description Operator}, means \enquote{the unique w} attacker 3-tuple %satisfying the condition
+					\item $\iota w$: \alert{Definite Description Operator}, \enquote{the unique w} attacker 3-tuple %satisfying the condition
 				\end{itemize}
 
-				\begin{center}
-					\vspace{-0.1cm}
-					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
-				\end{center}
+				% \begin{center}
+				% 	\vspace{-0.1cm}
+				% 	\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				% \end{center}
+				%
+				% \begin{itemize}
+				% 	\item \alert{Only one loopback 3-tuple} send repeatedly
+				% 	\begin{itemize}
+				% 		\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
+				% 		\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
+				% 	\end{itemize}
+				% 	\item Foreach table cell there's an attacker 3-tuple
+				% 	\begin{itemize}
+				% 		\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
+				% 	\end{itemize}
+				% \end{itemize}
 
-				\begin{itemize}
-					\item \alert{Only one loopback 3-tuple} send repeatedly
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
-						\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
-					\end{itemize}
-					\item Foreach table cell there's an attacker 3-tuple
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
-					\end{itemize}
-				\end{itemize}
-
 				\begin{center}
-					\vspace{-0.1cm}
+					\vspace{-0.3cm}
 					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
 				\end{center}
 
@@ -1950,40 +1946,40 @@
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
 			\node[anchor=north west, text width=6.5cm] at (7.5cm, 7.4cm) {%
-				\scriptsize
+				% \scriptsize
 				\begin{itemize}
 					\item i: Number of iterations
 					\item n: Number of independent pairs / collisions of loopback 3-tuples
 					\item $L_i$: Single loopback 3-tuple
 					\item S': Unique attacker 3-tuples from Phase 1
 					\item w: The one unique attacker 3-tuple
-					\item $\iota w$: \alert{Definite Description Operator}, means \enquote{the unique w} attacker 3-tuple %satisfying the condition
+					\item $\iota w$: \alert{Definite Description Operator}, \enquote{the unique w} attacker 3-tuple %satisfying the condition
 				\end{itemize}
 
+				% \begin{center}
+				% 	\vspace{-0.1cm}
+				% 	\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
+				% \end{center}
+
+				% \begin{itemize}
+				% 	\item \alert{Only one loopback 3-tuple} send repeatedly
+				% 	\begin{itemize}
+				% 		\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
+				% 		\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
+				% 	\end{itemize}
+				% 	\item Foreach table cell there's an attacker 3-tuple
+				% 	\begin{itemize}
+				% 		\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
+				% 	\end{itemize}
+				% \end{itemize}
+
 				\begin{center}
-					\vspace{-0.1cm}
+					\vspace{-0.3cm}
 					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
 				\end{center}
 
 				\begin{itemize}
-					\item \alert{Only one loopback 3-tuple} send repeatedly
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] \alert{Only one attacker 3-tuple} has significant increment
-						\item[\alert{$\Rightarrow$}] \alert{Collision} between \alert{attacker 3-tuple} and \alert{loopback 3-tuple}
-					\end{itemize}
-					\item Foreach table cell there's an attacker 3-tuple
-					\begin{itemize}
-						\item[\alert{$\Rightarrow$}] Always collision with attacker 3-tuple
-					\end{itemize}
-				\end{itemize}
-
-				\begin{center}
-					\vspace{-0.1cm}
-					\color{PrimaryColor}\rule{0.9\textwidth}{0.25mm}
-				\end{center}
-
-				\begin{itemize}
-					\item $B[w]$: \alert{dictionary}, keys = unique attacker 3-tuples, values = first loopback 3-tuple
+					\item $B[w]$: \alert{Dictionary}, keys = unique attacker 3-tuples, values = first loopback 3-tuple
 					\item $\{T_3, T_2, T_5\}$ \alert{$\Rightarrow$} $\{(T_3, T_2), (T_3, T_5)\}$ % independent pairs 
 				\end{itemize}
 			};
@@ -1991,84 +1987,6 @@
 		% \grid
 	\end{frame}
 
-	\begin{frame}[fragile]{Phase 2}{Termination condition}
-		\vspace{0.2cm}
-
-		\includegraphics[width=0.95\textwidth]{./figures/external/termination_formula_explained.pdf}
-		% \begin{itemize}
-		%   \item balls in buckets problem, but buckets cannot be mapped between devices, can only see which balls fall into same bucket
-		%   \item probability does not depend on the structure (how many balls go into each of the buckets), it only depends on the total number of independent collisions, n
-		% \end{itemize}
-	\end{frame}
-
-	\begin{frame}[fragile]{Phase 2}{Termination condition}
-		\begin{columns}
-			\begin{column}{0.5\textwidth}
-				\includegraphics[width=\textwidth]{./figures/external/independant_pairs_2.pdf}
-			\end{column}
-			\begin{column}{0.5\textwidth}
-				\begin{itemize}
-					% \item balls in buckets problem, but buckets cannot be mapped between devices, can only see which balls fall into same bucket
-					\item Can only see which balls fall into same bucket
-					% \item probability does not depend on the structure (how many balls go into each of the buckets), it only depends on the total number of independent collisions, n
-					\item Probability \alert{only} depends on \alert{total number of independent collisions}
-				\end{itemize}
-			\end{column}
-		\end{columns}
-		\begin{itemize}
-			\item \alert{Correlations}:
-			\begin{itemize}
-				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ potentially closer to being satisfied % closer to termination
-				\vspace{-0.4cm}
-
-				\includegraphics[width=0.95\textwidth]{./figures/external/increase_i.pdf} % ./figures/external/increase_i.tikz
-				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ potentially closer to being satisfied % closer to termination
-				\vspace{-0.4cm}
-
-				\includegraphics[width=0.95\textwidth]{./figures/external/increase_n.pdf} % ./figures/external/increase_n.tikz
-			\end{itemize}
-		\end{itemize}
-	\end{frame}
-
-	\begin{frame}[fragile]{Phase 2}{Termination condition}
-		% \begin{center}
-		% 	\tikzfig{termination_table} % ./figures/termination_table.tikz
-		% \end{center}
-		\begin{columns}
-			\begin{column}[t]{0.6\textwidth}
-				\vspace{0cm}
-
-				\includegraphics[width=\textwidth]{./figures/external/termination_table.pdf} % ./figures/external/termination_table.tikz
-
-			\end{column}
-			\begin{column}[t]{0.4\textwidth}
-				\vspace{0cm}
-
-				\begin{itemize}
-					\item Precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P_D^i(n) < p^* \right\}\)
-					\item \(n \ge n^*[i]\) replaces \(P_D^i(n) < p^*\)
-					\item[\alert{$\Rightarrow$}] Avoid repeated computation
-				\end{itemize}
-				\vspace{0.2cm}
-				\centering
-
-				\begin{tblr}{
-						colspec = {|c|c|},
-						hlines,
-						vlines,
-						row{1} = {bg=PrimaryColor, fg=white, font=\bfseries},  % Header row: bold, white text, colored background
-						row{2-Z} = {bg=SecondaryColorDimmed},                  % Other rows: dimmed background
-					}
-					i-range & n$^*$[i] \\
-					4--5    & 4        \\
-					6--11   & 3        \\
-					12--12  & 2        \\
-					13--13  & 1        \\
-					14      & 0        \\
-				\end{tblr}
-			\end{column}
-		\end{columns}
-	\end{frame}
 \else
 \fi
 
@@ -2180,16 +2098,101 @@
 	\section{Appendix}
 	\end{withoutheadline}
 
+  \subsection{Phase 2 termination condition script}
+
 	\begin{frame}[fragile]{Appendix}{Phase 2 termination condition script}
     \begin{itemize}
       \item \url{https://github.com/matthejue/Seminar-Device-Tracking/blob/main/phase2_termination_condition.py}
     \end{itemize}
 	\end{frame}
 
+  \subsection{Demonstration of the attack}
+
 	\begin{frame}[fragile]{Appendix}{Demonstration of the attack}
     \begin{itemize}
       \item \url{https://youtu.be/pZbfV5nCQsA?feature=shared}
     \end{itemize}
+	\end{frame}
+
+  \subsection{Termination condition}
+
+	\begin{frame}[fragile]{Phase 2}{Termination condition}
+		\vspace{0.2cm}
+
+		\includegraphics[width=\textwidth, center]{./figures/external/termination_formula_explained.pdf}
+		% \begin{itemize}
+		%   \item balls in buckets problem, but buckets cannot be mapped between devices, can only see which balls fall into same bucket
+		%   \item probability does not depend on the structure (how many balls go into each of the buckets), it only depends on the total number of independent collisions, n
+		% \end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Phase 2}{Termination condition}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[width=\textwidth]{./figures/external/independant_pairs_2.pdf}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}
+					% \item balls in buckets problem, but buckets cannot be mapped between devices, can only see which balls fall into same bucket
+					\item Can only see which balls fall into same bucket
+					% \item probability does not depend on the structure (how many balls go into each of the buckets), it only depends on the total number of independent collisions, n
+					\item Probability \alert{only} depends on \alert{total number of independent collisions}
+				\end{itemize}
+			\end{column}
+		\end{columns}
+		\begin{itemize}
+			\item \alert{Correlations}:
+			\begin{itemize}
+				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ potentially closer to being satisfied % closer to termination
+				\vspace{-0.4cm}
+
+				\includegraphics[width=0.95\textwidth]{./figures/external/increase_i.pdf} % ./figures/external/increase_i.tikz
+				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ potentially closer to being satisfied % closer to termination
+				\vspace{-0.4cm}
+
+				\includegraphics[width=0.95\textwidth]{./figures/external/increase_n.pdf} % ./figures/external/increase_n.tikz
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Phase 2}{Termination condition}
+		% \begin{center}
+		% 	\tikzfig{termination_table} % ./figures/termination_table.tikz
+		% \end{center}
+		\begin{columns}
+			\begin{column}[t]{0.6\textwidth}
+				\vspace{0cm}
+
+				\includegraphics[width=\textwidth]{./figures/external/termination_table.pdf} % ./figures/external/termination_table.tikz
+
+			\end{column}
+			\begin{column}[t]{0.4\textwidth}
+				\vspace{0cm}
+
+				\begin{itemize}
+					\item Precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P_D^i(n) < p^* \right\}\)
+					\item \(n \ge n^*[i]\) replaces \(P_D^i(n) < p^*\)
+					\item[\alert{$\Rightarrow$}] Avoid repeated computation
+				\end{itemize}
+				\vspace{0.2cm}
+				\centering
+
+				\begin{tblr}{
+						colspec = {|c|c|},
+						hlines,
+						vlines,
+						row{1} = {bg=PrimaryColor, fg=white, font=\bfseries},  % Header row: bold, white text, colored background
+						row{2-Z} = {bg=SecondaryColorDimmed},                  % Other rows: dimmed background
+					}
+					i-range & n$^*$[i] \\
+					4--5    & 4        \\
+					6--11   & 3        \\
+					12--12  & 2        \\
+					13--13  & 1        \\
+					14      & 0        \\
+				\end{tblr}
+			\end{column}
+		\end{columns}
 	\end{frame}
 \else
 \fi
@@ -2205,7 +2208,8 @@
 		% \printbibliography[category=myarticles,heading=subbibliography]
 		\printbibliography
 		\begin{itemize}
-			\item All other images have been generated with ChatGPT and DALL-E 3
+      \item All other images were generated using \href{https://chatgpt.com/}{ChatGPT}, which internally utilizes \href{https://openai.com/index/dall-e-3/}{DALL-E 3}
+      \item The visualisations were created with \href{https://github.com/pgf-tikz/pgf?tab=readme-ov-file}{TikZ} and \href{https://tikzit.github.io/}{TikZiT}
 		\end{itemize}
 	\end{frame}
 	%
