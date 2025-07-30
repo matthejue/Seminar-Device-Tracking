@@ -6,16 +6,16 @@ procedure \cn{Phase2}\\+
 $\tt{C} \leftarrow \emptyset; \tt{n} \leftarrow 0; \tt{i} \leftarrow 0$\\
 repeat\\+
 $\tt{i} \leftarrow \tt{i}+1$\\
-$\tt{P} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{// 1st burst}\\
+$\tt{C} \leftarrow \cn{GetSourcePorts}(\tt{S'})$ \cmt{// 1st burst}\\
 \cn{AttemptConnectTCP}\tn{(}$\{\tt{L}_i\}$\tn{)} \cmt{// 2nd burst}\\
-$\tt{P'} \leftarrow \cn{GetSourcePorts}\tn{(}\tt{S'})$ \cmt{// 3rd burst}\\
-$\tt{w} \leftarrow \text{\iota}w(\tt{P'}(w) - \tt{P}(w) > \tn{\varepsilon})$\\
+$\tt{C'} \leftarrow \cn{GetSourcePorts}\tn{(}\tt{S'})$ \cmt{// 3rd burst}\\
+$\tt{w} \leftarrow \text{\iota}w(\tt{C'}(w) - \tt{C}(w) > \tn{\varepsilon})$\\
 if \cn{Defined}\tn{(}$\tt{B}_w$\tn{)} then \cmt{// A collision was found}\\+
-$\tt{C} \leftarrow C \cup \{(\tt{L}_i,\tt{B}[w])\}$\\
+$\tt{p} \leftarrow p \cup \{(\tt{L}_i,\tt{B}[w])\}$\\
 $\tt{n} \leftarrow n+1$\\-
 else\\+
 $\tt{B}[w] \leftarrow L_i$\\--
-until $\tt{n} \ge \tt{n}^*[i]$ \cmt{// This is equiv. to $P^i_D(n) \le p^*$}\\
-return \tn{(}\tt{C},\tt{i}\tn{)}\\-
+until $\tt{n} \ge \tt{n}^*[i]$ \cmt{// This is equiv. to $P^N_T(i, n) \le p^*$}\\
+return \tn{(}\tt{p},\tt{i}\tn{)}\\-
 	\end{pseudo}
 \end{algorithm}

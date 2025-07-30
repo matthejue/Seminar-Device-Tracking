@@ -13,10 +13,10 @@ procedure \cn{Phase1}\\+
 \tt{S'} $\leftarrow\emptyset$\\
 while $|\tt{S'}| < \tt{T}$ do\\+
 $\tt{S}$ $\leftarrow$ \cn{GetNewExternalDestinations}\tn{()}\\
-\tt{P} $\leftarrow$ \cn{GetSourcePorts}\tn{(}$\tt{S}$\tn{)} \cmt{// 1st burst}\\
+\tt{C} $\leftarrow$ \cn{GetSourcePorts}\tn{(}$\tt{S}$\tn{)} \cmt{// 1st burst}\\
 \cn{SendBurst}\tn{(}\tt{S'}\tn{)} \cmt{// 2nd burst}\\
-\tt{P'} $\leftarrow$ \cn{GetSourcePorts}\tn{(}$\tt{S}$\tn{)} \cmt{// 3rd burst}\\
-\tt{S'} $\leftarrow \tt{S'} \cup \{x\,|\,\tt{P'}(x)-\tt{P}(x)=1\}$\\-
+\tt{C'} $\leftarrow$ \cn{GetSourcePorts}\tn{(}$\tt{S}$\tn{)} \cmt{// 3rd burst}\\
+\tt{S'} $\leftarrow \tt{S'} \cup \{x\,|\,\tt{C'}(x)-\tt{C}(x)=1\}$\\-
 return \tt{S'}
 	\end{pseudo}
 \end{algorithm}

@@ -1528,7 +1528,7 @@
 			\node[anchor=south west] at (2cm,1cm) {%
 				\begin{minipage}{10cm}
 					\begin{equation*}
-						P'(x) - P(x) = 1
+						C'(x) - C(x) = 1
 						\quad \text{when sandwiching } S' \text{ as filling}
 					\end{equation*}
 				\end{minipage}
@@ -1759,7 +1759,7 @@
 			\node[anchor=south west] at (2cm,1cm) {%
 				\begin{minipage}{10cm}
 					\begin{equation*}
-						P'(w) - P(w) > 1
+						C'(w) - C(w) > 1
 						\quad \text{when sandwiching } L_i \text{ as filling}
 					\end{equation*}
 				\end{minipage}
@@ -1847,7 +1847,7 @@
 			\node[anchor=south west] at (2cm,1cm) {%
 				\begin{minipage}{10cm}
 					\begin{equation*}
-						P'(w) - P(w) > \varepsilon
+						C'(w) - C(w) > \varepsilon
 						\quad \text{when sandwiching } L_i \text{ as filling}
 					\end{equation*}
 				\end{minipage}
@@ -2035,7 +2035,7 @@
 			\item \alert{Periodic re-keying}: Every $10$ seconds
 
 			\includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
-			\item \alert{Increase table size $T$}: From $256$ to $64\,\text{KiB}$
+			\item \alert{Increase table size $T$}: From $256$ to $65536$
 
 			% \includegraphics[width=0.95\textwidth]{./figures/external/increasing_table_size.pdf} % ./figures/external/increrasing_table_size.tikz
 			\item \alert{Introduce more noise}: Each increment randomly between 1 and 8
@@ -2049,7 +2049,7 @@
 			\item \alert{Periodic re-keying}: Every $10$ seconds
 
 			% \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
-			\item \alert{Increase table size $T$}: From $256$ to $64\,\text{KiB}$
+			\item \alert{Increase table size $T$}: From $256$ to $65536$
 
 			\includegraphics[width=0.95\textwidth]{./figures/external/increasing_table_size.pdf} % ./figures/external/increrasing_table_size.tikz
 			\item \alert{Introduce more noise}: Each increment randomly between 1 and 8
@@ -2063,7 +2063,7 @@
 			\item \alert{Periodic re-keying}: Every $10$ seconds
 
 			% \includegraphics[width=0.95\textwidth]{./figures/external/periodic_re-keying.pdf} % ./figures/external/periodic_re-keying.tikz
-			\item \alert{Increase table size $T$}: From $256$ to $64\,\text{KiB}$
+			\item \alert{Increase table size $T$}: From $256$ to $65536$
 
 			% \includegraphics[width=0.95\textwidth]{./figures/external/increasing_table_size.pdf} % ./figures/external/increrasing_table_size.tikz
 			\item \alert{Introduce more noise}: Each increment randomly between 1 and 8
@@ -2143,11 +2143,11 @@
 		\begin{itemize}
 			\item \alert{Correlations}:
 			\begin{itemize}
-				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ potentially closer to being satisfied % closer to termination
+				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P^N_T(i, n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^N_T(i, n) < p^*$ potentially closer to being satisfied % closer to termination
 				\vspace{-0.4cm}
 
 				\includegraphics[width=0.95\textwidth]{./figures/external/increase_i.pdf} % ./figures/external/increase_i.tikz
-				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P^i_D(n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^i_D(n) < p^*$ potentially closer to being satisfied % closer to termination
+				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P^N_T(i, n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^N_T(i, n) < p^*$ potentially closer to being satisfied % closer to termination
 				\vspace{-0.4cm}
 
 				\includegraphics[width=0.95\textwidth]{./figures/external/increase_n.pdf} % ./figures/external/increase_n.tikz
@@ -2170,8 +2170,8 @@
 				\vspace{0cm}
 
 				\begin{itemize}
-					\item Precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P_D^i(n) < p^* \right\}\)
-					\item \(n \ge n^*[i]\) replaces \(P_D^i(n) < p^*\)
+					\item Precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P^N_T(i, n) < p^* \right\}\)
+					\item \(n \ge n^*[i]\) replaces \(P^N_T(i, n) < p^*\)
 					\item[\alert{$\Rightarrow$}] Avoid repeated computation
 				\end{itemize}
 				\vspace{0.2cm}
