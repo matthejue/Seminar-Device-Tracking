@@ -1941,7 +1941,7 @@
 			% \draw[thick, draw=PrimaryColor] (2.4cm,1.75cm) rectangle (3.75cm,2.1cm);
 			% \draw[->, thick, draw=PrimaryColor] (3.8cm,1.9cm) -- (7.6cm,1.6cm);
 			% while loop
-			\draw[thick, draw=PrimaryColor] (1.3cm,1.4cm) rectangle (7.1cm,1.75cm);
+			\draw[thick, draw=PrimaryColor] (1.3cm,1.4cm) rectangle (7.05cm,1.75cm);
 			\draw[thick, draw=PrimaryColor] (1.3cm,1cm) rectangle (2.9cm,1.4cm);
 		\end{tikzpicture}
 		\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
@@ -2143,11 +2143,11 @@
 		\begin{itemize}
 			\item \alert{Correlations}:
 			\begin{itemize}
-				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P^N_T(i, n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^N_T(i, n) < p^*$ potentially closer to being satisfied % closer to termination
+				\item {\thickuparrow} $i$ \alert{$\Rightarrow$} $P_T(i, n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P_T(i, n) < p^*$ potentially closer to being satisfied % closer to termination
 				\vspace{-0.4cm}
 
 				\includegraphics[width=0.95\textwidth]{./figures/external/increase_i.pdf} % ./figures/external/increase_i.tikz
-				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P^N_T(i, n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P^N_T(i, n) < p^*$ potentially closer to being satisfied % closer to termination
+				\item {\thickuparrow} $n$ \alert{$\Rightarrow$} $P_T(i, n)$ {\thickdownarrow}\, \alert{$\Rightarrow$} $P_T(i, n) < p^*$ potentially closer to being satisfied % closer to termination
 				\vspace{-0.4cm}
 
 				\includegraphics[width=0.95\textwidth]{./figures/external/increase_n.pdf} % ./figures/external/increase_n.tikz
@@ -2170,8 +2170,8 @@
 				\vspace{0cm}
 
 				\begin{itemize}
-					\item Precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P^N_T(i, n) < p^* \right\}\)
-					\item \(n \ge n^*[i]\) replaces \(P^N_T(i, n) < p^*\)
+					\item Precompute table \(n^*[i] = \min \left\{ n \;\middle|\; P_T(i, n) < p^* \right\}\)
+					\item \(n \ge n^*[i]\) replaces \(P_T(i, n) < p^*\)
 					\item[\alert{$\Rightarrow$}] Avoid repeated computation
 				\end{itemize}
 				\vspace{0.2cm}

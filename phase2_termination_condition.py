@@ -5,7 +5,7 @@ import sys
 
 def is_probability_acceptable(i, n, N, T, verbose=True):
     """
-    Checks whether the probability P^N_T(i, n) is less than the threshold p* = 1 / C(N, 2).
+    Checks whether the probability P_T(i, n) is less than the threshold p* = 1 / C(N, 2).
     """
     if n < 0 or N < 2 or T <= 0:
         raise ValueError("Invalid input: Ensure n >= 0, N >= 2, and T > 0.")
@@ -14,7 +14,7 @@ def is_probability_acceptable(i, n, N, T, verbose=True):
         return False
 
     if n == 0:
-        # P^N_T(0) = ∏_{j=0}^{i-1} (1 - j/T)
+        # P_T(0) = ∏_{j=0}^{i-1} (1 - j/T)
         product_term = 1.0
         for j in range(i):
             product_term *= (1 - j / T)
@@ -28,9 +28,9 @@ def is_probability_acceptable(i, n, N, T, verbose=True):
     p_star = 2 / (N * (N - 1))
 
     if verbose:
-        print(f"P^N_T({i}, {n}) = {P:.5e}")
+        print(f"P_T({i}, {n}) = {P:.5e}")
         print(f"p*           = {p_star:.5e}")
-        print(f"P^N_T({i}, {n}) < p* ? → {P < p_star}\n")
+        print(f"P_T({i}, {n}) < p* ? → {P < p_star}\n")
 
     return P < p_star
 
@@ -119,7 +119,7 @@ def main():
 
     else:
         print("Usage:")
-        print("  ./phase2_treshold.py i n N T       → check if P^N_T(i, n) < p*")
+        print("  ./phase2_treshold.py i n N T       → check if P_T(i, n) < p*")
         print("  ./phase2_treshold.py N T           → generate n* table")
 
 if __name__ == "__main__":

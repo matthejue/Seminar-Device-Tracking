@@ -465,7 +465,7 @@ The algorithm \alert{terminates} as soon as the following condition is satisfied
 	\]
 \end{minipage}
 
-where \( n^*[i] \) denotes the \alert{minimum required number of independent pairs} after \( i \) \alert{iterations} to ensure that the \alert{probability} \( P^N_T(i, n) \) of a random device yielding the same device ID as the device at hand remains below the \alert{threshold acceptance probability} \( p^* \), and where \( n \) is the \alert{number of independent loopback 3-tuple collision pairs} observed during the attack for device, and \( i \) the \alert{number of iterations}.
+where \( n^*[i] \) denotes the \alert{minimum required number of independent pairs} after \( i \) \alert{iterations} to ensure that the \alert{probability} \( P_T(i, n) \) of a random device yielding the same device ID as the device at hand remains below the \alert{threshold acceptance probability} \( p^* \), and where \( n \) is the \alert{number of independent loopback 3-tuple collision pairs} observed during the attack for device, and \( i \) the \alert{number of iterations}.
 % , which is assumed to terminate after l iterations with exactly n independent pairs
 
 This condition guarantees:
@@ -475,7 +475,7 @@ This condition guarantees:
         \begin{minipage}[t]{0.5\textwidth}
             \[
                 \underbrace{
-                P^N_T(i, n)
+                P_T(i, n)
                 =
                 \frac{1}{T^n}
                 \cdot
@@ -493,6 +493,9 @@ This condition guarantees:
 
 where \( T \) is the \alert{number of perturbation table cells}, \( N \) is the \alert{total number of tracked devices}, \( c \) is the \alert{maximum average number of device ID collisions} within the tracked devices ($c$ is usually just $1$), and \( p^* \) is the \alert{maximum acceptable probability} that any pair of devices produces the same device ID. Setting \( p^* = \frac{1}{\binom{N}{2}} \) ensures that the average number of device ID collisions among all pairs in the entire population is \alert{at most one}.
 
+For an individual device the term $\prod_{j=0}^{i - n - 1} \left(1 - \frac{j}{T}\right)$ accounts for the combined probability of all first loopback 3-tuples in their buckets to match the structure.
+ the term $\frac{1}{T^N}$ accounts for the probabiliy that all non-first loopback 3-tuples go into the same buckets
+
 The table \( n^*[i] \) is determined as:
 
 \begin{minipage}{\columnwidth}
@@ -503,16 +506,16 @@ n^*[i]
 \left\{
 n
 \;\middle|\;
-P^N_T(i, n)
+P_T(i, n)
 <
 p^*
 \right\}.
 \]
 \end{minipage}
 
-Values of \( n^*[i] \) are \alert{precomputed} and stored in a table to avoid repeated evaluation of \( P^N_T(i, n) \) during the attack. I wrote a small \alert{python script} available \href{https://github.com/matthejue/Seminar-Device-Tracking/blob/main/phase2_termination_condition.py}{here} that generates the \( n^*[i] \) table for different values of $N$ and $T$ and also allows one to check the termination condition if one additionaly submits values for $i$ and $n$. One can run the script without any arguments to view a help page.
+Values of \( n^*[i] \) are \alert{precomputed} and stored in a table to avoid repeated evaluation of \( P_T(i, n) \) during the attack. I wrote a small \alert{python script} available \href{https://github.com/matthejue/Seminar-Device-Tracking/blob/main/phase2_termination_condition.py}{here} that generates the \( n^*[i] \) table for different values of $N$ and $T$ and also allows one to check the termination condition if one additionaly submits values for $i$ and $n$. One can run the script without any arguments to view a help page.
 
-The termination condition is possible to expressed in terms of \( n \) rather than inserted directly into the probability function because \( P^N_T(i, n) \) depends only on \( n \) and \alert{not on the specific collision structure}. By checking \( n \ge n^*[i] \), the attacker ensures that the probability of a device ID collision with another device remains below \( p^* \) \alert{without recomputing probabilities} each time.
+The termination condition is possible to expressed in terms of \( n \) rather than inserted directly into the probability function because \( P_T(i, n) \) depends only on \( n \) and \alert{not on the specific collision structure}. By checking \( n \ge n^*[i] \), the attacker ensures that the probability of a device ID collision with another device remains below \( p^* \) \alert{without recomputing probabilities} each time.
 
 \vspace{0.2cm}
 \input{./share/phase2.tex}
